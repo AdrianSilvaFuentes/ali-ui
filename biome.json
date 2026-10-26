@@ -40,7 +40,7 @@
   },
   "overrides": [
     {
-      "includes": ["packages/ui/**"],
+      "includes": ["packages/ui/**", "!**/*.test.ts", "!**/*.test.tsx"],
       "linter": {
         "rules": {
           "style": {
@@ -48,13 +48,14 @@
               "level": "error",
               "options": {
                 "paths": {
-                  "@ali/tokens/primitives": "Componentes usam apenas tokens sem\u00e2nticos (@ali/tokens), nunca primitivos."
+                  "@ali/tokens/primitives": "Componentes usam apenas tokens semânticos (@ali/tokens), nunca primitivos."
                 }
               }
             }
           }
         }
-      }
+      },
+      "plugins": ["./biome/no-fixed-arbitrary-values.grit"]
     }
   ]
 }

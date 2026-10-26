@@ -291,6 +291,12 @@ importers:
         specifier: workspace:*
         version: link:../tokens
     devDependencies:
+      '@biomejs/biome':
+        specifier: 'catalog:'
+        version: 2.6.3
+      '@types/node':
+        specifier: 'catalog:'
+        version: 26.6.5
       '@types/react':
         specifier: 'catalog:'
         version: 19.3.0
