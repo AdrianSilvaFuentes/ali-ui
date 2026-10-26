@@ -8,9 +8,13 @@ import { color, type ThemeName } from "./semantic.ts";
 
 /** Luminância relativa (WCAG) de uma cor `oklch(L C H)`. */
 function luminance(oklch: string): number {
-  const match = /^oklch\(([\d.]+) ([\d.]+) ([\d.]+)\)$/.exec(oklch);
+  // Aceita a luminosidade como número (0.985) ou porcentagem (98.5%).
+  const match = /^oklch\(([\d.]+)(%?) ([\d.]+) ([\d.]+)\)$/.exec(oklch);
   if (!match) throw new Error(`Formato não suportado: ${oklch}`);
-  const [L, C, H] = match.slice(1).map(Number) as [number, number, number];
+  const [, lightness = "", percent, chroma = "", hue = ""] = match;
+  const L = Number(lightness) / (percent ? 100 : 1);
+  const C = Number(chroma);
+  const H = Number(hue);
   const a = C * Math.cos((H * Math.PI) / 180);
   const b = C * Math.sin((H * Math.PI) / 180);
   const l = (L + 0.3963377774 * a + 0.2158037573 * b) ** 3;

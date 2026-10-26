@@ -29,17 +29,17 @@ export interface ColorToken {
 /** Cores por papel, com um valor para o tema claro e outro para o escuro. */
 export const color = {
   background: {
-    light: gray[0],
+    light: gray[50],
     dark: gray[950],
     description: "Fundo da página.",
   },
   foreground: {
-    light: gray[950],
+    light: gray[900],
     dark: gray[50],
     description: "Texto e ícones principais.",
   },
   surface: {
-    light: gray[0],
+    light: gray[100],
     dark: gray[900],
     description: "Fundo de elementos elevados: cartões, menus, diálogos.",
   },
@@ -74,7 +74,7 @@ export const color = {
     description: "Cor de destaque ao passar o mouse ou pressionar.",
   },
   "accent-foreground": {
-    light: gray[0],
+    light: gray[50],
     dark: gray[950],
     description: "Texto e ícones sobre a cor de destaque.",
   },
@@ -89,7 +89,7 @@ export const color = {
     description: "Erros e ações destrutivas.",
   },
   "danger-foreground": {
-    light: gray[0],
+    light: gray[50],
     dark: gray[950],
     description: "Texto e ícones sobre a cor de erro.",
   },
