@@ -1,12 +1,22 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { TokensPage } from "./TokensPage";
+import { PrimitiveTokensPage } from "./PrimitiveTokensPage";
+import { SemanticTokensPage } from "./SemanticTokensPage";
 
 const meta = {
   title: "Tokens",
-  component: TokensPage,
   parameters: { layout: "fullscreen" },
-} satisfies Meta<typeof TokensPage>;
+} satisfies Meta;
 
 export default meta;
 
-export const Tokens: StoryObj<typeof meta> = {};
+type Story = StoryObj<typeof meta>;
+
+export const Semanticos: Story = {
+  name: "Semânticos",
+  render: () => <SemanticTokensPage />,
+};
+
+export const Primitivos: Story = {
+  name: "Primitivos",
+  render: () => <PrimitiveTokensPage />,
+};
