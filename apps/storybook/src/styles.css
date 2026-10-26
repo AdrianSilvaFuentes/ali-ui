@@ -1,1 +1,4 @@
 @import "@ali/ui/styles.css";
+
+/* Faz o Tailwind procurar classes nas páginas do próprio Storybook. */
+@source "./";

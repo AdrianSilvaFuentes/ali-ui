@@ -226,6 +226,9 @@ importers:
 
   apps/storybook:
     dependencies:
+      '@ali/tokens':
+        specifier: workspace:*
+        version: link:../../packages/tokens
       '@ali/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -269,6 +272,12 @@ importers:
 
   packages/tokens:
     devDependencies:
+      '@types/node':
+        specifier: 'catalog:'
+        version: 26.6.5
+      tailwindcss:
+        specifier: 'catalog:'
+        version: 4.3.3
       typescript:
         specifier: 'catalog:'
         version: 7.0.2

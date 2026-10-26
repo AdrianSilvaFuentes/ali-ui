@@ -10,6 +10,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@ali/tokens": "workspace:*",
     "@ali/ui": "workspace:*",
     "react": "catalog:",
     "react-dom": "catalog:"

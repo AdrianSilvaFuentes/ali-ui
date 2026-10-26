@@ -1,6 +1,6 @@
 /* Estilos base da Ali UI: Tailwind CSS 4 + design tokens. */
 @import "tailwindcss";
-@import "@ali/tokens/tokens.css";
+@import "@ali/tokens/tailwind.css";
 
 /* Faz o Tailwind procurar classes nos arquivos dos componentes. */
 @source "./";

@@ -37,5 +37,24 @@
         "organizeImports": "on"
       }
     }
-  }
+  },
+  "overrides": [
+    {
+      "includes": ["packages/ui/**"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "paths": {
+                  "@ali/tokens/primitives": "Componentes usam apenas tokens sem\u00e2nticos (@ali/tokens), nunca primitivos."
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
 }
