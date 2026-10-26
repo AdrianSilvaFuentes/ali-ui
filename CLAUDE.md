@@ -27,6 +27,8 @@ Packages: `@ali/tokens`, `@ali/ui`. App: `apps/storybook`.
 
 - Before saying a task is done, run `pnpm check` (lint, types, tests) and fix what fails.
 - Commit messages follow Conventional Commits (`feat:`, `fix:`, `chore:`, `docs:`).
+- Never commit directly to `main`. Every task gets its own branch (`feat/<name>`, `fix/<name>`, `chore/<name>`) and reaches `main` only through a pull request.
+- A pull request is merged only after CI (`pnpm check` + build) passes and I approve its Vercel preview.
 - Never push without asking me first.
 - Never commit `.env`, secrets, or macOS junk files (`.DS_Store`, `._*`).
 
