@@ -1,0 +1,27 @@
+# Dependências
+node_modules/
+
+# Saídas de build
+dist/
+storybook-static/
+*.tsbuildinfo
+
+# Cache do Turborepo
+.turbo/
+
+# Variáveis de ambiente (nunca versionar segredos)
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Testes
+coverage/
+
+# Arquivos de sistema do macOS
+.DS_Store
+._*

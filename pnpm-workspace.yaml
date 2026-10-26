@@ -1,0 +1,26 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+
+# Pacotes autorizados a rodar scripts de instalação.
+allowBuilds:
+  esbuild: true
+
+# Versões compartilhadas por todos os pacotes (use "catalog:" no package.json).
+catalog:
+  "@biomejs/biome": 2.6.3
+  "@storybook/addon-docs": 9.1.21
+  "@storybook/react-vite": 9.1.21
+  "@tailwindcss/vite": 4.3.3
+  "@types/node": 26.6.5
+  "@types/react": 19.3.0
+  "@types/react-dom": 19.3.0
+  react: 19.3.1
+  react-dom: 19.3.1
+  storybook: 9.1.21
+  tailwindcss: 4.3.3
+  turbo: 2.11.10
+  typescript: 7.0.2
+  # Storybook 9 suporta Vite até a 7.x.
+  vite: 7.3.7
+  vitest: 5.0.5
