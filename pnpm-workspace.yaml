@@ -2,6 +2,9 @@ packages:
   - "apps/*"
   - "packages/*"
 
+# Store do pnpm dentro do projeto (o repositório pode ficar em um disco externo).
+storeDir: .pnpm-store
+
 # Pacotes autorizados a rodar scripts de instalação.
 allowBuilds:
   esbuild: true
