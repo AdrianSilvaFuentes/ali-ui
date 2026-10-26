@@ -3,63 +3,31 @@ import { createRequire } from "node:module";
 import { dirname } from "node:path";
 import { compile } from "tailwindcss";
 import { describe, expect, it } from "vitest";
+import { contrastRatio, toHex } from "./color.ts";
 import { renderTailwindCss, renderTokensCss } from "./css.ts";
-import { color, type ThemeName } from "./semantic.ts";
-
-/** Luminância relativa (WCAG) de uma cor `oklch(L C H)`. */
-function luminance(oklch: string): number {
-  // Aceita a luminosidade como número (0.985) ou porcentagem (98.5%).
-  const match = /^oklch\(([\d.]+)(%?) ([\d.]+) ([\d.]+)\)$/.exec(oklch);
-  if (!match) throw new Error(`Formato não suportado: ${oklch}`);
-  const [, lightness = "", percent, chroma = "", hue = ""] = match;
-  const L = Number(lightness) / (percent ? 100 : 1);
-  const C = Number(chroma);
-  const H = Number(hue);
-  const a = C * Math.cos((H * Math.PI) / 180);
-  const b = C * Math.sin((H * Math.PI) / 180);
-  const l = (L + 0.3963377774 * a + 0.2158037573 * b) ** 3;
-  const m = (L - 0.1055613458 * a - 0.0638541728 * b) ** 3;
-  const s = (L - 0.0894841775 * a - 1.291485548 * b) ** 3;
-  const clamp = (x: number) => Math.min(1, Math.max(0, x));
-  const r = clamp(4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s);
-  const g = clamp(-1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s);
-  const bl = clamp(-0.0041960863 * l - 0.7034186147 * m + 1.707614701 * s);
-  return 0.2126 * r + 0.7152 * g + 0.0722 * bl;
-}
-
-function contrast(a: string, b: string): number {
-  const [hi, lo] = [luminance(a), luminance(b)].sort((x, y) => y - x) as [number, number];
-  return (hi + 0.05) / (lo + 0.05);
-}
-
-type ColorName = keyof typeof color;
-
-// Pares de cores que aparecem juntos e o contraste mínimo exigido pela WCAG AA:
-// 4.5:1 para texto, 3:1 para contornos de controles e foco.
-const pairs: [ColorName, ColorName, number][] = [
-  ["foreground", "background", 4.5],
-  ["foreground", "surface", 4.5],
-  ["foreground", "muted", 4.5],
-  ["muted-foreground", "background", 4.5],
-  ["muted-foreground", "surface", 4.5],
-  ["muted-foreground", "muted", 4.5],
-  ["accent", "background", 4.5],
-  ["accent-foreground", "accent", 4.5],
-  ["accent-foreground", "accent-hover", 4.5],
-  ["danger", "background", 4.5],
-  ["danger-foreground", "danger", 4.5],
-  ["border-strong", "background", 3],
-  ["border-strong", "surface", 3],
-  ["focus-ring", "background", 3],
-  ["focus-ring", "surface", 3],
-];
+import { color, contrastPairs, type ThemeName } from "./semantic.ts";
 
 describe("contraste das cores semânticas", () => {
   for (const theme of ["light", "dark"] satisfies ThemeName[]) {
-    it.each(pairs)(`${theme}: %s sobre %s ≥ %d:1`, (fg, bg, min) => {
-      expect(contrast(color[fg][theme], color[bg][theme])).toBeGreaterThanOrEqual(min);
+    it.each(contrastPairs)(`${theme}: %s sobre %s ≥ %d:1`, (fg, bg, min) => {
+      expect(contrastRatio(color[fg][theme], color[bg][theme])).toBeGreaterThanOrEqual(min);
     });
   }
+});
+
+describe("conversão de cor", () => {
+  it.each([
+    ["oklch(1 0 0)", "#ffffff"],
+    ["oklch(0 0 0)", "#000000"],
+    ["oklch(100% 0 0)", "#ffffff"],
+    ["oklch(98.5% 0.004 90)", "#fbfaf7"],
+  ])("%s → %s", (value, hex) => {
+    expect(toHex(value)).toBe(hex);
+  });
+
+  it("contraste entre branco e preto é 21:1", () => {
+    expect(contrastRatio("oklch(1 0 0)", "oklch(0 0 0)")).toBeCloseTo(21, 5);
+  });
 });
 
 describe("tokens.css", () => {

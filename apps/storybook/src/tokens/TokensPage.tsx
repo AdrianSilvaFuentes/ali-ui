@@ -1,4 +1,16 @@
-import { color, duration, font, radius, spacing, type ThemeName, text, vars } from "@ali/tokens";
+import {
+  type ColorName,
+  color,
+  contrastPairs,
+  duration,
+  font,
+  radius,
+  spacing,
+  type ThemeName,
+  text,
+  vars,
+} from "@ali/tokens";
+import { contrastRatio, toHex } from "@ali/tokens/color";
 // Os primitivos aparecem aqui só como documentação. Componentes nunca os usam.
 import { accent, gray, red } from "@ali/tokens/primitives";
 import { type ReactNode, useState } from "react";
@@ -17,6 +29,32 @@ const textClass: Record<keyof typeof text, string> = {
 };
 
 const primitiveScales = { gray, accent, red };
+
+/** Formata uma razão de contraste no padrão brasileiro: 4.5 → "4,5:1". */
+function formatRatio(ratio: number): string {
+  return `${ratio.toFixed(1).replace(".", ",")}:1`;
+}
+
+function ContrastCell({ name, theme }: { name: ColorName; theme: ThemeName }) {
+  const pair = contrastPairs.find(([fg, bg]) => fg === name || bg === name);
+  if (!pair) {
+    return <span className="text-body-sm text-muted-foreground">Decorativa, sem mínimo</span>;
+  }
+  const [fg, bg, min] = pair;
+  const other = fg === name ? bg : fg;
+  const ratio = contrastRatio(color[fg][theme], color[bg][theme]);
+  const passes = ratio >= min;
+  return (
+    <div className="flex flex-col">
+      <span className="font-mono text-body-sm">
+        {formatRatio(ratio)} <span className="text-muted-foreground">com {other}</span>
+      </span>
+      <span className={passes ? "text-caption text-muted-foreground" : "text-caption text-danger"}>
+        {passes ? "Passa" : "Não passa"} · mínimo {formatRatio(min)}
+      </span>
+    </div>
+  );
+}
 
 function systemTheme(): ThemeName {
   return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
@@ -71,26 +109,51 @@ export function TokensPage() {
 
       <Section
         title="Cores semânticas"
-        description="Nomeadas pelo papel que cumprem. Cada uma tem um valor no tema claro e outro no escuro."
+        description="Nomeadas pelo papel que cumprem. Hex e contraste mudam com o tema; o contraste é medido com a cor que acompanha o token e segue a WCAG AA."
       >
-        <ul className="grid gap-md sm:grid-cols-2 lg:grid-cols-3">
-          {Object.entries(color).map(([name, token]) => (
-            <li
-              key={name}
-              className="overflow-hidden rounded-surface border border-border bg-surface"
-            >
-              <div
-                className="h-3xl border-b border-border"
-                style={{ backgroundColor: vars.color[name as keyof typeof color] }}
-              />
-              <div className="flex flex-col gap-3xs p-sm">
-                <span className="text-label">{name}</span>
-                <span className="text-body-sm text-muted-foreground">{token.description}</span>
-                <Code>{token[theme]}</Code>
-              </div>
-            </li>
-          ))}
-        </ul>
+        <div className="overflow-x-auto rounded-surface border border-border">
+          <table className="w-full border-collapse text-left">
+            <thead className="bg-muted text-label">
+              <tr>
+                <th scope="col" className="px-md py-xs">
+                  Token
+                </th>
+                <th scope="col" className="px-md py-xs">
+                  Hex
+                </th>
+                <th scope="col" className="px-md py-xs">
+                  Contraste
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {(Object.keys(color) as ColorName[]).map((name) => (
+                <tr key={name} className="border-t border-border align-top">
+                  <td className="px-md py-sm">
+                    <div className="flex items-start gap-sm">
+                      <div
+                        className="size-xl shrink-0 rounded-control border border-border"
+                        style={{ backgroundColor: vars.color[name] }}
+                      />
+                      <div className="flex flex-col">
+                        <span className="text-label">{name}</span>
+                        <span className="text-caption text-muted-foreground">
+                          {color[name].description}
+                        </span>
+                      </div>
+                    </div>
+                  </td>
+                  <td className="px-md py-sm">
+                    <span className="font-mono text-body-sm">{toHex(color[name][theme])}</span>
+                  </td>
+                  <td className="px-md py-sm">
+                    <ContrastCell name={name} theme={theme} />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </Section>
 
       <Section
@@ -109,7 +172,7 @@ export function TokensPage() {
                       style={{ backgroundColor: value }}
                     />
                     <span className="text-caption">{step}</span>
-                    <Code>{value}</Code>
+                    <Code>{toHex(value)}</Code>
                   </li>
                 ))}
               </ul>

@@ -95,6 +95,31 @@ export const color = {
   },
 } as const satisfies Record<string, ColorToken>;
 
+export type ColorName = keyof typeof color;
+
+/**
+ * Pares de cores que aparecem juntos e o contraste mínimo exigido pela WCAG AA:
+ * 4.5:1 para texto, 3:1 para contornos de controles e foco. Os testes verificam
+ * todos os pares nos dois temas, e a documentação mostra o primeiro par de cada token.
+ */
+export const contrastPairs: readonly (readonly [ColorName, ColorName, number])[] = [
+  ["foreground", "background", 4.5],
+  ["muted-foreground", "background", 4.5],
+  ["foreground", "surface", 4.5],
+  ["muted-foreground", "surface", 4.5],
+  ["foreground", "muted", 4.5],
+  ["muted-foreground", "muted", 4.5],
+  ["accent", "background", 4.5],
+  ["accent-foreground", "accent", 4.5],
+  ["accent-foreground", "accent-hover", 4.5],
+  ["danger", "background", 4.5],
+  ["danger-foreground", "danger", 4.5],
+  ["border-strong", "background", 3],
+  ["border-strong", "surface", 3],
+  ["focus-ring", "background", 3],
+  ["focus-ring", "surface", 3],
+];
+
 /** Espaçamentos em tamanhos de camiseta, do menor (3xs) ao maior (4xl). */
 export const spacing = {
   "3xs": space[2],

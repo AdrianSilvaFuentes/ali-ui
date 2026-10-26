@@ -15,6 +15,10 @@
       "types": "./dist/primitives.d.ts",
       "default": "./dist/primitives.js"
     },
+    "./color": {
+      "types": "./dist/color.d.ts",
+      "default": "./dist/color.js"
+    },
     "./tokens.css": "./dist/tokens.css",
     "./tailwind.css": "./dist/tailwind.css"
   },
