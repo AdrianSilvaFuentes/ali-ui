@@ -23,6 +23,9 @@ pnpm-debug.log*
 # Testes
 coverage/
 
+# Configurações pessoais do Claude Code
+.claude/settings.local.json
+
 # Arquivos de sistema do macOS
 .DS_Store
 ._*
