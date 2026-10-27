@@ -46,10 +46,9 @@ describe("conversão de cor", () => {
 describe("tokens.css", () => {
   const css = renderTokensCss();
 
-  it("carrega a DM Sans e a usa em texto e títulos", () => {
+  it("carrega a DM Sans e a usa como fonte padrão", () => {
     expect(css).toContain('@import "@fontsource-variable/dm-sans";');
     expect(css).toContain('--ali-font-body: "DM Sans Variable"');
-    expect(css).toContain('--ali-font-title: "DM Sans Variable"');
   });
 
   it("define o espaçamento entre letras de cada estilo de texto", () => {
@@ -109,7 +108,7 @@ describe("integração com o Tailwind", () => {
     "rounded-full",
     "text-body-md",
     "text-label-xs",
-    "font-title",
+    "font-mono",
     "font-strong",
     "duration-fast",
     "shadow-2xs",
@@ -131,6 +130,8 @@ describe("integração com o Tailwind", () => {
     "text-caption",
     "text-heading-md",
     "font-heading",
+    "font-body",
+    "font-title",
     "bg-primary",
     "text-red-600",
     "bg-white",

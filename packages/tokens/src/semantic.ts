@@ -128,10 +128,12 @@ export const contrastPairs: readonly (readonly [ColorName, ColorName, number])[]
   ["focus-ring", "surface-overlay", 3],
 ];
 
-/** Famílias de fonte por uso. */
+/**
+ * Famílias de fonte. `body` é a fonte padrão de tudo e não precisa de classe;
+ * `mono` é aplicada com `font-mono`, para código, valores e nomes técnicos.
+ */
 export const font = {
   body: fontFamily["dm-sans"],
-  title: fontFamily["dm-sans"],
   mono: fontFamily.mono,
 } as const;
 

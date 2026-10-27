@@ -39,11 +39,11 @@ export function TokensLayout({
   return (
     <div
       data-theme={theme}
-      className="flex min-h-screen flex-col gap-12 bg-surface p-8 font-body text-body-lg text-foreground"
+      className="flex min-h-screen flex-col gap-12 bg-surface p-8 text-body-lg text-foreground"
     >
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="font-title text-display">{title}</h1>
+          <h1 className="text-display">{title}</h1>
           <p className="mt-2 max-w-prose text-muted-foreground">{description}</p>
         </div>
         <button
@@ -70,7 +70,7 @@ export function Section({
 }) {
   return (
     <section className="border-t border-border pt-8">
-      <h2 className="font-title text-title-md">{title}</h2>
+      <h2 className="text-title-md">{title}</h2>
       <p className="mt-1 mb-6 max-w-prose text-body-md text-muted-foreground">{description}</p>
       {children}
     </section>

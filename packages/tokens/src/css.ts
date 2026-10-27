@@ -118,7 +118,8 @@ export function renderTailwindCss(): string {
       v("spacing", k),
     ]),
     ...Object.keys(radius).map((k): [string, string] => [`--radius-${k}`, v("radius", k)]),
-    ...Object.keys(font).map((k): [string, string] => [`--font-${k}`, v("font", k)]),
+    // Só a fonte mono vira classe (font-mono); a de texto é a padrão e não precisa.
+    ["--font-mono", v("font", "mono")],
     ...Object.keys(fontWeight).map((k): [string, string] => [
       `--font-weight-${k}`,
       v("font-weight", k),

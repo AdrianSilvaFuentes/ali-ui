@@ -163,14 +163,14 @@ export function IntroductionPage() {
   return (
     <div
       lang={language}
-      className="flex min-h-screen flex-col gap-12 bg-surface px-8 py-12 font-body text-body-lg text-foreground md:px-16"
+      className="flex min-h-screen flex-col gap-12 bg-surface px-8 py-12 text-body-lg text-foreground md:px-16"
     >
       <header className="flex flex-col gap-6">
         <div className="flex items-center justify-between gap-4">
           <p className="text-label-md text-muted-foreground">{t.eyebrow}</p>
           <LanguageSwitch language={language} onChange={setLanguage} />
         </div>
-        <h1 className="font-title text-display">{t.title}</h1>
+        <h1 className="text-display">{t.title}</h1>
         <p className="max-w-3xl text-body-lg">{t.lead}</p>
       </header>
 

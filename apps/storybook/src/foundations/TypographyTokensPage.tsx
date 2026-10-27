@@ -17,12 +17,6 @@ const textClass: Record<keyof typeof text, string> = {
   display: "text-display",
 };
 
-const fontClass: Record<keyof typeof font, string> = {
-  body: "font-body",
-  title: "font-title",
-  mono: "font-mono",
-};
-
 const weightClass: Record<keyof typeof fontWeight, string> = {
   regular: "font-regular",
   medium: "font-medium",
@@ -126,19 +120,31 @@ export function FontFamiliesPage() {
   return (
     <TokensLayout
       title="Font families"
-      description="Famílias de fonte por uso. Ainda são as fontes do sistema."
+      description="DM Sans para todo o texto; uma fonte monoespaçada para código, valores e nomes técnicos."
     >
       {() => (
-        <Section title="Famílias" description="Fonte de texto, de títulos e monoespaçada.">
-          <Table columns={["Token", "Família", "Exemplo"]}>
+        <Section
+          title="Famílias"
+          description="A DM Sans é a fonte padrão: não precisa de classe. Só a mono se aplica com font-mono."
+        >
+          <Table columns={["Token", "Como usar", "Família", "Exemplo"]}>
             {(Object.keys(font) as (keyof typeof font)[]).map((name) => (
               <tr key={name} className="border-t border-border align-middle">
-                <td className="px-4 py-3 text-label-md whitespace-nowrap">font-{name}</td>
+                <td className="px-4 py-3 text-label-md whitespace-nowrap">{name}</td>
+                <td className="px-4 py-3 whitespace-nowrap">
+                  {name === "mono" ? (
+                    <Code>font-mono</Code>
+                  ) : (
+                    <span className="text-body-md text-muted-foreground">Padrão, sem classe</span>
+                  )}
+                </td>
                 <td className="px-4 py-3">
                   <Code>{font[name]}</Code>
                 </td>
                 <td className="px-4 py-3">
-                  <p className={`text-body-lg ${fontClass[name]}`}>{sample}</p>
+                  <p className={name === "mono" ? "font-mono text-body-lg" : "text-body-lg"}>
+                    {sample}
+                  </p>
                 </td>
               </tr>
             ))}
