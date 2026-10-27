@@ -1,5 +1,6 @@
 import { type ColorName, color, contrastPairs, type ThemeName, vars } from "@ali/tokens";
 import { contrastRatio, toHex } from "@ali/tokens/color";
+import type { ReactNode } from "react";
 import { formatRatio, Section, Swatch, Table, TokensLayout } from "./TokensLayout";
 
 function ContrastCell({ name, theme }: { name: ColorName; theme: ThemeName }) {
@@ -31,8 +32,10 @@ export type ColorGroup = "surface" | "text" | "border" | "semantic";
  * de tipo, então nenhum fica de fora da documentação.
  */
 const colorGroup = {
-  background: "surface",
+  "surface-sunken": "surface",
   surface: "surface",
+  "surface-raised": "surface",
+  "surface-overlay": "surface",
   muted: "surface",
   primary: "surface",
   "primary-hover": "surface",
@@ -52,10 +55,13 @@ export function ColorGroupPage({
   group,
   title,
   description,
+  children,
 }: {
   group: ColorGroup;
   title: string;
   description: string;
+  /** Conteúdo extra mostrado antes da tabela, como uma demonstração. */
+  children?: ReactNode;
 }) {
   const names = (Object.keys(colorGroup) as ColorName[]).filter(
     (name) => colorGroup[name] === group,
@@ -63,34 +69,37 @@ export function ColorGroupPage({
   return (
     <TokensLayout title={title} description={description}>
       {(theme) => (
-        <Section
-          title="Tokens"
-          description="Hex e contraste mudam com o tema. O contraste é medido com a cor que acompanha o token e segue a WCAG AA."
-        >
-          <Table columns={["Token", "Hex", "Contraste"]}>
-            {names.map((name) => (
-              <tr key={name} className="border-t border-border align-top">
-                <td className="px-4 py-3">
-                  <div className="flex items-start gap-3">
-                    <Swatch color={vars.color[name]} />
-                    <div className="flex flex-col">
-                      <span className="text-label">{name}</span>
-                      <span className="text-caption text-muted-foreground">
-                        {color[name].description}
-                      </span>
+        <>
+          {children}
+          <Section
+            title="Tokens"
+            description="Hex e contraste mudam com o tema. O contraste é medido com a cor que acompanha o token e segue a WCAG AA."
+          >
+            <Table columns={["Token", "Hex", "Contraste"]}>
+              {names.map((name) => (
+                <tr key={name} className="border-t border-border align-top">
+                  <td className="px-4 py-3">
+                    <div className="flex items-start gap-3">
+                      <Swatch color={vars.color[name]} />
+                      <div className="flex flex-col">
+                        <span className="text-label">{name}</span>
+                        <span className="text-caption text-muted-foreground">
+                          {color[name].description}
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                </td>
-                <td className="px-4 py-3">
-                  <span className="font-mono text-body-sm">{toHex(color[name][theme])}</span>
-                </td>
-                <td className="px-4 py-3">
-                  <ContrastCell name={name} theme={theme} />
-                </td>
-              </tr>
-            ))}
-          </Table>
-        </Section>
+                  </td>
+                  <td className="px-4 py-3">
+                    <span className="font-mono text-body-sm">{toHex(color[name][theme])}</span>
+                  </td>
+                  <td className="px-4 py-3">
+                    <ContrastCell name={name} theme={theme} />
+                  </td>
+                </tr>
+              ))}
+            </Table>
+          </Section>
+        </>
       )}
     </TokensLayout>
   );

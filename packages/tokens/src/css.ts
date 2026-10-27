@@ -4,7 +4,7 @@
  */
 
 import { radius, shadow, spacing } from "./scales.ts";
-import { color, duration, font, fontWeight, type ThemeName, text } from "./semantic.ts";
+import { color, duration, elevation, font, fontWeight, type ThemeName, text } from "./semantic.ts";
 
 /** Grupos de tokens e o prefixo de cada um nas variáveis CSS. */
 export type TokenGroup =
@@ -15,9 +15,10 @@ export type TokenGroup =
   | "font-weight"
   | "text"
   | "duration"
-  | "shadow";
+  | "shadow"
+  | "elevation";
 
-/** Nome da variável CSS de um token. Ex.: `cssVarName("color", "background")` → `--ali-color-background`. */
+/** Nome da variável CSS de um token. Ex.: `cssVarName("color", "surface")` → `--ali-color-surface`. */
 export function cssVarName(group: TokenGroup, key: string): string {
   // Ponto não é permitido em nomes de variáveis CSS: `0.5` vira `0_5`.
   return `--ali-${group}-${key.replaceAll(".", "_")}`;
@@ -52,6 +53,7 @@ function staticEntries(): [string, string][] {
     ]),
     ...Object.entries(duration).map(([k, v]): [string, string] => [cssVarName("duration", k), v]),
     ...Object.entries(shadow).map(([k, v]): [string, string] => [cssVarName("shadow", k), v]),
+    ...Object.entries(elevation).map(([k, v]): [string, string] => [cssVarName("elevation", k), v]),
   ];
 }
 
@@ -88,7 +90,7 @@ ${declarations(staticEntries())}
 /**
  * Liga os tokens ao Tailwind CSS 4. Apaga os valores padrão do Tailwind (cores,
  * fontes, tamanhos, espaçamentos, raios e sombras) para que só existam classes com
- * nomes semânticos, como `bg-background`, `text-body`, `p-4`, `rounded-sm` e `shadow-md`.
+ * nomes semânticos, como `bg-surface`, `text-body`, `p-4`, `rounded-sm` e `shadow-md`.
  */
 export function renderTailwindCss(): string {
   const v = (group: TokenGroup, key: string) => `var(${cssVarName(group, key)})`;
@@ -127,6 +129,7 @@ export function renderTailwindCss(): string {
       v("duration", k),
     ]),
     ...Object.keys(shadow).map((k): [string, string] => [`--shadow-${k}`, v("shadow", k)]),
+    ...Object.keys(elevation).map((k): [string, string] => [`--shadow-${k}`, v("elevation", k)]),
     ["--default-font-family", v("font", "body")],
     ["--default-mono-font-family", v("font", "mono")],
     ["--default-transition-duration", v("duration", "base")],
@@ -141,7 +144,7 @@ ${declarations(entries)}
 
 @layer base {
   html {
-    background-color: var(--color-background);
+    background-color: var(--color-surface);
     color: var(--color-foreground);
   }
 }
