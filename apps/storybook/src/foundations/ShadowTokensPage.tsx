@@ -16,17 +16,17 @@ export function ShadowTokensPage() {
             <Table columns={["Token", "Classe", "Variável CSS", "Equivale a", "Use com"]}>
               {(Object.keys(elevation) as (keyof typeof elevation)[]).map((name) => (
                 <tr key={name} className="border-t border-border align-middle">
-                  <td className="px-4 py-3 text-label whitespace-nowrap">{name}</td>
-                  <td className="px-4 py-3 font-mono text-body-sm whitespace-nowrap">
+                  <td className="px-4 py-3 text-label-md whitespace-nowrap">{name}</td>
+                  <td className="px-4 py-3 font-mono text-body-md whitespace-nowrap">
                     shadow-{name}
                   </td>
                   <td className="px-4 py-3 whitespace-nowrap">
                     <Code>{cssVarName("elevation", name)}</Code>
                   </td>
-                  <td className="px-4 py-3 font-mono text-body-sm whitespace-nowrap">
+                  <td className="px-4 py-3 font-mono text-body-md whitespace-nowrap">
                     {name === "raised" ? "shadow-sm" : "shadow-lg"}
                   </td>
-                  <td className="px-4 py-3 font-mono text-body-sm whitespace-nowrap">
+                  <td className="px-4 py-3 font-mono text-body-md whitespace-nowrap">
                     bg-surface-{name}
                   </td>
                 </tr>
@@ -41,8 +41,8 @@ export function ShadowTokensPage() {
             <Table columns={["Token", "Classe", "Variável CSS", "Valor", "Exemplo"]}>
               {(Object.keys(shadow) as (keyof typeof shadow)[]).map((name) => (
                 <tr key={name} className="border-t border-border align-middle">
-                  <td className="px-4 py-3 text-label whitespace-nowrap">{name}</td>
-                  <td className="px-4 py-3 font-mono text-body-sm whitespace-nowrap">
+                  <td className="px-4 py-3 text-label-md whitespace-nowrap">{name}</td>
+                  <td className="px-4 py-3 font-mono text-body-md whitespace-nowrap">
                     shadow-{name}
                   </td>
                   <td className="px-4 py-3 whitespace-nowrap">

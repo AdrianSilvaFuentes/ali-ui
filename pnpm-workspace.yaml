@@ -11,6 +11,7 @@ allowBuilds:
 
 # Versões compartilhadas por todos os pacotes (use "catalog:" no package.json).
 catalog:
+  "@fontsource-variable/dm-sans": 5.3.0
   "@biomejs/biome": 2.6.3
   "@storybook/addon-docs": 9.1.21
   "@storybook/react-vite": 9.1.21

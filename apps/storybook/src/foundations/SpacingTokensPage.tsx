@@ -17,9 +17,9 @@ export function SpacingTokensPage() {
           <Table columns={["Token", "px", "rem", "Variável CSS", "Exemplos de classe", "Visual"]}>
             {spacingSteps.map((name) => (
               <tr key={name} className="border-t border-border align-middle">
-                <td className="px-4 py-2 text-label whitespace-nowrap">{name}</td>
-                <td className="px-4 py-2 font-mono text-body-sm">{toPx(spacing[name])}</td>
-                <td className="px-4 py-2 font-mono text-body-sm">{spacing[name]}</td>
+                <td className="px-4 py-2 text-label-md whitespace-nowrap">{name}</td>
+                <td className="px-4 py-2 font-mono text-body-md">{toPx(spacing[name])}</td>
+                <td className="px-4 py-2 font-mono text-body-md">{spacing[name]}</td>
                 <td className="px-4 py-2 whitespace-nowrap">
                   <Code>{cssVarName("spacing", name)}</Code>
                 </td>

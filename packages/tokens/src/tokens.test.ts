@@ -46,6 +46,16 @@ describe("conversão de cor", () => {
 describe("tokens.css", () => {
   const css = renderTokensCss();
 
+  it("carrega a DM Sans e a usa como fonte padrão", () => {
+    expect(css).toContain('@import "@fontsource-variable/dm-sans";');
+    expect(css).toContain('--ali-font-body: "DM Sans Variable"');
+  });
+
+  it("define o espaçamento entre letras de cada estilo de texto", () => {
+    expect(css).toContain("--ali-text-body-md--letter-spacing: 0em;");
+    expect(css).toContain("--ali-text-display--letter-spacing: 0em;");
+  });
+
   it("usa o mesmo nome do grupo nas variáveis de dimensão", () => {
     expect(css).toContain("--ali-spacing-0_5: 0.125rem;");
     expect(css).toContain("--ali-radius-md: 0.375rem;");
@@ -96,9 +106,10 @@ describe("integração com o Tailwind", () => {
     "rounded-sm",
     "rounded-3xl",
     "rounded-full",
-    "text-body",
-    "font-heading",
-    "font-strong",
+    "text-body-md",
+    "text-label-xs",
+    "font-mono",
+    "font-semibold",
     "duration-fast",
     "shadow-2xs",
     "shadow-md",
@@ -114,6 +125,14 @@ describe("integração com o Tailwind", () => {
   const removedClasses = [
     "bg-gray-500",
     "bg-muted",
+    "text-body",
+    "text-label",
+    "text-caption",
+    "text-heading-md",
+    "font-heading",
+    "font-strong",
+    "font-body",
+    "font-title",
     "bg-primary",
     "text-red-600",
     "bg-white",

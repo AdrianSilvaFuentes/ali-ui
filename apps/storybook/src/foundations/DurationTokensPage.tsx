@@ -20,7 +20,7 @@ function DurationDemo({ name }: { name: keyof typeof duration }) {
         type="button"
         onClick={() => setMoved((value) => !value)}
         aria-pressed={moved}
-        className="rounded-sm border border-border-strong bg-surface-raised px-3 py-0.5 text-label hover:bg-surface-sunken focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
+        className="rounded-sm border border-border-strong bg-surface-raised px-3 py-0.5 text-label-md hover:bg-surface-sunken focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
       >
         Testar
       </button>
@@ -51,9 +51,9 @@ export function DurationTokensPage() {
           <Table columns={["Token", "Valor", "Uso", "Exemplo"]}>
             {(Object.keys(duration) as (keyof typeof duration)[]).map((name) => (
               <tr key={name} className="border-t border-border align-middle">
-                <td className="px-4 py-3 text-label whitespace-nowrap">duration-{name}</td>
-                <td className="px-4 py-3 font-mono text-body-sm">{duration[name]}</td>
-                <td className="px-4 py-3 text-body-sm text-muted-foreground">{usage[name]}</td>
+                <td className="px-4 py-3 text-label-md whitespace-nowrap">duration-{name}</td>
+                <td className="px-4 py-3 font-mono text-body-md">{duration[name]}</td>
+                <td className="px-4 py-3 text-body-md text-muted-foreground">{usage[name]}</td>
                 <td className="px-4 py-3">
                   <DurationDemo name={name} />
                 </td>

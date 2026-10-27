@@ -15,14 +15,14 @@ export function RadiusTokensPage() {
           <Table columns={["Token", "Classe", "Variável CSS", "Valor", "Exemplo"]}>
             {(Object.keys(radius) as (keyof typeof radius)[]).map((name) => (
               <tr key={name} className="border-t border-border align-middle">
-                <td className="px-4 py-3 text-label whitespace-nowrap">{name}</td>
-                <td className="px-4 py-3 font-mono text-body-sm whitespace-nowrap">
+                <td className="px-4 py-3 text-label-md whitespace-nowrap">{name}</td>
+                <td className="px-4 py-3 font-mono text-body-md whitespace-nowrap">
                   rounded-{name}
                 </td>
                 <td className="px-4 py-3 whitespace-nowrap">
                   <Code>{cssVarName("radius", name)}</Code>
                 </td>
-                <td className="px-4 py-3 font-mono text-body-sm whitespace-nowrap">
+                <td className="px-4 py-3 font-mono text-body-md whitespace-nowrap">
                   {name === "full" ? "9999px (pílula)" : toPx(radius[name])}
                 </td>
                 <td className="px-4 py-3">

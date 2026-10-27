@@ -167,6 +167,9 @@ catalogs:
     '@biomejs/biome':
       specifier: 2.6.3
       version: 2.6.3
+    '@fontsource-variable/dm-sans':
+      specifier: 5.3.0
+      version: 5.3.0
     '@storybook/addon-docs':
       specifier: 9.1.21
       version: 9.1.21
@@ -271,6 +274,10 @@ importers:
         version: 7.3.7(@types/node@26.6.5)(jiti@2.7.0)(lightningcss@1.32.0)
 
   packages/tokens:
+    dependencies:
+      '@fontsource-variable/dm-sans':
+        specifier: 'catalog:'
+        version: 5.3.0
     devDependencies:
       '@types/node':
         specifier: 'catalog:'
@@ -775,6 +782,9 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
+
+  '@fontsource-variable/dm-sans@5.3.0':
+    resolution: {integrity: sha512-BpUG5bqePiDFMBM4ZtLSlPdAIOM990uB1dlXzIf4aw21yQR7BmykedLXXXMqGWsR18aMLOsbWccwJNh3ztTQaA==}
 
   '@isaacs/cliui@8.0.2':
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
@@ -2422,6 +2432,8 @@ snapshots:
 
   '@esbuild/win32-x64@0.28.2':
     optional: true
+
+  '@fontsource-variable/dm-sans@5.3.0': {}
 
   '@isaacs/cliui@8.0.2':
     dependencies:

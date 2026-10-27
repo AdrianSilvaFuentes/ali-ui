@@ -50,6 +50,7 @@ function staticEntries(): [string, string][] {
       [cssVarName("text", k), style.fontSize],
       [`${cssVarName("text", k)}--line-height`, style.lineHeight],
       [`${cssVarName("text", k)}--font-weight`, style.fontWeight],
+      [`${cssVarName("text", k)}--letter-spacing`, style.letterSpacing],
     ]),
     ...Object.entries(duration).map(([k, v]): [string, string] => [cssVarName("duration", k), v]),
     ...Object.entries(shadow).map(([k, v]): [string, string] => [cssVarName("shadow", k), v]),
@@ -63,6 +64,9 @@ function staticEntries(): [string, string][] {
  */
 export function renderTokensCss(): string {
   return `${HEADER}
+/* DM Sans variável (pesos 100 a 1000), servida com o pacote, sem depender do Google. */
+@import "@fontsource-variable/dm-sans";
+
 :root,
 [data-theme="light"] {
   color-scheme: light;
@@ -90,7 +94,7 @@ ${declarations(staticEntries())}
 /**
  * Liga os tokens ao Tailwind CSS 4. Apaga os valores padrão do Tailwind (cores,
  * fontes, tamanhos, espaçamentos, raios e sombras) para que só existam classes com
- * nomes semânticos, como `bg-surface`, `text-body`, `p-4`, `rounded-sm` e `shadow-md`.
+ * nomes semânticos, como `bg-surface`, `text-body-lg`, `p-4`, `rounded-sm` e `shadow-md`.
  */
 export function renderTailwindCss(): string {
   const v = (group: TokenGroup, key: string) => `var(${cssVarName(group, key)})`;
@@ -114,7 +118,8 @@ export function renderTailwindCss(): string {
       v("spacing", k),
     ]),
     ...Object.keys(radius).map((k): [string, string] => [`--radius-${k}`, v("radius", k)]),
-    ...Object.keys(font).map((k): [string, string] => [`--font-${k}`, v("font", k)]),
+    // Só a fonte mono vira classe (font-mono); a de texto é a padrão e não precisa.
+    ["--font-mono", v("font", "mono")],
     ...Object.keys(fontWeight).map((k): [string, string] => [
       `--font-weight-${k}`,
       v("font-weight", k),
@@ -123,6 +128,7 @@ export function renderTailwindCss(): string {
       [`--text-${k}`, v("text", k)],
       [`--text-${k}--line-height`, `var(${cssVarName("text", k)}--line-height)`],
       [`--text-${k}--font-weight`, `var(${cssVarName("text", k)}--font-weight)`],
+      [`--text-${k}--letter-spacing`, `var(${cssVarName("text", k)}--letter-spacing)`],
     ]),
     ...Object.keys(duration).map((k): [string, string] => [
       `--transition-duration-${k}`,

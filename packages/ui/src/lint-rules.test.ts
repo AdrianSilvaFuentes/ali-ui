@@ -51,7 +51,7 @@ describe("regra: sem valores arbitrários fixos do Tailwind", () => {
   });
 
   it.each([
-    "p-4 bg-surface-raised text-body rounded-sm",
+    "p-4 bg-surface-raised text-body-lg rounded-sm",
     "data-[state=open]:bg-surface-sunken",
     "[&>svg]:size-4",
     "grid-cols-[repeat(2,1fr)]",

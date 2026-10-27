@@ -10,6 +10,7 @@ import {
   fontFamily,
   fontSize,
   fontWeight as fontWeightScale,
+  letterSpacing,
   lineHeight,
   neutralDark,
   neutralLight,
@@ -127,10 +128,12 @@ export const contrastPairs: readonly (readonly [ColorName, ColorName, number])[]
   ["focus-ring", "surface-overlay", 3],
 ];
 
-/** Famílias de fonte por uso. */
+/**
+ * Famílias de fonte. `body` é a fonte padrão de tudo e não precisa de classe;
+ * `mono` é aplicada com `font-mono`, para código, valores e nomes técnicos.
+ */
 export const font = {
-  body: fontFamily.sans,
-  heading: fontFamily.sans,
+  body: fontFamily["dm-sans"],
   mono: fontFamily.mono,
 } as const;
 
@@ -138,46 +141,90 @@ export const font = {
 export const fontWeight = {
   regular: fontWeightScale[400],
   medium: fontWeightScale[500],
-  strong: fontWeightScale[600],
+  semibold: fontWeightScale[600],
 } as const;
 
 export interface TextStyle {
   readonly fontSize: string;
   readonly lineHeight: string;
   readonly fontWeight: string;
+  readonly letterSpacing: string;
 }
 
-/** Estilos de texto: tamanho, altura de linha e peso combinados. */
+/** Estilos de texto: tamanho, altura de linha, peso e espaçamento entre letras combinados. */
 export const text = {
-  caption: { fontSize: fontSize[12], lineHeight: lineHeight[140], fontWeight: fontWeight.regular },
-  label: { fontSize: fontSize[14], lineHeight: lineHeight[125], fontWeight: fontWeight.medium },
+  "body-xs": {
+    fontSize: fontSize[10],
+    lineHeight: lineHeight[150],
+    fontWeight: fontWeight.regular,
+    letterSpacing: letterSpacing[0],
+  },
   "body-sm": {
+    fontSize: fontSize[12],
+    lineHeight: lineHeight[150],
+    fontWeight: fontWeight.regular,
+    letterSpacing: letterSpacing[0],
+  },
+  "body-md": {
     fontSize: fontSize[14],
     lineHeight: lineHeight[150],
     fontWeight: fontWeight.regular,
+    letterSpacing: letterSpacing[0],
   },
-  body: { fontSize: fontSize[16], lineHeight: lineHeight[150], fontWeight: fontWeight.regular },
   "body-lg": {
-    fontSize: fontSize[18],
+    fontSize: fontSize[16],
     lineHeight: lineHeight[150],
     fontWeight: fontWeight.regular,
+    letterSpacing: letterSpacing[0],
   },
-  "heading-sm": {
+  "label-xs": {
+    fontSize: fontSize[10],
+    lineHeight: lineHeight[125],
+    fontWeight: fontWeight.medium,
+    letterSpacing: letterSpacing[0],
+  },
+  "label-sm": {
+    fontSize: fontSize[12],
+    lineHeight: lineHeight[125],
+    fontWeight: fontWeight.medium,
+    letterSpacing: letterSpacing[0],
+  },
+  "label-md": {
+    fontSize: fontSize[14],
+    lineHeight: lineHeight[125],
+    fontWeight: fontWeight.medium,
+    letterSpacing: letterSpacing[0],
+  },
+  "label-lg": {
+    fontSize: fontSize[16],
+    lineHeight: lineHeight[125],
+    fontWeight: fontWeight.medium,
+    letterSpacing: letterSpacing[0],
+  },
+  "title-sm": {
     fontSize: fontSize[20],
     lineHeight: lineHeight[125],
-    fontWeight: fontWeight.strong,
+    fontWeight: fontWeight.semibold,
+    letterSpacing: letterSpacing[0],
   },
-  "heading-md": {
+  "title-md": {
     fontSize: fontSize[24],
     lineHeight: lineHeight[125],
-    fontWeight: fontWeight.strong,
+    fontWeight: fontWeight.semibold,
+    letterSpacing: letterSpacing[0],
   },
-  "heading-lg": {
+  "title-lg": {
     fontSize: fontSize[30],
     lineHeight: lineHeight[110],
-    fontWeight: fontWeight.strong,
+    fontWeight: fontWeight.semibold,
+    letterSpacing: letterSpacing[0],
   },
-  display: { fontSize: fontSize[48], lineHeight: lineHeight[100], fontWeight: fontWeight.strong },
+  display: {
+    fontSize: fontSize[48],
+    lineHeight: lineHeight[100],
+    fontWeight: fontWeight.semibold,
+    letterSpacing: letterSpacing[0],
+  },
 } as const satisfies Record<string, TextStyle>;
 
 /** Durações de animação por velocidade. */

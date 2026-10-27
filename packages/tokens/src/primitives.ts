@@ -131,18 +131,21 @@ export const blue = {
   950: "#081935",
 } as const;
 
-/** Famílias de fonte provisórias: as fontes do sistema operacional. */
+/**
+ * Famílias de fonte. A DM Sans (licença OFL) vem do pacote @fontsource-variable/dm-sans,
+ * carregado em tokens.css; as outras fontes são reservas caso ela não carregue.
+ */
 export const fontFamily = {
-  sans: "ui-sans-serif, system-ui, sans-serif",
+  "dm-sans": '"DM Sans Variable", ui-sans-serif, system-ui, sans-serif',
   mono: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace',
 } as const;
 
 /** Tamanhos de fonte. A chave é o valor em pixels. */
 export const fontSize = {
+  10: "0.625rem",
   12: "0.75rem",
   14: "0.875rem",
   16: "1rem",
-  18: "1.125rem",
   20: "1.25rem",
   24: "1.5rem",
   30: "1.875rem",
@@ -154,8 +157,12 @@ export const lineHeight = {
   100: "1",
   110: "1.1",
   125: "1.25",
-  140: "1.4",
   150: "1.5",
+} as const;
+
+/** Espaçamento entre letras, em em (0.01em = 1%). Por enquanto só o padrão. */
+export const letterSpacing = {
+  0: "0em",
 } as const;
 
 /** Pesos de fonte. */

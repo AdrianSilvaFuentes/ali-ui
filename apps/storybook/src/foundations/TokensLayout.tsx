@@ -39,17 +39,17 @@ export function TokensLayout({
   return (
     <div
       data-theme={theme}
-      className="flex min-h-screen flex-col gap-12 bg-surface p-8 font-body text-body text-foreground"
+      className="flex min-h-screen flex-col gap-12 bg-surface p-8 text-body-lg text-foreground"
     >
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="font-heading text-display">{title}</h1>
+          <h1 className="text-display">{title}</h1>
           <p className="mt-2 max-w-prose text-muted-foreground">{description}</p>
         </div>
         <button
           type="button"
           onClick={() => setTheme(nextTheme)}
-          className="rounded-sm border border-border-strong bg-surface-raised px-4 py-2 text-label transition-colors duration-fast hover:bg-surface-sunken focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
+          className="rounded-sm border border-border-strong bg-surface-raised px-4 py-2 text-label-md transition-colors duration-fast hover:bg-surface-sunken focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
         >
           {theme === "light" ? "Mudar para tema escuro" : "Mudar para tema claro"}
         </button>
@@ -70,23 +70,41 @@ export function Section({
 }) {
   return (
     <section className="border-t border-border pt-8">
-      <h2 className="font-heading text-heading-md">{title}</h2>
-      <p className="mt-1 mb-6 max-w-prose text-body-sm text-muted-foreground">{description}</p>
+      <h2 className="text-title-md">{title}</h2>
+      <p className="mt-1 mb-6 max-w-prose text-body-md text-muted-foreground">{description}</p>
       {children}
     </section>
   );
 }
 
 export function Code({ children }: { children: ReactNode }) {
-  return <code className="font-mono text-caption text-muted-foreground">{children}</code>;
+  return <code className="font-mono text-body-sm text-muted-foreground">{children}</code>;
 }
 
-/** Tabela com cabeçalho; as linhas vêm em `children`. */
-export function Table({ columns, children }: { columns: string[]; children: ReactNode }) {
+/**
+ * Tabela com cabeçalho; as linhas vêm em `children`. Com `widths`, as colunas têm
+ * largura fixa, para alinhar várias tabelas iguais na mesma página.
+ */
+export function Table({
+  columns,
+  widths,
+  children,
+}: {
+  columns: string[];
+  widths?: (string | undefined)[];
+  children: ReactNode;
+}) {
   return (
     <div className="overflow-x-auto rounded-md border border-border">
-      <table className="w-full border-collapse text-left">
-        <thead className="bg-surface-sunken text-label">
+      <table className={`w-full border-collapse text-left ${widths ? "table-fixed" : ""}`}>
+        {widths && (
+          <colgroup>
+            {columns.map((column, index) => (
+              <col key={column} style={{ width: widths[index] }} />
+            ))}
+          </colgroup>
+        )}
+        <thead className="bg-surface-sunken text-label-md">
           <tr>
             {columns.map((column) => (
               <th key={column} scope="col" className="px-4 py-2 whitespace-nowrap">
@@ -120,7 +138,7 @@ export function PlaceholderPage({ title, description }: { title: string; descrip
           title="Ainda sem tokens"
           description="Esta página ganha conteúdo quando os tokens forem definidos."
         >
-          <p className="max-w-prose rounded-md border border-border bg-surface-raised p-4 text-body-sm text-muted-foreground">
+          <p className="max-w-prose rounded-md border border-border bg-surface-raised p-4 text-body-md text-muted-foreground">
             Nada definido por enquanto.
           </p>
         </Section>
