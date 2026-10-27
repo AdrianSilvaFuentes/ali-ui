@@ -161,6 +161,11 @@ export const lineHeight = {
   150: "1.5",
 } as const;
 
+/** Espaçamento entre letras, em em (0.01em = 1%). Por enquanto só o padrão. */
+export const letterSpacing = {
+  0: "0em",
+} as const;
+
 /** Pesos de fonte. */
 export const fontWeight = {
   400: "400",

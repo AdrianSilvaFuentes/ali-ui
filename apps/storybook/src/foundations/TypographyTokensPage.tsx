@@ -26,6 +26,24 @@ const weightClass: Record<keyof typeof fontWeight, string> = {
   strong: "font-strong",
 };
 
+/** Nome usual de cada peso de fonte. */
+const weightName: Record<string, string> = {
+  "100": "Thin",
+  "200": "ExtraLight",
+  "300": "Light",
+  "400": "Regular",
+  "500": "Medium",
+  "600": "SemiBold",
+  "700": "Bold",
+  "800": "ExtraBold",
+  "900": "Black",
+};
+
+/** Altura de linha ou espaçamento em em como porcentagem: "1.5" → "150%", "-0.02em" → "-2%". */
+function toPercent(value: string): string {
+  return `${Math.round(Number.parseFloat(value) * 1000) / 10}%`;
+}
+
 // Estilos de texto do maior para o menor.
 const textStylesBySize = (Object.keys(text) as (keyof typeof text)[]).sort(
   (a, b) => Number.parseFloat(text[b].fontSize) - Number.parseFloat(text[a].fontSize),
@@ -35,24 +53,31 @@ const sample = "Um sistema enxuto, com poucos componentes e muita personalidade.
 
 export function TextStylesPage() {
   return (
-    <TokensLayout
-      title="Text styles"
-      description="Estilos de texto: tamanho, altura de linha e peso combinados."
-    >
+    <TokensLayout title="Text styles" description="Estilos de texto, do maior para o menor.">
       {() => (
         <Section
           title="Estilos de texto"
-          description="Cada estilo combina tamanho, altura de linha e peso. Use a classe inteira, como text-body."
+          description="Cada estilo combina tamanho, peso, altura de linha e espaçamento entre letras. Use a classe inteira, como text-body."
         >
-          <Table columns={["Token", "Tamanho", "Altura de linha", "Peso", "Exemplo"]}>
+          <Table
+            columns={["Token", "Size (px)", "Peso", "Altura de linha", "Letter spacing", "Preview"]}
+          >
             {textStylesBySize.map((name) => (
               <tr key={name} className="border-t border-border align-middle">
                 <td className="px-4 py-3 text-label whitespace-nowrap">text-{name}</td>
                 <td className="px-4 py-3 font-mono text-body-sm whitespace-nowrap">
-                  {text[name].fontSize} · {toPx(text[name].fontSize)}
+                  {toPx(text[name].fontSize)}
                 </td>
-                <td className="px-4 py-3 font-mono text-body-sm">{text[name].lineHeight}</td>
-                <td className="px-4 py-3 font-mono text-body-sm">{text[name].fontWeight}</td>
+                <td className="px-4 py-3 font-mono text-body-sm whitespace-nowrap">
+                  {weightName[text[name].fontWeight] ?? text[name].fontWeight} ·{" "}
+                  {text[name].fontWeight}
+                </td>
+                <td className="px-4 py-3 font-mono text-body-sm whitespace-nowrap">
+                  {text[name].lineHeight} ({toPercent(text[name].lineHeight)})
+                </td>
+                <td className="px-4 py-3 font-mono text-body-sm whitespace-nowrap">
+                  {toPercent(text[name].letterSpacing)}
+                </td>
                 <td className="px-4 py-3">
                   <p className={textClass[name]}>{sample}</p>
                 </td>

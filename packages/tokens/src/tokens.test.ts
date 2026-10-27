@@ -52,6 +52,11 @@ describe("tokens.css", () => {
     expect(css).toContain('--ali-font-heading: "DM Sans Variable"');
   });
 
+  it("define o espaçamento entre letras de cada estilo de texto", () => {
+    expect(css).toContain("--ali-text-body--letter-spacing: 0em;");
+    expect(css).toContain("--ali-text-display--letter-spacing: 0em;");
+  });
+
   it("usa o mesmo nome do grupo nas variáveis de dimensão", () => {
     expect(css).toContain("--ali-spacing-0_5: 0.125rem;");
     expect(css).toContain("--ali-radius-md: 0.375rem;");

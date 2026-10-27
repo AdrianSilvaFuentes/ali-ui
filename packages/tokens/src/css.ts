@@ -50,6 +50,7 @@ function staticEntries(): [string, string][] {
       [cssVarName("text", k), style.fontSize],
       [`${cssVarName("text", k)}--line-height`, style.lineHeight],
       [`${cssVarName("text", k)}--font-weight`, style.fontWeight],
+      [`${cssVarName("text", k)}--letter-spacing`, style.letterSpacing],
     ]),
     ...Object.entries(duration).map(([k, v]): [string, string] => [cssVarName("duration", k), v]),
     ...Object.entries(shadow).map(([k, v]): [string, string] => [cssVarName("shadow", k), v]),
@@ -126,6 +127,7 @@ export function renderTailwindCss(): string {
       [`--text-${k}`, v("text", k)],
       [`--text-${k}--line-height`, `var(${cssVarName("text", k)}--line-height)`],
       [`--text-${k}--font-weight`, `var(${cssVarName("text", k)}--font-weight)`],
+      [`--text-${k}--letter-spacing`, `var(${cssVarName("text", k)}--letter-spacing)`],
     ]),
     ...Object.keys(duration).map((k): [string, string] => [
       `--transition-duration-${k}`,

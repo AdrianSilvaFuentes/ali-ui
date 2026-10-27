@@ -10,6 +10,7 @@ import {
   fontFamily,
   fontSize,
   fontWeight as fontWeightScale,
+  letterSpacing,
   lineHeight,
   neutralDark,
   neutralLight,
@@ -145,39 +146,65 @@ export interface TextStyle {
   readonly fontSize: string;
   readonly lineHeight: string;
   readonly fontWeight: string;
+  readonly letterSpacing: string;
 }
 
-/** Estilos de texto: tamanho, altura de linha e peso combinados. */
+/** Estilos de texto: tamanho, altura de linha, peso e espaçamento entre letras combinados. */
 export const text = {
-  caption: { fontSize: fontSize[12], lineHeight: lineHeight[140], fontWeight: fontWeight.regular },
-  label: { fontSize: fontSize[14], lineHeight: lineHeight[125], fontWeight: fontWeight.medium },
+  caption: {
+    fontSize: fontSize[12],
+    lineHeight: lineHeight[140],
+    fontWeight: fontWeight.regular,
+    letterSpacing: letterSpacing[0],
+  },
+  label: {
+    fontSize: fontSize[14],
+    lineHeight: lineHeight[125],
+    fontWeight: fontWeight.medium,
+    letterSpacing: letterSpacing[0],
+  },
   "body-sm": {
     fontSize: fontSize[14],
     lineHeight: lineHeight[150],
     fontWeight: fontWeight.regular,
+    letterSpacing: letterSpacing[0],
   },
-  body: { fontSize: fontSize[16], lineHeight: lineHeight[150], fontWeight: fontWeight.regular },
+  body: {
+    fontSize: fontSize[16],
+    lineHeight: lineHeight[150],
+    fontWeight: fontWeight.regular,
+    letterSpacing: letterSpacing[0],
+  },
   "body-lg": {
     fontSize: fontSize[18],
     lineHeight: lineHeight[150],
     fontWeight: fontWeight.regular,
+    letterSpacing: letterSpacing[0],
   },
   "heading-sm": {
     fontSize: fontSize[20],
     lineHeight: lineHeight[125],
     fontWeight: fontWeight.strong,
+    letterSpacing: letterSpacing[0],
   },
   "heading-md": {
     fontSize: fontSize[24],
     lineHeight: lineHeight[125],
     fontWeight: fontWeight.strong,
+    letterSpacing: letterSpacing[0],
   },
   "heading-lg": {
     fontSize: fontSize[30],
     lineHeight: lineHeight[110],
     fontWeight: fontWeight.strong,
+    letterSpacing: letterSpacing[0],
   },
-  display: { fontSize: fontSize[48], lineHeight: lineHeight[100], fontWeight: fontWeight.strong },
+  display: {
+    fontSize: fontSize[48],
+    lineHeight: lineHeight[100],
+    fontWeight: fontWeight.strong,
+    letterSpacing: letterSpacing[0],
+  },
 } as const satisfies Record<string, TextStyle>;
 
 /** Durações de animação por velocidade. */
