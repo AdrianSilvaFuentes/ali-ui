@@ -10,6 +10,11 @@ export function formatRatio(ratio: number): string {
   return `${ratio.toFixed(1).replace(".", ",")}:1`;
 }
 
+/** Converte rem em pixels (base de 16px): "0.75rem" → "12px". Outros valores ficam como estão. */
+export function toPx(value: string): string {
+  return value.endsWith("rem") ? `${Number.parseFloat(value) * 16}px` : value;
+}
+
 /** Moldura das páginas de tokens: título, descrição e o botão de tema claro/escuro. */
 export function TokensLayout({
   title,
