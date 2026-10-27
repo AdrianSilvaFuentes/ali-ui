@@ -89,7 +89,7 @@ export const color = {
     description: "Contorno de foco visível na navegação por teclado.",
   },
   danger: {
-    light: red[600],
+    light: red[700],
     dark: red[400],
     description: "Erros e ações destrutivas.",
   },

@@ -1,7 +1,7 @@
 import { contrastRatio, toHex, toOklch } from "@ali/tokens/color";
 // Os primitivos aparecem aqui só como documentação. Componentes nunca os usam.
-import { gray, primary, red } from "@ali/tokens/primitives";
-import { Code, formatRatio, Section, Swatch, Table, TokensLayout } from "./TokensLayout";
+import { blue, gray, green, orange, primary, red, yellow } from "@ali/tokens/primitives";
+import { formatRatio, Section, Swatch, Table, TokensLayout } from "./TokensLayout";
 
 /** Tabela de uma escala: hex, OKLCH e contraste com os fundos claro (gray-50) e escuro (gray-950). */
 function ScaleTable({ name, scale }: { name: string; scale: Record<string, string> }) {
@@ -53,19 +53,27 @@ export function PrimitiveTokensPage() {
             <ScaleTable name="primary" scale={primary} />
           </Section>
 
-          <Section title="Erro" description="Ainda provisória: será definida com a identidade.">
-            <ul className="grid grid-cols-[repeat(auto-fill,minmax(7rem,1fr))] gap-xs">
-              {Object.entries(red).map(([step, value]) => (
-                <li key={step} className="flex flex-col gap-3xs">
-                  <div
-                    className="h-2xl rounded-control border border-border"
-                    style={{ backgroundColor: value }}
-                  />
-                  <span className="text-caption">red-{step}</span>
-                  <Code>{toHex(value)}</Code>
-                </li>
-              ))}
-            </ul>
+          <Section
+            title="Vermelho"
+            description="Para erros e ações destrutivas. Texto branco por cima a partir do 700."
+          >
+            <ScaleTable name="red" scale={red} />
+          </Section>
+
+          <Section title="Verde" description="Para sucesso e confirmações.">
+            <ScaleTable name="green" scale={green} />
+          </Section>
+
+          <Section title="Laranja" description="Para avisos.">
+            <ScaleTable name="orange" scale={orange} />
+          </Section>
+
+          <Section title="Amarelo" description="Para destaques informativos e atenção leve.">
+            <ScaleTable name="yellow" scale={yellow} />
+          </Section>
+
+          <Section title="Azul" description="Para informações.">
+            <ScaleTable name="blue" scale={blue} />
           </Section>
         </>
       )}

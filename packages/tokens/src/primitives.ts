@@ -41,12 +41,79 @@ export const primary = {
   950: "#664223",
 } as const;
 
-/** Vermelho para estados de erro. */
+/** Vermelho para erros e ações destrutivas. */
 export const red = {
-  400: "oklch(0.704 0.191 22.2)",
-  500: "oklch(0.637 0.237 25.3)",
-  600: "oklch(0.577 0.245 27.3)",
-  700: "oklch(0.505 0.213 27.5)",
+  50: "#fff0f1",
+  100: "#ffcbcd",
+  200: "#ffa8ab",
+  300: "#ff888c",
+  400: "#ff6a6e",
+  500: "#f94e54",
+  600: "#f0353b",
+  700: "#cd2a3b",
+  800: "#a92038",
+  900: "#841731",
+  950: "#5e0f28",
+} as const;
+
+/** Verde para sucesso e confirmações. */
+export const green = {
+  50: "#f3ffe6",
+  100: "#e2ffc0",
+  200: "#d0ff9d",
+  300: "#bffd7c",
+  400: "#adf65e",
+  500: "#9bee42",
+  600: "#89e328",
+  700: "#63be1e",
+  800: "#429816",
+  900: "#28710e",
+  950: "#134808",
+} as const;
+
+/** Laranja para avisos. */
+export const orange = {
+  50: "#fff7f0",
+  100: "#ffe1c8",
+  200: "#ffcca0",
+  300: "#ffb878",
+  400: "#ffa352",
+  500: "#ff9033",
+  600: "#ff7c17",
+  700: "#d26310",
+  800: "#a64b0a",
+  900: "#793405",
+  950: "#4d1f02",
+} as const;
+
+/** Amarelo para destaques informativos e atenção leve. */
+export const yellow = {
+  50: "#fffff0",
+  100: "#ffffc8",
+  200: "#fffca0",
+  300: "#fff778",
+  400: "#fff052",
+  500: "#ffe733",
+  600: "#ffdc17",
+  700: "#d3a11e",
+  800: "#aa7422",
+  900: "#855123",
+  950: "#623821",
+} as const;
+
+/** Azul para informações. */
+export const blue = {
+  50: "#eefcff",
+  100: "#cdf5fe",
+  200: "#ace9fd",
+  300: "#8bdafc",
+  400: "#6bc6fc",
+  500: "#4ab0fb",
+  600: "#2995fa",
+  700: "#2172c9",
+  800: "#195298",
+  900: "#103466",
+  950: "#081935",
 } as const;
 
 /** Escala de espaçamento. A chave é o valor em pixels (com fonte base de 16px). */
