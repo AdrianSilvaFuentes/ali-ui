@@ -53,7 +53,7 @@ describe("tokens.css", () => {
   });
 
   it("define o espaçamento entre letras de cada estilo de texto", () => {
-    expect(css).toContain("--ali-text-body--letter-spacing: 0em;");
+    expect(css).toContain("--ali-text-body-md--letter-spacing: 0em;");
     expect(css).toContain("--ali-text-display--letter-spacing: 0em;");
   });
 
@@ -107,7 +107,8 @@ describe("integração com o Tailwind", () => {
     "rounded-sm",
     "rounded-3xl",
     "rounded-full",
-    "text-body",
+    "text-body-md",
+    "text-label-xs",
     "font-title",
     "font-strong",
     "duration-fast",
@@ -125,6 +126,8 @@ describe("integração com o Tailwind", () => {
   const removedClasses = [
     "bg-gray-500",
     "bg-muted",
+    "text-body",
+    "text-label",
     "text-heading-md",
     "font-heading",
     "bg-primary",

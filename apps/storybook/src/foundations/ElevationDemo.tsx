@@ -13,8 +13,8 @@ export function ElevationDemo() {
           <p className="mb-4 text-caption text-muted-foreground">surface</p>
           <div className="flex flex-wrap items-start gap-6">
             <div className="w-64 rounded-md bg-surface-raised p-4 shadow-raised">
-              <p className="text-label">Cartão</p>
-              <p className="mt-1 text-body-sm text-muted-foreground">
+              <p className="text-label-md">Cartão</p>
+              <p className="mt-1 text-body-md text-muted-foreground">
                 surface-raised · shadow-raised
               </p>
             </div>
@@ -25,12 +25,12 @@ export function ElevationDemo() {
               {["Editar", "Duplicar"].map((item) => (
                 <p
                   key={item}
-                  className="rounded-sm px-2 py-1.5 text-body-sm hover:bg-surface-sunken"
+                  className="rounded-sm px-2 py-1.5 text-body-md hover:bg-surface-sunken"
                 >
                   {item}
                 </p>
               ))}
-              <p className="rounded-sm px-2 py-1.5 text-body-sm text-danger hover:bg-surface-sunken">
+              <p className="rounded-sm px-2 py-1.5 text-body-md text-danger hover:bg-surface-sunken">
                 Excluir
               </p>
             </div>

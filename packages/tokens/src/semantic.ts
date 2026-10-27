@@ -157,28 +157,52 @@ export const text = {
     fontWeight: fontWeight.regular,
     letterSpacing: letterSpacing[0],
   },
-  label: {
-    fontSize: fontSize[14],
-    lineHeight: lineHeight[125],
-    fontWeight: fontWeight.medium,
-    letterSpacing: letterSpacing[0],
-  },
-  "body-sm": {
-    fontSize: fontSize[14],
+  "body-xs": {
+    fontSize: fontSize[10],
     lineHeight: lineHeight[150],
     fontWeight: fontWeight.regular,
     letterSpacing: letterSpacing[0],
   },
-  body: {
-    fontSize: fontSize[16],
+  "body-sm": {
+    fontSize: fontSize[12],
+    lineHeight: lineHeight[150],
+    fontWeight: fontWeight.regular,
+    letterSpacing: letterSpacing[0],
+  },
+  "body-md": {
+    fontSize: fontSize[14],
     lineHeight: lineHeight[150],
     fontWeight: fontWeight.regular,
     letterSpacing: letterSpacing[0],
   },
   "body-lg": {
-    fontSize: fontSize[18],
+    fontSize: fontSize[16],
     lineHeight: lineHeight[150],
     fontWeight: fontWeight.regular,
+    letterSpacing: letterSpacing[0],
+  },
+  "label-xs": {
+    fontSize: fontSize[10],
+    lineHeight: lineHeight[125],
+    fontWeight: fontWeight.medium,
+    letterSpacing: letterSpacing[0],
+  },
+  "label-sm": {
+    fontSize: fontSize[12],
+    lineHeight: lineHeight[125],
+    fontWeight: fontWeight.medium,
+    letterSpacing: letterSpacing[0],
+  },
+  "label-md": {
+    fontSize: fontSize[14],
+    lineHeight: lineHeight[125],
+    fontWeight: fontWeight.medium,
+    letterSpacing: letterSpacing[0],
+  },
+  "label-lg": {
+    fontSize: fontSize[16],
+    lineHeight: lineHeight[125],
+    fontWeight: fontWeight.medium,
     letterSpacing: letterSpacing[0],
   },
   "title-sm": {

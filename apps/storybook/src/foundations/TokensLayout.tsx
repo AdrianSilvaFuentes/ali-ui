@@ -39,7 +39,7 @@ export function TokensLayout({
   return (
     <div
       data-theme={theme}
-      className="flex min-h-screen flex-col gap-12 bg-surface p-8 font-body text-body text-foreground"
+      className="flex min-h-screen flex-col gap-12 bg-surface p-8 font-body text-body-lg text-foreground"
     >
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
@@ -49,7 +49,7 @@ export function TokensLayout({
         <button
           type="button"
           onClick={() => setTheme(nextTheme)}
-          className="rounded-sm border border-border-strong bg-surface-raised px-4 py-2 text-label transition-colors duration-fast hover:bg-surface-sunken focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
+          className="rounded-sm border border-border-strong bg-surface-raised px-4 py-2 text-label-md transition-colors duration-fast hover:bg-surface-sunken focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
         >
           {theme === "light" ? "Mudar para tema escuro" : "Mudar para tema claro"}
         </button>
@@ -71,7 +71,7 @@ export function Section({
   return (
     <section className="border-t border-border pt-8">
       <h2 className="font-title text-title-md">{title}</h2>
-      <p className="mt-1 mb-6 max-w-prose text-body-sm text-muted-foreground">{description}</p>
+      <p className="mt-1 mb-6 max-w-prose text-body-md text-muted-foreground">{description}</p>
       {children}
     </section>
   );
@@ -104,7 +104,7 @@ export function Table({
             ))}
           </colgroup>
         )}
-        <thead className="bg-surface-sunken text-label">
+        <thead className="bg-surface-sunken text-label-md">
           <tr>
             {columns.map((column) => (
               <th key={column} scope="col" className="px-4 py-2 whitespace-nowrap">
@@ -138,7 +138,7 @@ export function PlaceholderPage({ title, description }: { title: string; descrip
           title="Ainda sem tokens"
           description="Esta página ganha conteúdo quando os tokens forem definidos."
         >
-          <p className="max-w-prose rounded-md border border-border bg-surface-raised p-4 text-body-sm text-muted-foreground">
+          <p className="max-w-prose rounded-md border border-border bg-surface-raised p-4 text-body-md text-muted-foreground">
             Nada definido por enquanto.
           </p>
         </Section>

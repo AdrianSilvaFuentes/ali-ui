@@ -142,10 +142,10 @@ export const fontFamily = {
 
 /** Tamanhos de fonte. A chave é o valor em pixels. */
 export const fontSize = {
+  10: "0.625rem",
   12: "0.75rem",
   14: "0.875rem",
   16: "1rem",
-  18: "1.125rem",
   20: "1.25rem",
   24: "1.5rem",
   30: "1.875rem",

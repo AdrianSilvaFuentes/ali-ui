@@ -4,10 +4,14 @@ import { Code, Section, Table, TokensLayout, toPx } from "./TokensLayout";
 // O Tailwind só gera classes escritas por extenso no código, por isso as listas explícitas.
 const textClass: Record<keyof typeof text, string> = {
   caption: "text-caption",
-  label: "text-label",
+  "body-xs": "text-body-xs",
   "body-sm": "text-body-sm",
-  body: "text-body",
+  "body-md": "text-body-md",
   "body-lg": "text-body-lg",
+  "label-xs": "text-label-xs",
+  "label-sm": "text-label-sm",
+  "label-md": "text-label-md",
+  "label-lg": "text-label-lg",
   "title-sm": "text-title-sm",
   "title-md": "text-title-md",
   "title-lg": "text-title-lg",
@@ -69,17 +73,17 @@ function TextStyleTable({ names }: { names: (keyof typeof text)[] }) {
     >
       {names.map((name) => (
         <tr key={name} className="border-t border-border align-middle">
-          <td className="px-4 py-3 text-label whitespace-nowrap">text-{name}</td>
-          <td className="px-4 py-3 font-mono text-body-sm whitespace-nowrap">
+          <td className="px-4 py-3 text-label-md whitespace-nowrap">text-{name}</td>
+          <td className="px-4 py-3 font-mono text-body-md whitespace-nowrap">
             {toPx(text[name].fontSize)}
           </td>
-          <td className="px-4 py-3 font-mono text-body-sm whitespace-nowrap">
+          <td className="px-4 py-3 font-mono text-body-md whitespace-nowrap">
             {weightName[text[name].fontWeight] ?? text[name].fontWeight} · {text[name].fontWeight}
           </td>
-          <td className="px-4 py-3 font-mono text-body-sm whitespace-nowrap">
+          <td className="px-4 py-3 font-mono text-body-md whitespace-nowrap">
             {text[name].lineHeight} ({toPercent(text[name].lineHeight)})
           </td>
-          <td className="px-4 py-3 font-mono text-body-sm whitespace-nowrap">
+          <td className="px-4 py-3 font-mono text-body-md whitespace-nowrap">
             {toPercent(text[name].letterSpacing)}
           </td>
           <td className="px-4 py-3">
@@ -95,7 +99,7 @@ export function TextStylesPage() {
   return (
     <TokensLayout
       title="Text styles"
-      description="Cada estilo combina tamanho, peso, altura de linha e espaçamento entre letras. Use a classe inteira, como text-body."
+      description="Cada estilo combina tamanho, peso, altura de linha e espaçamento entre letras. Use a classe inteira, como text-body-lg."
     >
       {() => (
         <>
@@ -123,12 +127,12 @@ export function FontFamiliesPage() {
           <Table columns={["Token", "Família", "Exemplo"]}>
             {(Object.keys(font) as (keyof typeof font)[]).map((name) => (
               <tr key={name} className="border-t border-border align-middle">
-                <td className="px-4 py-3 text-label whitespace-nowrap">font-{name}</td>
+                <td className="px-4 py-3 text-label-md whitespace-nowrap">font-{name}</td>
                 <td className="px-4 py-3">
                   <Code>{font[name]}</Code>
                 </td>
                 <td className="px-4 py-3">
-                  <p className={`text-body ${fontClass[name]}`}>{sample}</p>
+                  <p className={`text-body-lg ${fontClass[name]}`}>{sample}</p>
                 </td>
               </tr>
             ))}
@@ -147,10 +151,10 @@ export function FontWeightsPage() {
           <Table columns={["Token", "Peso", "Exemplo"]}>
             {(Object.keys(fontWeight) as (keyof typeof fontWeight)[]).map((name) => (
               <tr key={name} className="border-t border-border align-middle">
-                <td className="px-4 py-3 text-label whitespace-nowrap">font-{name}</td>
-                <td className="px-4 py-3 font-mono text-body-sm">{fontWeight[name]}</td>
+                <td className="px-4 py-3 text-label-md whitespace-nowrap">font-{name}</td>
+                <td className="px-4 py-3 font-mono text-body-md">{fontWeight[name]}</td>
                 <td className="px-4 py-3">
-                  <p className={`text-body ${weightClass[name]}`}>{sample}</p>
+                  <p className={`text-body-lg ${weightClass[name]}`}>{sample}</p>
                 </td>
               </tr>
             ))}

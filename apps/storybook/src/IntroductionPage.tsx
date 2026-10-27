@@ -120,7 +120,7 @@ function initialLanguage(): Language {
 function Block({ label, children }: { label: string; children: ReactNode }) {
   return (
     <section className="grid gap-4 border-t border-border pt-8 md:grid-cols-[12rem_1fr]">
-      <h2 className="text-label text-muted-foreground">{label}</h2>
+      <h2 className="text-label-md text-muted-foreground">{label}</h2>
       <div className="flex max-w-2xl flex-col gap-4">{children}</div>
     </section>
   );
@@ -143,7 +143,7 @@ function LanguageSwitch({
           lang={option}
           aria-pressed={language === option}
           onClick={() => onChange(option)}
-          className={`rounded-sm px-3 py-1 text-label uppercase focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring ${
+          className={`rounded-sm px-3 py-1 text-label-md uppercase focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring ${
             language === option
               ? "bg-foreground text-surface"
               : "text-muted-foreground hover:text-foreground"
@@ -163,11 +163,11 @@ export function IntroductionPage() {
   return (
     <div
       lang={language}
-      className="flex min-h-screen flex-col gap-12 bg-surface px-8 py-12 font-body text-body text-foreground md:px-16"
+      className="flex min-h-screen flex-col gap-12 bg-surface px-8 py-12 font-body text-body-lg text-foreground md:px-16"
     >
       <header className="flex flex-col gap-6">
         <div className="flex items-center justify-between gap-4">
-          <p className="text-label text-muted-foreground">{t.eyebrow}</p>
+          <p className="text-label-md text-muted-foreground">{t.eyebrow}</p>
           <LanguageSwitch language={language} onChange={setLanguage} />
         </div>
         <h1 className="font-title text-display">{t.title}</h1>
@@ -204,8 +204,8 @@ export function IntroductionPage() {
         <ul className="grid gap-x-8 gap-y-2 sm:grid-cols-2">
           {stack.map((name, index) => (
             <li key={name} className="flex flex-col">
-              <span className="text-label">{name}</span>
-              <span className="text-body-sm text-muted-foreground">{t.stackRoles[index]}</span>
+              <span className="text-label-md">{name}</span>
+              <span className="text-body-md text-muted-foreground">{t.stackRoles[index]}</span>
             </li>
           ))}
         </ul>
@@ -220,18 +220,18 @@ export function IntroductionPage() {
                 target="_top"
                 className="flex h-full flex-col gap-1 rounded-md border border-border bg-surface-raised p-4 shadow-raised hover:border-border-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
               >
-                <span className="text-label text-link">{title}</span>
-                <span className="text-body-sm text-muted-foreground">
+                <span className="text-label-md text-link">{title}</span>
+                <span className="text-body-md text-muted-foreground">
                   {t.startDescriptions[index]}
                 </span>
               </a>
             </li>
           ))}
         </ul>
-        <p className="text-body-sm text-muted-foreground">{t.status}</p>
+        <p className="text-body-md text-muted-foreground">{t.status}</p>
       </Block>
 
-      <footer className="border-t border-border pt-8 text-body-sm text-muted-foreground">
+      <footer className="border-t border-border pt-8 text-body-md text-muted-foreground">
         {t.footer}{" "}
         <a
           href="https://github.com/AdrianSilvaFuentes/ali-ui"

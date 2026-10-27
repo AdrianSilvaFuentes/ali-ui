@@ -29,17 +29,17 @@ function ScaleTable({ name, scale }: { name: string; scale: Record<string, strin
           <td className="px-4 py-3">
             <div className="flex items-center gap-3">
               <Swatch color={value} />
-              <span className="text-label">
+              <span className="text-label-md">
                 {name}-{step}
               </span>
             </div>
           </td>
-          <td className="px-4 py-3 font-mono text-body-sm">{toHex(value)}</td>
-          <td className="px-4 py-3 font-mono text-body-sm whitespace-nowrap">{toOklch(value)}</td>
-          <td className="px-4 py-3 font-mono text-body-sm">
+          <td className="px-4 py-3 font-mono text-body-md">{toHex(value)}</td>
+          <td className="px-4 py-3 font-mono text-body-md whitespace-nowrap">{toOklch(value)}</td>
+          <td className="px-4 py-3 font-mono text-body-md">
             {formatRatio(contrastRatio(value, neutralLight[50]))}
           </td>
-          <td className="px-4 py-3 font-mono text-body-sm">
+          <td className="px-4 py-3 font-mono text-body-md">
             {formatRatio(contrastRatio(value, neutralDark[950]))}
           </td>
         </tr>

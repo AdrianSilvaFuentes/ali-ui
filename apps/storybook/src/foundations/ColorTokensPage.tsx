@@ -47,7 +47,7 @@ function ThemeCell({ name, theme }: { name: ColorName; theme: ThemeName }) {
     <div className="flex items-start gap-3">
       <Swatch color={value} />
       <div className="flex flex-col gap-0.5">
-        <span className="font-mono text-body-sm">{primitiveName(value)}</span>
+        <span className="font-mono text-body-md">{primitiveName(value)}</span>
         <span className="font-mono text-caption text-muted-foreground">{toHex(value)}</span>
         <ContrastLine name={name} theme={theme} />
       </div>
@@ -118,7 +118,7 @@ export function ColorGroupPage({
                 <tr key={name} className="border-t border-border align-top">
                   <td className="px-4 py-3">
                     <div className="flex flex-col">
-                      <span className="text-label">{name}</span>
+                      <span className="text-label-md">{name}</span>
                       <span className="text-caption text-muted-foreground">
                         {color[name].description}
                       </span>
