@@ -24,7 +24,7 @@ export function ShadowTokensPage() {
                 </td>
                 <td className="px-xl py-xl">
                   <div
-                    className="h-2xl w-3xl rounded-surface bg-surface"
+                    className="h-2xl w-3xl rounded-md bg-surface"
                     style={{ boxShadow: vars.shadow[name] }}
                   />
                 </td>

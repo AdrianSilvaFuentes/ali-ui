@@ -131,12 +131,15 @@ export const space = {
   96: "6rem",
 } as const;
 
-/** Raios de canto. Propositalmente pequenos: sem cantos muito arredondados. */
+/** Raios de canto: os valores padrão do Tailwind CSS 4, de none a 3xl, mais full. */
 export const radius = {
-  0: "0rem",
-  2: "0.125rem",
-  4: "0.25rem",
-  6: "0.375rem",
+  none: "0px",
+  sm: "0.25rem",
+  md: "0.375rem",
+  lg: "0.5rem",
+  xl: "0.75rem",
+  "2xl": "1rem",
+  "3xl": "1.5rem",
   full: "9999px",
 } as const;
 

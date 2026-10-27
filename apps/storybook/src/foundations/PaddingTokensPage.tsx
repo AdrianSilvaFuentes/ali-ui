@@ -22,10 +22,10 @@ export function PaddingTokensPage() {
                 <td className="px-md py-sm">
                   {/* A área colorida é o padding; o conteúdo fica no centro. */}
                   <div
-                    className="inline-flex rounded-control bg-primary"
+                    className="inline-flex rounded-sm bg-primary"
                     style={{ padding: vars.space[name] }}
                   >
-                    <span className="rounded-control bg-surface px-xs text-caption">Conteúdo</span>
+                    <span className="rounded-sm bg-surface px-xs text-caption">Conteúdo</span>
                   </div>
                 </td>
               </tr>

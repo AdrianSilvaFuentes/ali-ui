@@ -51,7 +51,7 @@ describe("regra: sem valores arbitrários fixos do Tailwind", () => {
   });
 
   it.each([
-    "p-md bg-primary text-body rounded-control",
+    "p-md bg-primary text-body rounded-sm",
     "data-[state=open]:bg-muted",
     "[&>svg]:size-md",
     "grid-cols-[repeat(2,1fr)]",

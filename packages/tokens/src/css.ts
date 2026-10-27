@@ -95,7 +95,7 @@ ${declarations(staticEntries())}
 /**
  * Liga os tokens ao Tailwind CSS 4. Apaga os valores padrão do Tailwind (cores,
  * fontes, tamanhos, espaçamentos, raios e sombras) para que só existam classes com
- * nomes semânticos, como `bg-background`, `text-body`, `p-md`, `rounded-control` e `shadow-md`.
+ * nomes semânticos, como `bg-background`, `text-body`, `p-md`, `rounded-sm` e `shadow-md`.
  */
 export function renderTailwindCss(): string {
   const v = (group: TokenGroup, key: string) => `var(${cssVarName(group, key)})`;

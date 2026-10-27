@@ -141,11 +141,16 @@ export const spacing = {
   "4xl": space[96],
 } as const;
 
-/** Raios de canto por tipo de elemento. */
+/** Raios de canto, do reto (none) ao totalmente arredondado (full). */
 export const radius = {
-  control: radiusScale[4],
-  surface: radiusScale[6],
-  pill: radiusScale.full,
+  none: radiusScale.none,
+  sm: radiusScale.sm,
+  md: radiusScale.md,
+  lg: radiusScale.lg,
+  xl: radiusScale.xl,
+  "2xl": radiusScale["2xl"],
+  "3xl": radiusScale["3xl"],
+  full: radiusScale.full,
 } as const;
 
 /** Famílias de fonte por uso. */

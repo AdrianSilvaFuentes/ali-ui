@@ -41,7 +41,7 @@ export function TokensLayout({
         <button
           type="button"
           onClick={() => setTheme(nextTheme)}
-          className="rounded-control border border-border-strong bg-surface px-md py-xs text-label transition-colors duration-fast hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
+          className="rounded-sm border border-border-strong bg-surface px-md py-xs text-label transition-colors duration-fast hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
         >
           {theme === "light" ? "Mudar para tema escuro" : "Mudar para tema claro"}
         </button>
@@ -76,7 +76,7 @@ export function Code({ children }: { children: ReactNode }) {
 /** Tabela com cabeçalho; as linhas vêm em `children`. */
 export function Table({ columns, children }: { columns: string[]; children: ReactNode }) {
   return (
-    <div className="overflow-x-auto rounded-surface border border-border">
+    <div className="overflow-x-auto rounded-md border border-border">
       <table className="w-full border-collapse text-left">
         <thead className="bg-muted text-label">
           <tr>
@@ -97,7 +97,7 @@ export function Table({ columns, children }: { columns: string[]; children: Reac
 export function Swatch({ color }: { color: string }) {
   return (
     <div
-      className="size-xl shrink-0 rounded-control border border-border"
+      className="size-xl shrink-0 rounded-sm border border-border"
       style={{ backgroundColor: color }}
     />
   );
@@ -112,7 +112,7 @@ export function PlaceholderPage({ title, description }: { title: string; descrip
           title="Ainda sem tokens"
           description="Esta página ganha conteúdo quando os tokens forem definidos."
         >
-          <p className="max-w-prose rounded-surface border border-border bg-surface p-md text-body-sm text-muted-foreground">
+          <p className="max-w-prose rounded-md border border-border bg-surface p-md text-body-sm text-muted-foreground">
             Nada definido por enquanto.
           </p>
         </Section>
