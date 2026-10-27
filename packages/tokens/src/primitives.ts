@@ -101,6 +101,21 @@ export const yellow = {
   950: "#623821",
 } as const;
 
+/** Azul para informações. */
+export const blue = {
+  50: "#eefcff",
+  100: "#cdf5fe",
+  200: "#ace9fd",
+  300: "#8bdafc",
+  400: "#6bc6fc",
+  500: "#4ab0fb",
+  600: "#2995fa",
+  700: "#2172c9",
+  800: "#195298",
+  900: "#103466",
+  950: "#081935",
+} as const;
+
 /** Escala de espaçamento. A chave é o valor em pixels (com fonte base de 16px). */
 export const space = {
   0: "0rem",
