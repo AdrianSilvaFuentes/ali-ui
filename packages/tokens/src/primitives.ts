@@ -56,6 +56,21 @@ export const red = {
   950: "#5e0f28",
 } as const;
 
+/** Verde para sucesso e confirmações. */
+export const green = {
+  50: "#f3ffe6",
+  100: "#e2ffc0",
+  200: "#d0ff9d",
+  300: "#bffd7c",
+  400: "#adf65e",
+  500: "#9bee42",
+  600: "#89e328",
+  700: "#63be1e",
+  800: "#429816",
+  900: "#28710e",
+  950: "#134808",
+} as const;
+
 /** Escala de espaçamento. A chave é o valor em pixels (com fonte base de 16px). */
 export const space = {
   0: "0rem",
