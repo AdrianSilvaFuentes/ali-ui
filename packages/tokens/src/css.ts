@@ -2,22 +2,14 @@
  * Transforma os tokens semânticos em CSS. Usado pelo build (`scripts/build.ts`)
  * para gerar `dist/tokens.css` e `dist/tailwind.css`, e pelos testes.
  */
-import {
-  color,
-  duration,
-  font,
-  fontWeight,
-  radius,
-  shadow,
-  spacing,
-  type ThemeName,
-  text,
-} from "./semantic.ts";
+
+import { radius, shadow, spacing } from "./scales.ts";
+import { color, duration, font, fontWeight, type ThemeName, text } from "./semantic.ts";
 
 /** Grupos de tokens e o prefixo de cada um nas variáveis CSS. */
 export type TokenGroup =
   | "color"
-  | "space"
+  | "spacing"
   | "radius"
   | "font"
   | "font-weight"
@@ -46,7 +38,7 @@ function colorDeclarations(theme: ThemeName, indent?: string): string {
 
 function staticEntries(): [string, string][] {
   return [
-    ...Object.entries(spacing).map(([k, v]): [string, string] => [cssVarName("space", k), v]),
+    ...Object.entries(spacing).map(([k, v]): [string, string] => [cssVarName("spacing", k), v]),
     ...Object.entries(radius).map(([k, v]): [string, string] => [cssVarName("radius", k), v]),
     ...Object.entries(font).map(([k, v]): [string, string] => [cssVarName("font", k), v]),
     ...Object.entries(fontWeight).map(([k, v]): [string, string] => [
@@ -117,7 +109,7 @@ export function renderTailwindCss(): string {
     // No tema do Tailwind o ponto vai escapado: `--spacing-0\.5` gera `p-0.5`.
     ...Object.keys(spacing).map((k): [string, string] => [
       `--spacing-${k.replaceAll(".", "\\.")}`,
-      v("space", k),
+      v("spacing", k),
     ]),
     ...Object.keys(radius).map((k): [string, string] => [`--radius-${k}`, v("radius", k)]),
     ...Object.keys(font).map((k): [string, string] => [`--font-${k}`, v("font", k)]),

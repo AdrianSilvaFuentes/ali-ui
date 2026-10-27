@@ -16,7 +16,4 @@ type Story = StoryObj<typeof meta>;
 export const Spacing: Story = { render: () => <SpacingTokensPage /> };
 export const Padding: Story = { render: () => <PaddingTokensPage /> };
 export const Radius: Story = { render: () => <RadiusTokensPage /> };
-export const ShadowElevations: Story = {
-  name: "Shadow elevations",
-  render: () => <ShadowTokensPage />,
-};
+export const Shadow: Story = { render: () => <ShadowTokensPage /> };

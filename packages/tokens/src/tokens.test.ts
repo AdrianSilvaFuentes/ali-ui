@@ -46,6 +46,13 @@ describe("conversão de cor", () => {
 describe("tokens.css", () => {
   const css = renderTokensCss();
 
+  it("usa o mesmo nome do grupo nas variáveis de dimensão", () => {
+    expect(css).toContain("--ali-spacing-0_5: 0.125rem;");
+    expect(css).toContain("--ali-radius-md: 0.375rem;");
+    expect(css).toContain("--ali-shadow-md: ");
+    expect(css).not.toContain("--ali-space-");
+  });
+
   it("define todas as cores semânticas nos temas claro e escuro", () => {
     for (const [name, token] of Object.entries(color)) {
       expect(css).toContain(`--ali-color-${name}: ${token.light};`);

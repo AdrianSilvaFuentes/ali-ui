@@ -4,17 +4,11 @@
  * Os primitivos ficam em `@ali/tokens/primitives` e servem só para documentação.
  */
 import { cssVarName, type TokenGroup } from "./css.ts";
-import {
-  color,
-  contrastPairs,
-  duration,
-  font,
-  fontWeight,
-  radius,
-  shadow,
-  spacing,
-  text,
-} from "./semantic.ts";
+
+export { cssVarName, type TokenGroup };
+
+import { radius, shadow, spacing } from "./scales.ts";
+import { color, contrastPairs, duration, font, fontWeight, text } from "./semantic.ts";
 
 export type { ColorName, ColorToken, TextStyle, ThemeName } from "./semantic.ts";
 export { color, contrastPairs, duration, font, fontWeight, radius, shadow, spacing, text };
@@ -33,7 +27,7 @@ function varsOf<T extends object>(group: TokenGroup, tokens: T): VarMap<T> {
  */
 export const vars = {
   color: varsOf("color", color),
-  space: varsOf("space", spacing),
+  spacing: varsOf("spacing", spacing),
   radius: varsOf("radius", radius),
   font: varsOf("font", font),
   fontWeight: varsOf("font-weight", fontWeight),

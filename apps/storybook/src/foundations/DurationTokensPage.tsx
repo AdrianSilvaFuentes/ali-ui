@@ -28,7 +28,7 @@ function DurationDemo({ name }: { name: keyof typeof duration }) {
           style={{
             transitionDuration: vars.duration[name],
             transform: moved
-              ? "translateX(calc(var(--ali-space-24) - var(--ali-space-3)))"
+              ? "translateX(calc(var(--ali-spacing-24) - var(--ali-spacing-3)))"
               : "none",
           }}
         />

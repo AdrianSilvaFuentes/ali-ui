@@ -13,10 +13,7 @@ import {
   gray,
   lineHeight,
   primary,
-  radius as radiusScale,
   red,
-  shadow as shadowScale,
-  space,
 } from "./primitives.ts";
 
 export type ThemeName = "light" | "dark";
@@ -127,46 +124,6 @@ export const contrastPairs: readonly (readonly [ColorName, ColorName, number])[]
   ["focus-ring", "surface", 3],
 ];
 
-/** Espaçamentos: margens, preenchimentos, distâncias e tamanhos (escala do Tailwind). */
-export const spacing = {
-  "0": space["0"],
-  px: space.px,
-  "0.5": space["0.5"],
-  "1": space["1"],
-  "1.5": space["1.5"],
-  "2": space["2"],
-  "2.5": space["2.5"],
-  "3": space["3"],
-  "3.5": space["3.5"],
-  "4": space["4"],
-  "5": space["5"],
-  "6": space["6"],
-  "7": space["7"],
-  "8": space["8"],
-  "9": space["9"],
-  "10": space["10"],
-  "11": space["11"],
-  "12": space["12"],
-  "14": space["14"],
-  "16": space["16"],
-  "20": space["20"],
-  "24": space["24"],
-  "28": space["28"],
-  "32": space["32"],
-} as const;
-
-/** Raios de canto, do reto (none) ao totalmente arredondado (full). */
-export const radius = {
-  none: radiusScale.none,
-  sm: radiusScale.sm,
-  md: radiusScale.md,
-  lg: radiusScale.lg,
-  xl: radiusScale.xl,
-  "2xl": radiusScale["2xl"],
-  "3xl": radiusScale["3xl"],
-  full: radiusScale.full,
-} as const;
-
 /** Famílias de fonte por uso. */
 export const font = {
   body: fontFamily.sans,
@@ -226,15 +183,4 @@ export const duration = {
   fast: durationScale[100],
   base: durationScale[200],
   slow: durationScale[300],
-} as const;
-
-/** Sombras por nível de elevação, do mais baixo (2xs) ao mais alto (2xl). */
-export const shadow = {
-  "2xs": shadowScale["2xs"],
-  xs: shadowScale.xs,
-  sm: shadowScale.sm,
-  md: shadowScale.md,
-  lg: shadowScale.lg,
-  xl: shadowScale.xl,
-  "2xl": shadowScale["2xl"],
 } as const;

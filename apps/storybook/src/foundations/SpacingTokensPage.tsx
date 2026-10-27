@@ -1,5 +1,5 @@
-import { spacing, vars } from "@ali/tokens";
-import { Section, spacingSteps, Table, TokensLayout, toPx } from "./TokensLayout";
+import { cssVarName, spacing, vars } from "@ali/tokens";
+import { Code, Section, spacingSteps, Table, TokensLayout, toPx } from "./TokensLayout";
 
 export function SpacingTokensPage() {
   return (
@@ -10,19 +10,24 @@ export function SpacingTokensPage() {
       {() => (
         <Section
           title="Escala"
-          description="Valores fora da escala, como p-13, não existem. Para medidas fixas, use sempre um destes passos."
+          description="Convenção: o token 4 vira a variável --ali-spacing-4 e as classes p-4, gap-4, w-4. Valores fora da escala, como p-13, não existem."
         >
-          <Table columns={["Token", "px", "rem", "Exemplos de classe", "Visual"]}>
+          <Table columns={["Token", "px", "rem", "Variável CSS", "Exemplos de classe", "Visual"]}>
             {spacingSteps.map((name) => (
               <tr key={name} className="border-t border-border align-middle">
                 <td className="px-4 py-2 text-label whitespace-nowrap">{name}</td>
                 <td className="px-4 py-2 font-mono text-body-sm">{toPx(spacing[name])}</td>
                 <td className="px-4 py-2 font-mono text-body-sm">{spacing[name]}</td>
-                <td className="px-4 py-2 font-mono text-caption text-muted-foreground whitespace-nowrap">
-                  p-{name} · gap-{name} · w-{name}
+                <td className="px-4 py-2 whitespace-nowrap">
+                  <Code>{cssVarName("spacing", name)}</Code>
+                </td>
+                <td className="px-4 py-2 whitespace-nowrap">
+                  <Code>
+                    p-{name} · gap-{name} · w-{name}
+                  </Code>
                 </td>
                 <td className="w-full px-4 py-2">
-                  <div className="h-3 bg-primary" style={{ width: vars.space[name] }} />
+                  <div className="h-3 bg-primary" style={{ width: vars.spacing[name] }} />
                 </td>
               </tr>
             ))}
