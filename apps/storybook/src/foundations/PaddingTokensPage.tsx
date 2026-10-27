@@ -1,4 +1,6 @@
 import { cssVarName, spacing, vars } from "@ali/tokens";
+// Cor de marca direto do primitivo, só para ilustrar a documentação.
+import { primary } from "@ali/tokens/primitives";
 import { Code, Section, spacingSteps, Table, TokensLayout, toPx } from "./TokensLayout";
 
 // Utilitários de padding do Tailwind e os lados que cada um preenche.
@@ -55,10 +57,12 @@ export function PaddingTokensPage() {
                   <td className="px-4 py-2">
                     {/* A área colorida é o padding; o conteúdo fica no centro. */}
                     <div
-                      className="inline-flex rounded-sm bg-primary"
-                      style={{ padding: vars.spacing[name] }}
+                      className="inline-flex rounded-sm"
+                      style={{ padding: vars.spacing[name], backgroundColor: primary[600] }}
                     >
-                      <span className="rounded-sm bg-surface px-2 text-caption">Conteúdo</span>
+                      <span className="rounded-sm bg-surface-raised px-2 text-caption">
+                        Conteúdo
+                      </span>
                     </div>
                   </td>
                 </tr>

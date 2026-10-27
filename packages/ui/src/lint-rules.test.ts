@@ -51,8 +51,8 @@ describe("regra: sem valores arbitrários fixos do Tailwind", () => {
   });
 
   it.each([
-    "p-4 bg-primary text-body rounded-sm",
-    "data-[state=open]:bg-muted",
+    "p-4 bg-surface-raised text-body rounded-sm",
+    "data-[state=open]:bg-surface-sunken",
     "[&>svg]:size-4",
     "grid-cols-[repeat(2,1fr)]",
     "bg-[var(--ali-color-primary)]",
@@ -78,7 +78,7 @@ describe("regra: componentes não importam primitivos", () => {
 
   it("passa ao importar os tokens semânticos", () => {
     expect(
-      lint('import { vars } from "@ali/tokens";\n\nexport const x = vars.color.primary;\n'),
+      lint('import { vars } from "@ali/tokens";\n\nexport const x = vars.color.link;\n'),
     ).toMatchObject({ ok: true });
   });
 });

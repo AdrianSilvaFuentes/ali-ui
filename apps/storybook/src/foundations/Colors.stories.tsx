@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { ColorGroupPage } from "./ColorTokensPage";
+import { ElevationDemo } from "./ElevationDemo";
 import { PrimitiveTokensPage } from "./PrimitiveTokensPage";
 import { PlaceholderPage } from "./TokensLayout";
 
@@ -19,8 +20,10 @@ export const Surface: Story = {
     <ColorGroupPage
       group="surface"
       title="Surface"
-      description="Fundos: da página, de elementos elevados e de áreas preenchidas com a cor de marca."
-    />
+      description="Fundos por altura: rebaixado (sunken), a página, cartões (raised) e menus e diálogos (overlay)."
+    >
+      <ElevationDemo />
+    </ColorGroupPage>
   ),
 };
 

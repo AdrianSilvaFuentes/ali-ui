@@ -1,27 +1,70 @@
-import { type ColorName, color, contrastPairs, type ThemeName, vars } from "@ali/tokens";
+import { type ColorName, color, contrastPairs, type ThemeName } from "@ali/tokens";
 import { contrastRatio, toHex } from "@ali/tokens/color";
+// Os primitivos aparecem aqui só para mostrar de onde vem cada cor. Componentes nunca os usam.
+import {
+  blue,
+  green,
+  neutralDark,
+  neutralLight,
+  orange,
+  primary,
+  red,
+  yellow,
+} from "@ali/tokens/primitives";
+import type { ReactNode } from "react";
 import { formatRatio, Section, Swatch, Table, TokensLayout } from "./TokensLayout";
 
-function ContrastCell({ name, theme }: { name: ColorName; theme: ThemeName }) {
+/** Contraste do token no tema, em uma linha. */
+function ContrastLine({ name, theme }: { name: ColorName; theme: ThemeName }) {
   const pair = contrastPairs.find(([fg, bg]) => fg === name || bg === name);
   if (!pair) {
-    return <span className="text-body-sm text-muted-foreground">Decorativa, sem mínimo</span>;
+    return <span className="text-caption text-muted-foreground">Decorativa, sem mínimo</span>;
   }
   const [fg, bg, min] = pair;
   const other = fg === name ? bg : fg;
   const ratio = contrastRatio(color[fg][theme], color[bg][theme]);
   const passes = ratio >= min;
   return (
-    <div className="flex flex-col">
-      <span className="font-mono text-body-sm">
-        {formatRatio(ratio)} <span className="text-muted-foreground">com {other}</span>
-      </span>
-      <span className={passes ? "text-caption text-muted-foreground" : "text-caption text-danger"}>
-        {passes ? "Passa" : "Não passa"} · mínimo {formatRatio(min)}
-      </span>
+    <span className={passes ? "text-caption text-muted-foreground" : "text-caption text-danger"}>
+      {formatRatio(ratio)} com {other} · {passes ? "passa" : "não passa"} (mín. {formatRatio(min)})
+    </span>
+  );
+}
+
+/** Nome do primitivo de onde vem um valor, como "neutral-light-50". */
+function primitiveName(value: string): string {
+  for (const [scale, steps] of Object.entries(scales)) {
+    const step = Object.entries(steps).find(([, v]) => v === value)?.[0];
+    if (step) return `${scale}-${step}`;
+  }
+  return value;
+}
+
+/** Célula de um tema: amostra, primitivo, hex e contraste. */
+function ThemeCell({ name, theme }: { name: ColorName; theme: ThemeName }) {
+  const value = color[name][theme];
+  return (
+    <div className="flex items-start gap-3">
+      <Swatch color={value} />
+      <div className="flex flex-col gap-0.5">
+        <span className="font-mono text-body-sm">{primitiveName(value)}</span>
+        <span className="font-mono text-caption text-muted-foreground">{toHex(value)}</span>
+        <ContrastLine name={name} theme={theme} />
+      </div>
     </div>
   );
 }
+
+const scales = {
+  "neutral-light": neutralLight,
+  "neutral-dark": neutralDark,
+  primary,
+  red,
+  green,
+  orange,
+  yellow,
+  blue,
+};
 
 /** Páginas de cor no Storybook. */
 export type ColorGroup = "surface" | "text" | "border" | "semantic";
@@ -31,11 +74,10 @@ export type ColorGroup = "surface" | "text" | "border" | "semantic";
  * de tipo, então nenhum fica de fora da documentação.
  */
 const colorGroup = {
-  background: "surface",
+  "surface-sunken": "surface",
   surface: "surface",
-  muted: "surface",
-  primary: "surface",
-  "primary-hover": "surface",
+  "surface-raised": "surface",
+  "surface-overlay": "surface",
   foreground: "text",
   "muted-foreground": "text",
   link: "text",
@@ -52,45 +94,48 @@ export function ColorGroupPage({
   group,
   title,
   description,
+  children,
 }: {
   group: ColorGroup;
   title: string;
   description: string;
+  /** Conteúdo extra mostrado depois da tabela, como uma demonstração. */
+  children?: ReactNode;
 }) {
   const names = (Object.keys(colorGroup) as ColorName[]).filter(
     (name) => colorGroup[name] === group,
   );
   return (
     <TokensLayout title={title} description={description}>
-      {(theme) => (
-        <Section
-          title="Tokens"
-          description="Hex e contraste mudam com o tema. O contraste é medido com a cor que acompanha o token e segue a WCAG AA."
-        >
-          <Table columns={["Token", "Hex", "Contraste"]}>
-            {names.map((name) => (
-              <tr key={name} className="border-t border-border align-top">
-                <td className="px-4 py-3">
-                  <div className="flex items-start gap-3">
-                    <Swatch color={vars.color[name]} />
+      {() => (
+        <>
+          <Section
+            title="Tokens"
+            description="Cada token tem um primitivo no tema claro e outro no escuro. O contraste é medido com a cor que acompanha o token e segue a WCAG AA."
+          >
+            <Table columns={["Token", "Light", "Dark"]}>
+              {names.map((name) => (
+                <tr key={name} className="border-t border-border align-top">
+                  <td className="px-4 py-3">
                     <div className="flex flex-col">
                       <span className="text-label">{name}</span>
                       <span className="text-caption text-muted-foreground">
                         {color[name].description}
                       </span>
                     </div>
-                  </div>
-                </td>
-                <td className="px-4 py-3">
-                  <span className="font-mono text-body-sm">{toHex(color[name][theme])}</span>
-                </td>
-                <td className="px-4 py-3">
-                  <ContrastCell name={name} theme={theme} />
-                </td>
-              </tr>
-            ))}
-          </Table>
-        </Section>
+                  </td>
+                  <td className="px-4 py-3">
+                    <ThemeCell name={name} theme="light" />
+                  </td>
+                  <td className="px-4 py-3">
+                    <ThemeCell name={name} theme="dark" />
+                  </td>
+                </tr>
+              ))}
+            </Table>
+          </Section>
+          {children}
+        </>
       )}
     </TokensLayout>
   );

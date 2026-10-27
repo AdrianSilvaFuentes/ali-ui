@@ -77,7 +77,11 @@ describe("integração com o Tailwind", () => {
   }
 
   const semanticClasses = [
-    "bg-background",
+    "bg-surface",
+    "bg-surface-sunken",
+    "bg-surface-overlay",
+    "shadow-raised",
+    "shadow-overlay",
     "text-foreground",
     "border-border-strong",
     "outline-focus-ring",
@@ -109,6 +113,8 @@ describe("integração com o Tailwind", () => {
   // Classes padrão do Tailwind que expõem valores fora dos tokens.
   const removedClasses = [
     "bg-gray-500",
+    "bg-muted",
+    "bg-primary",
     "text-red-600",
     "bg-white",
     "p-13",

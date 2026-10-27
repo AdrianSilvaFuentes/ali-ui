@@ -39,7 +39,7 @@ export function TokensLayout({
   return (
     <div
       data-theme={theme}
-      className="flex min-h-screen flex-col gap-12 bg-background p-8 font-body text-body text-foreground"
+      className="flex min-h-screen flex-col gap-12 bg-surface p-8 font-body text-body text-foreground"
     >
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
@@ -49,7 +49,7 @@ export function TokensLayout({
         <button
           type="button"
           onClick={() => setTheme(nextTheme)}
-          className="rounded-sm border border-border-strong bg-surface px-4 py-2 text-label transition-colors duration-fast hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
+          className="rounded-sm border border-border-strong bg-surface-raised px-4 py-2 text-label transition-colors duration-fast hover:bg-surface-sunken focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
         >
           {theme === "light" ? "Mudar para tema escuro" : "Mudar para tema claro"}
         </button>
@@ -86,7 +86,7 @@ export function Table({ columns, children }: { columns: string[]; children: Reac
   return (
     <div className="overflow-x-auto rounded-md border border-border">
       <table className="w-full border-collapse text-left">
-        <thead className="bg-muted text-label">
+        <thead className="bg-surface-sunken text-label">
           <tr>
             {columns.map((column) => (
               <th key={column} scope="col" className="px-4 py-2 whitespace-nowrap">
@@ -120,7 +120,7 @@ export function PlaceholderPage({ title, description }: { title: string; descrip
           title="Ainda sem tokens"
           description="Esta página ganha conteúdo quando os tokens forem definidos."
         >
-          <p className="max-w-prose rounded-md border border-border bg-surface p-4 text-body-sm text-muted-foreground">
+          <p className="max-w-prose rounded-md border border-border bg-surface-raised p-4 text-body-sm text-muted-foreground">
             Nada definido por enquanto.
           </p>
         </Section>

@@ -11,10 +11,12 @@ import {
   fontSize,
   fontWeight as fontWeightScale,
   lineHeight,
+  neutralDark,
   neutralLight,
   primary,
   red,
 } from "./primitives.ts";
+import { shadow } from "./scales.ts";
 
 export type ThemeName = "light" | "dark";
 
@@ -26,54 +28,49 @@ export interface ColorToken {
 
 /** Cores por papel, com um valor para o tema claro e outro para o escuro. */
 export const color = {
-  background: {
+  "surface-sunken": {
+    light: neutralLight[100],
+    dark: neutralDark[950],
+    description: "Abaixo da página: áreas rebaixadas, fundo de colunas e poços.",
+  },
+  surface: {
     light: neutralLight[50],
-    dark: neutralLight[950],
-    description: "Fundo da página.",
+    dark: neutralDark[900],
+    description: "A página: fundo padrão.",
+  },
+  "surface-raised": {
+    light: neutralLight[50],
+    dark: neutralDark[800],
+    description: "Um pouco acima da página: cartões. Use com shadow-raised.",
+  },
+  "surface-overlay": {
+    light: neutralLight[50],
+    dark: neutralDark[700],
+    description: "Acima de tudo: menus, popovers e diálogos. Use com shadow-overlay.",
   },
   foreground: {
     light: neutralLight[900],
-    dark: neutralLight[50],
+    dark: neutralDark[50],
     description: "Texto e ícones principais.",
-  },
-  surface: {
-    light: neutralLight[100],
-    dark: neutralLight[900],
-    description: "Fundo de elementos elevados: cartões, menus, diálogos.",
-  },
-  muted: {
-    light: neutralLight[100],
-    dark: neutralLight[800],
-    description: "Fundo discreto: áreas secundárias e destaque sutil ao passar o mouse.",
   },
   "muted-foreground": {
     light: neutralLight[600],
-    dark: neutralLight[300],
+    dark: neutralDark[200],
     description: "Texto secundário: legendas, dicas, metadados.",
   },
   border: {
     light: neutralLight[200],
-    dark: neutralLight[800],
+    dark: neutralDark[600],
     description: "Divisórias e contornos decorativos.",
   },
   "border-strong": {
     light: neutralLight[500],
-    dark: neutralLight[400],
+    dark: neutralDark[400],
     description: "Contorno de campos e controles (contraste mínimo de 3:1).",
-  },
-  primary: {
-    light: primary[600],
-    dark: primary[600],
-    description: "Cor de marca: fundo de botões primários e marcadores.",
-  },
-  "primary-hover": {
-    light: primary[700],
-    dark: primary[500],
-    description: "Cor de marca ao passar o mouse ou pressionar.",
   },
   "primary-foreground": {
     light: neutralLight[950],
-    dark: neutralLight[950],
+    dark: neutralDark[950],
     description: "Texto e ícones sobre a cor de marca.",
   },
   link: {
@@ -88,12 +85,12 @@ export const color = {
   },
   danger: {
     light: red[700],
-    dark: red[400],
+    dark: red[300],
     description: "Erros e ações destrutivas.",
   },
   "danger-foreground": {
     light: neutralLight[50],
-    dark: neutralLight[950],
+    dark: neutralDark[950],
     description: "Texto e ícones sobre a cor de erro.",
   },
 } as const satisfies Record<string, ColorToken>;
@@ -106,22 +103,28 @@ export type ColorName = keyof typeof color;
  * todos os pares nos dois temas, e a documentação mostra o primeiro par de cada token.
  */
 export const contrastPairs: readonly (readonly [ColorName, ColorName, number])[] = [
-  ["foreground", "background", 4.5],
-  ["muted-foreground", "background", 4.5],
   ["foreground", "surface", 4.5],
   ["muted-foreground", "surface", 4.5],
-  ["foreground", "muted", 4.5],
-  ["muted-foreground", "muted", 4.5],
-  ["link", "background", 4.5],
+  ["foreground", "surface-sunken", 4.5],
+  ["muted-foreground", "surface-sunken", 4.5],
+  ["foreground", "surface-raised", 4.5],
+  ["muted-foreground", "surface-raised", 4.5],
+  ["foreground", "surface-overlay", 4.5],
+  ["muted-foreground", "surface-overlay", 4.5],
   ["link", "surface", 4.5],
-  ["primary-foreground", "primary", 4.5],
-  ["primary-foreground", "primary-hover", 4.5],
-  ["danger", "background", 4.5],
+  ["danger", "surface", 4.5],
+  ["link", "surface-raised", 4.5],
+  ["danger", "surface-raised", 4.5],
+  ["link", "surface-overlay", 4.5],
+  ["danger", "surface-overlay", 4.5],
   ["danger-foreground", "danger", 4.5],
-  ["border-strong", "background", 3],
   ["border-strong", "surface", 3],
-  ["focus-ring", "background", 3],
+  ["border-strong", "surface-sunken", 3],
+  ["border-strong", "surface-raised", 3],
+  ["border-strong", "surface-overlay", 3],
   ["focus-ring", "surface", 3],
+  ["focus-ring", "surface-raised", 3],
+  ["focus-ring", "surface-overlay", 3],
 ];
 
 /** Famílias de fonte por uso. */
@@ -183,4 +186,10 @@ export const duration = {
   fast: durationScale[100],
   base: durationScale[200],
   slow: durationScale[300],
+} as const;
+
+/** Sombra de cada superfície elevada. No tema escuro a elevação vem mais da cor. */
+export const elevation = {
+  raised: shadow.sm,
+  overlay: shadow.lg,
 } as const;

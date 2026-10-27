@@ -8,10 +8,21 @@ import { cssVarName, type TokenGroup } from "./css.ts";
 export { cssVarName, type TokenGroup };
 
 import { radius, shadow, spacing } from "./scales.ts";
-import { color, contrastPairs, duration, font, fontWeight, text } from "./semantic.ts";
+import { color, contrastPairs, duration, elevation, font, fontWeight, text } from "./semantic.ts";
 
 export type { ColorName, ColorToken, TextStyle, ThemeName } from "./semantic.ts";
-export { color, contrastPairs, duration, font, fontWeight, radius, shadow, spacing, text };
+export {
+  color,
+  contrastPairs,
+  duration,
+  elevation,
+  font,
+  fontWeight,
+  radius,
+  shadow,
+  spacing,
+  text,
+};
 
 type VarMap<T> = { readonly [K in keyof T]: string };
 
@@ -23,7 +34,7 @@ function varsOf<T extends object>(group: TokenGroup, tokens: T): VarMap<T> {
 
 /**
  * Referências às variáveis CSS, para uso em estilos inline.
- * Ex.: `vars.color.background` → `"var(--ali-color-background)"`.
+ * Ex.: `vars.color.surface` → `"var(--ali-color-surface)"`.
  */
 export const vars = {
   color: varsOf("color", color),
@@ -34,4 +45,5 @@ export const vars = {
   text: varsOf("text", text),
   duration: varsOf("duration", duration),
   shadow: varsOf("shadow", shadow),
+  elevation: varsOf("elevation", elevation),
 } as const;
