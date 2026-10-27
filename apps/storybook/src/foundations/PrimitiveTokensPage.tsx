@@ -9,20 +9,20 @@ function ScaleTable({ name, scale }: { name: string; scale: Record<string, strin
     <Table columns={["Passo", "Hex", "OKLCH", "Contraste com gray-50", "Contraste com gray-950"]}>
       {Object.entries(scale).map(([step, value]) => (
         <tr key={step} className="border-t border-border align-middle">
-          <td className="px-md py-sm">
-            <div className="flex items-center gap-sm">
+          <td className="px-4 py-3">
+            <div className="flex items-center gap-3">
               <Swatch color={value} />
               <span className="text-label">
                 {name}-{step}
               </span>
             </div>
           </td>
-          <td className="px-md py-sm font-mono text-body-sm">{toHex(value)}</td>
-          <td className="px-md py-sm font-mono text-body-sm whitespace-nowrap">{toOklch(value)}</td>
-          <td className="px-md py-sm font-mono text-body-sm">
+          <td className="px-4 py-3 font-mono text-body-sm">{toHex(value)}</td>
+          <td className="px-4 py-3 font-mono text-body-sm whitespace-nowrap">{toOklch(value)}</td>
+          <td className="px-4 py-3 font-mono text-body-sm">
             {formatRatio(contrastRatio(value, gray[50]))}
           </td>
-          <td className="px-md py-sm font-mono text-body-sm">
+          <td className="px-4 py-3 font-mono text-body-sm">
             {formatRatio(contrastRatio(value, gray[950]))}
           </td>
         </tr>

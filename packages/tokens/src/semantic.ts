@@ -127,18 +127,32 @@ export const contrastPairs: readonly (readonly [ColorName, ColorName, number])[]
   ["focus-ring", "surface", 3],
 ];
 
-/** Espaçamentos em tamanhos de camiseta, do menor (3xs) ao maior (4xl). */
+/** Espaçamentos: margens, preenchimentos, distâncias e tamanhos (escala do Tailwind). */
 export const spacing = {
-  "3xs": space[2],
-  "2xs": space[4],
-  xs: space[8],
-  sm: space[12],
-  md: space[16],
-  lg: space[24],
-  xl: space[32],
-  "2xl": space[48],
-  "3xl": space[64],
-  "4xl": space[96],
+  "0": space["0"],
+  px: space.px,
+  "0.5": space["0.5"],
+  "1": space["1"],
+  "1.5": space["1.5"],
+  "2": space["2"],
+  "2.5": space["2.5"],
+  "3": space["3"],
+  "3.5": space["3.5"],
+  "4": space["4"],
+  "5": space["5"],
+  "6": space["6"],
+  "7": space["7"],
+  "8": space["8"],
+  "9": space["9"],
+  "10": space["10"],
+  "11": space["11"],
+  "12": space["12"],
+  "14": space["14"],
+  "16": space["16"],
+  "20": space["20"],
+  "24": space["24"],
+  "28": space["28"],
+  "32": space["32"],
 } as const;
 
 /** Raios de canto, do reto (none) ao totalmente arredondado (full). */

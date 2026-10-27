@@ -74,8 +74,13 @@ describe("integração com o Tailwind", () => {
     "text-foreground",
     "border-border-strong",
     "outline-focus-ring",
-    "p-md",
-    "gap-xs",
+    "p-0",
+    "p-px",
+    "p-0.5",
+    "p-4",
+    "gap-2",
+    "w-32",
+    "-mt-4",
     "rounded-none",
     "rounded-sm",
     "rounded-3xl",
@@ -90,7 +95,8 @@ describe("integração com o Tailwind", () => {
   ];
 
   it.each(semanticClasses)("gera a classe semântica %s", async (cls) => {
-    expect(await buildUtilities([cls])).toContain(`.${cls} {`);
+    // No CSS gerado, o ponto do nome da classe vem escapado: `.p-0\\.5`.
+    expect(await buildUtilities([cls])).toContain(`.${cls.replaceAll(".", "\\.")} {`);
   });
 
   // Classes padrão do Tailwind que expõem valores fora dos tokens.
@@ -98,7 +104,10 @@ describe("integração com o Tailwind", () => {
     "bg-gray-500",
     "text-red-600",
     "bg-white",
-    "p-4",
+    "p-13",
+    "p-4.5",
+    "w-40",
+    "p-md",
     "text-sm",
     "rounded-xs",
     "rounded-4xl",
@@ -109,6 +118,6 @@ describe("integração com o Tailwind", () => {
   ];
 
   it.each(removedClasses)("não gera a classe padrão %s", async (cls) => {
-    expect(await buildUtilities([cls])).not.toContain(`.${cls} {`);
+    expect(await buildUtilities([cls])).not.toContain(`.${cls.replaceAll(".", "\\.")} {`);
   });
 });

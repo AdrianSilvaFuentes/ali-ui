@@ -70,8 +70,8 @@ export function ColorGroupPage({
           <Table columns={["Token", "Hex", "Contraste"]}>
             {names.map((name) => (
               <tr key={name} className="border-t border-border align-top">
-                <td className="px-md py-sm">
-                  <div className="flex items-start gap-sm">
+                <td className="px-4 py-3">
+                  <div className="flex items-start gap-3">
                     <Swatch color={vars.color[name]} />
                     <div className="flex flex-col">
                       <span className="text-label">{name}</span>
@@ -81,10 +81,10 @@ export function ColorGroupPage({
                     </div>
                   </div>
                 </td>
-                <td className="px-md py-sm">
+                <td className="px-4 py-3">
                   <span className="font-mono text-body-sm">{toHex(color[name][theme])}</span>
                 </td>
-                <td className="px-md py-sm">
+                <td className="px-4 py-3">
                   <ContrastCell name={name} theme={theme} />
                 </td>
               </tr>

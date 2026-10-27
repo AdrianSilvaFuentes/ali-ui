@@ -27,7 +27,8 @@ export type TokenGroup =
 
 /** Nome da variável CSS de um token. Ex.: `cssVarName("color", "background")` → `--ali-color-background`. */
 export function cssVarName(group: TokenGroup, key: string): string {
-  return `--ali-${group}-${key}`;
+  // Ponto não é permitido em nomes de variáveis CSS: `0.5` vira `0_5`.
+  return `--ali-${group}-${key.replaceAll(".", "_")}`;
 }
 
 const HEADER = "/* Gerado automaticamente a partir de packages/tokens/src. Não edite à mão. */\n";
@@ -95,7 +96,7 @@ ${declarations(staticEntries())}
 /**
  * Liga os tokens ao Tailwind CSS 4. Apaga os valores padrão do Tailwind (cores,
  * fontes, tamanhos, espaçamentos, raios e sombras) para que só existam classes com
- * nomes semânticos, como `bg-background`, `text-body`, `p-md`, `rounded-sm` e `shadow-md`.
+ * nomes semânticos, como `bg-background`, `text-body`, `p-4`, `rounded-sm` e `shadow-md`.
  */
 export function renderTailwindCss(): string {
   const v = (group: TokenGroup, key: string) => `var(${cssVarName(group, key)})`;
@@ -113,7 +114,11 @@ export function renderTailwindCss(): string {
     ["--text-shadow-*", "initial"],
     ["--transition-duration-*", "initial"],
     ...Object.keys(color).map((k): [string, string] => [`--color-${k}`, v("color", k)]),
-    ...Object.keys(spacing).map((k): [string, string] => [`--spacing-${k}`, v("space", k)]),
+    // No tema do Tailwind o ponto vai escapado: `--spacing-0\.5` gera `p-0.5`.
+    ...Object.keys(spacing).map((k): [string, string] => [
+      `--spacing-${k.replaceAll(".", "\\.")}`,
+      v("space", k),
+    ]),
     ...Object.keys(radius).map((k): [string, string] => [`--radius-${k}`, v("radius", k)]),
     ...Object.keys(font).map((k): [string, string] => [`--font-${k}`, v("font", k)]),
     ...Object.keys(fontWeight).map((k): [string, string] => [

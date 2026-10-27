@@ -1,6 +1,6 @@
 // Bloqueia valores arbitrários fixos do Tailwind em textos de classe, como
 // `bg-[#ff0000]`, `p-[13px]` ou `text-[oklch(...)]`. Cores, tamanhos e espaçamentos
-// devem vir dos tokens semânticos (`bg-primary`, `p-md`, `text-body`).
+// devem vir dos tokens semânticos (`bg-primary`, `p-4`, `text-body`).
 //
 // Continuam permitidos: variantes (`data-[state=open]:`, `[&>svg]:`), valores sem cor
 // ou medida fixa (`grid-cols-[repeat(2,1fr)]`) e variáveis CSS (`bg-[var(--ali-...)]`).
@@ -12,5 +12,5 @@ or {
   JsTemplateChunkElement()
 } as $classes where {
   $classes <: r"(?s).*\[[^\]\s]*(?:#[0-9a-fA-F]{3,8}|(?:rgb|rgba|hsl|hsla|hwb|lab|lch|oklab|oklch|color)\(|[0-9.]+(?:px|rem|em|%|vh|vw|vmin|vmax|svh|dvh|lvh|ch|ex|pt|cm|mm|in))[^\]\s]*\](?:[^:].*)?",
-  register_diagnostic(span=$classes, message="Valor arbitrário fixo no Tailwind (cor, tamanho ou espaçamento). Use um token semântico de @ali/tokens, como bg-primary, p-md ou text-body.")
+  register_diagnostic(span=$classes, message="Valor arbitrário fixo no Tailwind (cor, tamanho ou espaçamento). Use um token semântico de @ali/tokens, como bg-primary, p-4 ou text-body.")
 }

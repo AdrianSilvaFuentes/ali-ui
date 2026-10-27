@@ -42,13 +42,13 @@ export function TextStylesPage() {
           <Table columns={["Token", "Tamanho", "Altura de linha", "Peso", "Exemplo"]}>
             {(Object.keys(text) as (keyof typeof text)[]).map((name) => (
               <tr key={name} className="border-t border-border align-middle">
-                <td className="px-md py-sm text-label whitespace-nowrap">text-{name}</td>
-                <td className="px-md py-sm font-mono text-body-sm whitespace-nowrap">
+                <td className="px-4 py-3 text-label whitespace-nowrap">text-{name}</td>
+                <td className="px-4 py-3 font-mono text-body-sm whitespace-nowrap">
                   {text[name].fontSize} · {toPx(text[name].fontSize)}
                 </td>
-                <td className="px-md py-sm font-mono text-body-sm">{text[name].lineHeight}</td>
-                <td className="px-md py-sm font-mono text-body-sm">{text[name].fontWeight}</td>
-                <td className="px-md py-sm">
+                <td className="px-4 py-3 font-mono text-body-sm">{text[name].lineHeight}</td>
+                <td className="px-4 py-3 font-mono text-body-sm">{text[name].fontWeight}</td>
+                <td className="px-4 py-3">
                   <p className={textClass[name]}>{sample}</p>
                 </td>
               </tr>
@@ -71,11 +71,11 @@ export function FontFamiliesPage() {
           <Table columns={["Token", "Família", "Exemplo"]}>
             {(Object.keys(font) as (keyof typeof font)[]).map((name) => (
               <tr key={name} className="border-t border-border align-middle">
-                <td className="px-md py-sm text-label whitespace-nowrap">font-{name}</td>
-                <td className="px-md py-sm">
+                <td className="px-4 py-3 text-label whitespace-nowrap">font-{name}</td>
+                <td className="px-4 py-3">
                   <Code>{font[name]}</Code>
                 </td>
-                <td className="px-md py-sm">
+                <td className="px-4 py-3">
                   <p className={`text-body ${fontClass[name]}`}>{sample}</p>
                 </td>
               </tr>
@@ -95,9 +95,9 @@ export function FontWeightsPage() {
           <Table columns={["Token", "Peso", "Exemplo"]}>
             {(Object.keys(fontWeight) as (keyof typeof fontWeight)[]).map((name) => (
               <tr key={name} className="border-t border-border align-middle">
-                <td className="px-md py-sm text-label whitespace-nowrap">font-{name}</td>
-                <td className="px-md py-sm font-mono text-body-sm">{fontWeight[name]}</td>
-                <td className="px-md py-sm">
+                <td className="px-4 py-3 text-label whitespace-nowrap">font-{name}</td>
+                <td className="px-4 py-3 font-mono text-body-sm">{fontWeight[name]}</td>
+                <td className="px-4 py-3">
                   <p className={`text-body ${weightClass[name]}`}>{sample}</p>
                 </td>
               </tr>

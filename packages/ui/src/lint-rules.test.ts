@@ -45,15 +45,15 @@ describe("regra: sem valores arbitrários fixos do Tailwind", () => {
     "[color:#123456]",
     "hover:bg-[#ff0000]/50",
   ])("falha com %s", (cls) => {
-    const { ok, output } = lint(component(`p-md ${cls}`));
+    const { ok, output } = lint(component(`p-4 ${cls}`));
     expect(ok).toBe(false);
     expect(output).toContain("Valor arbitrário fixo no Tailwind");
   });
 
   it.each([
-    "p-md bg-primary text-body rounded-sm",
+    "p-4 bg-primary text-body rounded-sm",
     "data-[state=open]:bg-muted",
-    "[&>svg]:size-md",
+    "[&>svg]:size-4",
     "grid-cols-[repeat(2,1fr)]",
     "bg-[var(--ali-color-primary)]",
   ])("passa com %s", (cls) => {
@@ -61,9 +61,9 @@ describe("regra: sem valores arbitrários fixos do Tailwind", () => {
   });
 
   it("também vale para classes em textos fora do JSX (cva, cn)", () => {
-    expect(lint(`export const base = "p-md p-[13px]";\n`).ok).toBe(false);
+    expect(lint(`export const base = "p-4 p-[13px]";\n`).ok).toBe(false);
     // biome-ignore lint/suspicious/noTemplateCurlyInString: o texto é código de exemplo.
-    expect(lint("export const base = `p-md ${String(1)} bg-[#fff]`;\n").ok).toBe(false);
+    expect(lint("export const base = `p-4 ${String(1)} bg-[#fff]`;\n").ok).toBe(false);
   });
 });
 

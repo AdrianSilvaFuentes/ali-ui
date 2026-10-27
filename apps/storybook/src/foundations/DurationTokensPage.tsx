@@ -13,22 +13,22 @@ const usage: Record<keyof typeof duration, string> = {
 function DurationDemo({ name }: { name: keyof typeof duration }) {
   const [moved, setMoved] = useState(false);
   return (
-    <div className="flex items-center gap-sm">
+    <div className="flex items-center gap-3">
       <button
         type="button"
         onClick={() => setMoved((value) => !value)}
         aria-pressed={moved}
-        className="rounded-sm border border-border-strong bg-surface px-sm py-3xs text-label hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
+        className="rounded-sm border border-border-strong bg-surface px-3 py-0.5 text-label hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
       >
         Testar
       </button>
-      <div className="relative h-sm w-4xl rounded-full bg-muted ring-1 ring-border">
+      <div className="relative h-3 w-24 rounded-full bg-muted ring-1 ring-border">
         <div
-          className="absolute top-0 left-0 size-sm rounded-full bg-primary transition-transform motion-reduce:transition-none"
+          className="absolute top-0 left-0 size-3 rounded-full bg-primary transition-transform motion-reduce:transition-none"
           style={{
             transitionDuration: vars.duration[name],
             transform: moved
-              ? "translateX(calc(var(--ali-space-4xl) - var(--ali-space-sm)))"
+              ? "translateX(calc(var(--ali-space-24) - var(--ali-space-3)))"
               : "none",
           }}
         />
@@ -48,10 +48,10 @@ export function DurationTokensPage() {
           <Table columns={["Token", "Valor", "Uso", "Exemplo"]}>
             {(Object.keys(duration) as (keyof typeof duration)[]).map((name) => (
               <tr key={name} className="border-t border-border align-middle">
-                <td className="px-md py-sm text-label whitespace-nowrap">duration-{name}</td>
-                <td className="px-md py-sm font-mono text-body-sm">{duration[name]}</td>
-                <td className="px-md py-sm text-body-sm text-muted-foreground">{usage[name]}</td>
-                <td className="px-md py-sm">
+                <td className="px-4 py-3 text-label whitespace-nowrap">duration-{name}</td>
+                <td className="px-4 py-3 font-mono text-body-sm">{duration[name]}</td>
+                <td className="px-4 py-3 text-body-sm text-muted-foreground">{usage[name]}</td>
+                <td className="px-4 py-3">
                   <DurationDemo name={name} />
                 </td>
               </tr>

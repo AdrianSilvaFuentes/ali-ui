@@ -15,16 +15,16 @@ export function ShadowTokensPage() {
           <Table columns={["Token", "Classe", "Valor", "Exemplo"]}>
             {(Object.keys(shadow) as (keyof typeof shadow)[]).map((name) => (
               <tr key={name} className="border-t border-border align-middle">
-                <td className="px-md py-sm text-label whitespace-nowrap">{name}</td>
-                <td className="px-md py-sm font-mono text-body-sm whitespace-nowrap">
+                <td className="px-4 py-3 text-label whitespace-nowrap">{name}</td>
+                <td className="px-4 py-3 font-mono text-body-sm whitespace-nowrap">
                   shadow-{name}
                 </td>
-                <td className="px-md py-sm">
+                <td className="px-4 py-3">
                   <Code>{shadow[name]}</Code>
                 </td>
-                <td className="px-xl py-xl">
+                <td className="px-8 py-8">
                   <div
-                    className="h-2xl w-3xl rounded-md bg-surface"
+                    className="h-12 w-16 rounded-md bg-surface"
                     style={{ boxShadow: vars.shadow[name] }}
                   />
                 </td>

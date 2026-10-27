@@ -116,19 +116,35 @@ export const blue = {
   950: "#081935",
 } as const;
 
-/** Escala de espaçamento. A chave é o valor em pixels (com fonte base de 16px). */
+/**
+ * Escala de espaçamento: a escala numérica padrão do Tailwind CSS 4.
+ * Cada passo vale 4px (0.25rem); `px` vale 1px.
+ */
 export const space = {
-  0: "0rem",
-  2: "0.125rem",
-  4: "0.25rem",
-  8: "0.5rem",
-  12: "0.75rem",
-  16: "1rem",
-  24: "1.5rem",
-  32: "2rem",
-  48: "3rem",
-  64: "4rem",
-  96: "6rem",
+  "0": "0rem",
+  px: "1px",
+  "0.5": "0.125rem",
+  "1": "0.25rem",
+  "1.5": "0.375rem",
+  "2": "0.5rem",
+  "2.5": "0.625rem",
+  "3": "0.75rem",
+  "3.5": "0.875rem",
+  "4": "1rem",
+  "5": "1.25rem",
+  "6": "1.5rem",
+  "7": "1.75rem",
+  "8": "2rem",
+  "9": "2.25rem",
+  "10": "2.5rem",
+  "11": "2.75rem",
+  "12": "3rem",
+  "14": "3.5rem",
+  "16": "4rem",
+  "20": "5rem",
+  "24": "6rem",
+  "28": "7rem",
+  "32": "8rem",
 } as const;
 
 /** Raios de canto: os valores padrão do Tailwind CSS 4, de none a 3xl, mais full. */
