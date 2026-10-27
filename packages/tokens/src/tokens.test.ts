@@ -46,6 +46,13 @@ describe("conversão de cor", () => {
 describe("tokens.css", () => {
   const css = renderTokensCss();
 
+  it("usa o mesmo nome do grupo nas variáveis de dimensão", () => {
+    expect(css).toContain("--ali-spacing-0_5: 0.125rem;");
+    expect(css).toContain("--ali-radius-md: 0.375rem;");
+    expect(css).toContain("--ali-shadow-md: ");
+    expect(css).not.toContain("--ali-space-");
+  });
+
   it("define todas as cores semânticas nos temas claro e escuro", () => {
     for (const [name, token] of Object.entries(color)) {
       expect(css).toContain(`--ali-color-${name}: ${token.light};`);
@@ -74,17 +81,29 @@ describe("integração com o Tailwind", () => {
     "text-foreground",
     "border-border-strong",
     "outline-focus-ring",
-    "p-md",
-    "gap-xs",
-    "rounded-control",
+    "p-0",
+    "p-px",
+    "p-0.5",
+    "p-4",
+    "gap-2",
+    "w-32",
+    "-mt-4",
+    "rounded-none",
+    "rounded-sm",
+    "rounded-3xl",
+    "rounded-full",
     "text-body",
     "font-heading",
     "font-strong",
     "duration-fast",
+    "shadow-2xs",
+    "shadow-md",
+    "shadow-2xl",
   ];
 
   it.each(semanticClasses)("gera a classe semântica %s", async (cls) => {
-    expect(await buildUtilities([cls])).toContain(`.${cls} {`);
+    // No CSS gerado, o ponto do nome da classe vem escapado: `.p-0\\.5`.
+    expect(await buildUtilities([cls])).toContain(`.${cls.replaceAll(".", "\\.")} {`);
   });
 
   // Classes padrão do Tailwind que expõem valores fora dos tokens.
@@ -92,14 +111,20 @@ describe("integração com o Tailwind", () => {
     "bg-gray-500",
     "text-red-600",
     "bg-white",
-    "p-4",
+    "p-13",
+    "p-4.5",
+    "w-40",
+    "p-md",
     "text-sm",
-    "rounded-lg",
-    "shadow-md",
+    "rounded-xs",
+    "rounded-4xl",
+    "shadow-inner",
+    "inset-shadow-sm",
+    "drop-shadow-md",
     "font-sans",
   ];
 
   it.each(removedClasses)("não gera a classe padrão %s", async (cls) => {
-    expect(await buildUtilities([cls])).not.toContain(`.${cls} {`);
+    expect(await buildUtilities([cls])).not.toContain(`.${cls.replaceAll(".", "\\.")} {`);
   });
 });

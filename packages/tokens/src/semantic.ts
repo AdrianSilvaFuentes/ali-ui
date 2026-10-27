@@ -13,9 +13,7 @@ import {
   gray,
   lineHeight,
   primary,
-  radius as radiusScale,
   red,
-  space,
 } from "./primitives.ts";
 
 export type ThemeName = "light" | "dark";
@@ -125,27 +123,6 @@ export const contrastPairs: readonly (readonly [ColorName, ColorName, number])[]
   ["focus-ring", "background", 3],
   ["focus-ring", "surface", 3],
 ];
-
-/** Espaçamentos em tamanhos de camiseta, do menor (3xs) ao maior (4xl). */
-export const spacing = {
-  "3xs": space[2],
-  "2xs": space[4],
-  xs: space[8],
-  sm: space[12],
-  md: space[16],
-  lg: space[24],
-  xl: space[32],
-  "2xl": space[48],
-  "3xl": space[64],
-  "4xl": space[96],
-} as const;
-
-/** Raios de canto por tipo de elemento. */
-export const radius = {
-  control: radiusScale[4],
-  surface: radiusScale[6],
-  pill: radiusScale.full,
-} as const;
 
 /** Famílias de fonte por uso. */
 export const font = {

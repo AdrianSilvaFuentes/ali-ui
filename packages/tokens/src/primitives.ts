@@ -116,30 +116,6 @@ export const blue = {
   950: "#081935",
 } as const;
 
-/** Escala de espaçamento. A chave é o valor em pixels (com fonte base de 16px). */
-export const space = {
-  0: "0rem",
-  2: "0.125rem",
-  4: "0.25rem",
-  8: "0.5rem",
-  12: "0.75rem",
-  16: "1rem",
-  24: "1.5rem",
-  32: "2rem",
-  48: "3rem",
-  64: "4rem",
-  96: "6rem",
-} as const;
-
-/** Raios de canto. Propositalmente pequenos: sem cantos muito arredondados. */
-export const radius = {
-  0: "0rem",
-  2: "0.125rem",
-  4: "0.25rem",
-  6: "0.375rem",
-  full: "9999px",
-} as const;
-
 /** Famílias de fonte provisórias: as fontes do sistema operacional. */
 export const fontFamily = {
   sans: "ui-sans-serif, system-ui, sans-serif",
