@@ -1,4 +1,6 @@
 import { cssVarName, spacing, vars } from "@ali/tokens";
+// Cor de marca direto do primitivo, só para ilustrar a documentação.
+import { primary } from "@ali/tokens/primitives";
 import { Code, Section, spacingSteps, Table, TokensLayout, toPx } from "./TokensLayout";
 
 export function SpacingTokensPage() {
@@ -27,7 +29,10 @@ export function SpacingTokensPage() {
                   </Code>
                 </td>
                 <td className="w-full px-4 py-2">
-                  <div className="h-3 bg-primary" style={{ width: vars.spacing[name] }} />
+                  <div
+                    className="h-3"
+                    style={{ width: vars.spacing[name], backgroundColor: primary[600] }}
+                  />
                 </td>
               </tr>
             ))}

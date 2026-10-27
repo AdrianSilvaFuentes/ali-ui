@@ -27,7 +27,7 @@ export function RadiusTokensPage() {
                 </td>
                 <td className="px-4 py-3">
                   <div
-                    className="size-12 border border-primary-hover bg-surface-sunken"
+                    className="size-12 border border-border-strong bg-surface-sunken"
                     style={{ borderRadius: vars.radius[name] }}
                   />
                 </td>

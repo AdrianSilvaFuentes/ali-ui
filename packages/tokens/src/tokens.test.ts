@@ -114,6 +114,7 @@ describe("integração com o Tailwind", () => {
   const removedClasses = [
     "bg-gray-500",
     "bg-muted",
+    "bg-primary",
     "text-red-600",
     "bg-white",
     "p-13",

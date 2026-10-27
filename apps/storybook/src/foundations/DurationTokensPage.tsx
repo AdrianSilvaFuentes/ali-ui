@@ -1,4 +1,6 @@
 import { duration, vars } from "@ali/tokens";
+// Cor de marca direto do primitivo, só para ilustrar a documentação.
+import { primary } from "@ali/tokens/primitives";
 import { useState } from "react";
 import { Section, Table, TokensLayout } from "./TokensLayout";
 
@@ -24,9 +26,10 @@ function DurationDemo({ name }: { name: keyof typeof duration }) {
       </button>
       <div className="relative h-3 w-24 rounded-full bg-surface-sunken ring-1 ring-border">
         <div
-          className="absolute top-0 left-0 size-3 rounded-full bg-primary transition-transform motion-reduce:transition-none"
+          className="absolute top-0 left-0 size-3 rounded-full transition-transform motion-reduce:transition-none"
           style={{
             transitionDuration: vars.duration[name],
+            backgroundColor: primary[600],
             transform: moved
               ? "translateX(calc(var(--ali-spacing-24) - var(--ali-spacing-3)))"
               : "none",

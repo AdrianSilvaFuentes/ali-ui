@@ -68,16 +68,6 @@ export const color = {
     dark: neutralDark[400],
     description: "Contorno de campos e controles (contraste mínimo de 3:1).",
   },
-  primary: {
-    light: primary[600],
-    dark: primary[600],
-    description: "Cor de marca: fundo de botões primários e marcadores.",
-  },
-  "primary-hover": {
-    light: primary[700],
-    dark: primary[500],
-    description: "Cor de marca ao passar o mouse ou pressionar.",
-  },
   "primary-foreground": {
     light: neutralLight[950],
     dark: neutralDark[950],
@@ -127,8 +117,6 @@ export const contrastPairs: readonly (readonly [ColorName, ColorName, number])[]
   ["danger", "surface-raised", 4.5],
   ["link", "surface-overlay", 4.5],
   ["danger", "surface-overlay", 4.5],
-  ["primary-foreground", "primary", 4.5],
-  ["primary-foreground", "primary-hover", 4.5],
   ["danger-foreground", "danger", 4.5],
   ["border-strong", "surface", 3],
   ["border-strong", "surface-sunken", 3],

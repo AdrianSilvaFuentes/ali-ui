@@ -20,7 +20,7 @@ export const Surface: Story = {
     <ColorGroupPage
       group="surface"
       title="Surface"
-      description="Fundos por altura (sunken, padrão, raised, overlay), o fundo de hover e a cor de marca."
+      description="Fundos por altura: rebaixado (sunken), a página, cartões (raised) e menus e diálogos (overlay)."
     >
       <ElevationDemo />
     </ColorGroupPage>

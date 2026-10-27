@@ -78,8 +78,6 @@ const colorGroup = {
   surface: "surface",
   "surface-raised": "surface",
   "surface-overlay": "surface",
-  primary: "surface",
-  "primary-hover": "surface",
   foreground: "text",
   "muted-foreground": "text",
   link: "text",
@@ -101,7 +99,7 @@ export function ColorGroupPage({
   group: ColorGroup;
   title: string;
   description: string;
-  /** Conteúdo extra mostrado antes da tabela, como uma demonstração. */
+  /** Conteúdo extra mostrado depois da tabela, como uma demonstração. */
   children?: ReactNode;
 }) {
   const names = (Object.keys(colorGroup) as ColorName[]).filter(
@@ -111,7 +109,6 @@ export function ColorGroupPage({
     <TokensLayout title={title} description={description}>
       {() => (
         <>
-          {children}
           <Section
             title="Tokens"
             description="Cada token tem um primitivo no tema claro e outro no escuro. O contraste é medido com a cor que acompanha o token e segue a WCAG AA."
@@ -137,6 +134,7 @@ export function ColorGroupPage({
               ))}
             </Table>
           </Section>
+          {children}
         </>
       )}
     </TokensLayout>
