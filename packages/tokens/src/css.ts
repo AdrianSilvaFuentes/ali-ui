@@ -63,6 +63,9 @@ function staticEntries(): [string, string][] {
  */
 export function renderTokensCss(): string {
   return `${HEADER}
+/* DM Sans variável (pesos 100 a 1000), servida com o pacote, sem depender do Google. */
+@import "@fontsource-variable/dm-sans";
+
 :root,
 [data-theme="light"] {
   color-scheme: light;

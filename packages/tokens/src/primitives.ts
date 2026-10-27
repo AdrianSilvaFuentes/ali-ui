@@ -131,9 +131,12 @@ export const blue = {
   950: "#081935",
 } as const;
 
-/** Famílias de fonte provisórias: as fontes do sistema operacional. */
+/**
+ * Famílias de fonte. A DM Sans (licença OFL) vem do pacote @fontsource-variable/dm-sans,
+ * carregado em tokens.css; as outras fontes são reservas caso ela não carregue.
+ */
 export const fontFamily = {
-  sans: "ui-sans-serif, system-ui, sans-serif",
+  "dm-sans": '"DM Sans Variable", ui-sans-serif, system-ui, sans-serif',
   mono: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace',
 } as const;
 

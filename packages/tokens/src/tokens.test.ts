@@ -46,6 +46,12 @@ describe("conversão de cor", () => {
 describe("tokens.css", () => {
   const css = renderTokensCss();
 
+  it("carrega a DM Sans e a usa em texto e títulos", () => {
+    expect(css).toContain('@import "@fontsource-variable/dm-sans";');
+    expect(css).toContain('--ali-font-body: "DM Sans Variable"');
+    expect(css).toContain('--ali-font-heading: "DM Sans Variable"');
+  });
+
   it("usa o mesmo nome do grupo nas variáveis de dimensão", () => {
     expect(css).toContain("--ali-spacing-0_5: 0.125rem;");
     expect(css).toContain("--ali-radius-md: 0.375rem;");

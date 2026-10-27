@@ -129,8 +129,8 @@ export const contrastPairs: readonly (readonly [ColorName, ColorName, number])[]
 
 /** Famílias de fonte por uso. */
 export const font = {
-  body: fontFamily.sans,
-  heading: fontFamily.sans,
+  body: fontFamily["dm-sans"],
+  heading: fontFamily["dm-sans"],
   mono: fontFamily.mono,
 } as const;
 

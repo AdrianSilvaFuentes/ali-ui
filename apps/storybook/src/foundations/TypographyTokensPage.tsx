@@ -26,6 +26,11 @@ const weightClass: Record<keyof typeof fontWeight, string> = {
   strong: "font-strong",
 };
 
+// Estilos de texto do maior para o menor.
+const textStylesBySize = (Object.keys(text) as (keyof typeof text)[]).sort(
+  (a, b) => Number.parseFloat(text[b].fontSize) - Number.parseFloat(text[a].fontSize),
+);
+
 const sample = "Um sistema enxuto, com poucos componentes e muita personalidade.";
 
 export function TextStylesPage() {
@@ -40,7 +45,7 @@ export function TextStylesPage() {
           description="Cada estilo combina tamanho, altura de linha e peso. Use a classe inteira, como text-body."
         >
           <Table columns={["Token", "Tamanho", "Altura de linha", "Peso", "Exemplo"]}>
-            {(Object.keys(text) as (keyof typeof text)[]).map((name) => (
+            {textStylesBySize.map((name) => (
               <tr key={name} className="border-t border-border align-middle">
                 <td className="px-4 py-3 text-label whitespace-nowrap">text-{name}</td>
                 <td className="px-4 py-3 font-mono text-body-sm whitespace-nowrap">
