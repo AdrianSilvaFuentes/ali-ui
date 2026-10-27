@@ -70,7 +70,7 @@ describe("regra: sem valores arbitrários fixos do Tailwind", () => {
 describe("regra: componentes não importam primitivos", () => {
   it("falha ao importar @ali/tokens/primitives", () => {
     const { ok, output } = lint(
-      'import { gray } from "@ali/tokens/primitives";\n\nexport const x = gray[100];\n',
+      'import { neutralLight } from "@ali/tokens/primitives";\n\nexport const x = neutralLight[100];\n',
     );
     expect(ok).toBe(false);
     expect(output).toContain("nunca primitivos");

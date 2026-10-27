@@ -10,8 +10,8 @@ import {
   fontFamily,
   fontSize,
   fontWeight as fontWeightScale,
-  gray,
   lineHeight,
+  neutralLight,
   primary,
   red,
 } from "./primitives.ts";
@@ -27,38 +27,38 @@ export interface ColorToken {
 /** Cores por papel, com um valor para o tema claro e outro para o escuro. */
 export const color = {
   background: {
-    light: gray[50],
-    dark: gray[950],
+    light: neutralLight[50],
+    dark: neutralLight[950],
     description: "Fundo da página.",
   },
   foreground: {
-    light: gray[900],
-    dark: gray[50],
+    light: neutralLight[900],
+    dark: neutralLight[50],
     description: "Texto e ícones principais.",
   },
   surface: {
-    light: gray[100],
-    dark: gray[900],
+    light: neutralLight[100],
+    dark: neutralLight[900],
     description: "Fundo de elementos elevados: cartões, menus, diálogos.",
   },
   muted: {
-    light: gray[100],
-    dark: gray[800],
+    light: neutralLight[100],
+    dark: neutralLight[800],
     description: "Fundo discreto: áreas secundárias e destaque sutil ao passar o mouse.",
   },
   "muted-foreground": {
-    light: gray[600],
-    dark: gray[300],
+    light: neutralLight[600],
+    dark: neutralLight[300],
     description: "Texto secundário: legendas, dicas, metadados.",
   },
   border: {
-    light: gray[200],
-    dark: gray[800],
+    light: neutralLight[200],
+    dark: neutralLight[800],
     description: "Divisórias e contornos decorativos.",
   },
   "border-strong": {
-    light: gray[500],
-    dark: gray[400],
+    light: neutralLight[500],
+    dark: neutralLight[400],
     description: "Contorno de campos e controles (contraste mínimo de 3:1).",
   },
   primary: {
@@ -72,8 +72,8 @@ export const color = {
     description: "Cor de marca ao passar o mouse ou pressionar.",
   },
   "primary-foreground": {
-    light: gray[950],
-    dark: gray[950],
+    light: neutralLight[950],
+    dark: neutralLight[950],
     description: "Texto e ícones sobre a cor de marca.",
   },
   link: {
@@ -92,8 +92,8 @@ export const color = {
     description: "Erros e ações destrutivas.",
   },
   "danger-foreground": {
-    light: gray[50],
-    dark: gray[950],
+    light: neutralLight[50],
+    dark: neutralLight[950],
     description: "Texto e ícones sobre a cor de erro.",
   },
 } as const satisfies Record<string, ColorToken>;

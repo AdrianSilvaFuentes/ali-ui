@@ -9,10 +9,10 @@
  */
 
 /**
- * Escala neutra em 11 passos: cinza puro nos tons claros e um leve tom frio nos
+ * Neutros para o tema claro, em 11 passos: cinza puro nos tons claros e um leve tom frio nos
  * escuros. A chave indica a luminosidade: 50 é o mais claro e 950 o mais escuro.
  */
-export const gray = {
+export const neutralLight = {
   50: "#ffffff",
   100: "#fafafa",
   200: "#ececec",
@@ -24,6 +24,21 @@ export const gray = {
   800: "#353939",
   900: "#262c2c",
   950: "#0f1113",
+} as const;
+
+/** Neutros para o tema escuro: cinzas azulados, do mais claro (50) ao quase preto (950). */
+export const neutralDark = {
+  50: "#f3f2f5",
+  100: "#d1d1dd",
+  200: "#b1b1c3",
+  300: "#9094ab",
+  400: "#7b829d",
+  500: "#535e7b",
+  600: "#354563",
+  700: "#2b384d",
+  800: "#212a37",
+  900: "#161c23",
+  950: "#0d0f12",
 } as const;
 
 /** Cor de marca: um verde-menta. É clara, então pede texto escuro por cima. */
