@@ -48,7 +48,7 @@ export function PrimitiveTokensPage() {
 
           <Section
             title="Cor de marca"
-            description="Amarelo dourado. Como é clara, funciona como fundo com texto escuro por cima; como texto sobre fundo claro, só a partir do 900."
+            description="Verde-menta. Como é clara, funciona como fundo com texto escuro por cima; como texto sobre fundo claro, só a partir do 900."
           >
             <ScaleTable name="primary" scale={primary} />
           </Section>

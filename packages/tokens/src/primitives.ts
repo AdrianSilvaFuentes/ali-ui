@@ -26,19 +26,19 @@ export const gray = {
   950: "#0f1113",
 } as const;
 
-/** Cor de marca: um amarelo dourado. É clara, então pede texto escuro por cima. */
+/** Cor de marca: um verde-menta. É clara, então pede texto escuro por cima. */
 export const primary = {
-  50: "#fffae8",
-  100: "#fff5cf",
-  200: "#ffeeb7",
-  300: "#ffe8a0",
-  400: "#ffe18a",
-  500: "#fed975",
-  600: "#fad161",
-  700: "#d7a950",
-  800: "#b38440",
-  900: "#8c6131",
-  950: "#664223",
+  50: "#f0fff9",
+  100: "#c8ffea",
+  200: "#a3ffda",
+  300: "#80ffca",
+  400: "#60feba",
+  500: "#43f7a9",
+  600: "#28ed98",
+  700: "#26bf92",
+  800: "#219381",
+  900: "#1b6967",
+  950: "#133b41",
 } as const;
 
 /** Vermelho para erros e ações destrutivas. */
