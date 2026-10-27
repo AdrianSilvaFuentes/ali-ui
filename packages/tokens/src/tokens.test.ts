@@ -49,7 +49,7 @@ describe("tokens.css", () => {
   it("carrega a DM Sans e a usa em texto e títulos", () => {
     expect(css).toContain('@import "@fontsource-variable/dm-sans";');
     expect(css).toContain('--ali-font-body: "DM Sans Variable"');
-    expect(css).toContain('--ali-font-heading: "DM Sans Variable"');
+    expect(css).toContain('--ali-font-title: "DM Sans Variable"');
   });
 
   it("define o espaçamento entre letras de cada estilo de texto", () => {
@@ -108,7 +108,7 @@ describe("integração com o Tailwind", () => {
     "rounded-3xl",
     "rounded-full",
     "text-body",
-    "font-heading",
+    "font-title",
     "font-strong",
     "duration-fast",
     "shadow-2xs",
@@ -125,6 +125,8 @@ describe("integração com o Tailwind", () => {
   const removedClasses = [
     "bg-gray-500",
     "bg-muted",
+    "text-heading-md",
+    "font-heading",
     "bg-primary",
     "text-red-600",
     "bg-white",

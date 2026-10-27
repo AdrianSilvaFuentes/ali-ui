@@ -8,15 +8,15 @@ const textClass: Record<keyof typeof text, string> = {
   "body-sm": "text-body-sm",
   body: "text-body",
   "body-lg": "text-body-lg",
-  "heading-sm": "text-heading-sm",
-  "heading-md": "text-heading-md",
-  "heading-lg": "text-heading-lg",
+  "title-sm": "text-title-sm",
+  "title-md": "text-title-md",
+  "title-lg": "text-title-lg",
   display: "text-display",
 };
 
 const fontClass: Record<keyof typeof font, string> = {
   body: "font-body",
-  heading: "font-heading",
+  title: "font-title",
   mono: "font-mono",
 };
 

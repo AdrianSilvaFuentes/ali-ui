@@ -131,7 +131,7 @@ export const contrastPairs: readonly (readonly [ColorName, ColorName, number])[]
 /** Famílias de fonte por uso. */
 export const font = {
   body: fontFamily["dm-sans"],
-  heading: fontFamily["dm-sans"],
+  title: fontFamily["dm-sans"],
   mono: fontFamily.mono,
 } as const;
 
@@ -181,19 +181,19 @@ export const text = {
     fontWeight: fontWeight.regular,
     letterSpacing: letterSpacing[0],
   },
-  "heading-sm": {
+  "title-sm": {
     fontSize: fontSize[20],
     lineHeight: lineHeight[125],
     fontWeight: fontWeight.strong,
     letterSpacing: letterSpacing[0],
   },
-  "heading-md": {
+  "title-md": {
     fontSize: fontSize[24],
     lineHeight: lineHeight[125],
     fontWeight: fontWeight.strong,
     letterSpacing: letterSpacing[0],
   },
-  "heading-lg": {
+  "title-lg": {
     fontSize: fontSize[30],
     lineHeight: lineHeight[110],
     fontWeight: fontWeight.strong,

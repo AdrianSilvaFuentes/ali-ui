@@ -170,7 +170,7 @@ export function IntroductionPage() {
           <p className="text-label text-muted-foreground">{t.eyebrow}</p>
           <LanguageSwitch language={language} onChange={setLanguage} />
         </div>
-        <h1 className="font-heading text-display">{t.title}</h1>
+        <h1 className="font-title text-display">{t.title}</h1>
         <p className="max-w-3xl text-body-lg">{t.lead}</p>
       </header>
 
