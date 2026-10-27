@@ -41,12 +41,19 @@ export const primary = {
   950: "#664223",
 } as const;
 
-/** Vermelho para estados de erro. */
+/** Vermelho para erros e ações destrutivas. */
 export const red = {
-  400: "oklch(0.704 0.191 22.2)",
-  500: "oklch(0.637 0.237 25.3)",
-  600: "oklch(0.577 0.245 27.3)",
-  700: "oklch(0.505 0.213 27.5)",
+  50: "#fff0f1",
+  100: "#ffcbcd",
+  200: "#ffa8ab",
+  300: "#ff888c",
+  400: "#ff6a6e",
+  500: "#f94e54",
+  600: "#f0353b",
+  700: "#cd2a3b",
+  800: "#a92038",
+  900: "#841731",
+  950: "#5e0f28",
 } as const;
 
 /** Escala de espaçamento. A chave é o valor em pixels (com fonte base de 16px). */
