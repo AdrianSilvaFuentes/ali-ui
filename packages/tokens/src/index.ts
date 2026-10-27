@@ -4,10 +4,19 @@
  * Os primitivos ficam em `@ali/tokens/primitives` e servem só para documentação.
  */
 import { cssVarName, type TokenGroup } from "./css.ts";
-import { color, duration, font, fontWeight, radius, spacing, text } from "./semantic.ts";
+import {
+  color,
+  contrastPairs,
+  duration,
+  font,
+  fontWeight,
+  radius,
+  spacing,
+  text,
+} from "./semantic.ts";
 
-export type { ColorToken, TextStyle, ThemeName } from "./semantic.ts";
-export { color, duration, font, fontWeight, radius, spacing, text };
+export type { ColorName, ColorToken, TextStyle, ThemeName } from "./semantic.ts";
+export { color, contrastPairs, duration, font, fontWeight, radius, spacing, text };
 
 type VarMap<T> = { readonly [K in keyof T]: string };
 

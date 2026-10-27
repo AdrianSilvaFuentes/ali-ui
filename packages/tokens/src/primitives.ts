@@ -8,21 +8,22 @@
  * semânticos e para a documentação no Storybook. Por isso não viram variáveis CSS.
  */
 
-/** Escala neutra de cinzas. A chave indica a luminosidade (0 = branco, 1000 = preto). */
+/**
+ * Escala neutra em 11 passos: cinza puro nos tons claros e um leve tom frio nos
+ * escuros. A chave indica a luminosidade: 50 é o mais claro e 950 o mais escuro.
+ */
 export const gray = {
-  0: "oklch(1 0 0)",
-  50: "oklch(0.985 0 0)",
-  100: "oklch(0.97 0 0)",
-  200: "oklch(0.922 0 0)",
-  300: "oklch(0.87 0 0)",
-  400: "oklch(0.708 0 0)",
-  500: "oklch(0.556 0 0)",
-  600: "oklch(0.439 0 0)",
-  700: "oklch(0.371 0 0)",
-  800: "oklch(0.269 0 0)",
-  900: "oklch(0.205 0 0)",
-  950: "oklch(0.145 0 0)",
-  1000: "oklch(0 0 0)",
+  50: "#ffffff",
+  100: "#fafafa",
+  200: "#ececec",
+  300: "#dedede",
+  400: "#8e8e8e",
+  500: "#636363",
+  600: "#545454",
+  700: "#454646",
+  800: "#353939",
+  900: "#262c2c",
+  950: "#0f1113",
 } as const;
 
 /** Cor de destaque provisória (azul genérico, a ser substituído pela identidade). */

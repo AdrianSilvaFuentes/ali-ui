@@ -29,17 +29,17 @@ export interface ColorToken {
 /** Cores por papel, com um valor para o tema claro e outro para o escuro. */
 export const color = {
   background: {
-    light: gray[0],
+    light: gray[50],
     dark: gray[950],
     description: "Fundo da página.",
   },
   foreground: {
-    light: gray[950],
+    light: gray[900],
     dark: gray[50],
     description: "Texto e ícones principais.",
   },
   surface: {
-    light: gray[0],
+    light: gray[100],
     dark: gray[900],
     description: "Fundo de elementos elevados: cartões, menus, diálogos.",
   },
@@ -50,7 +50,7 @@ export const color = {
   },
   "muted-foreground": {
     light: gray[600],
-    dark: gray[400],
+    dark: gray[300],
     description: "Texto secundário: legendas, dicas, metadados.",
   },
   border: {
@@ -60,7 +60,7 @@ export const color = {
   },
   "border-strong": {
     light: gray[500],
-    dark: gray[500],
+    dark: gray[400],
     description: "Contorno de campos e controles (contraste mínimo de 3:1).",
   },
   accent: {
@@ -74,7 +74,7 @@ export const color = {
     description: "Cor de destaque ao passar o mouse ou pressionar.",
   },
   "accent-foreground": {
-    light: gray[0],
+    light: gray[50],
     dark: gray[950],
     description: "Texto e ícones sobre a cor de destaque.",
   },
@@ -89,11 +89,36 @@ export const color = {
     description: "Erros e ações destrutivas.",
   },
   "danger-foreground": {
-    light: gray[0],
+    light: gray[50],
     dark: gray[950],
     description: "Texto e ícones sobre a cor de erro.",
   },
 } as const satisfies Record<string, ColorToken>;
+
+export type ColorName = keyof typeof color;
+
+/**
+ * Pares de cores que aparecem juntos e o contraste mínimo exigido pela WCAG AA:
+ * 4.5:1 para texto, 3:1 para contornos de controles e foco. Os testes verificam
+ * todos os pares nos dois temas, e a documentação mostra o primeiro par de cada token.
+ */
+export const contrastPairs: readonly (readonly [ColorName, ColorName, number])[] = [
+  ["foreground", "background", 4.5],
+  ["muted-foreground", "background", 4.5],
+  ["foreground", "surface", 4.5],
+  ["muted-foreground", "surface", 4.5],
+  ["foreground", "muted", 4.5],
+  ["muted-foreground", "muted", 4.5],
+  ["accent", "background", 4.5],
+  ["accent-foreground", "accent", 4.5],
+  ["accent-foreground", "accent-hover", 4.5],
+  ["danger", "background", 4.5],
+  ["danger-foreground", "danger", 4.5],
+  ["border-strong", "background", 3],
+  ["border-strong", "surface", 3],
+  ["focus-ring", "background", 3],
+  ["focus-ring", "surface", 3],
+];
 
 /** Espaçamentos em tamanhos de camiseta, do menor (3xs) ao maior (4xl). */
 export const spacing = {
