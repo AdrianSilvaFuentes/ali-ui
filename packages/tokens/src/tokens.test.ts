@@ -5,7 +5,7 @@ import { compile } from "tailwindcss";
 import { describe, expect, it } from "vitest";
 import { contrastRatio, toHex, toOklch } from "./color.ts";
 import { renderTailwindCss, renderTokensCss } from "./css.ts";
-import { gray } from "./primitives.ts";
+import { neutralLight } from "./primitives.ts";
 import { color, contrastPairs, type ThemeName } from "./semantic.ts";
 
 describe("contraste das cores semânticas", () => {
@@ -34,7 +34,7 @@ describe("conversão de cor", () => {
     expect(toOklch(value)).toBe(oklch);
   });
 
-  it.each(Object.values(gray))("%s → OKLCH → volta ao mesmo hex", (hex) => {
+  it.each(Object.values(neutralLight))("%s → OKLCH → volta ao mesmo hex", (hex) => {
     expect(toHex(toOklch(hex))).toBe(hex);
   });
 

@@ -2,9 +2,9 @@ import { contrastRatio, toHex, toOklch } from "@ali/tokens/color";
 // Os primitivos aparecem aqui só como documentação. Componentes nunca os usam.
 import {
   blue,
-  gray,
   green,
   neutralDark,
+  neutralLight,
   orange,
   primary,
   red,
@@ -12,10 +12,18 @@ import {
 } from "@ali/tokens/primitives";
 import { formatRatio, Section, Swatch, Table, TokensLayout } from "./TokensLayout";
 
-/** Tabela de uma escala: hex, OKLCH e contraste com os fundos claro (gray-50) e escuro (gray-950). */
+/** Tabela de uma escala: hex, OKLCH e contraste com o fundo claro (neutral-light-50) e o escuro (neutral-dark-950). */
 function ScaleTable({ name, scale }: { name: string; scale: Record<string, string> }) {
   return (
-    <Table columns={["Passo", "Hex", "OKLCH", "Contraste com gray-50", "Contraste com gray-950"]}>
+    <Table
+      columns={[
+        "Passo",
+        "Hex",
+        "OKLCH",
+        "Contraste com neutral-light-50",
+        "Contraste com neutral-dark-950",
+      ]}
+    >
       {Object.entries(scale).map(([step, value]) => (
         <tr key={step} className="border-t border-border align-middle">
           <td className="px-4 py-3">
@@ -29,10 +37,10 @@ function ScaleTable({ name, scale }: { name: string; scale: Record<string, strin
           <td className="px-4 py-3 font-mono text-body-sm">{toHex(value)}</td>
           <td className="px-4 py-3 font-mono text-body-sm whitespace-nowrap">{toOklch(value)}</td>
           <td className="px-4 py-3 font-mono text-body-sm">
-            {formatRatio(contrastRatio(value, gray[50]))}
+            {formatRatio(contrastRatio(value, neutralLight[50]))}
           </td>
           <td className="px-4 py-3 font-mono text-body-sm">
-            {formatRatio(contrastRatio(value, gray[950]))}
+            {formatRatio(contrastRatio(value, neutralDark[950]))}
           </td>
         </tr>
       ))}
@@ -49,10 +57,10 @@ export function PrimitiveTokensPage() {
       {() => (
         <>
           <Section
-            title="Escala de cinzas"
+            title="Neutros do tema claro"
             description="Cinza puro nos tons claros e um leve tom frio nos escuros."
           >
-            <ScaleTable name="gray" scale={gray} />
+            <ScaleTable name="neutral-light" scale={neutralLight} />
           </Section>
 
           <Section title="Neutros do tema escuro" description="Cinzas azulados para a versão dark.">
