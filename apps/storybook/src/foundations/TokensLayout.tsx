@@ -81,11 +81,29 @@ export function Code({ children }: { children: ReactNode }) {
   return <code className="font-mono text-caption text-muted-foreground">{children}</code>;
 }
 
-/** Tabela com cabeçalho; as linhas vêm em `children`. */
-export function Table({ columns, children }: { columns: string[]; children: ReactNode }) {
+/**
+ * Tabela com cabeçalho; as linhas vêm em `children`. Com `widths`, as colunas têm
+ * largura fixa, para alinhar várias tabelas iguais na mesma página.
+ */
+export function Table({
+  columns,
+  widths,
+  children,
+}: {
+  columns: string[];
+  widths?: (string | undefined)[];
+  children: ReactNode;
+}) {
   return (
     <div className="overflow-x-auto rounded-md border border-border">
-      <table className="w-full border-collapse text-left">
+      <table className={`w-full border-collapse text-left ${widths ? "table-fixed" : ""}`}>
+        {widths && (
+          <colgroup>
+            {columns.map((column, index) => (
+              <col key={column} style={{ width: widths[index] }} />
+            ))}
+          </colgroup>
+        )}
         <thead className="bg-surface-sunken text-label">
           <tr>
             {columns.map((column) => (

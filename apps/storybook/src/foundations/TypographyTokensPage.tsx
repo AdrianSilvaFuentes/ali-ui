@@ -51,40 +51,62 @@ const textStylesBySize = (Object.keys(text) as (keyof typeof text)[]).sort(
 
 const sample = "Um sistema enxuto, com poucos componentes e muita personalidade.";
 
+/** Grupos de estilos de texto, na ordem da página. O grupo vem do começo do nome. */
+const textGroups = [
+  ["display", "Display", "Textos de impacto: capas e chamadas principais."],
+  ["title", "Title", "Títulos de páginas, seções e cartões."],
+  ["body", "Body", "Texto corrido: parágrafos e conteúdo."],
+  ["label", "Label", "Rótulos de campos, botões, abas e menus."],
+  ["caption", "Caption", "Texto pequeno de apoio: legendas, datas, ajudas e notas."],
+] as const;
+
+function TextStyleTable({ names }: { names: (keyof typeof text)[] }) {
+  return (
+    <Table
+      columns={["Token", "Size (px)", "Peso", "Altura de linha", "Letter spacing", "Preview"]}
+      // A última coluna (Preview) fica com o espaço que sobrar.
+      widths={["10rem", "7rem", "10rem", "9rem", "8rem", undefined]}
+    >
+      {names.map((name) => (
+        <tr key={name} className="border-t border-border align-middle">
+          <td className="px-4 py-3 text-label whitespace-nowrap">text-{name}</td>
+          <td className="px-4 py-3 font-mono text-body-sm whitespace-nowrap">
+            {toPx(text[name].fontSize)}
+          </td>
+          <td className="px-4 py-3 font-mono text-body-sm whitespace-nowrap">
+            {weightName[text[name].fontWeight] ?? text[name].fontWeight} · {text[name].fontWeight}
+          </td>
+          <td className="px-4 py-3 font-mono text-body-sm whitespace-nowrap">
+            {text[name].lineHeight} ({toPercent(text[name].lineHeight)})
+          </td>
+          <td className="px-4 py-3 font-mono text-body-sm whitespace-nowrap">
+            {toPercent(text[name].letterSpacing)}
+          </td>
+          <td className="px-4 py-3">
+            <p className={textClass[name]}>{sample}</p>
+          </td>
+        </tr>
+      ))}
+    </Table>
+  );
+}
+
 export function TextStylesPage() {
   return (
-    <TokensLayout title="Text styles" description="Estilos de texto, do maior para o menor.">
+    <TokensLayout
+      title="Text styles"
+      description="Cada estilo combina tamanho, peso, altura de linha e espaçamento entre letras. Use a classe inteira, como text-body."
+    >
       {() => (
-        <Section
-          title="Estilos de texto"
-          description="Cada estilo combina tamanho, peso, altura de linha e espaçamento entre letras. Use a classe inteira, como text-body."
-        >
-          <Table
-            columns={["Token", "Size (px)", "Peso", "Altura de linha", "Letter spacing", "Preview"]}
-          >
-            {textStylesBySize.map((name) => (
-              <tr key={name} className="border-t border-border align-middle">
-                <td className="px-4 py-3 text-label whitespace-nowrap">text-{name}</td>
-                <td className="px-4 py-3 font-mono text-body-sm whitespace-nowrap">
-                  {toPx(text[name].fontSize)}
-                </td>
-                <td className="px-4 py-3 font-mono text-body-sm whitespace-nowrap">
-                  {weightName[text[name].fontWeight] ?? text[name].fontWeight} ·{" "}
-                  {text[name].fontWeight}
-                </td>
-                <td className="px-4 py-3 font-mono text-body-sm whitespace-nowrap">
-                  {text[name].lineHeight} ({toPercent(text[name].lineHeight)})
-                </td>
-                <td className="px-4 py-3 font-mono text-body-sm whitespace-nowrap">
-                  {toPercent(text[name].letterSpacing)}
-                </td>
-                <td className="px-4 py-3">
-                  <p className={textClass[name]}>{sample}</p>
-                </td>
-              </tr>
-            ))}
-          </Table>
-        </Section>
+        <>
+          {textGroups.map(([group, title, description]) => (
+            <Section key={group} title={title} description={description}>
+              <TextStyleTable
+                names={textStylesBySize.filter((name) => name.split("-")[0] === group)}
+              />
+            </Section>
+          ))}
+        </>
       )}
     </TokensLayout>
   );
