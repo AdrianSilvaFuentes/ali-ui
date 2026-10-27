@@ -8,6 +8,7 @@ import {
   font,
   fontWeight,
   radius,
+  shadow,
   spacing,
   type ThemeName,
   text,
@@ -21,7 +22,8 @@ export type TokenGroup =
   | "font"
   | "font-weight"
   | "text"
-  | "duration";
+  | "duration"
+  | "shadow";
 
 /** Nome da variável CSS de um token. Ex.: `cssVarName("color", "background")` → `--ali-color-background`. */
 export function cssVarName(group: TokenGroup, key: string): string {
@@ -56,6 +58,7 @@ function staticEntries(): [string, string][] {
       [`${cssVarName("text", k)}--font-weight`, style.fontWeight],
     ]),
     ...Object.entries(duration).map(([k, v]): [string, string] => [cssVarName("duration", k), v]),
+    ...Object.entries(shadow).map(([k, v]): [string, string] => [cssVarName("shadow", k), v]),
   ];
 }
 
@@ -92,7 +95,7 @@ ${declarations(staticEntries())}
 /**
  * Liga os tokens ao Tailwind CSS 4. Apaga os valores padrão do Tailwind (cores,
  * fontes, tamanhos, espaçamentos, raios e sombras) para que só existam classes com
- * nomes semânticos, como `bg-background`, `text-body`, `p-md` e `rounded-control`.
+ * nomes semânticos, como `bg-background`, `text-body`, `p-md`, `rounded-control` e `shadow-md`.
  */
 export function renderTailwindCss(): string {
   const v = (group: TokenGroup, key: string) => `var(${cssVarName(group, key)})`;
@@ -126,6 +129,7 @@ export function renderTailwindCss(): string {
       `--transition-duration-${k}`,
       v("duration", k),
     ]),
+    ...Object.keys(shadow).map((k): [string, string] => [`--shadow-${k}`, v("shadow", k)]),
     ["--default-font-family", v("font", "body")],
     ["--default-mono-font-family", v("font", "mono")],
     ["--default-transition-duration", v("duration", "base")],

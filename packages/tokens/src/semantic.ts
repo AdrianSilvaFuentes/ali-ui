@@ -15,6 +15,7 @@ import {
   primary,
   radius as radiusScale,
   red,
+  shadow as shadowScale,
   space,
 } from "./primitives.ts";
 
@@ -206,4 +207,15 @@ export const duration = {
   fast: durationScale[100],
   base: durationScale[200],
   slow: durationScale[300],
+} as const;
+
+/** Sombras por nível de elevação, do mais baixo (2xs) ao mais alto (2xl). */
+export const shadow = {
+  "2xs": shadowScale["2xs"],
+  xs: shadowScale.xs,
+  sm: shadowScale.sm,
+  md: shadowScale.md,
+  lg: shadowScale.lg,
+  xl: shadowScale.xl,
+  "2xl": shadowScale["2xl"],
 } as const;

@@ -81,6 +81,9 @@ describe("integração com o Tailwind", () => {
     "font-heading",
     "font-strong",
     "duration-fast",
+    "shadow-2xs",
+    "shadow-md",
+    "shadow-2xl",
   ];
 
   it.each(semanticClasses)("gera a classe semântica %s", async (cls) => {
@@ -95,7 +98,9 @@ describe("integração com o Tailwind", () => {
     "p-4",
     "text-sm",
     "rounded-lg",
-    "shadow-md",
+    "shadow-inner",
+    "inset-shadow-sm",
+    "drop-shadow-md",
     "font-sans",
   ];
 

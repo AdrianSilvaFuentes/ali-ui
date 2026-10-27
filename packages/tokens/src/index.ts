@@ -11,12 +11,13 @@ import {
   font,
   fontWeight,
   radius,
+  shadow,
   spacing,
   text,
 } from "./semantic.ts";
 
 export type { ColorName, ColorToken, TextStyle, ThemeName } from "./semantic.ts";
-export { color, contrastPairs, duration, font, fontWeight, radius, spacing, text };
+export { color, contrastPairs, duration, font, fontWeight, radius, shadow, spacing, text };
 
 type VarMap<T> = { readonly [K in keyof T]: string };
 
@@ -38,4 +39,5 @@ export const vars = {
   fontWeight: varsOf("font-weight", fontWeight),
   text: varsOf("text", text),
   duration: varsOf("duration", duration),
+  shadow: varsOf("shadow", shadow),
 } as const;
