@@ -1,5 +1,5 @@
 import { type ColorName, color } from "@ali/tokens";
-import { contrastRatio, toHex } from "@ali/tokens/color";
+import { contrastRatio, toHex, toOklch } from "@ali/tokens/color";
 // Os primitivos aparecem aqui só como documentação. Componentes nunca os usam.
 import { accent, gray, red } from "@ali/tokens/primitives";
 import { Code, formatRatio, Section, Swatch, Table, TokensLayout } from "./TokensLayout";
@@ -44,7 +44,7 @@ export function PrimitiveTokensPage() {
         <>
           <Section
             title="Escala de cinzas"
-            description="Neutros com um leve tom quente. O contraste é medido com o fundo claro (50) e com o fundo escuro (950)."
+            description="Cinza puro nos tons claros e um leve tom frio nos escuros. O contraste é medido com o fundo claro (50) e com o fundo escuro (950)."
           >
             <Table
               columns={[
@@ -65,7 +65,9 @@ export function PrimitiveTokensPage() {
                     </div>
                   </td>
                   <td className="px-md py-sm font-mono text-body-sm">{toHex(value)}</td>
-                  <td className="px-md py-sm font-mono text-body-sm whitespace-nowrap">{value}</td>
+                  <td className="px-md py-sm font-mono text-body-sm whitespace-nowrap">
+                    {toOklch(value)}
+                  </td>
                   <td className="px-md py-sm font-mono text-body-sm">
                     {formatRatio(contrastRatio(value, gray[50]))}
                   </td>

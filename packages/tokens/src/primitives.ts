@@ -9,21 +9,21 @@
  */
 
 /**
- * Escala neutra com um leve tom quente (croma 0.004, matiz 90), quase imperceptível.
- * A chave indica a luminosidade: 50 é o mais claro e 950 o mais escuro. Sem branco
- * nem preto puros e sem o passo 700, que não tinha uso.
+ * Escala neutra em 11 passos: cinza puro nos tons claros e um leve tom frio nos
+ * escuros. A chave indica a luminosidade: 50 é o mais claro e 950 o mais escuro.
  */
 export const gray = {
-  50: "oklch(98.5% 0.004 90)",
-  100: "oklch(97% 0.004 90)",
-  200: "oklch(92.2% 0.004 90)",
-  300: "oklch(87% 0.004 90)",
-  400: "oklch(70.8% 0.004 90)",
-  500: "oklch(55.6% 0.004 90)",
-  600: "oklch(43.9% 0.004 90)",
-  800: "oklch(26.9% 0.004 90)",
-  900: "oklch(20.5% 0.004 90)",
-  950: "oklch(14.5% 0.004 90)",
+  50: "#ffffff",
+  100: "#f9f9f9",
+  200: "#ececec",
+  300: "#dedede",
+  400: "#8e8e8e",
+  500: "#636363",
+  600: "#545454",
+  700: "#454646",
+  800: "#353939",
+  900: "#262c2c",
+  950: "#0f1113",
 } as const;
 
 /** Cor de destaque provisória (azul genérico, a ser substituído pela identidade). */

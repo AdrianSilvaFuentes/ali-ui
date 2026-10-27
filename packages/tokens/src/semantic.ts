@@ -50,7 +50,7 @@ export const color = {
   },
   "muted-foreground": {
     light: gray[600],
-    dark: gray[400],
+    dark: gray[300],
     description: "Texto secundário: legendas, dicas, metadados.",
   },
   border: {
@@ -60,7 +60,7 @@ export const color = {
   },
   "border-strong": {
     light: gray[500],
-    dark: gray[500],
+    dark: gray[400],
     description: "Contorno de campos e controles (contraste mínimo de 3:1).",
   },
   accent: {

@@ -3,8 +3,9 @@ import { createRequire } from "node:module";
 import { dirname } from "node:path";
 import { compile } from "tailwindcss";
 import { describe, expect, it } from "vitest";
-import { contrastRatio, toHex } from "./color.ts";
+import { contrastRatio, toHex, toOklch } from "./color.ts";
 import { renderTailwindCss, renderTokensCss } from "./css.ts";
+import { gray } from "./primitives.ts";
 import { color, contrastPairs, type ThemeName } from "./semantic.ts";
 
 describe("contraste das cores semânticas", () => {
@@ -21,8 +22,20 @@ describe("conversão de cor", () => {
     ["oklch(0 0 0)", "#000000"],
     ["oklch(100% 0 0)", "#ffffff"],
     ["oklch(98.5% 0.004 90)", "#fbfaf7"],
+    ["#0F1113", "#0f1113"],
   ])("%s → %s", (value, hex) => {
     expect(toHex(value)).toBe(hex);
+  });
+
+  it.each([
+    ["#ffffff", "oklch(100.0% 0.000 0)"],
+    ["#000000", "oklch(0.0% 0.000 0)"],
+  ])("%s → %s", (value, oklch) => {
+    expect(toOklch(value)).toBe(oklch);
+  });
+
+  it.each(Object.values(gray))("%s → OKLCH → volta ao mesmo hex", (hex) => {
+    expect(toHex(toOklch(hex))).toBe(hex);
   });
 
   it("contraste entre branco e preto é 21:1", () => {
