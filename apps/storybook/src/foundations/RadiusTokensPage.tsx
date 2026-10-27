@@ -10,7 +10,7 @@ const usage: Record<keyof typeof radius, string> = {
 export function RadiusTokensPage() {
   return (
     <TokensLayout
-      title="Raios"
+      title="Radius"
       description="Cantos discretos, por tipo de elemento. Sem cantos muito arredondados."
     >
       {() => (

@@ -102,3 +102,21 @@ export function Swatch({ color }: { color: string }) {
     />
   );
 }
+
+/** Página de uma parte da fundação que ainda não tem tokens. */
+export function PlaceholderPage({ title, description }: { title: string; description: string }) {
+  return (
+    <TokensLayout title={title} description={description}>
+      {() => (
+        <Section
+          title="Ainda sem tokens"
+          description="Esta página ganha conteúdo quando os tokens forem definidos."
+        >
+          <p className="max-w-prose rounded-surface border border-border bg-surface p-md text-body-sm text-muted-foreground">
+            Nada definido por enquanto.
+          </p>
+        </Section>
+      )}
+    </TokensLayout>
+  );
+}

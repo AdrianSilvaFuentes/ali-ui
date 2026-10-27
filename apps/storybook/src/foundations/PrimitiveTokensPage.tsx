@@ -34,7 +34,7 @@ function ScaleTable({ name, scale }: { name: string; scale: Record<string, strin
 export function PrimitiveTokensPage() {
   return (
     <TokensLayout
-      title="Primitivos"
+      title="Primitive"
       description="A matéria-prima dos tokens semânticos. Componentes nunca usam estes valores diretamente."
     >
       {() => (

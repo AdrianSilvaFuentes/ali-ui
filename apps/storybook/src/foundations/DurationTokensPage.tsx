@@ -39,7 +39,7 @@ function DurationDemo({ name }: { name: keyof typeof duration }) {
 
 export function DurationTokensPage() {
   return (
-    <TokensLayout title="Durações" description="Animações curtas, por velocidade.">
+    <TokensLayout title="Durations" description="Animações curtas, por velocidade.">
       {() => (
         <Section
           title="Escala"

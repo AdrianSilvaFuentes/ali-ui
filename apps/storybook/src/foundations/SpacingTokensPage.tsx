@@ -4,7 +4,7 @@ import { Section, Table, TokensLayout, toPx } from "./TokensLayout";
 export function SpacingTokensPage() {
   return (
     <TokensLayout
-      title="Espaçamento"
+      title="Spacing"
       description="Margens, preenchimentos e distâncias entre elementos, em tamanhos de camiseta."
     >
       {() => (
