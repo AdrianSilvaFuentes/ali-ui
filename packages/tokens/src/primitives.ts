@@ -26,6 +26,21 @@ export const gray = {
   950: "#0f1113",
 } as const;
 
+/** Neutros para o tema escuro: cinzas azulados, do mais claro (50) ao quase preto (950). */
+export const neutralDark = {
+  50: "#f3f2f5",
+  100: "#d1d1dd",
+  200: "#b1b1c3",
+  300: "#9094ab",
+  400: "#717993",
+  500: "#535e7b",
+  600: "#354563",
+  700: "#2b384d",
+  800: "#212a37",
+  900: "#161c23",
+  950: "#0d0f12",
+} as const;
+
 /** Cor de marca: um verde-menta. É clara, então pede texto escuro por cima. */
 export const primary = {
   50: "#f0fff9",

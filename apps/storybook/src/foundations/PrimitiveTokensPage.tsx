@@ -1,6 +1,15 @@
 import { contrastRatio, toHex, toOklch } from "@ali/tokens/color";
 // Os primitivos aparecem aqui só como documentação. Componentes nunca os usam.
-import { blue, gray, green, orange, primary, red, yellow } from "@ali/tokens/primitives";
+import {
+  blue,
+  gray,
+  green,
+  neutralDark,
+  orange,
+  primary,
+  red,
+  yellow,
+} from "@ali/tokens/primitives";
 import { formatRatio, Section, Swatch, Table, TokensLayout } from "./TokensLayout";
 
 /** Tabela de uma escala: hex, OKLCH e contraste com os fundos claro (gray-50) e escuro (gray-950). */
@@ -44,6 +53,10 @@ export function PrimitiveTokensPage() {
             description="Cinza puro nos tons claros e um leve tom frio nos escuros."
           >
             <ScaleTable name="gray" scale={gray} />
+          </Section>
+
+          <Section title="Neutros do tema escuro" description="Cinzas azulados para a versão dark.">
+            <ScaleTable name="neutral-dark" scale={neutralDark} />
           </Section>
 
           <Section
