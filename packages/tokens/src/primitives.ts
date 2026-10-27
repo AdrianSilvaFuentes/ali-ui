@@ -14,7 +14,7 @@
  */
 export const gray = {
   50: "#ffffff",
-  100: "#f9f9f9",
+  100: "#fafafa",
   200: "#ececec",
   300: "#dedede",
   400: "#8e8e8e",
