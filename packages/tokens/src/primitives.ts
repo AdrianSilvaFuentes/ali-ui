@@ -86,6 +86,21 @@ export const orange = {
   950: "#4d1f02",
 } as const;
 
+/** Amarelo para destaques informativos e atenção leve. */
+export const yellow = {
+  50: "#fffff0",
+  100: "#ffffc8",
+  200: "#fffca0",
+  300: "#fff778",
+  400: "#fff052",
+  500: "#ffe733",
+  600: "#ffdc17",
+  700: "#d3a11e",
+  800: "#aa7422",
+  900: "#855123",
+  950: "#623821",
+} as const;
+
 /** Escala de espaçamento. A chave é o valor em pixels (com fonte base de 16px). */
 export const space = {
   0: "0rem",

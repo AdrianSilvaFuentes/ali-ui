@@ -1,6 +1,6 @@
 import { contrastRatio, toHex, toOklch } from "@ali/tokens/color";
 // Os primitivos aparecem aqui só como documentação. Componentes nunca os usam.
-import { gray, green, orange, primary, red } from "@ali/tokens/primitives";
+import { gray, green, orange, primary, red, yellow } from "@ali/tokens/primitives";
 import { formatRatio, Section, Swatch, Table, TokensLayout } from "./TokensLayout";
 
 /** Tabela de uma escala: hex, OKLCH e contraste com os fundos claro (gray-50) e escuro (gray-950). */
@@ -66,6 +66,10 @@ export function PrimitiveTokensPage() {
 
           <Section title="Laranja" description="Para avisos.">
             <ScaleTable name="orange" scale={orange} />
+          </Section>
+
+          <Section title="Amarelo" description="Para destaques informativos e atenção leve.">
+            <ScaleTable name="yellow" scale={yellow} />
           </Section>
         </>
       )}
