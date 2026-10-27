@@ -78,7 +78,6 @@ const colorGroup = {
   surface: "surface",
   "surface-raised": "surface",
   "surface-overlay": "surface",
-  muted: "surface",
   primary: "surface",
   "primary-hover": "surface",
   foreground: "text",

@@ -18,11 +18,11 @@ function DurationDemo({ name }: { name: keyof typeof duration }) {
         type="button"
         onClick={() => setMoved((value) => !value)}
         aria-pressed={moved}
-        className="rounded-sm border border-border-strong bg-surface-raised px-3 py-0.5 text-label hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
+        className="rounded-sm border border-border-strong bg-surface-raised px-3 py-0.5 text-label hover:bg-surface-sunken focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
       >
         Testar
       </button>
-      <div className="relative h-3 w-24 rounded-full bg-muted ring-1 ring-border">
+      <div className="relative h-3 w-24 rounded-full bg-surface-sunken ring-1 ring-border">
         <div
           className="absolute top-0 left-0 size-3 rounded-full bg-primary transition-transform motion-reduce:transition-none"
           style={{

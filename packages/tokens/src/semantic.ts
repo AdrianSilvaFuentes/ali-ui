@@ -48,11 +48,6 @@ export const color = {
     dark: neutralDark[700],
     description: "Acima de tudo: menus, popovers e diálogos. Use com shadow-overlay.",
   },
-  muted: {
-    light: neutralLight[100],
-    dark: neutralDark[800],
-    description: "Fundo discreto: destaque sutil ao passar o mouse.",
-  },
   foreground: {
     light: neutralLight[900],
     dark: neutralDark[50],
@@ -126,8 +121,6 @@ export const contrastPairs: readonly (readonly [ColorName, ColorName, number])[]
   ["muted-foreground", "surface-raised", 4.5],
   ["foreground", "surface-overlay", 4.5],
   ["muted-foreground", "surface-overlay", 4.5],
-  ["foreground", "muted", 4.5],
-  ["muted-foreground", "muted", 4.5],
   ["link", "surface", 4.5],
   ["danger", "surface", 4.5],
   ["link", "surface-raised", 4.5],

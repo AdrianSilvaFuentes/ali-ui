@@ -113,6 +113,7 @@ describe("integração com o Tailwind", () => {
   // Classes padrão do Tailwind que expõem valores fora dos tokens.
   const removedClasses = [
     "bg-gray-500",
+    "bg-muted",
     "text-red-600",
     "bg-white",
     "p-13",

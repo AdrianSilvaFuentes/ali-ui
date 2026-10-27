@@ -23,11 +23,14 @@ export function ElevationDemo() {
                 surface-overlay · shadow-overlay
               </p>
               {["Editar", "Duplicar"].map((item) => (
-                <p key={item} className="rounded-sm px-2 py-1.5 text-body-sm hover:bg-muted">
+                <p
+                  key={item}
+                  className="rounded-sm px-2 py-1.5 text-body-sm hover:bg-surface-sunken"
+                >
                   {item}
                 </p>
               ))}
-              <p className="rounded-sm px-2 py-1.5 text-body-sm text-danger hover:bg-muted">
+              <p className="rounded-sm px-2 py-1.5 text-body-sm text-danger hover:bg-surface-sunken">
                 Excluir
               </p>
             </div>
