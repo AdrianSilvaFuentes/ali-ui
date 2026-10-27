@@ -71,6 +71,21 @@ export const green = {
   950: "#134808",
 } as const;
 
+/** Laranja para avisos. */
+export const orange = {
+  50: "#fff7f0",
+  100: "#ffe1c8",
+  200: "#ffcca0",
+  300: "#ffb878",
+  400: "#ffa352",
+  500: "#ff9033",
+  600: "#ff7c17",
+  700: "#d26310",
+  800: "#a64b0a",
+  900: "#793405",
+  950: "#4d1f02",
+} as const;
+
 /** Escala de espaçamento. A chave é o valor em pixels (com fonte base de 16px). */
 export const space = {
   0: "0rem",
