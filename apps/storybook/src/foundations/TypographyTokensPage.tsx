@@ -20,7 +20,7 @@ const textClass: Record<keyof typeof text, string> = {
 const weightClass: Record<keyof typeof fontWeight, string> = {
   regular: "font-regular",
   medium: "font-medium",
-  strong: "font-strong",
+  semibold: "font-semibold",
 };
 
 /** Nome usual de cada peso de fonte. */

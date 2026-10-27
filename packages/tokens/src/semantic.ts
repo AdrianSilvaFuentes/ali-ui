@@ -141,7 +141,7 @@ export const font = {
 export const fontWeight = {
   regular: fontWeightScale[400],
   medium: fontWeightScale[500],
-  strong: fontWeightScale[600],
+  semibold: fontWeightScale[600],
 } as const;
 
 export interface TextStyle {
@@ -204,25 +204,25 @@ export const text = {
   "title-sm": {
     fontSize: fontSize[20],
     lineHeight: lineHeight[125],
-    fontWeight: fontWeight.strong,
+    fontWeight: fontWeight.semibold,
     letterSpacing: letterSpacing[0],
   },
   "title-md": {
     fontSize: fontSize[24],
     lineHeight: lineHeight[125],
-    fontWeight: fontWeight.strong,
+    fontWeight: fontWeight.semibold,
     letterSpacing: letterSpacing[0],
   },
   "title-lg": {
     fontSize: fontSize[30],
     lineHeight: lineHeight[110],
-    fontWeight: fontWeight.strong,
+    fontWeight: fontWeight.semibold,
     letterSpacing: letterSpacing[0],
   },
   display: {
     fontSize: fontSize[48],
     lineHeight: lineHeight[100],
-    fontWeight: fontWeight.strong,
+    fontWeight: fontWeight.semibold,
     letterSpacing: letterSpacing[0],
   },
 } as const satisfies Record<string, TextStyle>;
