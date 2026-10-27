@@ -126,7 +126,7 @@ export function SemanticTokensPage() {
                   <span className="text-label">{name}</span>
                   <Code>{value}</Code>
                   <div
-                    className="h-sm bg-accent"
+                    className="h-sm bg-primary"
                     style={{ width: vars.space[name as keyof typeof spacing] }}
                   />
                 </li>

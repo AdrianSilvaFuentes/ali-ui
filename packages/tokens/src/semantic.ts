@@ -6,13 +6,13 @@
  * ou os próprios primitivos, sem tocar em nenhum componente.
  */
 import {
-  accent,
   duration as durationScale,
   fontFamily,
   fontSize,
   fontWeight as fontWeightScale,
   gray,
   lineHeight,
+  primary,
   radius as radiusScale,
   red,
   space,
@@ -63,24 +63,29 @@ export const color = {
     dark: gray[400],
     description: "Contorno de campos e controles (contraste mínimo de 3:1).",
   },
-  accent: {
-    light: accent[600],
-    dark: accent[400],
-    description: "Cor de destaque: ação principal, links, seleção.",
+  primary: {
+    light: primary[600],
+    dark: primary[600],
+    description: "Cor de marca: fundo de botões primários e marcadores.",
   },
-  "accent-hover": {
-    light: accent[700],
-    dark: accent[300],
-    description: "Cor de destaque ao passar o mouse ou pressionar.",
+  "primary-hover": {
+    light: primary[700],
+    dark: primary[500],
+    description: "Cor de marca ao passar o mouse ou pressionar.",
   },
-  "accent-foreground": {
-    light: gray[50],
+  "primary-foreground": {
+    light: gray[950],
     dark: gray[950],
-    description: "Texto e ícones sobre a cor de destaque.",
+    description: "Texto e ícones sobre a cor de marca.",
+  },
+  link: {
+    light: primary[900],
+    dark: primary[600],
+    description: "Links e textos na cor de marca.",
   },
   "focus-ring": {
-    light: accent[500],
-    dark: accent[400],
+    light: primary[800],
+    dark: primary[600],
     description: "Contorno de foco visível na navegação por teclado.",
   },
   danger: {
@@ -109,9 +114,10 @@ export const contrastPairs: readonly (readonly [ColorName, ColorName, number])[]
   ["muted-foreground", "surface", 4.5],
   ["foreground", "muted", 4.5],
   ["muted-foreground", "muted", 4.5],
-  ["accent", "background", 4.5],
-  ["accent-foreground", "accent", 4.5],
-  ["accent-foreground", "accent-hover", 4.5],
+  ["link", "background", 4.5],
+  ["link", "surface", 4.5],
+  ["primary-foreground", "primary", 4.5],
+  ["primary-foreground", "primary-hover", 4.5],
   ["danger", "background", 4.5],
   ["danger-foreground", "danger", 4.5],
   ["border-strong", "background", 3],

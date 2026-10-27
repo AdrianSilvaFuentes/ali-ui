@@ -51,11 +51,11 @@ describe("regra: sem valores arbitrários fixos do Tailwind", () => {
   });
 
   it.each([
-    "p-md bg-accent text-body rounded-control",
+    "p-md bg-primary text-body rounded-control",
     "data-[state=open]:bg-muted",
     "[&>svg]:size-md",
     "grid-cols-[repeat(2,1fr)]",
-    "bg-[var(--ali-color-accent)]",
+    "bg-[var(--ali-color-primary)]",
   ])("passa com %s", (cls) => {
     expect(lint(component(cls))).toMatchObject({ ok: true });
   });
@@ -78,7 +78,7 @@ describe("regra: componentes não importam primitivos", () => {
 
   it("passa ao importar os tokens semânticos", () => {
     expect(
-      lint('import { vars } from "@ali/tokens";\n\nexport const x = vars.color.accent;\n'),
+      lint('import { vars } from "@ali/tokens";\n\nexport const x = vars.color.primary;\n'),
     ).toMatchObject({ ok: true });
   });
 });

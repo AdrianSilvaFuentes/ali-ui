@@ -26,15 +26,19 @@ export const gray = {
   950: "#0f1113",
 } as const;
 
-/** Cor de destaque provisória (azul genérico, a ser substituído pela identidade). */
-export const accent = {
-  100: "oklch(0.932 0.032 255.6)",
-  300: "oklch(0.809 0.105 251.8)",
-  400: "oklch(0.707 0.165 254.6)",
-  500: "oklch(0.623 0.214 259.8)",
-  600: "oklch(0.546 0.245 262.9)",
-  700: "oklch(0.488 0.243 264.4)",
-  900: "oklch(0.379 0.146 265.5)",
+/** Cor de marca: um amarelo dourado. É clara, então pede texto escuro por cima. */
+export const primary = {
+  50: "#fffae8",
+  100: "#fff5cf",
+  200: "#ffeeb7",
+  300: "#ffe8a0",
+  400: "#ffe18a",
+  500: "#fed975",
+  600: "#fad161",
+  700: "#d7a950",
+  800: "#b38440",
+  900: "#8c6131",
+  950: "#664223",
 } as const;
 
 /** Vermelho para estados de erro. */
