@@ -60,7 +60,7 @@ export function PaddingTokensPage() {
                       className="inline-flex rounded-sm"
                       style={{ padding: vars.spacing[name], backgroundColor: primary[600] }}
                     >
-                      <span className="rounded-sm bg-surface-raised px-2 text-caption">
+                      <span className="rounded-sm bg-surface-raised px-2 text-body-sm">
                         Conteúdo
                       </span>
                     </div>

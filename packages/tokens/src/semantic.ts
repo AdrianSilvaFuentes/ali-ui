@@ -151,12 +151,6 @@ export interface TextStyle {
 
 /** Estilos de texto: tamanho, altura de linha, peso e espaçamento entre letras combinados. */
 export const text = {
-  caption: {
-    fontSize: fontSize[12],
-    lineHeight: lineHeight[140],
-    fontWeight: fontWeight.regular,
-    letterSpacing: letterSpacing[0],
-  },
   "body-xs": {
     fontSize: fontSize[10],
     lineHeight: lineHeight[150],

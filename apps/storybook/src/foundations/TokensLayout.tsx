@@ -78,7 +78,7 @@ export function Section({
 }
 
 export function Code({ children }: { children: ReactNode }) {
-  return <code className="font-mono text-caption text-muted-foreground">{children}</code>;
+  return <code className="font-mono text-body-sm text-muted-foreground">{children}</code>;
 }
 
 /**

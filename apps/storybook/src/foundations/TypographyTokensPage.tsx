@@ -3,7 +3,6 @@ import { Code, Section, Table, TokensLayout, toPx } from "./TokensLayout";
 
 // O Tailwind só gera classes escritas por extenso no código, por isso as listas explícitas.
 const textClass: Record<keyof typeof text, string> = {
-  caption: "text-caption",
   "body-xs": "text-body-xs",
   "body-sm": "text-body-sm",
   "body-md": "text-body-md",
@@ -59,9 +58,16 @@ const sample = "Um sistema enxuto, com poucos componentes e muita personalidade.
 const textGroups = [
   ["display", "Display", "Textos de impacto: capas e chamadas principais."],
   ["title", "Title", "Títulos de páginas, seções e cartões."],
-  ["body", "Body", "Texto corrido: parágrafos e conteúdo."],
-  ["label", "Label", "Rótulos de campos, botões, abas e menus."],
-  ["caption", "Caption", "Texto pequeno de apoio: legendas, datas, ajudas e notas."],
+  [
+    "body",
+    "Body",
+    "Texto corrido: parágrafos, conteúdo, legendas e textos de ajuda. O xs (10px) só em casos muito pontuais, como contadores; nunca em frases.",
+  ],
+  [
+    "label",
+    "Label",
+    "Rótulos de campos, botões, abas e menus. O xs (10px) só em casos muito pontuais, como etiquetas compactas.",
+  ],
 ] as const;
 
 function TextStyleTable({ names }: { names: (keyof typeof text)[] }) {

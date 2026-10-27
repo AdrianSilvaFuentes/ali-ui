@@ -32,7 +32,7 @@ few components, each one with personality.
 | Spacing          | Tailwind CSS 4 numeric scale (`0` to `32`, 4px per step)                                                                                         |
 | Radius           | `none` to `3xl`, plus `full`                                                                                                                     |
 | Shadow           | `2xs` to `2xl`, plus `shadow-raised` and `shadow-overlay`                                                                                        |
-| Typography       | Text styles from `caption` to `display`                                                                                                          |
+| Typography       | DM Sans; text styles `display`, `title`, `body` and `label`                                                                                      |
 | Motion           | `instant`, `fast`, `base`, `slow`                                                                                                                |
 
 ## How it's built

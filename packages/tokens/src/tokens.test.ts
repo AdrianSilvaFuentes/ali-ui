@@ -128,6 +128,7 @@ describe("integração com o Tailwind", () => {
     "bg-muted",
     "text-body",
     "text-label",
+    "text-caption",
     "text-heading-md",
     "font-heading",
     "bg-primary",

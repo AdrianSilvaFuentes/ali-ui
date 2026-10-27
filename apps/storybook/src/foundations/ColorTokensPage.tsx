@@ -18,14 +18,14 @@ import { formatRatio, Section, Swatch, Table, TokensLayout } from "./TokensLayou
 function ContrastLine({ name, theme }: { name: ColorName; theme: ThemeName }) {
   const pair = contrastPairs.find(([fg, bg]) => fg === name || bg === name);
   if (!pair) {
-    return <span className="text-caption text-muted-foreground">Decorativa, sem mínimo</span>;
+    return <span className="text-body-sm text-muted-foreground">Decorativa, sem mínimo</span>;
   }
   const [fg, bg, min] = pair;
   const other = fg === name ? bg : fg;
   const ratio = contrastRatio(color[fg][theme], color[bg][theme]);
   const passes = ratio >= min;
   return (
-    <span className={passes ? "text-caption text-muted-foreground" : "text-caption text-danger"}>
+    <span className={passes ? "text-body-sm text-muted-foreground" : "text-body-sm text-danger"}>
       {formatRatio(ratio)} com {other} · {passes ? "passa" : "não passa"} (mín. {formatRatio(min)})
     </span>
   );
@@ -48,7 +48,7 @@ function ThemeCell({ name, theme }: { name: ColorName; theme: ThemeName }) {
       <Swatch color={value} />
       <div className="flex flex-col gap-0.5">
         <span className="font-mono text-body-md">{primitiveName(value)}</span>
-        <span className="font-mono text-caption text-muted-foreground">{toHex(value)}</span>
+        <span className="font-mono text-body-sm text-muted-foreground">{toHex(value)}</span>
         <ContrastLine name={name} theme={theme} />
       </div>
     </div>
@@ -119,7 +119,7 @@ export function ColorGroupPage({
                   <td className="px-4 py-3">
                     <div className="flex flex-col">
                       <span className="text-label-md">{name}</span>
-                      <span className="text-caption text-muted-foreground">
+                      <span className="text-body-sm text-muted-foreground">
                         {color[name].description}
                       </span>
                     </div>

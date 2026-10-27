@@ -8,9 +8,9 @@ export function ElevationDemo() {
       description="No tema claro a altura vem da sombra; no escuro, da cor: quanto mais alto, mais claro. Troque o tema para comparar."
     >
       <div className="rounded-lg bg-surface-sunken p-6">
-        <p className="mb-3 text-caption text-muted-foreground">surface-sunken</p>
+        <p className="mb-3 text-body-sm text-muted-foreground">surface-sunken</p>
         <div className="rounded-md border border-border bg-surface p-6">
-          <p className="mb-4 text-caption text-muted-foreground">surface</p>
+          <p className="mb-4 text-body-sm text-muted-foreground">surface</p>
           <div className="flex flex-wrap items-start gap-6">
             <div className="w-64 rounded-md bg-surface-raised p-4 shadow-raised">
               <p className="text-label-md">Cartão</p>
@@ -19,7 +19,7 @@ export function ElevationDemo() {
               </p>
             </div>
             <div className="w-56 rounded-md border border-border bg-surface-overlay p-2 shadow-overlay">
-              <p className="px-2 pt-1 pb-2 text-caption text-muted-foreground">
+              <p className="px-2 pt-1 pb-2 text-body-sm text-muted-foreground">
                 surface-overlay · shadow-overlay
               </p>
               {["Editar", "Duplicar"].map((item) => (
