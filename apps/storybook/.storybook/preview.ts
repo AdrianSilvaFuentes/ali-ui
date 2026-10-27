@@ -14,6 +14,7 @@ const preview: Preview = {
             ["Primitive", "Surface", "Text", "Border", "Icon", "Semantic", "Infographics"],
             "Gradients",
             "Spacing & Layout",
+            ["Spacing", "Padding", "Radius", "Shadow elevations"],
             "Typography",
             "Motion",
           ],
