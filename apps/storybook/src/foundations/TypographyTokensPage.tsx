@@ -46,7 +46,7 @@ const textStylesBySize = (Object.keys(text) as (keyof typeof text)[]).sort(
   (a, b) => Number.parseFloat(text[b].fontSize) - Number.parseFloat(text[a].fontSize),
 );
 
-const sample = "Um sistema enxuto, com poucos componentes e muita personalidade.";
+const sample = "Poucos componentes, muita personalidade.";
 
 /** Grupos de estilos de texto, na ordem da página. O grupo vem do começo do nome. */
 const textGroups = [
@@ -67,13 +67,24 @@ const textGroups = [
 function TextStyleTable({ names }: { names: (keyof typeof text)[] }) {
   return (
     <Table
-      columns={["Token", "Size (px)", "Peso", "Altura de linha", "Letter spacing", "Preview"]}
+      columns={[
+        "Token",
+        "Classe",
+        "Size (px)",
+        "Peso",
+        "Altura de linha",
+        "Letter spacing",
+        "Preview",
+      ]}
       // A última coluna (Preview) fica com o espaço que sobrar.
-      widths={["10rem", "7rem", "10rem", "9rem", "8rem", undefined]}
+      widths={["8rem", "10rem", "6rem", "10rem", "9rem", "8rem", undefined]}
     >
       {names.map((name) => (
         <tr key={name} className="border-t border-border align-middle">
-          <td className="px-4 py-3 text-label-md whitespace-nowrap">text-{name}</td>
+          <td className="px-4 py-3 text-label-md whitespace-nowrap">{name}</td>
+          <td className="px-4 py-3 whitespace-nowrap">
+            <Code>text-{name}</Code>
+          </td>
           <td className="px-4 py-3 font-mono text-body-md whitespace-nowrap">
             {toPx(text[name].fontSize)}
           </td>
@@ -99,7 +110,7 @@ export function TextStylesPage() {
   return (
     <TokensLayout
       title="Text styles"
-      description="Cada estilo combina tamanho, peso, altura de linha e espaçamento entre letras. Use a classe inteira, como text-body-lg."
+      description="Cada estilo combina tamanho, peso, altura de linha e espaçamento entre letras. O token (como title-md) é o nome do estilo, igual ao Figma; no código a classe leva o prefixo text-, como text-title-md."
     >
       {() => (
         <>
