@@ -122,7 +122,9 @@ function figmaPath(name: ColorName): string {
 }
 
 function scopesFor(name: ColorName): FigmaScope[] {
-  if (name.startsWith("surface")) return ["FRAME_FILL", "SHAPE_FILL"];
+  if (name.startsWith("surface") || name.startsWith("background-")) {
+    return ["FRAME_FILL", "SHAPE_FILL"];
+  }
   if (name.startsWith("text-")) return ["TEXT_FILL"];
   if (name.startsWith("icon-")) return ["SHAPE_FILL", "STROKE_COLOR"];
   return ["STROKE_COLOR"];

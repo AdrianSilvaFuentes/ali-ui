@@ -27,6 +27,16 @@ export const Surface: Story = {
   ),
 };
 
+export const Background: Story = {
+  render: () => (
+    <ColorGroupPage
+      group="background"
+      title="Background"
+      description="Fundos de controles, que vão sobre as superfícies. Por enquanto, o fundo de controles desabilitados; a cor da marca do botão primário é um degradê (veja Gradients). A classe é bg-*, sem o prefixo background-."
+    />
+  ),
+};
+
 export const Text: Story = {
   render: () => (
     <ColorGroupPage

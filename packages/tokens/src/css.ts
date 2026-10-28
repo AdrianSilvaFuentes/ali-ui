@@ -4,7 +4,18 @@
  */
 
 import { radius, shadow, spacing } from "./scales.ts";
-import { color, duration, elevation, font, fontWeight, type ThemeName, text } from "./semantic.ts";
+import {
+  color,
+  duration,
+  elevation,
+  font,
+  fontWeight,
+  gradient,
+  gradientCss,
+  insetShadow,
+  type ThemeName,
+  text,
+} from "./semantic.ts";
 
 /** Grupos de tokens e o prefixo de cada um nas variáveis CSS. */
 export type TokenGroup =
@@ -16,7 +27,9 @@ export type TokenGroup =
   | "text"
   | "duration"
   | "shadow"
-  | "elevation";
+  | "elevation"
+  | "inset-shadow"
+  | "gradient";
 
 /** Nome da variável CSS de um token. Ex.: `cssVarName("color", "surface")` → `--ali-color-surface`. */
 export function cssVarName(group: TokenGroup, key: string): string {
@@ -55,6 +68,14 @@ function staticEntries(): [string, string][] {
     ...Object.entries(duration).map(([k, v]): [string, string] => [cssVarName("duration", k), v]),
     ...Object.entries(shadow).map(([k, v]): [string, string] => [cssVarName("shadow", k), v]),
     ...Object.entries(elevation).map(([k, v]): [string, string] => [cssVarName("elevation", k), v]),
+    ...Object.entries(insetShadow).map(([k, v]): [string, string] => [
+      cssVarName("inset-shadow", k),
+      v,
+    ]),
+    ...Object.entries(gradient).map(([k, v]): [string, string] => [
+      cssVarName("gradient", k),
+      gradientCss(v),
+    ]),
   ];
 }
 
@@ -99,6 +120,7 @@ ${declarations(staticEntries())}
 /** Variáveis de tema do Tailwind para um token de cor, conforme o grupo do nome. */
 function colorThemeVars(key: string, value: string): [string, string][] {
   if (key.startsWith("surface")) return [[`--background-color-${key}`, value]];
+  if (key.startsWith("background-")) return [[`--background-color-${key.slice(11)}`, value]];
   if (key.startsWith("text-")) return [[`--text-color-${key.slice(5)}`, value]];
   if (key.startsWith("icon-")) return [[`--text-color-${key}`, value]];
   if (key.startsWith("border-")) {
@@ -133,7 +155,7 @@ export function renderTailwindCss(): string {
     ["--drop-shadow-*", "initial"],
     ["--text-shadow-*", "initial"],
     ["--transition-duration-*", "initial"],
-    // Cada grupo de cor vale só para o seu utilitário: superfícies em bg-*, textos e
+    // Cada grupo de cor vale só para o seu utilitário: superfícies e fundos em bg-*, textos e
     // ícones em text-*, bordas em border-*, outline-* e ring-*. Assim bg-text-default
     // ou text-surface nem existem.
     ...Object.keys(color).flatMap((k) => colorThemeVars(k, v("color", k))),
@@ -161,6 +183,10 @@ export function renderTailwindCss(): string {
     ]),
     ...Object.keys(shadow).map((k): [string, string] => [`--shadow-${k}`, v("shadow", k)]),
     ...Object.keys(elevation).map((k): [string, string] => [`--shadow-${k}`, v("elevation", k)]),
+    ...Object.keys(insetShadow).map((k): [string, string] => [
+      `--inset-shadow-${k}`,
+      v("inset-shadow", k),
+    ]),
     ["--default-font-family", v("font", "body")],
     ["--default-mono-font-family", v("font", "mono")],
     ["--default-transition-duration", v("duration", "base")],
@@ -173,6 +199,17 @@ export function renderTailwindCss(): string {
 ${declarations(entries)}
 }
 
+${Object.keys(gradient)
+  .map(
+    (
+      k,
+    ) => `/* Degradê ${k}: o Tailwind 4 não tem tema para degradês, então a classe é criada aqui. */
+@utility bg-gradient-${k} {
+  background-image: ${v("gradient", k)};
+}
+`,
+  )
+  .join("\n")}
 @layer base {
   html {
     background-color: var(${cssVarName("color", "surface")});

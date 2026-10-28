@@ -98,7 +98,7 @@ export function IconsPage() {
             title="Como usar"
             description="Importe o ícone pelo nome e defina tamanho e cor por classe. Ícone sem texto ao lado precisa de um rótulo no botão (aria-label); ícone decorativo ao lado de texto leva aria-hidden."
           >
-            <pre className="overflow-x-auto rounded-md border border-subtle bg-surface-sunken p-4">
+            <pre className="overflow-x-auto rounded-md border border-subtle bg-surface p-4">
               <Code>
                 {`import { IconSearch } from "@tabler/icons-react";
 
