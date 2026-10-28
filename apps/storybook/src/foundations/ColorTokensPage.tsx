@@ -18,7 +18,10 @@ import { formatRatio, Section, Swatch, Table, TokensLayout } from "./TokensLayou
 function ContrastLine({ name, theme }: { name: ColorName; theme: ThemeName }) {
   const pair = contrastPairs.find(([fg, bg]) => fg === name || bg === name);
   if (!pair) {
-    return <span className="text-body-sm text-subtle">Decorativa, sem mínimo</span>;
+    const text = name.includes("static")
+      ? "Depende do fundo: sobre imagens, use uma camada por baixo"
+      : "Decorativa, sem mínimo";
+    return <span className="text-body-sm text-subtle">{text}</span>;
   }
   const [fg, bg, min] = pair;
   const other = fg === name ? bg : fg;
@@ -94,9 +97,15 @@ const colorGroup = {
   "text-subtle": "text",
   "text-disabled": "text",
   "text-link": "text",
+  "text-inverse": "text",
+  "text-static-white": "text",
+  "text-static-black": "text",
   "icon-default": "icon",
   "icon-subtle": "icon",
   "icon-disabled": "icon",
+  "icon-inverse": "icon",
+  "icon-static-white": "icon",
+  "icon-static-black": "icon",
   "border-default": "border",
   "border-strong": "border",
   "border-focus": "border",

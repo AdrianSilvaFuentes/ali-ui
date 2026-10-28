@@ -63,6 +63,12 @@ describe("tokens.css", () => {
     expect(css).not.toContain("--ali-space-");
   });
 
+  it("mantém as cores static iguais nos dois temas", () => {
+    for (const [name, token] of Object.entries(color)) {
+      if (name.includes("static")) expect(token.light).toBe(token.dark);
+    }
+  });
+
   it("define todas as cores semânticas nos temas claro e escuro", () => {
     for (const [name, token] of Object.entries(color)) {
       expect(css).toContain(`--ali-color-${name}: ${token.light};`);
@@ -98,6 +104,9 @@ describe("integração com o Tailwind", () => {
     "text-link",
     "text-icon-default",
     "text-icon-subtle",
+    "text-inverse",
+    "text-static-white",
+    "text-icon-static-black",
     "border-default",
     "border-strong",
     "outline-focus",

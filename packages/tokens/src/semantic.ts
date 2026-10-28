@@ -69,6 +69,21 @@ export const color = {
     dark: primary[600],
     description: "Links e textos na cor de marca.",
   },
+  "text-inverse": {
+    light: neutralLight[50],
+    dark: neutralDark[950],
+    description: "Texto sobre fundos invertidos, que mudam com o tema: tooltips, toasts.",
+  },
+  "text-static-white": {
+    light: neutralLight[50],
+    dark: neutralLight[50],
+    description: "Branco nos dois temas: sobre fotos, vídeos ou fundos fixos.",
+  },
+  "text-static-black": {
+    light: neutralLight[950],
+    dark: neutralLight[950],
+    description: "Quase preto nos dois temas: sobre fotos, vídeos ou fundos fixos.",
+  },
   "icon-default": {
     light: neutralLight[700],
     dark: neutralDark[100],
@@ -83,6 +98,21 @@ export const color = {
     light: neutralLight[400],
     dark: neutralDark[400],
     description: "Ícones de elementos desabilitados.",
+  },
+  "icon-inverse": {
+    light: neutralLight[50],
+    dark: neutralDark[950],
+    description: "Ícones sobre fundos invertidos, que mudam com o tema.",
+  },
+  "icon-static-white": {
+    light: neutralLight[50],
+    dark: neutralLight[50],
+    description: "Ícone branco nos dois temas: sobre fotos, vídeos ou fundos fixos.",
+  },
+  "icon-static-black": {
+    light: neutralLight[950],
+    dark: neutralLight[950],
+    description: "Ícone quase preto nos dois temas: sobre fotos, vídeos ou fundos fixos.",
   },
   "border-default": {
     light: neutralLight[200],
@@ -161,6 +191,9 @@ export const contrastPairs: readonly (readonly [ColorName, ColorName, number])[]
   ["text-disabled", "surface-overlay", 3],
   ["icon-disabled", "surface-overlay", 3],
   ["danger-foreground", "danger", 4.5],
+  // O inverse vai sobre um fundo na cor do texto padrão (escuro no claro, claro no escuro).
+  ["text-inverse", "text-default", 4.5],
+  ["icon-inverse", "text-default", 3],
 ];
 
 /**

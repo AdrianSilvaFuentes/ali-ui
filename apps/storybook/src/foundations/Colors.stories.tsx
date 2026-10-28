@@ -32,7 +32,7 @@ export const Text: Story = {
     <ColorGroupPage
       group="text"
       title="Text"
-      description="Cores de texto: padrão, sutil, desabilitado e link. Classes text-default, text-subtle, text-disabled e text-link."
+      description="Cores de texto: padrão, sutil, desabilitado e link; inverse para fundos que invertem com o tema; static para manter branco ou preto nos dois temas."
     />
   ),
 };
