@@ -90,17 +90,17 @@ export const color = {
   },
   "text-success": {
     light: green[900],
-    dark: green[700],
+    dark: green[300],
     description: "Sucesso e confirmações: salvo, concluído.",
   },
   "text-caution": {
     light: yellow[900],
-    dark: yellow[700],
+    dark: yellow[300],
     description: "Atenção leve: algo merece cuidado, mas não bloqueia.",
   },
   "text-warning": {
     light: orange[800],
-    dark: orange[600],
+    dark: orange[300],
     description: "Aviso: algo pode dar errado se nada for feito.",
   },
   "text-danger": {
@@ -110,7 +110,7 @@ export const color = {
   },
   "text-info": {
     light: blue[700],
-    dark: blue[500],
+    dark: blue[300],
     description: "Informação neutra: dicas e novidades.",
   },
   "icon-default": {
