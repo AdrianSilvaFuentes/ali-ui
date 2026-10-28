@@ -24,16 +24,16 @@ few components, each one with personality.
 
 ## Foundations
 
-| Group            | What's in it                                                                                                                                     |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Color primitives | `neutral-light`, `neutral-dark`, brand `primary` (mint), and status scales `red`, `green`, `orange`, `yellow`, `blue`, 11 steps each (50 to 950) |
-| Surface          | `surface-sunken`, `surface`, `surface-raised`, `surface-overlay`                                                                                 |
-| Text and border  | Default, secondary, link, borders and focus ring                                                                                                 |
-| Spacing          | Tailwind CSS 4 numeric scale (`0` to `32`, 4px per step)                                                                                         |
-| Radius           | `none` to `3xl`, plus `full`                                                                                                                     |
-| Shadow           | `2xs` to `2xl`, plus `shadow-raised` and `shadow-overlay`                                                                                        |
-| Typography       | DM Sans; text styles `display`, `title`, `body` and `label`                                                                                      |
-| Motion           | `instant`, `fast`, `base`, `slow`                                                                                                                |
+| Group              | What's in it                                                                                                                                     |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Color primitives   | `neutral-light`, `neutral-dark`, brand `primary` (mint), and status scales `red`, `green`, `orange`, `yellow`, `blue`, 11 steps each (50 to 950) |
+| Surface            | `surface-sunken`, `surface`, `surface-raised`, `surface-overlay`                                                                                 |
+| Text, icon, border | `default`, `subtle`, `disabled`, `link`; `border-default`, `border-strong`, `border-focus`                                                       |
+| Spacing            | Tailwind CSS 4 numeric scale (`0` to `32`, 4px per step)                                                                                         |
+| Radius             | `none` to `3xl`, plus `full`                                                                                                                     |
+| Shadow             | `2xs` to `2xl`, plus `shadow-raised` and `shadow-overlay`                                                                                        |
+| Typography         | DM Sans; text styles `display`, `title`, `body` and `label`                                                                                      |
+| Motion             | `instant`, `fast`, `base`, `slow`                                                                                                                |
 
 ## How it's built
 

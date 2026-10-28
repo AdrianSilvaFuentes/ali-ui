@@ -18,14 +18,14 @@ import { formatRatio, Section, Swatch, Table, TokensLayout } from "./TokensLayou
 function ContrastLine({ name, theme }: { name: ColorName; theme: ThemeName }) {
   const pair = contrastPairs.find(([fg, bg]) => fg === name || bg === name);
   if (!pair) {
-    return <span className="text-body-sm text-muted-foreground">Decorativa, sem mínimo</span>;
+    return <span className="text-body-sm text-subtle">Decorativa, sem mínimo</span>;
   }
   const [fg, bg, min] = pair;
   const other = fg === name ? bg : fg;
   const ratio = contrastRatio(color[fg][theme], color[bg][theme]);
   const passes = ratio >= min;
   return (
-    <span className={passes ? "text-body-sm text-muted-foreground" : "text-body-sm text-danger"}>
+    <span className={passes ? "text-body-sm text-subtle" : "text-body-sm text-danger"}>
       {formatRatio(ratio)} com {other} · {passes ? "passa" : "não passa"} (mín. {formatRatio(min)})
     </span>
   );
@@ -48,7 +48,7 @@ function ThemeCell({ name, theme }: { name: ColorName; theme: ThemeName }) {
       <Swatch color={value} />
       <div className="flex flex-col gap-0.5">
         <span className="font-mono text-body-md">{primitiveName(value)}</span>
-        <span className="font-mono text-body-sm text-muted-foreground">{toHex(value)}</span>
+        <span className="font-mono text-body-sm text-subtle">{toHex(value)}</span>
         <ContrastLine name={name} theme={theme} />
       </div>
     </div>
@@ -66,8 +66,20 @@ const scales = {
   blue,
 };
 
+/** Classes do Tailwind de um token de cor; cada grupo vale só para o seu utilitário. */
+function classesFor(name: ColorName): string {
+  if (name.startsWith("surface")) return `bg-${name}`;
+  if (name.startsWith("text-")) return name;
+  if (name.startsWith("icon-")) return `text-${name}`;
+  if (name.startsWith("border-")) {
+    const short = name.slice(7);
+    return `border-${short} · outline-${short} · ring-${short}`;
+  }
+  return `bg-${name} · text-${name}`;
+}
+
 /** Páginas de cor no Storybook. */
-export type ColorGroup = "surface" | "text" | "border" | "semantic";
+export type ColorGroup = "surface" | "text" | "icon" | "border" | "semantic";
 
 /**
  * Em que página cada token de cor aparece. Um token novo sem página aqui é um erro
@@ -78,13 +90,16 @@ const colorGroup = {
   surface: "surface",
   "surface-raised": "surface",
   "surface-overlay": "surface",
-  foreground: "text",
-  "muted-foreground": "text",
-  link: "text",
-  "primary-foreground": "text",
-  border: "border",
+  "text-default": "text",
+  "text-subtle": "text",
+  "text-disabled": "text",
+  "text-link": "text",
+  "icon-default": "icon",
+  "icon-subtle": "icon",
+  "icon-disabled": "icon",
+  "border-default": "border",
   "border-strong": "border",
-  "focus-ring": "border",
+  "border-focus": "border",
   danger: "semantic",
   "danger-foreground": "semantic",
 } as const satisfies Record<ColorName, ColorGroup>;
@@ -115,13 +130,12 @@ export function ColorGroupPage({
           >
             <Table columns={["Token", "Light", "Dark"]}>
               {names.map((name) => (
-                <tr key={name} className="border-t border-border align-top">
+                <tr key={name} className="border-t border-default align-top">
                   <td className="px-4 py-3">
                     <div className="flex flex-col">
                       <span className="text-label-md">{name}</span>
-                      <span className="text-body-sm text-muted-foreground">
-                        {color[name].description}
-                      </span>
+                      <code className="font-mono text-body-sm text-subtle">{classesFor(name)}</code>
+                      <span className="text-body-sm text-subtle">{color[name].description}</span>
                     </div>
                   </td>
                   <td className="px-4 py-3">

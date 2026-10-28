@@ -49,17 +49,42 @@ export const color = {
     dark: neutralDark[700],
     description: "Acima de tudo: menus, popovers e diálogos. Use com shadow-overlay.",
   },
-  foreground: {
+  "text-default": {
     light: neutralLight[900],
     dark: neutralDark[50],
-    description: "Texto e ícones principais.",
+    description: "Texto principal.",
   },
-  "muted-foreground": {
+  "text-subtle": {
     light: neutralLight[600],
     dark: neutralDark[200],
     description: "Texto secundário: legendas, dicas, metadados.",
   },
-  border: {
+  "text-disabled": {
+    light: neutralLight[400],
+    dark: neutralDark[400],
+    description: "Texto de elementos desabilitados.",
+  },
+  "text-link": {
+    light: primary[900],
+    dark: primary[600],
+    description: "Links e textos na cor de marca.",
+  },
+  "icon-default": {
+    light: neutralLight[700],
+    dark: neutralDark[100],
+    description: "Ícones principais, um degrau mais suaves que o texto.",
+  },
+  "icon-subtle": {
+    light: neutralLight[500],
+    dark: neutralDark[300],
+    description: "Ícones secundários e decorativos.",
+  },
+  "icon-disabled": {
+    light: neutralLight[400],
+    dark: neutralDark[400],
+    description: "Ícones de elementos desabilitados.",
+  },
+  "border-default": {
     light: neutralLight[200],
     dark: neutralDark[600],
     description: "Divisórias e contornos decorativos.",
@@ -69,17 +94,7 @@ export const color = {
     dark: neutralDark[400],
     description: "Contorno de campos e controles (contraste mínimo de 3:1).",
   },
-  "primary-foreground": {
-    light: neutralLight[950],
-    dark: neutralDark[950],
-    description: "Texto e ícones sobre a cor de marca.",
-  },
-  link: {
-    light: primary[900],
-    dark: primary[600],
-    description: "Links e textos na cor de marca.",
-  },
-  "focus-ring": {
+  "border-focus": {
     light: primary[800],
     dark: primary[600],
     description: "Contorno de foco visível na navegação por teclado.",
@@ -100,32 +115,52 @@ export type ColorName = keyof typeof color;
 
 /**
  * Pares de cores que aparecem juntos e o contraste mínimo exigido pela WCAG AA:
- * 4.5:1 para texto, 3:1 para contornos de controles e foco. Os testes verificam
+ * 4.5:1 para texto, 3:1 para ícones, contornos de controles e foco. Elementos
+ * desabilitados são isentos na WCAG, mas aqui ficam acima de 3:1 para continuarem legíveis. Os testes verificam
  * todos os pares nos dois temas, e a documentação mostra o primeiro par de cada token.
  */
 export const contrastPairs: readonly (readonly [ColorName, ColorName, number])[] = [
-  ["foreground", "surface", 4.5],
-  ["muted-foreground", "surface", 4.5],
-  ["foreground", "surface-sunken", 4.5],
-  ["muted-foreground", "surface-sunken", 4.5],
-  ["foreground", "surface-raised", 4.5],
-  ["muted-foreground", "surface-raised", 4.5],
-  ["foreground", "surface-overlay", 4.5],
-  ["muted-foreground", "surface-overlay", 4.5],
-  ["link", "surface", 4.5],
+  ["text-default", "surface", 4.5],
+  ["text-subtle", "surface", 4.5],
+  ["text-link", "surface", 4.5],
   ["danger", "surface", 4.5],
-  ["link", "surface-raised", 4.5],
+  ["text-default", "surface-sunken", 4.5],
+  ["text-subtle", "surface-sunken", 4.5],
+  ["text-link", "surface-sunken", 4.5],
+  ["danger", "surface-sunken", 4.5],
+  ["text-default", "surface-raised", 4.5],
+  ["text-subtle", "surface-raised", 4.5],
+  ["text-link", "surface-raised", 4.5],
   ["danger", "surface-raised", 4.5],
-  ["link", "surface-overlay", 4.5],
+  ["text-default", "surface-overlay", 4.5],
+  ["text-subtle", "surface-overlay", 4.5],
+  ["text-link", "surface-overlay", 4.5],
   ["danger", "surface-overlay", 4.5],
-  ["danger-foreground", "danger", 4.5],
+  ["icon-default", "surface", 3],
+  ["icon-subtle", "surface", 3],
   ["border-strong", "surface", 3],
+  ["border-focus", "surface", 3],
+  ["icon-default", "surface-sunken", 3],
+  ["icon-subtle", "surface-sunken", 3],
   ["border-strong", "surface-sunken", 3],
+  ["border-focus", "surface-sunken", 3],
+  ["icon-default", "surface-raised", 3],
+  ["icon-subtle", "surface-raised", 3],
   ["border-strong", "surface-raised", 3],
+  ["border-focus", "surface-raised", 3],
+  ["icon-default", "surface-overlay", 3],
+  ["icon-subtle", "surface-overlay", 3],
   ["border-strong", "surface-overlay", 3],
-  ["focus-ring", "surface", 3],
-  ["focus-ring", "surface-raised", 3],
-  ["focus-ring", "surface-overlay", 3],
+  ["border-focus", "surface-overlay", 3],
+  ["text-disabled", "surface", 3],
+  ["icon-disabled", "surface", 3],
+  ["text-disabled", "surface-sunken", 3],
+  ["icon-disabled", "surface-sunken", 3],
+  ["text-disabled", "surface-raised", 3],
+  ["icon-disabled", "surface-raised", 3],
+  ["text-disabled", "surface-overlay", 3],
+  ["icon-disabled", "surface-overlay", 3],
+  ["danger-foreground", "danger", 4.5],
 ];
 
 /**

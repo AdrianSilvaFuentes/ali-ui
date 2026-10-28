@@ -96,10 +96,32 @@ ${declarations(staticEntries())}
  * fontes, tamanhos, espaçamentos, raios e sombras) para que só existam classes com
  * nomes semânticos, como `bg-surface`, `text-body-lg`, `p-4`, `rounded-sm` e `shadow-md`.
  */
+/** Variáveis de tema do Tailwind para um token de cor, conforme o grupo do nome. */
+function colorThemeVars(key: string, value: string): [string, string][] {
+  if (key.startsWith("surface")) return [[`--background-color-${key}`, value]];
+  if (key.startsWith("text-")) return [[`--text-color-${key.slice(5)}`, value]];
+  if (key.startsWith("icon-")) return [[`--text-color-${key}`, value]];
+  if (key.startsWith("border-")) {
+    const name = key.slice(7);
+    return [
+      [`--border-color-${name}`, value],
+      [`--outline-color-${name}`, value],
+      [`--ring-color-${name}`, value],
+    ];
+  }
+  // Cores de status ainda valem para qualquer utilitário.
+  return [[`--color-${key}`, value]];
+}
+
 export function renderTailwindCss(): string {
   const v = (group: TokenGroup, key: string) => `var(${cssVarName(group, key)})`;
   const entries: [string, string][] = [
     ["--color-*", "initial"],
+    ["--background-color-*", "initial"],
+    ["--text-color-*", "initial"],
+    ["--border-color-*", "initial"],
+    ["--outline-color-*", "initial"],
+    ["--ring-color-*", "initial"],
     ["--font-*", "initial"],
     ["--font-weight-*", "initial"],
     ["--text-*", "initial"],
@@ -111,7 +133,10 @@ export function renderTailwindCss(): string {
     ["--drop-shadow-*", "initial"],
     ["--text-shadow-*", "initial"],
     ["--transition-duration-*", "initial"],
-    ...Object.keys(color).map((k): [string, string] => [`--color-${k}`, v("color", k)]),
+    // Cada grupo de cor vale só para o seu utilitário: superfícies em bg-*, textos e
+    // ícones em text-*, bordas em border-*, outline-* e ring-*. Assim bg-text-default
+    // ou text-surface nem existem.
+    ...Object.keys(color).flatMap((k) => colorThemeVars(k, v("color", k))),
     // No tema do Tailwind o ponto vai escapado: `--spacing-0\.5` gera `p-0.5`.
     ...Object.keys(spacing).map((k): [string, string] => [
       `--spacing-${k.replaceAll(".", "\\.")}`,
@@ -150,8 +175,8 @@ ${declarations(entries)}
 
 @layer base {
   html {
-    background-color: var(--color-surface);
-    color: var(--color-foreground);
+    background-color: var(${cssVarName("color", "surface")});
+    color: var(${cssVarName("color", "text-default")});
   }
 }
 `;

@@ -32,7 +32,7 @@ export const Text: Story = {
     <ColorGroupPage
       group="text"
       title="Text"
-      description="Cores de texto: principal, secundário, links e texto sobre a cor de marca."
+      description="Cores de texto: padrão, sutil, desabilitado e link. Classes text-default, text-subtle, text-disabled e text-link."
     />
   ),
 };
@@ -42,13 +42,19 @@ export const Border: Story = {
     <ColorGroupPage
       group="border"
       title="Border"
-      description="Contornos: divisórias, campos e o foco visível do teclado."
+      description="Contornos: padrão (divisórias), forte (campos e controles) e foco do teclado. Valem para border-*, outline-* e ring-*."
     />
   ),
 };
 
 export const Icon: Story = {
-  render: () => <PlaceholderPage title="Icon" description="Cores de ícones." />,
+  render: () => (
+    <ColorGroupPage
+      group="icon"
+      title="Icon"
+      description="Cores de ícones. Eles herdam a cor do texto (currentColor), por isso a classe é text-icon-*, e ficam um degrau mais suaves que o texto ao lado."
+    />
+  ),
 };
 
 export const Semantic: Story = {

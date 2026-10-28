@@ -25,7 +25,7 @@ function ScaleTable({ name, scale }: { name: string; scale: Record<string, strin
       ]}
     >
       {Object.entries(scale).map(([step, value]) => (
-        <tr key={step} className="border-t border-border align-middle">
+        <tr key={step} className="border-t border-default align-middle">
           <td className="px-4 py-3">
             <div className="flex items-center gap-3">
               <Swatch color={value} />
