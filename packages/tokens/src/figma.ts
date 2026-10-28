@@ -26,6 +26,7 @@ export const FIGMA_COLLECTIONS = {
 
 /** Onde cada variável pode ser aplicada no Figma (os mesmos limites do código). */
 export type FigmaScope =
+  | "ALL_SCOPES"
   | "GAP"
   | "WIDTH_HEIGHT"
   | "CORNER_RADIUS"
@@ -64,7 +65,7 @@ const colorScales = {
 const toPx = (value: string) =>
   value.endsWith("rem") ? Number.parseFloat(value) * 16 : Number.parseFloat(value);
 
-/** Primitivos: cores (escondidas, sem escopo), spacing e radius. */
+/** Primitivos: cores, spacing e radius. */
 export function figmaPrimitives(): FigmaPrimitive[] {
   const colors = Object.entries(colorScales).flatMap(([scale, steps]) =>
     Object.entries(steps).map(
@@ -72,8 +73,9 @@ export function figmaPrimitives(): FigmaPrimitive[] {
         name: `colors/${scale}/${scale}-${step}`,
         type: "COLOR",
         value,
-        // Primitivos de cor não aparecem nos seletores: o desenho usa os tokens.
-        scopes: [],
+        // Primitivos de cor aparecem em todos os seletores, para explorar cores no Figma.
+        // No código os componentes continuam usando só os tokens.
+        scopes: ["ALL_SCOPES"],
       }),
     ),
   );
