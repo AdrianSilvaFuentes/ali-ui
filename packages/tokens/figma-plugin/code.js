@@ -9,529 +9,705 @@ const DATA = {
       "name": "colors/neutral-light/neutral-light-50",
       "type": "COLOR",
       "value": "#ffffff",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/neutral-light/neutral-light-100",
       "type": "COLOR",
       "value": "#fafafa",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/neutral-light/neutral-light-200",
       "type": "COLOR",
       "value": "#ececec",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/neutral-light/neutral-light-300",
       "type": "COLOR",
       "value": "#dedede",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/neutral-light/neutral-light-400",
       "type": "COLOR",
       "value": "#8e8e8e",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/neutral-light/neutral-light-500",
       "type": "COLOR",
       "value": "#636363",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/neutral-light/neutral-light-600",
       "type": "COLOR",
       "value": "#545454",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/neutral-light/neutral-light-700",
       "type": "COLOR",
       "value": "#454646",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/neutral-light/neutral-light-800",
       "type": "COLOR",
       "value": "#353939",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/neutral-light/neutral-light-900",
       "type": "COLOR",
       "value": "#262c2c",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/neutral-light/neutral-light-950",
       "type": "COLOR",
       "value": "#0f1113",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/neutral-dark/neutral-dark-50",
       "type": "COLOR",
       "value": "#f3f2f5",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/neutral-dark/neutral-dark-100",
       "type": "COLOR",
       "value": "#d1d1dd",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/neutral-dark/neutral-dark-200",
       "type": "COLOR",
       "value": "#b1b1c3",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/neutral-dark/neutral-dark-300",
       "type": "COLOR",
       "value": "#9094ab",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/neutral-dark/neutral-dark-400",
       "type": "COLOR",
       "value": "#7b829d",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/neutral-dark/neutral-dark-500",
       "type": "COLOR",
       "value": "#535e7b",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/neutral-dark/neutral-dark-600",
       "type": "COLOR",
       "value": "#354563",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/neutral-dark/neutral-dark-700",
       "type": "COLOR",
       "value": "#2b384d",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/neutral-dark/neutral-dark-800",
       "type": "COLOR",
       "value": "#212a37",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/neutral-dark/neutral-dark-900",
       "type": "COLOR",
       "value": "#161c23",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/neutral-dark/neutral-dark-950",
       "type": "COLOR",
       "value": "#0d0f12",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/primary/primary-50",
       "type": "COLOR",
       "value": "#f0fff9",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/primary/primary-100",
       "type": "COLOR",
       "value": "#c8ffea",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/primary/primary-200",
       "type": "COLOR",
       "value": "#a3ffda",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/primary/primary-300",
       "type": "COLOR",
       "value": "#80ffca",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/primary/primary-400",
       "type": "COLOR",
       "value": "#60feba",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/primary/primary-500",
       "type": "COLOR",
       "value": "#43f7a9",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/primary/primary-600",
       "type": "COLOR",
       "value": "#28ed98",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/primary/primary-700",
       "type": "COLOR",
       "value": "#26bf92",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/primary/primary-800",
       "type": "COLOR",
       "value": "#219381",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/primary/primary-900",
       "type": "COLOR",
       "value": "#1b6967",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/primary/primary-950",
       "type": "COLOR",
       "value": "#133b41",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/red/red-50",
       "type": "COLOR",
       "value": "#fff0f1",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/red/red-100",
       "type": "COLOR",
       "value": "#ffcbcd",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/red/red-200",
       "type": "COLOR",
       "value": "#ffa8ab",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/red/red-300",
       "type": "COLOR",
       "value": "#ff888c",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/red/red-400",
       "type": "COLOR",
       "value": "#ff6a6e",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/red/red-500",
       "type": "COLOR",
       "value": "#f94e54",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/red/red-600",
       "type": "COLOR",
       "value": "#f0353b",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/red/red-700",
       "type": "COLOR",
       "value": "#cd2a3b",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/red/red-800",
       "type": "COLOR",
       "value": "#a92038",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/red/red-900",
       "type": "COLOR",
       "value": "#841731",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/red/red-950",
       "type": "COLOR",
       "value": "#5e0f28",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/green/green-50",
       "type": "COLOR",
       "value": "#f3ffe6",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/green/green-100",
       "type": "COLOR",
       "value": "#e2ffc0",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/green/green-200",
       "type": "COLOR",
       "value": "#d0ff9d",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/green/green-300",
       "type": "COLOR",
       "value": "#bffd7c",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/green/green-400",
       "type": "COLOR",
       "value": "#adf65e",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/green/green-500",
       "type": "COLOR",
       "value": "#9bee42",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/green/green-600",
       "type": "COLOR",
       "value": "#89e328",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/green/green-700",
       "type": "COLOR",
       "value": "#63be1e",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/green/green-800",
       "type": "COLOR",
       "value": "#429816",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/green/green-900",
       "type": "COLOR",
       "value": "#28710e",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/green/green-950",
       "type": "COLOR",
       "value": "#134808",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/orange/orange-50",
       "type": "COLOR",
       "value": "#fff7f0",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/orange/orange-100",
       "type": "COLOR",
       "value": "#ffe1c8",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/orange/orange-200",
       "type": "COLOR",
       "value": "#ffcca0",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/orange/orange-300",
       "type": "COLOR",
       "value": "#ffb878",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/orange/orange-400",
       "type": "COLOR",
       "value": "#ffa352",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/orange/orange-500",
       "type": "COLOR",
       "value": "#ff9033",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/orange/orange-600",
       "type": "COLOR",
       "value": "#ff7c17",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/orange/orange-700",
       "type": "COLOR",
       "value": "#d26310",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/orange/orange-800",
       "type": "COLOR",
       "value": "#a64b0a",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/orange/orange-900",
       "type": "COLOR",
       "value": "#793405",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/orange/orange-950",
       "type": "COLOR",
       "value": "#4d1f02",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/yellow/yellow-50",
       "type": "COLOR",
       "value": "#fffff0",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/yellow/yellow-100",
       "type": "COLOR",
       "value": "#ffffc8",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/yellow/yellow-200",
       "type": "COLOR",
       "value": "#fffca0",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/yellow/yellow-300",
       "type": "COLOR",
       "value": "#fff778",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/yellow/yellow-400",
       "type": "COLOR",
       "value": "#fff052",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/yellow/yellow-500",
       "type": "COLOR",
       "value": "#ffe733",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/yellow/yellow-600",
       "type": "COLOR",
       "value": "#ffdc17",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/yellow/yellow-700",
       "type": "COLOR",
       "value": "#d3a11e",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/yellow/yellow-800",
       "type": "COLOR",
       "value": "#aa7422",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/yellow/yellow-900",
       "type": "COLOR",
       "value": "#855123",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/yellow/yellow-950",
       "type": "COLOR",
       "value": "#623821",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/blue/blue-50",
       "type": "COLOR",
       "value": "#eefcff",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/blue/blue-100",
       "type": "COLOR",
       "value": "#cdf5fe",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/blue/blue-200",
       "type": "COLOR",
       "value": "#ace9fd",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/blue/blue-300",
       "type": "COLOR",
       "value": "#8bdafc",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/blue/blue-400",
       "type": "COLOR",
       "value": "#6bc6fc",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/blue/blue-500",
       "type": "COLOR",
       "value": "#4ab0fb",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/blue/blue-600",
       "type": "COLOR",
       "value": "#2995fa",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/blue/blue-700",
       "type": "COLOR",
       "value": "#2172c9",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/blue/blue-800",
       "type": "COLOR",
       "value": "#195298",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/blue/blue-900",
       "type": "COLOR",
       "value": "#103466",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "colors/blue/blue-950",
       "type": "COLOR",
       "value": "#081935",
-      "scopes": []
+      "scopes": [
+        "ALL_SCOPES"
+      ]
     },
     {
       "name": "spacing/0",
