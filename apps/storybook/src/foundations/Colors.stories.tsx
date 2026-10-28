@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { ColorGroupPage } from "./ColorTokensPage";
+import { ColorGroupPage, ColorTable } from "./ColorTokensPage";
 import { ElevationDemo } from "./ElevationDemo";
 import { PrimitiveTokensPage } from "./PrimitiveTokensPage";
-import { PlaceholderPage } from "./TokensLayout";
+import { PlaceholderPage, Section } from "./TokensLayout";
 
 const meta = {
   title: "Foundations/Colors",
@@ -33,7 +33,14 @@ export const Text: Story = {
       group="text"
       title="Text"
       description="Cores de texto: padrão, sutil, desabilitado e link; inverse para fundos que invertem com o tema; static para manter branco ou preto nos dois temas."
-    />
+    >
+      <Section
+        title="Status"
+        description="Texto na cor de cada status: success, caution, warning, danger e info. Nunca use só a cor para passar a mensagem: acompanhe com palavra ou ícone."
+      >
+        <ColorTable group="text-status" />
+      </Section>
+    </ColorGroupPage>
   ),
 };
 
@@ -59,10 +66,9 @@ export const Icon: Story = {
 
 export const Semantic: Story = {
   render: () => (
-    <ColorGroupPage
-      group="semantic"
+    <PlaceholderPage
       title="Semantic"
-      description="Cores de status: erro, sucesso, aviso e informação. Por enquanto só o erro está definido."
+      description="Em breve: a visão por status (success, caution, warning, danger e info), com fundo, texto, borda e ícone de cada um. Os textos de status já estão em Text."
     />
   ),
 };

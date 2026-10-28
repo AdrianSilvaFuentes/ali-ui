@@ -6,16 +6,20 @@
  * ou os próprios primitivos, sem tocar em nenhum componente.
  */
 import {
+  blue,
   duration as durationScale,
   fontFamily,
   fontSize,
   fontWeight as fontWeightScale,
+  green,
   letterSpacing,
   lineHeight,
   neutralDark,
   neutralLight,
+  orange,
   primary,
   red,
+  yellow,
 } from "./primitives.ts";
 import { shadow } from "./scales.ts";
 
@@ -84,6 +88,31 @@ export const color = {
     dark: neutralLight[950],
     description: "Quase preto nos dois temas: sobre fotos, vídeos ou fundos fixos.",
   },
+  "text-success": {
+    light: green[900],
+    dark: green[700],
+    description: "Sucesso e confirmações: salvo, concluído.",
+  },
+  "text-caution": {
+    light: yellow[900],
+    dark: yellow[700],
+    description: "Atenção leve: algo merece cuidado, mas não bloqueia.",
+  },
+  "text-warning": {
+    light: orange[800],
+    dark: orange[600],
+    description: "Aviso: algo pode dar errado se nada for feito.",
+  },
+  "text-danger": {
+    light: red[700],
+    dark: red[300],
+    description: "Erros e ações destrutivas.",
+  },
+  "text-info": {
+    light: blue[700],
+    dark: blue[500],
+    description: "Informação neutra: dicas e novidades.",
+  },
   "icon-default": {
     light: neutralLight[700],
     dark: neutralDark[100],
@@ -129,16 +158,6 @@ export const color = {
     dark: primary[600],
     description: "Contorno de foco visível na navegação por teclado.",
   },
-  danger: {
-    light: red[700],
-    dark: red[300],
-    description: "Erros e ações destrutivas.",
-  },
-  "danger-foreground": {
-    light: neutralLight[50],
-    dark: neutralDark[950],
-    description: "Texto e ícones sobre a cor de erro.",
-  },
 } as const satisfies Record<string, ColorToken>;
 
 export type ColorName = keyof typeof color;
@@ -153,19 +172,15 @@ export const contrastPairs: readonly (readonly [ColorName, ColorName, number])[]
   ["text-default", "surface", 4.5],
   ["text-subtle", "surface", 4.5],
   ["text-link", "surface", 4.5],
-  ["danger", "surface", 4.5],
   ["text-default", "surface-sunken", 4.5],
   ["text-subtle", "surface-sunken", 4.5],
   ["text-link", "surface-sunken", 4.5],
-  ["danger", "surface-sunken", 4.5],
   ["text-default", "surface-raised", 4.5],
   ["text-subtle", "surface-raised", 4.5],
   ["text-link", "surface-raised", 4.5],
-  ["danger", "surface-raised", 4.5],
   ["text-default", "surface-overlay", 4.5],
   ["text-subtle", "surface-overlay", 4.5],
   ["text-link", "surface-overlay", 4.5],
-  ["danger", "surface-overlay", 4.5],
   ["icon-default", "surface", 3],
   ["icon-subtle", "surface", 3],
   ["border-strong", "surface", 3],
@@ -190,7 +205,26 @@ export const contrastPairs: readonly (readonly [ColorName, ColorName, number])[]
   ["icon-disabled", "surface-raised", 3],
   ["text-disabled", "surface-overlay", 3],
   ["icon-disabled", "surface-overlay", 3],
-  ["danger-foreground", "danger", 4.5],
+  ["text-success", "surface", 4.5],
+  ["text-success", "surface-sunken", 4.5],
+  ["text-success", "surface-raised", 4.5],
+  ["text-success", "surface-overlay", 4.5],
+  ["text-caution", "surface", 4.5],
+  ["text-caution", "surface-sunken", 4.5],
+  ["text-caution", "surface-raised", 4.5],
+  ["text-caution", "surface-overlay", 4.5],
+  ["text-warning", "surface", 4.5],
+  ["text-warning", "surface-sunken", 4.5],
+  ["text-warning", "surface-raised", 4.5],
+  ["text-warning", "surface-overlay", 4.5],
+  ["text-danger", "surface", 4.5],
+  ["text-danger", "surface-sunken", 4.5],
+  ["text-danger", "surface-raised", 4.5],
+  ["text-danger", "surface-overlay", 4.5],
+  ["text-info", "surface", 4.5],
+  ["text-info", "surface-sunken", 4.5],
+  ["text-info", "surface-raised", 4.5],
+  ["text-info", "surface-overlay", 4.5],
   // O inverse vai sobre um fundo na cor do texto padrão (escuro no claro, claro no escuro).
   ["text-inverse", "text-default", 4.5],
   ["icon-inverse", "text-default", 3],

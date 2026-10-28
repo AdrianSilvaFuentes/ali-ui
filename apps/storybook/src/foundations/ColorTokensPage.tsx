@@ -82,7 +82,7 @@ function classesFor(name: ColorName): string {
 }
 
 /** Páginas de cor no Storybook. */
-export type ColorGroup = "surface" | "text" | "icon" | "border" | "semantic";
+export type ColorGroup = "surface" | "text" | "text-status" | "icon" | "border";
 
 /**
  * Em que página cada token de cor aparece. Um token novo sem página aqui é um erro
@@ -109,11 +109,42 @@ const colorGroup = {
   "border-default": "border",
   "border-strong": "border",
   "border-focus": "border",
-  danger: "semantic",
-  "danger-foreground": "semantic",
+  "text-success": "text-status",
+  "text-caution": "text-status",
+  "text-warning": "text-status",
+  "text-danger": "text-status",
+  "text-info": "text-status",
 } as const satisfies Record<ColorName, ColorGroup>;
 
-/** Tabela Token · Hex · Contraste com os tokens de cor de uma página. */
+/** Tabela Token · Light · Dark com os tokens de cor de um grupo. */
+export function ColorTable({ group }: { group: ColorGroup }) {
+  const names = (Object.keys(colorGroup) as ColorName[]).filter(
+    (name) => colorGroup[name] === group,
+  );
+  return (
+    <Table columns={["Token", "Light", "Dark"]}>
+      {names.map((name) => (
+        <tr key={name} className="border-t border-default align-top">
+          <td className="px-4 py-3">
+            <div className="flex flex-col">
+              <span className="text-label-md">{name}</span>
+              <code className="font-mono text-body-sm text-subtle">{classesFor(name)}</code>
+              <span className="text-body-sm text-subtle">{color[name].description}</span>
+            </div>
+          </td>
+          <td className="px-4 py-3">
+            <ThemeCell name={name} theme="light" />
+          </td>
+          <td className="px-4 py-3">
+            <ThemeCell name={name} theme="dark" />
+          </td>
+        </tr>
+      ))}
+    </Table>
+  );
+}
+
+/** Página de um grupo de cores: a tabela de tokens e, depois, conteúdo extra. */
 export function ColorGroupPage({
   group,
   title,
@@ -123,12 +154,9 @@ export function ColorGroupPage({
   group: ColorGroup;
   title: string;
   description: string;
-  /** Conteúdo extra mostrado depois da tabela, como uma demonstração. */
+  /** Conteúdo extra mostrado depois da tabela, como outra tabela ou uma demonstração. */
   children?: ReactNode;
 }) {
-  const names = (Object.keys(colorGroup) as ColorName[]).filter(
-    (name) => colorGroup[name] === group,
-  );
   return (
     <TokensLayout title={title} description={description}>
       {() => (
@@ -137,25 +165,7 @@ export function ColorGroupPage({
             title="Tokens"
             description="Cada token tem um primitivo no tema claro e outro no escuro. O contraste é medido com a cor que acompanha o token e segue a WCAG AA."
           >
-            <Table columns={["Token", "Light", "Dark"]}>
-              {names.map((name) => (
-                <tr key={name} className="border-t border-default align-top">
-                  <td className="px-4 py-3">
-                    <div className="flex flex-col">
-                      <span className="text-label-md">{name}</span>
-                      <code className="font-mono text-body-sm text-subtle">{classesFor(name)}</code>
-                      <span className="text-body-sm text-subtle">{color[name].description}</span>
-                    </div>
-                  </td>
-                  <td className="px-4 py-3">
-                    <ThemeCell name={name} theme="light" />
-                  </td>
-                  <td className="px-4 py-3">
-                    <ThemeCell name={name} theme="dark" />
-                  </td>
-                </tr>
-              ))}
-            </Table>
+            <ColorTable group={group} />
           </Section>
           {children}
         </>
