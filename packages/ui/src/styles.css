@@ -4,3 +4,11 @@
 
 /* Faz o Tailwind procurar classes nos arquivos dos componentes. */
 @source "./";
+
+/*
+ * Ícones do Tabler: traço fixo de 1.5px, mais leve que o padrão (2px).
+ * Fora de @layer de propósito, para valer mesmo que um ícone receba outro `stroke`.
+ */
+.tabler-icon {
+  stroke-width: 1.5;
+}

@@ -1,0 +1,20 @@
+// Regras dos ícones do Tabler.
+// 1. Só ícones de contorno: bloqueia os preenchidos (`IconHeartFilled`...).
+// 2. Importe cada ícone pelo nome. `import * as` ou `import()` do pacote inteiro
+//    colocam os mais de 6.000 ícones no bundle, em vez de só os usados.
+language js
+
+or {
+  `import { $specifiers } from "@tabler/icons-react"` where {
+    $specifiers <: contains `$name` as $icon where {
+      $icon <: r"Icon\w*Filled",
+      register_diagnostic(span=$icon, message="Ícone preenchido do Tabler. A Ali UI usa só ícones de contorno: importe a versão sem Filled.")
+    }
+  },
+  `import * as $all from "@tabler/icons-react"` as $import where {
+    register_diagnostic(span=$import, message="Importar o Tabler inteiro coloca todos os ícones no bundle. Importe cada ícone pelo nome: import { IconSearch } from \"@tabler/icons-react\".")
+  },
+  `import("@tabler/icons-react")` as $import where {
+    register_diagnostic(span=$import, message="Importar o Tabler inteiro coloca todos os ícones no bundle. Importe cada ícone pelo nome: import { IconSearch } from \"@tabler/icons-react\".")
+  }
+}

@@ -16,6 +16,7 @@ const preview: Preview = {
             "Spacing & Layout",
             ["Spacing", "Padding", "Radius", "Shadow"],
             "Typography",
+            "Icons",
             "Motion",
           ],
         ],
