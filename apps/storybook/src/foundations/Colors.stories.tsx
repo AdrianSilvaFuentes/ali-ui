@@ -49,7 +49,7 @@ export const Border: Story = {
     <ColorGroupPage
       group="border"
       title="Border"
-      description="Contornos: padrão (divisórias), forte (campos e controles) e foco do teclado. Valem para border-*, outline-* e ring-*."
+      description="Contornos: padrão (campos e controles), sutil (divisórias), desabilitado e foco do teclado. Valem para border-*, outline-* e ring-*."
     />
   ),
 };

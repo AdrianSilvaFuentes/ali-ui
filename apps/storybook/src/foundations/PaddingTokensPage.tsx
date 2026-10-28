@@ -30,7 +30,7 @@ export function PaddingTokensPage() {
           >
             <Table columns={["Classe", "Preenche"]}>
               {variants.map(([className, sides]) => (
-                <tr key={className} className="border-t border-default align-middle">
+                <tr key={className} className="border-t border-subtle align-middle">
                   <td className="px-4 py-2 whitespace-nowrap">
                     <Code>{className}</Code>
                   </td>
@@ -46,7 +46,7 @@ export function PaddingTokensPage() {
           >
             <Table columns={["Classe", "Valor", "Variável CSS", "Exemplo"]}>
               {spacingSteps.map((name) => (
-                <tr key={name} className="border-t border-default align-middle">
+                <tr key={name} className="border-t border-subtle align-middle">
                   <td className="px-4 py-2 text-label-md whitespace-nowrap">p-{name}</td>
                   <td className="px-4 py-2 font-mono text-body-md whitespace-nowrap">
                     {toPx(spacing[name])}

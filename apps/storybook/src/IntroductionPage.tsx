@@ -119,7 +119,7 @@ function initialLanguage(): Language {
 
 function Block({ label, children }: { label: string; children: ReactNode }) {
   return (
-    <section className="grid gap-4 border-t border-default pt-8 md:grid-cols-[12rem_1fr]">
+    <section className="grid gap-4 border-t border-subtle pt-8 md:grid-cols-[12rem_1fr]">
       <h2 className="text-label-md text-subtle">{label}</h2>
       <div className="flex max-w-2xl flex-col gap-4">{children}</div>
     </section>
@@ -134,7 +134,7 @@ function LanguageSwitch({
   onChange: (language: Language) => void;
 }) {
   return (
-    <fieldset className="flex rounded-md border border-default bg-surface-sunken p-0.5">
+    <fieldset className="flex rounded-md border border-subtle bg-surface-sunken p-0.5">
       <legend className="sr-only">{copy[language].switchLabel}</legend>
       {(["pt", "en"] as const).map((option) => (
         <button
@@ -218,7 +218,7 @@ export function IntroductionPage() {
               <a
                 href={`./?path=/story/${id}`}
                 target="_top"
-                className="flex h-full flex-col gap-1 rounded-md border border-default bg-surface-raised p-4 shadow-raised hover:border-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
+                className="flex h-full flex-col gap-1 rounded-md border border-subtle bg-surface-raised p-4 shadow-raised hover:border-default focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
               >
                 <span className="text-label-md text-link">{title}</span>
                 <span className="text-body-md text-subtle">{t.startDescriptions[index]}</span>
@@ -229,7 +229,7 @@ export function IntroductionPage() {
         <p className="text-body-md text-subtle">{t.status}</p>
       </Block>
 
-      <footer className="border-t border-default pt-8 text-body-md text-subtle">
+      <footer className="border-t border-subtle pt-8 text-body-md text-subtle">
         {t.footer}{" "}
         <a
           href="https://github.com/AdrianSilvaFuentes/ali-ui"

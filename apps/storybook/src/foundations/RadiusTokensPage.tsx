@@ -14,7 +14,7 @@ export function RadiusTokensPage() {
         >
           <Table columns={["Token", "Classe", "Variável CSS", "Valor", "Exemplo"]}>
             {(Object.keys(radius) as (keyof typeof radius)[]).map((name) => (
-              <tr key={name} className="border-t border-default align-middle">
+              <tr key={name} className="border-t border-subtle align-middle">
                 <td className="px-4 py-3 text-label-md whitespace-nowrap">{name}</td>
                 <td className="px-4 py-3 font-mono text-body-md whitespace-nowrap">
                   rounded-{name}
@@ -27,7 +27,7 @@ export function RadiusTokensPage() {
                 </td>
                 <td className="px-4 py-3">
                   <div
-                    className="size-12 border border-strong bg-surface-sunken"
+                    className="size-12 border border-default bg-surface-sunken"
                     style={{ borderRadius: vars.radius[name] }}
                   />
                 </td>

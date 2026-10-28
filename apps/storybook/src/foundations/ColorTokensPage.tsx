@@ -107,7 +107,8 @@ const colorGroup = {
   "icon-static-white": "icon",
   "icon-static-black": "icon",
   "border-default": "border",
-  "border-strong": "border",
+  "border-subtle": "border",
+  "border-disabled": "border",
   "border-focus": "border",
   "text-success": "text-status",
   "text-caution": "text-status",
@@ -124,7 +125,7 @@ export function ColorTable({ group }: { group: ColorGroup }) {
   return (
     <Table columns={["Token", "Light", "Dark"]}>
       {names.map((name) => (
-        <tr key={name} className="border-t border-default align-top">
+        <tr key={name} className="border-t border-subtle align-top">
           <td className="px-4 py-3">
             <div className="flex flex-col">
               <span className="text-label-md">{name}</span>

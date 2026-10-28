@@ -80,7 +80,7 @@ function TextStyleTable({ names }: { names: (keyof typeof text)[] }) {
       widths={["8rem", "10rem", "6rem", "10rem", "9rem", "8rem", undefined]}
     >
       {names.map((name) => (
-        <tr key={name} className="border-t border-default align-middle">
+        <tr key={name} className="border-t border-subtle align-middle">
           <td className="px-4 py-3 text-label-md whitespace-nowrap">{name}</td>
           <td className="px-4 py-3 whitespace-nowrap">
             <Code>text-{name}</Code>
@@ -140,7 +140,7 @@ export function FontFamiliesPage() {
         >
           <Table columns={["Token", "Como usar", "Família", "Exemplo"]}>
             {(Object.keys(font) as (keyof typeof font)[]).map((name) => (
-              <tr key={name} className="border-t border-default align-middle">
+              <tr key={name} className="border-t border-subtle align-middle">
                 <td className="px-4 py-3 text-label-md whitespace-nowrap">{name}</td>
                 <td className="px-4 py-3 whitespace-nowrap">
                   {name === "mono" ? (
@@ -173,7 +173,7 @@ export function FontWeightsPage() {
         <Section title="Pesos" description="Pesos de fonte por intenção.">
           <Table columns={["Token", "Peso", "Exemplo"]}>
             {(Object.keys(fontWeight) as (keyof typeof fontWeight)[]).map((name) => (
-              <tr key={name} className="border-t border-default align-middle">
+              <tr key={name} className="border-t border-subtle align-middle">
                 <td className="px-4 py-3 text-label-md whitespace-nowrap">font-{name}</td>
                 <td className="px-4 py-3 font-mono text-body-md">{fontWeight[name]}</td>
                 <td className="px-4 py-3">

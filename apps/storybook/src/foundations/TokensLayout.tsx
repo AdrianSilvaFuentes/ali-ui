@@ -49,7 +49,7 @@ export function TokensLayout({
         <button
           type="button"
           onClick={() => setTheme(nextTheme)}
-          className="rounded-sm border border-strong bg-surface-raised px-4 py-2 text-label-md transition-colors duration-fast hover:bg-surface-sunken focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
+          className="rounded-sm border border-default bg-surface-raised px-4 py-2 text-label-md transition-colors duration-fast hover:bg-surface-sunken focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
         >
           {theme === "light" ? "Mudar para tema escuro" : "Mudar para tema claro"}
         </button>
@@ -69,7 +69,7 @@ export function Section({
   children: ReactNode;
 }) {
   return (
-    <section className="border-t border-default pt-8">
+    <section className="border-t border-subtle pt-8">
       <h2 className="text-title-md">{title}</h2>
       <p className="mt-1 mb-6 max-w-prose text-body-md text-subtle">{description}</p>
       {children}
@@ -95,7 +95,7 @@ export function Table({
   children: ReactNode;
 }) {
   return (
-    <div className="overflow-x-auto rounded-md border border-default">
+    <div className="overflow-x-auto rounded-md border border-subtle">
       <table className={`w-full border-collapse text-left ${widths ? "table-fixed" : ""}`}>
         {widths && (
           <colgroup>
@@ -123,7 +123,7 @@ export function Table({
 export function Swatch({ color }: { color: string }) {
   return (
     <div
-      className="size-8 shrink-0 rounded-sm border border-default"
+      className="size-8 shrink-0 rounded-sm border border-subtle"
       style={{ backgroundColor: color }}
     />
   );
@@ -138,7 +138,7 @@ export function PlaceholderPage({ title, description }: { title: string; descrip
           title="Ainda sem tokens"
           description="Esta página ganha conteúdo quando os tokens forem definidos."
         >
-          <p className="max-w-prose rounded-md border border-default bg-surface-raised p-4 text-body-md text-subtle">
+          <p className="max-w-prose rounded-md border border-subtle bg-surface-raised p-4 text-body-md text-subtle">
             Nada definido por enquanto.
           </p>
         </Section>

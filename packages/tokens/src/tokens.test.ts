@@ -108,7 +108,8 @@ describe("integração com o Tailwind", () => {
     "text-static-white",
     "text-icon-static-black",
     "border-default",
-    "border-strong",
+    "border-subtle",
+    "border-disabled",
     "outline-focus",
     "ring-focus",
     "text-success",
@@ -149,6 +150,7 @@ describe("integração com o Tailwind", () => {
     "text-foreground",
     "text-muted-foreground",
     "border-border",
+    "border-strong",
     "outline-focus-ring",
     // Cada grupo de cor só vale para o seu utilitário.
     "bg-default",

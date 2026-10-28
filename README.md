@@ -28,7 +28,7 @@ few components, each one with personality.
 | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Color primitives   | `neutral-light`, `neutral-dark`, brand `primary` (mint), and status scales `red`, `green`, `orange`, `yellow`, `blue`, 11 steps each (50 to 950) |
 | Surface            | `surface-sunken`, `surface`, `surface-raised`, `surface-overlay`                                                                                 |
-| Text, icon, border | `default`, `subtle`, `disabled`, `link`; `border-default`, `border-strong`, `border-focus`                                                       |
+| Text, icon, border | `default`, `subtle`, `disabled`, `link`; `border-default`, `border-subtle`, `border-disabled`, `border-focus`                                    |
 | Spacing            | Tailwind CSS 4 numeric scale (`0` to `32`, 4px per step)                                                                                         |
 | Radius             | `none` to `3xl`, plus `full`                                                                                                                     |
 | Shadow             | `2xs` to `2xl`, plus `shadow-raised` and `shadow-overlay`                                                                                        |

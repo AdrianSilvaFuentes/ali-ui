@@ -20,11 +20,11 @@ function DurationDemo({ name }: { name: keyof typeof duration }) {
         type="button"
         onClick={() => setMoved((value) => !value)}
         aria-pressed={moved}
-        className="rounded-sm border border-strong bg-surface-raised px-3 py-0.5 text-label-md hover:bg-surface-sunken focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
+        className="rounded-sm border border-default bg-surface-raised px-3 py-0.5 text-label-md hover:bg-surface-sunken focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
       >
         Testar
       </button>
-      <div className="relative h-3 w-24 rounded-full bg-surface-sunken ring-1 ring-default">
+      <div className="relative h-3 w-24 rounded-full bg-surface-sunken ring-1 ring-subtle">
         <div
           className="absolute top-0 left-0 size-3 rounded-full transition-transform motion-reduce:transition-none"
           style={{
@@ -50,7 +50,7 @@ export function DurationTokensPage() {
         >
           <Table columns={["Token", "Valor", "Uso", "Exemplo"]}>
             {(Object.keys(duration) as (keyof typeof duration)[]).map((name) => (
-              <tr key={name} className="border-t border-default align-middle">
+              <tr key={name} className="border-t border-subtle align-middle">
                 <td className="px-4 py-3 text-label-md whitespace-nowrap">duration-{name}</td>
                 <td className="px-4 py-3 font-mono text-body-md">{duration[name]}</td>
                 <td className="px-4 py-3 text-body-md text-subtle">{usage[name]}</td>
