@@ -67,7 +67,14 @@ export const Icon: Story = {
       group="icon"
       title="Icon"
       description="Cores de ícones. Eles herdam a cor do texto (currentColor), por isso a classe é text-icon-*, e ficam um degrau mais suaves que o texto ao lado."
-    />
+    >
+      <Section
+        title="Status"
+        description="Ícones na cor de cada status, com contraste mínimo de 3:1 e os mesmos passos das bordas de status. Combine com texto: o ícone reforça, não substitui."
+      >
+        <ColorTable group="icon-status" />
+      </Section>
+    </ColorGroupPage>
   ),
 };
 

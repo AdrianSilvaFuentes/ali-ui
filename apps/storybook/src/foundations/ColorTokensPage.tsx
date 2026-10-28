@@ -82,7 +82,14 @@ function classesFor(name: ColorName): string {
 }
 
 /** Páginas de cor no Storybook. */
-export type ColorGroup = "surface" | "text" | "text-status" | "icon" | "border" | "border-status";
+export type ColorGroup =
+  | "surface"
+  | "text"
+  | "text-status"
+  | "icon"
+  | "icon-status"
+  | "border"
+  | "border-status";
 
 /**
  * Em que página cada token de cor aparece. Um token novo sem página aqui é um erro
@@ -106,6 +113,11 @@ const colorGroup = {
   "icon-inverse": "icon",
   "icon-static-white": "icon",
   "icon-static-black": "icon",
+  "icon-success": "icon-status",
+  "icon-caution": "icon-status",
+  "icon-warning": "icon-status",
+  "icon-danger": "icon-status",
+  "icon-info": "icon-status",
   "border-default": "border",
   "border-subtle": "border",
   "border-disabled": "border",
