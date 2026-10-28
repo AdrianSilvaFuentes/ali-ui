@@ -32,13 +32,19 @@ export const Text: Story = {
     <ColorGroupPage
       group="text"
       title="Text"
-      description="Cores de texto: padrão, sutil, desabilitado e link; inverse para fundos que invertem com o tema; static para manter branco ou preto nos dois temas."
+      description="Cores de texto: padrão, sutil, desabilitado e link. Depois, os textos de status e os cenários especiais."
     >
       <Section
         title="Status"
         description="Texto na cor de cada status: success, caution, warning, danger e info. Nunca use só a cor para passar a mensagem: acompanhe com palavra ou ícone."
       >
         <ColorTable group="text-status" />
+      </Section>
+      <Section
+        title="Cenários especiais"
+        description="Inverse muda com o tema e vai sobre fundos invertidos, como tooltips e toasts. Static fica igual nos dois temas, para fotos, vídeos e fundos fixos; sobre imagens, use uma camada por baixo para garantir a leitura."
+      >
+        <ColorTable group="text-special" />
       </Section>
     </ColorGroupPage>
   ),
@@ -73,6 +79,12 @@ export const Icon: Story = {
         description="Ícones na cor de cada status, com contraste mínimo de 3:1 e os mesmos passos das bordas de status. Combine com texto: o ícone reforça, não substitui."
       >
         <ColorTable group="icon-status" />
+      </Section>
+      <Section
+        title="Cenários especiais"
+        description="Inverse muda com o tema e vai sobre fundos invertidos, como tooltips e toasts. Static fica igual nos dois temas, para fotos, vídeos e fundos fixos; sobre imagens, use uma camada por baixo para garantir a leitura."
+      >
+        <ColorTable group="icon-special" />
       </Section>
     </ColorGroupPage>
   ),

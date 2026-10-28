@@ -86,8 +86,10 @@ export type ColorGroup =
   | "surface"
   | "text"
   | "text-status"
+  | "text-special"
   | "icon"
   | "icon-status"
+  | "icon-special"
   | "border"
   | "border-status";
 
@@ -104,15 +106,15 @@ const colorGroup = {
   "text-subtle": "text",
   "text-disabled": "text",
   "text-link": "text",
-  "text-inverse": "text",
-  "text-static-white": "text",
-  "text-static-black": "text",
+  "text-inverse": "text-special",
+  "text-static-white": "text-special",
+  "text-static-black": "text-special",
   "icon-default": "icon",
   "icon-subtle": "icon",
   "icon-disabled": "icon",
-  "icon-inverse": "icon",
-  "icon-static-white": "icon",
-  "icon-static-black": "icon",
+  "icon-inverse": "icon-special",
+  "icon-static-white": "icon-special",
+  "icon-static-black": "icon-special",
   "icon-success": "icon-status",
   "icon-caution": "icon-status",
   "icon-warning": "icon-status",
