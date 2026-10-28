@@ -2,3 +2,40 @@
 
 /* Faz o Tailwind procurar classes nas páginas do próprio Storybook. */
 @source "./";
+
+/* Na aba Docs, as prévias dos componentes seguem o tema escolhido na barra de ferramentas. */
+.docs-story {
+  background-color: var(--ali-color-surface);
+}
+
+/*
+ * Página Docs dos componentes: fundo sunken, com as prévias em surface por cima.
+ * Com duas classes, para vencer o fundo que o tema da aba Docs aplica.
+ */
+.sbdocs.sbdocs-wrapper {
+  background-color: var(--ali-color-surface-sunken);
+}
+
+/*
+ * Tabela de props da aba Docs: com bordas juntas (collapse) o navegador ignora o canto
+ * arredondado e o contorno fica quadrado. Separadas e sem espaço, o contorno segue a curva.
+ */
+table.docblock-argstable {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+/* Caixas de preview da aba Docs: sombra shadow-xs da Ali UI. */
+.sbdocs.sbdocs-preview {
+  box-shadow: var(--ali-shadow-xs);
+}
+
+/*
+ * Tabela de props: a sombra fica nas linhas (tbody), que não aceitam box-shadow. Por isso
+ * o shadow-xs (0 1px 2px 0, preto a 5%) vai escrito como drop-shadow, que segue os cantos
+ * arredondados. Se o token mudar, atualize aqui também.
+ */
+table.docblock-argstable tbody {
+  /* biome-ignore lint/complexity/noImportantStyles: o Storybook define esta sombra com um seletor mais forte. */
+  filter: drop-shadow(0 1px 2px rgb(0 0 0 / 0.05)) !important;
+}

@@ -134,7 +134,7 @@ function LanguageSwitch({
   onChange: (language: Language) => void;
 }) {
   return (
-    <fieldset className="flex rounded-md border border-subtle bg-surface-sunken p-0.5">
+    <fieldset className="flex rounded-md border border-subtle bg-surface p-0.5">
       <legend className="sr-only">{copy[language].switchLabel}</legend>
       {(["pt", "en"] as const).map((option) => (
         <button
@@ -163,7 +163,7 @@ export function IntroductionPage() {
   return (
     <div
       lang={language}
-      className="flex min-h-screen flex-col gap-12 bg-surface px-8 py-12 text-body-lg text-default md:px-16"
+      className="flex min-h-screen flex-col gap-12 bg-surface-sunken px-8 py-12 text-body-lg text-default md:px-16"
     >
       <header className="flex flex-col gap-6">
         <div className="flex items-center justify-between gap-4">

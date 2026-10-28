@@ -104,8 +104,6 @@ const colorGroup = {
   surface: "surface",
   "surface-raised": "surface",
   "surface-overlay": "surface",
-  "background-brand": "background",
-  "background-brand-hovered": "background",
   "background-disabled": "background",
   "text-default": "text",
   "text-subtle": "text",

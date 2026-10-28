@@ -8,9 +8,27 @@ import { cssVarName, type TokenGroup } from "./css.ts";
 export { cssVarName, type TokenGroup };
 
 import { radius, shadow, spacing } from "./scales.ts";
-import { color, contrastPairs, duration, elevation, font, fontWeight, text } from "./semantic.ts";
+import {
+  color,
+  contrastPairs,
+  duration,
+  elevation,
+  font,
+  fontWeight,
+  gradient,
+  gradientCss,
+  insetShadow,
+  text,
+} from "./semantic.ts";
 
-export type { ColorName, ColorToken, TextStyle, ThemeName } from "./semantic.ts";
+export type {
+  ColorName,
+  ColorToken,
+  GradientName,
+  GradientToken,
+  TextStyle,
+  ThemeName,
+} from "./semantic.ts";
 export {
   color,
   contrastPairs,
@@ -18,6 +36,9 @@ export {
   elevation,
   font,
   fontWeight,
+  gradient,
+  gradientCss,
+  insetShadow,
   radius,
   shadow,
   spacing,
@@ -46,4 +67,6 @@ export const vars = {
   duration: varsOf("duration", duration),
   shadow: varsOf("shadow", shadow),
   elevation: varsOf("elevation", elevation),
+  gradient: varsOf("gradient", gradient),
+  insetShadow: varsOf("inset-shadow", insetShadow),
 } as const;

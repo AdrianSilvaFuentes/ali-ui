@@ -1,9 +1,6 @@
 import { spacing, type ThemeName } from "@ali/tokens";
-import { type ReactNode, useState } from "react";
-
-function systemTheme(): ThemeName {
-  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-}
+import type { ReactNode } from "react";
+import { useTheme } from "../theme";
 
 /** Formata uma razão de contraste no padrão brasileiro: 4.5 → "4,5:1". */
 export function formatRatio(ratio: number): string {
@@ -23,7 +20,7 @@ export const spacingSteps = (Object.keys(spacing) as (keyof typeof spacing)[]).s
   (a, b) => (a === "px" ? 0.25 : Number(a)) - (b === "px" ? 0.25 : Number(b)),
 );
 
-/** Moldura das páginas de tokens: título, descrição e o botão de tema claro/escuro. */
+/** Moldura das páginas de tokens: título e descrição. O tema vem da barra de ferramentas. */
 export function TokensLayout({
   title,
   description,
@@ -33,26 +30,16 @@ export function TokensLayout({
   description: string;
   children: (theme: ThemeName) => ReactNode;
 }) {
-  const [theme, setTheme] = useState<ThemeName>(systemTheme);
-  const nextTheme = theme === "light" ? "dark" : "light";
+  const theme = useTheme();
 
   return (
     <div
       data-theme={theme}
-      className="flex min-h-screen flex-col gap-12 bg-surface p-8 text-body-lg text-default"
+      className="flex min-h-screen flex-col gap-12 bg-surface-sunken p-8 text-body-lg text-default"
     >
-      <header className="flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <h1 className="text-display">{title}</h1>
-          <p className="mt-2 max-w-prose text-subtle">{description}</p>
-        </div>
-        <button
-          type="button"
-          onClick={() => setTheme(nextTheme)}
-          className="rounded-sm border border-default bg-surface-raised px-4 py-2 text-label-md transition-colors duration-fast hover:bg-surface-sunken focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
-        >
-          {theme === "light" ? "Mudar para tema escuro" : "Mudar para tema claro"}
-        </button>
+      <header>
+        <h1 className="text-display">{title}</h1>
+        <p className="mt-2 max-w-prose text-subtle">{description}</p>
       </header>
       {children(theme)}
     </div>
@@ -95,7 +82,7 @@ export function Table({
   children: ReactNode;
 }) {
   return (
-    <div className="overflow-x-auto rounded-md border border-subtle">
+    <div className="overflow-x-auto rounded-2xl border border-subtle bg-surface shadow-xs">
       <table className={`w-full border-collapse text-left ${widths ? "table-fixed" : ""}`}>
         {widths && (
           <colgroup>

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { PlaceholderPage } from "./TokensLayout";
+import { GradientTokensPage } from "./GradientTokensPage";
 
 const meta = {
   title: "Foundations/Gradients",
@@ -8,6 +8,4 @@ const meta = {
 
 export default meta;
 
-export const Overview: StoryObj<typeof meta> = {
-  render: () => <PlaceholderPage title="Gradients" description="Degradês da identidade." />,
-};
+export const Overview: StoryObj<typeof meta> = { render: () => <GradientTokensPage /> };

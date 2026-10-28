@@ -1,4 +1,4 @@
-import { cssVarName, elevation, shadow, vars } from "@ali/tokens";
+import { cssVarName, elevation, insetShadow, shadow, vars } from "@ali/tokens";
 import { Code, Section, Table, TokensLayout } from "./TokensLayout";
 
 export function ShadowTokensPage() {
@@ -28,6 +28,38 @@ export function ShadowTokensPage() {
                   </td>
                   <td className="px-4 py-3 font-mono text-body-md whitespace-nowrap">
                     bg-surface-{name}
+                  </td>
+                </tr>
+              ))}
+            </Table>
+          </Section>
+
+          <Section
+            title="Brilho interno"
+            description="Sombra por dentro da borda. highlight é uma linha fina e clara no topo, como luz vinda de cima, que dá volume. Soma com as sombras externas: use shadow-sm inset-shadow-highlight."
+          >
+            <Table columns={["Token", "Classe", "Variável CSS", "Valor", "Exemplo"]}>
+              {(Object.keys(insetShadow) as (keyof typeof insetShadow)[]).map((name) => (
+                <tr key={name} className="border-t border-subtle align-middle">
+                  <td className="px-4 py-3 text-label-md whitespace-nowrap">{name}</td>
+                  <td className="px-4 py-3 font-mono text-body-md whitespace-nowrap">
+                    inset-shadow-{name}
+                  </td>
+                  <td className="px-4 py-3 whitespace-nowrap">
+                    <Code>{cssVarName("inset-shadow", name)}</Code>
+                  </td>
+                  <td className="px-4 py-3">
+                    <Code>{insetShadow[name]}</Code>
+                  </td>
+                  <td className="px-8 py-8">
+                    <div className="flex gap-4">
+                      <div className="h-12 w-16 rounded-lg bg-gradient-brand shadow-sm" />
+                      <div
+                        className="h-12 w-16 rounded-lg bg-gradient-brand"
+                        style={{ boxShadow: `${vars.insetShadow[name]}, ${vars.shadow.sm}` }}
+                      />
+                    </div>
+                    <p className="mt-2 text-body-sm text-subtle">Sem · com</p>
                   </td>
                 </tr>
               ))}

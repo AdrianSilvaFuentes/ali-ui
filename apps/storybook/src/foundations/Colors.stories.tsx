@@ -32,7 +32,7 @@ export const Background: Story = {
     <ColorGroupPage
       group="background"
       title="Background"
-      description="Fundos de controles, que vão sobre as superfícies: a cor forte da marca (botão primário), o estado com o cursor em cima e o desabilitado. A classe é bg-*, sem o prefixo background-."
+      description="Fundos de controles, que vão sobre as superfícies. Por enquanto, o fundo de controles desabilitados; a cor da marca do botão primário é um degradê (veja Gradients). A classe é bg-*, sem o prefixo background-."
     />
   ),
 };

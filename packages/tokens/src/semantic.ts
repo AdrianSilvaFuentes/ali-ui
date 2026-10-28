@@ -53,16 +53,6 @@ export const color = {
     dark: neutralDark[700],
     description: "Acima de tudo: menus, popovers e diálogos. Use com shadow-overlay.",
   },
-  "background-brand": {
-    light: primary[900],
-    dark: primary[600],
-    description: "Fundo forte na cor da marca: botão primário. Texto e ícone em inverse.",
-  },
-  "background-brand-hovered": {
-    light: primary[950],
-    dark: primary[500],
-    description: "Fundo da marca com o cursor em cima ou pressionado.",
-  },
   "background-disabled": {
     light: neutralLight[200],
     dark: neutralDark[600],
@@ -91,8 +81,7 @@ export const color = {
   "text-inverse": {
     light: neutralLight[50],
     dark: neutralDark[950],
-    description:
-      "Texto sobre fundos invertidos e fortes, que mudam com o tema: tooltips, toasts, botão primário.",
+    description: "Texto sobre fundos invertidos, que mudam com o tema: tooltips, toasts.",
   },
   "text-static-white": {
     light: neutralLight[50],
@@ -339,12 +328,6 @@ export const contrastPairs: readonly (readonly [ColorName, ColorName, number])[]
   // O inverse vai sobre um fundo na cor do texto padrão (escuro no claro, claro no escuro).
   ["text-inverse", "text-default", 4.5],
   ["icon-inverse", "text-default", 3],
-  // Botão primário: texto e ícone em inverse sobre a marca, e a marca visível na página.
-  ["text-inverse", "background-brand", 4.5],
-  ["text-inverse", "background-brand-hovered", 4.5],
-  ["icon-inverse", "background-brand", 3],
-  ["icon-inverse", "background-brand-hovered", 3],
-  ["background-brand", "surface", 3],
 ];
 
 /**
@@ -452,6 +435,57 @@ export const duration = {
   fast: durationScale[100],
   base: durationScale[200],
   slow: durationScale[300],
+} as const;
+
+export interface GradientToken {
+  /**
+   * Ângulo do degradê, em graus, como no CSS: 0 aponta para cima e gira no sentido do
+   * relógio. 135 é a diagonal que desce da esquerda (claro) para a direita (escuro).
+   */
+  readonly angle: number;
+  readonly from: string;
+  readonly to: string;
+  readonly description: string;
+}
+
+/**
+ * Degradês da identidade. São iguais nos dois temas, então o texto por cima usa as
+ * cores static (que também não mudam).
+ */
+export const gradient = {
+  brand: {
+    angle: 135,
+    from: primary[700],
+    to: primary[800],
+    description: "Fundo do botão primário. Texto e ícone em static-white.",
+  },
+  "brand-hovered": {
+    angle: 135,
+    from: primary[800],
+    to: primary[900],
+    description: "Botão primário com o cursor em cima.",
+  },
+  "brand-pressed": {
+    angle: 135,
+    from: primary[900],
+    to: primary[950],
+    description: "Botão primário pressionado.",
+  },
+} as const satisfies Record<string, GradientToken>;
+
+export type GradientName = keyof typeof gradient;
+
+/** Valor CSS de um degradê: `linear-gradient(135deg, #26bf92, #219381)`. */
+export function gradientCss({ angle, from, to }: GradientToken): string {
+  return `linear-gradient(${angle}deg, ${from}, ${to})`;
+}
+
+/**
+ * Sombras internas. `highlight` é um brilho fino no topo, como luz vinda de cima, que dá
+ * volume a botões. Soma com as sombras externas: `shadow-sm inset-shadow-highlight`.
+ */
+export const insetShadow = {
+  highlight: "inset 0 1px 0 0 rgb(255 255 255 / 0.3)",
 } as const;
 
 /** Sombra de cada superfície elevada. No tema escuro a elevação vem mais da cor. */
