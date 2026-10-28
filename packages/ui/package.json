@@ -24,7 +24,8 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@ali/tokens": "workspace:*"
+    "@ali/tokens": "workspace:*",
+    "@tabler/icons-react": "catalog:"
   },
   "peerDependencies": {
     "react": "^19.0.0",

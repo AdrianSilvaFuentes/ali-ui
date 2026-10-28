@@ -38,6 +38,7 @@
       }
     }
   },
+  "plugins": ["./biome/tabler-icons.grit"],
   "overrides": [
     {
       "includes": ["packages/ui/**", "!**/*.test.ts", "!**/*.test.tsx"],

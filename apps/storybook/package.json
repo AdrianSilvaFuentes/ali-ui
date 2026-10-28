@@ -12,6 +12,7 @@
   "dependencies": {
     "@ali/tokens": "workspace:*",
     "@ali/ui": "workspace:*",
+    "@tabler/icons-react": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:"
   },

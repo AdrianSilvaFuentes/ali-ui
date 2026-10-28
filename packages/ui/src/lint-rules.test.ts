@@ -82,3 +82,30 @@ describe("regra: componentes não importam primitivos", () => {
     ).toMatchObject({ ok: true });
   });
 });
+
+describe("regras dos ícones do Tabler", () => {
+  it("falha ao importar um ícone preenchido", () => {
+    const { ok, output } = lint(
+      'import { IconHeart, IconHeartFilled } from "@tabler/icons-react";\n\nexport const icons = [IconHeart, IconHeartFilled];\n',
+    );
+    expect(ok).toBe(false);
+    expect(output).toContain("Ícone preenchido do Tabler");
+  });
+
+  it("passa com ícones de contorno", () => {
+    expect(
+      lint(
+        'import { IconHeart, IconStar } from "@tabler/icons-react";\n\nexport const icons = [IconHeart, IconStar];\n',
+      ),
+    ).toMatchObject({ ok: true });
+  });
+
+  it.each([
+    'import * as icons from "@tabler/icons-react";\n\nexport const all = icons;\n',
+    'export const load = () => import("@tabler/icons-react");\n',
+  ])("falha ao importar o pacote inteiro: %s", (source) => {
+    const { ok, output } = lint(source);
+    expect(ok).toBe(false);
+    expect(output).toContain("Importar o Tabler inteiro");
+  });
+});

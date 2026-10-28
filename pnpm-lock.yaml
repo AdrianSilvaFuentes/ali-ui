@@ -176,6 +176,9 @@ catalogs:
     '@storybook/react-vite':
       specifier: 9.1.21
       version: 9.1.21
+    '@tabler/icons-react':
+      specifier: 3.49.0
+      version: 3.49.0
     '@tailwindcss/vite':
       specifier: 4.3.3
       version: 4.3.3
@@ -235,6 +238,9 @@ importers:
       '@ali/ui':
         specifier: workspace:*
         version: link:../../packages/ui
+      '@tabler/icons-react':
+        specifier: 'catalog:'
+        version: 3.49.0(react@19.3.1)
       react:
         specifier: 'catalog:'
         version: 19.3.1
@@ -297,6 +303,9 @@ importers:
       '@ali/tokens':
         specifier: workspace:*
         version: link:../tokens
+      '@tabler/icons-react':
+        specifier: 'catalog:'
+        version: 3.49.0(react@19.3.1)
     devDependencies:
       '@biomejs/biome':
         specifier: 'catalog:'
@@ -1032,6 +1041,14 @@ packages:
     peerDependenciesMeta:
       typescript:
         optional: true
+
+  '@tabler/icons-react@3.49.0':
+    resolution: {integrity: sha512-Um59pm5RVNUaQjFUtG0r4oYJbZuBS3tGugAA2tgBg0WufMk34Eio3nsO30RUkLuL2giYPQUNdY9HvqltLLYyNA==}
+    peerDependencies:
+      react: '>= 16'
+
+  '@tabler/icons@3.49.0':
+    resolution: {integrity: sha512-l+GnSkFETx0U26icxv1VUFnxxiTqXfCcVRiRAnyMwibupM2S2L/hSaZ9gmSgz01rkrsH/93NvLsxykqdanc6lw==}
 
   '@tailwindcss/node@4.3.3':
     resolution: {integrity: sha512-/T8IKEsf9VTU6tLjgC7+sv2mOPtQxzE2jMw7u4Tt40Tx+QSZxpzh95/H6cMKoja9XuW7iMdLJYBB0o9G1CaAgg==}
@@ -2634,6 +2651,13 @@ snapshots:
       storybook: 9.1.21(@testing-library/dom@10.4.2)(vite@7.3.7(@types/node@26.6.5)(jiti@2.7.0)(lightningcss@1.32.0))
     optionalDependencies:
       typescript: 7.0.2
+
+  '@tabler/icons-react@3.49.0(react@19.3.1)':
+    dependencies:
+      '@tabler/icons': 3.49.0
+      react: 19.3.1
+
+  '@tabler/icons@3.49.0': {}
 
   '@tailwindcss/node@4.3.3':
     dependencies:
