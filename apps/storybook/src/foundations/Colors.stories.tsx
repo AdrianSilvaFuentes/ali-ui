@@ -27,6 +27,16 @@ export const Surface: Story = {
   ),
 };
 
+export const Background: Story = {
+  render: () => (
+    <ColorGroupPage
+      group="background"
+      title="Background"
+      description="Fundos de controles, que vão sobre as superfícies: a cor forte da marca (botão primário), o estado com o cursor em cima e o desabilitado. A classe é bg-*, sem o prefixo background-."
+    />
+  ),
+};
+
 export const Text: Story = {
   render: () => (
     <ColorGroupPage

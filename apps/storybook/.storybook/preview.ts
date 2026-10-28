@@ -11,7 +11,16 @@ const preview: Preview = {
           "Foundations",
           [
             "Colors",
-            ["Primitive", "Surface", "Text", "Border", "Icon", "Semantic", "Infographics"],
+            [
+              "Primitive",
+              "Surface",
+              "Background",
+              "Text",
+              "Border",
+              "Icon",
+              "Semantic",
+              "Infographics",
+            ],
             "Gradients",
             "Spacing & Layout",
             ["Spacing", "Padding", "Radius", "Shadow"],

@@ -1032,6 +1032,36 @@ const DATA = {
       ]
     },
     {
+      "name": "background/brand",
+      "light": "colors/primary/primary-900",
+      "dark": "colors/primary/primary-600",
+      "description": "Fundo forte na cor da marca: botão primário. Texto e ícone em inverse.",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ]
+    },
+    {
+      "name": "background/brand-hovered",
+      "light": "colors/primary/primary-950",
+      "dark": "colors/primary/primary-500",
+      "description": "Fundo da marca com o cursor em cima ou pressionado.",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ]
+    },
+    {
+      "name": "background/disabled",
+      "light": "colors/neutral-light/neutral-light-200",
+      "dark": "colors/neutral-dark/neutral-dark-600",
+      "description": "Fundo de controles desabilitados. Texto e ícone em disabled.",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ]
+    },
+    {
       "name": "text/default",
       "light": "colors/neutral-light/neutral-light-900",
       "dark": "colors/neutral-dark/neutral-dark-50",
@@ -1071,7 +1101,7 @@ const DATA = {
       "name": "text/special/inverse",
       "light": "colors/neutral-light/neutral-light-50",
       "dark": "colors/neutral-dark/neutral-dark-950",
-      "description": "Texto sobre fundos invertidos, que mudam com o tema: tooltips, toasts.",
+      "description": "Texto sobre fundos invertidos e fortes, que mudam com o tema: tooltips, toasts, botão primário.",
       "scopes": [
         "TEXT_FILL"
       ]

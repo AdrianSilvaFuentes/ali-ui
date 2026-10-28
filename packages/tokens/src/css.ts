@@ -99,6 +99,7 @@ ${declarations(staticEntries())}
 /** Variáveis de tema do Tailwind para um token de cor, conforme o grupo do nome. */
 function colorThemeVars(key: string, value: string): [string, string][] {
   if (key.startsWith("surface")) return [[`--background-color-${key}`, value]];
+  if (key.startsWith("background-")) return [[`--background-color-${key.slice(11)}`, value]];
   if (key.startsWith("text-")) return [[`--text-color-${key.slice(5)}`, value]];
   if (key.startsWith("icon-")) return [[`--text-color-${key}`, value]];
   if (key.startsWith("border-")) {
@@ -133,7 +134,7 @@ export function renderTailwindCss(): string {
     ["--drop-shadow-*", "initial"],
     ["--text-shadow-*", "initial"],
     ["--transition-duration-*", "initial"],
-    // Cada grupo de cor vale só para o seu utilitário: superfícies em bg-*, textos e
+    // Cada grupo de cor vale só para o seu utilitário: superfícies e fundos em bg-*, textos e
     // ícones em text-*, bordas em border-*, outline-* e ring-*. Assim bg-text-default
     // ou text-surface nem existem.
     ...Object.keys(color).flatMap((k) => colorThemeVars(k, v("color", k))),

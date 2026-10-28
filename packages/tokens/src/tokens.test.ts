@@ -96,6 +96,9 @@ describe("integração com o Tailwind", () => {
     "bg-surface",
     "bg-surface-sunken",
     "bg-surface-overlay",
+    "bg-brand",
+    "bg-brand-hovered",
+    "bg-disabled",
     "shadow-raised",
     "shadow-overlay",
     "text-default",
@@ -163,6 +166,8 @@ describe("integração com o Tailwind", () => {
     "text-surface",
     "border-surface",
     "bg-border-default",
+    "bg-background-brand",
+    "text-brand",
     // Fundos de status voltam com a página Semantic.
     "bg-danger",
     "text-danger-foreground",

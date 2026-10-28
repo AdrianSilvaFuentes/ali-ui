@@ -53,6 +53,21 @@ export const color = {
     dark: neutralDark[700],
     description: "Acima de tudo: menus, popovers e diálogos. Use com shadow-overlay.",
   },
+  "background-brand": {
+    light: primary[900],
+    dark: primary[600],
+    description: "Fundo forte na cor da marca: botão primário. Texto e ícone em inverse.",
+  },
+  "background-brand-hovered": {
+    light: primary[950],
+    dark: primary[500],
+    description: "Fundo da marca com o cursor em cima ou pressionado.",
+  },
+  "background-disabled": {
+    light: neutralLight[200],
+    dark: neutralDark[600],
+    description: "Fundo de controles desabilitados. Texto e ícone em disabled.",
+  },
   "text-default": {
     light: neutralLight[900],
     dark: neutralDark[50],
@@ -76,7 +91,8 @@ export const color = {
   "text-inverse": {
     light: neutralLight[50],
     dark: neutralDark[950],
-    description: "Texto sobre fundos invertidos, que mudam com o tema: tooltips, toasts.",
+    description:
+      "Texto sobre fundos invertidos e fortes, que mudam com o tema: tooltips, toasts, botão primário.",
   },
   "text-static-white": {
     light: neutralLight[50],
@@ -323,6 +339,12 @@ export const contrastPairs: readonly (readonly [ColorName, ColorName, number])[]
   // O inverse vai sobre um fundo na cor do texto padrão (escuro no claro, claro no escuro).
   ["text-inverse", "text-default", 4.5],
   ["icon-inverse", "text-default", 3],
+  // Botão primário: texto e ícone em inverse sobre a marca, e a marca visível na página.
+  ["text-inverse", "background-brand", 4.5],
+  ["text-inverse", "background-brand-hovered", 4.5],
+  ["icon-inverse", "background-brand", 3],
+  ["icon-inverse", "background-brand-hovered", 3],
+  ["background-brand", "surface", 3],
 ];
 
 /**

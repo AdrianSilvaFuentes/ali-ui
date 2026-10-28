@@ -72,6 +72,7 @@ const scales = {
 /** Classes do Tailwind de um token de cor; cada grupo vale só para o seu utilitário. */
 function classesFor(name: ColorName): string {
   if (name.startsWith("surface")) return `bg-${name}`;
+  if (name.startsWith("background-")) return `bg-${name.slice(11)}`;
   if (name.startsWith("text-")) return name;
   if (name.startsWith("icon-")) return `text-${name}`;
   if (name.startsWith("border-")) {
@@ -84,6 +85,7 @@ function classesFor(name: ColorName): string {
 /** Páginas de cor no Storybook. */
 export type ColorGroup =
   | "surface"
+  | "background"
   | "text"
   | "text-status"
   | "text-special"
@@ -102,6 +104,9 @@ const colorGroup = {
   surface: "surface",
   "surface-raised": "surface",
   "surface-overlay": "surface",
+  "background-brand": "background",
+  "background-brand-hovered": "background",
+  "background-disabled": "background",
   "text-default": "text",
   "text-subtle": "text",
   "text-disabled": "text",
