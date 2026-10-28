@@ -82,7 +82,7 @@ function classesFor(name: ColorName): string {
 }
 
 /** Páginas de cor no Storybook. */
-export type ColorGroup = "surface" | "text" | "text-status" | "icon" | "border";
+export type ColorGroup = "surface" | "text" | "text-status" | "icon" | "border" | "border-status";
 
 /**
  * Em que página cada token de cor aparece. Um token novo sem página aqui é um erro
@@ -110,6 +110,11 @@ const colorGroup = {
   "border-subtle": "border",
   "border-disabled": "border",
   "border-focus": "border",
+  "border-success": "border-status",
+  "border-caution": "border-status",
+  "border-warning": "border-status",
+  "border-danger": "border-status",
+  "border-info": "border-status",
   "text-success": "text-status",
   "text-caution": "text-status",
   "text-warning": "text-status",

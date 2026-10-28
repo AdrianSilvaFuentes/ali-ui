@@ -50,7 +50,14 @@ export const Border: Story = {
       group="border"
       title="Border"
       description="Contornos: padrão (campos e controles), sutil (divisórias), desabilitado e foco do teclado. Valem para border-*, outline-* e ring-*."
-    />
+    >
+      <Section
+        title="Status"
+        description="Bordas na cor de cada status, com contraste mínimo de 3:1, como num campo com erro. Acompanhe sempre com texto ou ícone, nunca só a cor."
+      >
+        <ColorTable group="border-status" />
+      </Section>
+    </ColorGroupPage>
   ),
 };
 
