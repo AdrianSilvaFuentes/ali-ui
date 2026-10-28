@@ -1,0 +1,10 @@
+{
+  "name": "Ali UI · Sincronizar tokens",
+  "id": "ali-ui-tokens-sync",
+  "api": "1.0.0",
+  "main": "code.js",
+  "editorType": [
+    "figma"
+  ],
+  "documentAccess": "dynamic-page"
+}
