@@ -1,4 +1,5 @@
 # Ali UI
+<img width="153" height="67" alt="ALI" src="https://github.com/user-attachments/assets/0d81c9b8-b591-4e91-b00c-a82acb2f8562" />
 
 A personal design system and component library. Original, editorial, lean:
 few components, each one with personality.
