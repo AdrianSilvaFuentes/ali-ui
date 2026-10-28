@@ -63,6 +63,12 @@ describe("tokens.css", () => {
     expect(css).not.toContain("--ali-space-");
   });
 
+  it("mantém as cores static iguais nos dois temas", () => {
+    for (const [name, token] of Object.entries(color)) {
+      if (name.includes("static")) expect(token.light).toBe(token.dark);
+    }
+  });
+
   it("define todas as cores semânticas nos temas claro e escuro", () => {
     for (const [name, token] of Object.entries(color)) {
       expect(css).toContain(`--ali-color-${name}: ${token.light};`);
@@ -92,9 +98,30 @@ describe("integração com o Tailwind", () => {
     "bg-surface-overlay",
     "shadow-raised",
     "shadow-overlay",
-    "text-foreground",
-    "border-border-strong",
-    "outline-focus-ring",
+    "text-default",
+    "text-subtle",
+    "text-disabled",
+    "text-link",
+    "text-icon-default",
+    "text-icon-subtle",
+    "text-icon-success",
+    "text-icon-danger",
+    "text-inverse",
+    "text-static-white",
+    "text-icon-static-black",
+    "border-default",
+    "border-subtle",
+    "border-disabled",
+    "border-success",
+    "border-danger",
+    "outline-danger",
+    "outline-focus",
+    "ring-focus",
+    "text-success",
+    "text-caution",
+    "text-warning",
+    "text-danger",
+    "text-info",
     "p-0",
     "p-px",
     "p-0.5",
@@ -124,6 +151,21 @@ describe("integração com o Tailwind", () => {
   // Classes padrão do Tailwind que expõem valores fora dos tokens.
   const removedClasses = [
     "bg-gray-500",
+    // Nomes antigos de texto e borda.
+    "text-foreground",
+    "text-muted-foreground",
+    "border-border",
+    "border-strong",
+    "outline-focus-ring",
+    // Cada grupo de cor só vale para o seu utilitário.
+    "bg-default",
+    "bg-text-default",
+    "text-surface",
+    "border-surface",
+    "bg-border-default",
+    // Fundos de status voltam com a página Semantic.
+    "bg-danger",
+    "text-danger-foreground",
     "bg-muted",
     "text-body",
     "text-label",

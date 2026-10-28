@@ -39,17 +39,17 @@ export function TokensLayout({
   return (
     <div
       data-theme={theme}
-      className="flex min-h-screen flex-col gap-12 bg-surface p-8 text-body-lg text-foreground"
+      className="flex min-h-screen flex-col gap-12 bg-surface p-8 text-body-lg text-default"
     >
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <h1 className="text-display">{title}</h1>
-          <p className="mt-2 max-w-prose text-muted-foreground">{description}</p>
+          <p className="mt-2 max-w-prose text-subtle">{description}</p>
         </div>
         <button
           type="button"
           onClick={() => setTheme(nextTheme)}
-          className="rounded-sm border border-border-strong bg-surface-raised px-4 py-2 text-label-md transition-colors duration-fast hover:bg-surface-sunken focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
+          className="rounded-sm border border-default bg-surface-raised px-4 py-2 text-label-md transition-colors duration-fast hover:bg-surface-sunken focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
         >
           {theme === "light" ? "Mudar para tema escuro" : "Mudar para tema claro"}
         </button>
@@ -69,16 +69,16 @@ export function Section({
   children: ReactNode;
 }) {
   return (
-    <section className="border-t border-border pt-8">
+    <section className="border-t border-subtle pt-8">
       <h2 className="text-title-md">{title}</h2>
-      <p className="mt-1 mb-6 max-w-prose text-body-md text-muted-foreground">{description}</p>
+      <p className="mt-1 mb-6 max-w-prose text-body-md text-subtle">{description}</p>
       {children}
     </section>
   );
 }
 
 export function Code({ children }: { children: ReactNode }) {
-  return <code className="font-mono text-body-sm text-muted-foreground">{children}</code>;
+  return <code className="font-mono text-body-sm text-subtle">{children}</code>;
 }
 
 /**
@@ -95,7 +95,7 @@ export function Table({
   children: ReactNode;
 }) {
   return (
-    <div className="overflow-x-auto rounded-md border border-border">
+    <div className="overflow-x-auto rounded-md border border-subtle">
       <table className={`w-full border-collapse text-left ${widths ? "table-fixed" : ""}`}>
         {widths && (
           <colgroup>
@@ -123,7 +123,7 @@ export function Table({
 export function Swatch({ color }: { color: string }) {
   return (
     <div
-      className="size-8 shrink-0 rounded-sm border border-border"
+      className="size-8 shrink-0 rounded-sm border border-subtle"
       style={{ backgroundColor: color }}
     />
   );
@@ -138,7 +138,7 @@ export function PlaceholderPage({ title, description }: { title: string; descrip
           title="Ainda sem tokens"
           description="Esta página ganha conteúdo quando os tokens forem definidos."
         >
-          <p className="max-w-prose rounded-md border border-border bg-surface-raised p-4 text-body-md text-muted-foreground">
+          <p className="max-w-prose rounded-md border border-subtle bg-surface-raised p-4 text-body-md text-subtle">
             Nada definido por enquanto.
           </p>
         </Section>

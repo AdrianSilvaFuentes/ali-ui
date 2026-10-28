@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { ColorGroupPage } from "./ColorTokensPage";
+import { ColorGroupPage, ColorTable } from "./ColorTokensPage";
 import { ElevationDemo } from "./ElevationDemo";
 import { PrimitiveTokensPage } from "./PrimitiveTokensPage";
-import { PlaceholderPage } from "./TokensLayout";
+import { PlaceholderPage, Section } from "./TokensLayout";
 
 const meta = {
   title: "Foundations/Colors",
@@ -32,8 +32,21 @@ export const Text: Story = {
     <ColorGroupPage
       group="text"
       title="Text"
-      description="Cores de texto: principal, secundário, links e texto sobre a cor de marca."
-    />
+      description="Cores de texto: padrão, sutil, desabilitado e link. Depois, os textos de status e os cenários especiais."
+    >
+      <Section
+        title="Status"
+        description="Texto na cor de cada status: success, caution, warning, danger e info. Nunca use só a cor para passar a mensagem: acompanhe com palavra ou ícone."
+      >
+        <ColorTable group="text-status" />
+      </Section>
+      <Section
+        title="Cenários especiais"
+        description="Inverse muda com o tema e vai sobre fundos invertidos, como tooltips e toasts. Static fica igual nos dois temas, para fotos, vídeos e fundos fixos; sobre imagens, use uma camada por baixo para garantir a leitura."
+      >
+        <ColorTable group="text-special" />
+      </Section>
+    </ColorGroupPage>
   ),
 };
 
@@ -42,21 +55,46 @@ export const Border: Story = {
     <ColorGroupPage
       group="border"
       title="Border"
-      description="Contornos: divisórias, campos e o foco visível do teclado."
-    />
+      description="Contornos: padrão (campos e controles), sutil (divisórias), desabilitado e foco do teclado. Valem para border-*, outline-* e ring-*."
+    >
+      <Section
+        title="Status"
+        description="Bordas na cor de cada status, com contraste mínimo de 3:1, como num campo com erro. Acompanhe sempre com texto ou ícone, nunca só a cor."
+      >
+        <ColorTable group="border-status" />
+      </Section>
+    </ColorGroupPage>
   ),
 };
 
 export const Icon: Story = {
-  render: () => <PlaceholderPage title="Icon" description="Cores de ícones." />,
+  render: () => (
+    <ColorGroupPage
+      group="icon"
+      title="Icon"
+      description="Cores de ícones. Eles herdam a cor do texto (currentColor), por isso a classe é text-icon-*, e ficam um degrau mais suaves que o texto ao lado."
+    >
+      <Section
+        title="Status"
+        description="Ícones na cor de cada status, com contraste mínimo de 3:1 e os mesmos passos das bordas de status. Combine com texto: o ícone reforça, não substitui."
+      >
+        <ColorTable group="icon-status" />
+      </Section>
+      <Section
+        title="Cenários especiais"
+        description="Inverse muda com o tema e vai sobre fundos invertidos, como tooltips e toasts. Static fica igual nos dois temas, para fotos, vídeos e fundos fixos; sobre imagens, use uma camada por baixo para garantir a leitura."
+      >
+        <ColorTable group="icon-special" />
+      </Section>
+    </ColorGroupPage>
+  ),
 };
 
 export const Semantic: Story = {
   render: () => (
-    <ColorGroupPage
-      group="semantic"
+    <PlaceholderPage
       title="Semantic"
-      description="Cores de status: erro, sucesso, aviso e informação. Por enquanto só o erro está definido."
+      description="Em breve: a visão por status (success, caution, warning, danger e info), com fundo, texto, borda e ícone de cada um. Os textos de status já estão em Text."
     />
   ),
 };
