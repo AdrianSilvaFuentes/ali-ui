@@ -28,7 +28,7 @@ export const inputVariants = cva(
     variants: {
       // Mesma altura e raio do Button, para campo e botão ficarem lado a lado.
       size: {
-        sm: "h-8 px-3 rounded-lg text-body-sm [&_svg]:size-4",
+        sm: "h-8 px-3 rounded-lg text-body-md [&_svg]:size-4",
         md: "h-10 px-3 rounded-xl text-body-md [&_svg]:size-5",
       },
     },
