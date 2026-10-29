@@ -16,6 +16,8 @@ const config: StorybookConfig = {
     "../../../packages/ui/src/**/*.stories.@(ts|tsx)",
   ],
   addons: [getAbsolutePath("@storybook/addon-docs")],
+  // Arquivos servidos na raiz do Storybook, como a logo (./logo-ali.svg).
+  staticDirs: ["../public"],
   framework: {
     name: getAbsolutePath("@storybook/react-vite"),
     options: {},
