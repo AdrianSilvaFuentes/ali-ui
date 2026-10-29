@@ -19,7 +19,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "Botão de ação. Use o primary para a ação principal da tela, de preferência um por tela, e o secondary para as ações de apoio, como cancelar ou voltar. Ícones vão em iconLeft (antes do texto) e iconRight (depois) e ganham o tamanho certo para cada size; o leitor de tela ignora esses ícones. Botão só com ícone precisa de aria-label.\n\nO visual traz um toque tátil, inspirado no skeumorfismo: um degradê na cor da marca, um brilho fino no topo (inset-shadow-highlight) como luz vinda de cima e uma sombra pequena embaixo. Ao pressionar, o brilho some e o botão parece afundar. A ideia é dar volume e resposta ao clique sem perder a leveza de uma interface plana.\n\nO secondary tem o mesmo volume, mas é neutro: fundo bg-neutral, borda border-subtle e texto default. Sem degradê, ele não disputa atenção com o primary.",
+          "Botão de ação. Use o primary para a ação principal da tela, de preferência um por tela, o secondary para as ações de apoio, como cancelar ou voltar, e o ghost para ações discretas que se repetem, como em barras de ferramentas, cartões e listas. Ícones vão em iconLeft (antes do texto) e iconRight (depois) e ganham o tamanho certo para cada size; o leitor de tela ignora esses ícones. Botão só com ícone precisa de aria-label.\n\nO visual traz um toque tátil, inspirado no skeumorfismo: um degradê na cor da marca, um brilho fino no topo (inset-shadow-highlight) como luz vinda de cima e uma sombra pequena embaixo. Ao pressionar, o brilho some e o botão parece afundar. A ideia é dar volume e resposta ao clique sem perder a leveza de uma interface plana.\n\nO secondary tem o mesmo volume, mas é neutro: fundo bg-neutral, borda border-subtle e texto default. Sem degradê, ele não disputa atenção com o primary.\n\nO ghost não tem fundo, borda nem volume: é só o texto, e o fundo neutro aparece no hover e ao pressionar. Por não ter contorno, funciona melhor com um ícone ou em lugares onde já fica claro que é clicável.",
       },
     },
   },
@@ -33,8 +33,9 @@ const meta = {
     children: { control: "text", description: "Texto do botão." },
     variant: {
       control: "inline-radio",
-      options: ["primary", "secondary"],
-      description: "Estilo do botão: primary para a ação principal, secondary para as de apoio.",
+      options: ["primary", "secondary", "ghost"],
+      description:
+        "Estilo do botão: primary para a ação principal, secondary para as de apoio, ghost para as discretas.",
       table: { defaultValue: { summary: "primary" } },
     },
     size: {
@@ -79,18 +80,25 @@ export const Secondary: Story = {
   args: { variant: "secondary", children: "Cancelar" },
 };
 
+export const Ghost: Story = {
+  args: { variant: "ghost", children: "Mais opções", iconRight: "ArrowRight" },
+};
+
 export const Variants: Story = {
-  name: "Primary e secondary juntos",
+  name: "Variantes juntas",
   parameters: {
     docs: {
       description: {
         story:
-          "O par mais comum: a ação principal em primary e a de apoio em secondary, lado a lado.",
+          "A hierarquia das três: o ghost para a ação discreta, o secondary para a de apoio e o primary para a principal.",
       },
     },
   },
   render: (args) => (
     <div className="flex items-center gap-3">
+      <Button {...args} variant="ghost">
+        Pular
+      </Button>
       <Button {...args} variant="secondary">
         Cancelar
       </Button>
@@ -155,6 +163,9 @@ export const Disabled: Story = {
   args: { disabled: true },
   render: (args) => (
     <div className="flex items-center gap-3">
+      <Button {...args} variant="ghost">
+        Pular
+      </Button>
       <Button {...args} variant="secondary">
         Cancelar
       </Button>

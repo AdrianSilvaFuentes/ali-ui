@@ -47,6 +47,13 @@ export const buttonVariants = cva(
           "aria-disabled:border-disabled aria-disabled:bg-disabled aria-disabled:text-disabled",
           "aria-disabled:shadow-none aria-disabled:inset-shadow-none",
         ],
+        ghost: [
+          // Sem fundo, borda nem volume: o fundo neutro só aparece no hover e ao pressionar.
+          "bg-transparent text-default",
+          "hover:bg-neutral-hovered active:bg-neutral-pressed",
+          "disabled:bg-transparent disabled:text-disabled",
+          "aria-disabled:bg-transparent aria-disabled:text-disabled",
+        ],
       },
       size: {
         sm: "h-8 px-3 text-label-md [&_svg]:size-4",

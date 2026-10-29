@@ -135,10 +135,24 @@ describe("Button", () => {
     expect(className).not.toContain("gradient");
   });
 
-  it.each(["primary", "secondary"] as const)("%s tem o foco visível na cor de foco", (variant) => {
-    render(<Button variant={variant}>Salvar</Button>);
-    expect(screen.getByRole("button").className).toContain("focus-visible:outline-focus");
+  it("ghost não tem fundo, borda nem sombra, só o fundo neutro no hover e ao pressionar", () => {
+    render(<Button variant="ghost">Mais opções</Button>);
+    const { className } = screen.getByRole("button");
+    expect(className).toContain("bg-transparent");
+    expect(className).toContain("text-default");
+    expect(className).toContain("hover:bg-neutral-hovered");
+    expect(className).toContain("active:bg-neutral-pressed");
+    expect(className).not.toMatch(/(^|\s)(border|shadow-sm|inset-shadow-highlight)(\s|$)/);
+    expect(className).not.toContain("gradient");
   });
+
+  it.each(["primary", "secondary", "ghost"] as const)(
+    "%s tem o foco visível na cor de foco",
+    (variant) => {
+      render(<Button variant={variant}>Salvar</Button>);
+      expect(screen.getByRole("button").className).toContain("focus-visible:outline-focus");
+    },
+  );
 
   it("não tem problemas de acessibilidade, com texto ou só ícone", async () => {
     const { container } = render(
@@ -151,6 +165,10 @@ describe("Button", () => {
         <Button variant="secondary">Cancelar</Button>
         <Button variant="secondary" disabled>
           Cancelar
+        </Button>
+        <Button variant="ghost">Mais opções</Button>
+        <Button variant="ghost" disabled>
+          Mais opções
         </Button>
       </div>,
     );
