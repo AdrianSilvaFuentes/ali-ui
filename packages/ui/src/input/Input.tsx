@@ -1,8 +1,8 @@
-import { Root as LabelRoot } from "@radix-ui/react-label";
 import { IconAlertCircle } from "@tabler/icons-react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { type ComponentProps, type MouseEvent, type ReactNode, useId } from "react";
 import { cn } from "../lib/cn.ts";
+import { FieldLabel } from "../lib/FieldLabel.tsx";
 
 /**
  * A caixa do campo. O input fica dentro dela, sem borda própria, para os ícones caberem
@@ -26,7 +26,9 @@ export const inputVariants = cva(
     "motion-reduce:outline-offset-2",
     "data-invalid:border-danger",
     // Somente leitura: fundo próprio e borda que não escurece, para não parecer editável.
-    "data-readonly:bg-readonly data-readonly:border-subtle",
+    // Cursor de seta: sem a promessa de digitar, mas sem o "proibido" do desabilitado,
+    // porque o texto ainda pode ser selecionado e copiado.
+    "data-readonly:bg-readonly data-readonly:border-subtle data-readonly:cursor-default",
     // Desabilitado mantém o fundo neutro, com texto e borda em disabled.
     "data-disabled:cursor-not-allowed data-disabled:border-disabled data-disabled:text-disabled",
     "data-disabled:shadow-none",
@@ -49,6 +51,11 @@ export interface InputProps
     VariantProps<typeof inputVariants> {
   /** Nome do campo, ligado ao input. Sem label, passe um `aria-label`. */
   label?: ReactNode;
+  /**
+   * Ajuda extra num ícone de info no fim do label, que abre um Toggletip. Para o que não
+   * cabe na ajuda abaixo do campo. Precisa de `label`.
+   */
+  labelInfo?: ReactNode;
   /** Texto de ajuda abaixo do campo, lido pelo leitor de tela junto com o label. */
   description?: ReactNode;
   /** Mensagem de erro. Marca o campo como inválido e aparece com ícone, não só em vermelho. */
@@ -90,6 +97,7 @@ export function Input({
   className,
   size,
   label,
+  labelInfo,
   description,
   error,
   iconLeft,
@@ -109,12 +117,9 @@ export function Input({
   return (
     <div className={cn("flex flex-col gap-1.5", className)}>
       {label ? (
-        <LabelRoot
-          htmlFor={inputId}
-          className={cn("text-label-md", disabled ? "text-disabled" : "text-default")}
-        >
+        <FieldLabel htmlFor={inputId} info={labelInfo} disabled={disabled}>
           {label}
-        </LabelRoot>
+        </FieldLabel>
       ) : null}
       {/* biome-ignore lint/a11y/noStaticElementInteractions: atalho só do mouse; o teclado foca o input direto. */}
       <div
@@ -133,7 +138,11 @@ export function Input({
           aria-describedby={
             [describedBy, descriptionId, errorId].filter(Boolean).join(" ") || undefined
           }
-          className="h-full min-w-0 flex-1 bg-transparent outline-none placeholder:text-placeholder disabled:cursor-not-allowed"
+          className={cn(
+            "h-full min-w-0 flex-1 bg-transparent outline-none placeholder:text-placeholder",
+            "disabled:cursor-not-allowed",
+            readOnly && "cursor-default",
+          )}
           {...props}
         />
         <InputIcon>{iconRight}</InputIcon>
