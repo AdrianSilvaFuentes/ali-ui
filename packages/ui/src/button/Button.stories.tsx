@@ -40,8 +40,8 @@ const meta = {
     },
     size: {
       control: "inline-radio",
-      options: ["sm", "md", "lg"],
-      description: "Altura: sm 32px, md 40px (padrão), lg 48px.",
+      options: ["sm", "md"],
+      description: "Altura: sm 32px (tabelas, barras e cartões) e md 40px (padrão).",
       table: { defaultValue: { summary: "md" } },
     },
     disabled: {
@@ -114,7 +114,6 @@ export const Sizes: Story = {
     <div className="flex items-center gap-4">
       <Button {...args} size="sm" />
       <Button {...args} size="md" />
-      <Button {...args} size="lg" />
     </div>
   ),
 };
@@ -141,7 +140,6 @@ export const IconOnly: Story = {
     <div className="flex items-center gap-4">
       <Button {...args} size="sm" className="w-8 px-0" iconLeft={<IconSearch />} />
       <Button {...args} size="md" className="w-10 px-0" iconLeft={<IconSearch />} />
-      <Button {...args} size="lg" className="w-12 px-0" iconLeft={<IconSearch />} />
     </div>
   ),
 };

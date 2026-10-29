@@ -58,7 +58,6 @@ export const buttonVariants = cva(
       size: {
         sm: "h-8 px-3 text-label-md [&_svg]:size-4",
         md: "h-10 px-4 text-label-md [&_svg]:size-5",
-        lg: "h-12 px-5 text-label-lg [&_svg]:size-5",
       },
     },
     defaultVariants: { variant: "primary", size: "md" },

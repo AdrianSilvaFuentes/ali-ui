@@ -99,7 +99,6 @@ describe("Button", () => {
   it.each([
     ["sm", "h-8"],
     ["md", "h-10"],
-    ["lg", "h-12"],
   ] as const)("tamanho %s usa a altura %s", (size, height) => {
     render(<Button size={size}>Salvar</Button>);
     expect(screen.getByRole("button").className).toContain(height);
