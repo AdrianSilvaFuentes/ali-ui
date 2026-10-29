@@ -65,13 +65,16 @@ export const color = {
   },
   "background-neutral-hovered": {
     light: neutralLight[100],
-    dark: neutralDark[600],
+    // Um passo a partir do repouso nos dois temas: no claro escurece, no escuro clareia.
+    dark: neutralDark[800],
     description: "Botão secundário com o cursor em cima.",
   },
   "background-neutral-pressed": {
     light: neutralLight[200],
-    dark: neutralDark[800],
-    description: "Botão secundário pressionado: escurece, como se afundasse.",
+    // Dois passos a partir do repouso, um além do hover, nos dois temas.
+    dark: neutralDark[700],
+    description:
+      "Botão secundário pressionado: um passo além do hover. No claro escurece; no escuro clareia.",
   },
   "background-readonly": {
     light: neutralLight[100],
