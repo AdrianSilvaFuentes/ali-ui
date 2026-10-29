@@ -20,7 +20,7 @@ export const inputVariants = cva(
     // Campo de texto mostra o foco também no clique, não só no teclado.
     "focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-focus",
     "data-invalid:border-danger",
-    // Desabilitado mantém o fundo neutro: texto disabled sobre bg-disabled não chega a 3:1.
+    // Desabilitado mantém o fundo neutro, com texto e borda em disabled.
     "data-disabled:cursor-not-allowed data-disabled:border-disabled data-disabled:text-disabled",
     "data-disabled:shadow-none",
     "[&_svg]:shrink-0",
