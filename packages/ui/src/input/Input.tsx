@@ -32,14 +32,15 @@ export const inputVariants = cva(
     // Desabilitado mantém o fundo neutro, com texto e borda em disabled.
     "data-disabled:cursor-not-allowed data-disabled:border-disabled data-disabled:text-disabled",
     "data-disabled:shadow-none",
-    "[&_svg]:shrink-0",
+    "[&_svg]:size-5 [&_svg]:shrink-0",
   ],
   {
     variants: {
-      // Mesma altura e raio do Button, para campo e botão ficarem lado a lado.
+      // Mesma altura e raio do Button, para campo e botão ficarem lado a lado. Os ícones têm
+      // 20px nos dois tamanhos, como os das opções do Select.
       size: {
-        sm: "h-8 px-3 rounded-lg text-body-md [&_svg]:size-4",
-        md: "h-10 px-3 rounded-xl text-body-md [&_svg]:size-5",
+        sm: "h-8 px-3 rounded-lg text-body-md",
+        md: "h-10 px-3 rounded-xl text-body-md",
       },
     },
     defaultVariants: { size: "md" },
