@@ -97,7 +97,8 @@ export const color = {
   "text-placeholder": {
     light: neutralLight[500],
     dark: neutralDark[200],
-    description: "Placeholder de campos: mais claro que o texto digitado, para o campo não parecer preenchido.",
+    description:
+      "Placeholder de campos: mais claro que o texto digitado, para o campo não parecer preenchido.",
   },
   "text-disabled": {
     light: neutralLight[400],
