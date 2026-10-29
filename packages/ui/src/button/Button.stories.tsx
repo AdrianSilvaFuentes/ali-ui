@@ -136,7 +136,8 @@ export const WithIcon: Story = {
 export const IconOnly: Story = {
   name: "Só ícone",
   args: { "aria-label": "Pesquisar" },
-  render: (args) => (
+  // Sem texto: o nome do botão vem do aria-label.
+  render: ({ children: _children, ...args }) => (
     <div className="flex items-center gap-4">
       <Button {...args} size="sm" className="w-8 px-0" iconLeft={<IconSearch />} />
       <Button {...args} size="md" className="w-10 px-0" iconLeft={<IconSearch />} />
