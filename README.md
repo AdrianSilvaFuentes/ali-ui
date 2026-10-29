@@ -1,5 +1,5 @@
 <p align="center">
-  <img src=".github/assets/banner.png" alt="Ali UI Design System" width="760">
+  <img src=".github/assets/banner.png" alt="Ali UI Design System" width="100%">
 </p>
 
 # Ali UI
