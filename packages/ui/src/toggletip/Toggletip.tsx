@@ -34,7 +34,7 @@ export function Toggletip({
         type="button"
         aria-label={label}
         className={cn(
-          // Área de toque de 24px, mas a margem negativa faz o botão ocupar só os 16px do ícone,
+          // Área de toque de 24px, mas a margem negativa faz o botão ocupar só 16px na linha,
           // para não mudar a altura da linha do label.
           "-m-1 inline-flex size-6 shrink-0 items-center justify-center rounded-full",
           // Cursor de clique: um ícone solto não parece clicável sem ele.
@@ -42,14 +42,15 @@ export function Toggletip({
           "text-icon-subtle hover:text-icon-default data-[state=open]:text-icon-default",
           "transition-interactive duration-fast",
           // Foco que se encaixa, como no Button, mas por dentro da área de toque: o contorno surge
-          // na borda dela e fecha 2px para dentro, ficando a 2px do ícone. Num ícone de 16px,
+          // na borda dela e fecha 2px para dentro, ficando a 3px do ícone. Num ícone de 14px,
           // o anel por fora ficaria grande demais. Sem animação para quem pede menos movimento.
           "outline-focus outline-offset-0 focus-visible:outline-2 focus-visible:-outline-offset-2",
           "motion-reduce:-outline-offset-2",
           className,
         )}
       >
-        <IconInfoCircle aria-hidden="true" className="size-4" />
+        {/* 14px, o tamanho da fonte do label: ao lado dele, o ícone não pesa mais que o texto. */}
+        <IconInfoCircle aria-hidden="true" className="size-3.5" />
       </Trigger>
       <Portal>
         {/*
@@ -61,8 +62,9 @@ export function Toggletip({
           align={align}
           aria-label={label}
           className={cn(
-            // Mesmo raio do Input no tamanho padrão (md).
-            "z-50 max-w-xs rounded-xl border border-subtle bg-surface-overlay px-3 py-2",
+            // Mesmo raio do Input no tamanho padrão (md). O contorno é um ring, e não uma border:
+            // a border mudaria a referência do tail enquanto a animação roda, e ele pularia 1px.
+            "z-50 max-w-xs rounded-xl bg-surface-overlay px-3 py-2 ring-1 ring-subtle",
             // body-md, um passo acima da ajuda do campo: o balão é para ler com calma.
             // shadow-md, e não shadow-overlay: num balão pequeno, a sombra de menus e diálogos pesa.
             "text-body-md text-default shadow-md outline-none",
@@ -76,12 +78,12 @@ export function Toggletip({
           {children}
           {/*
            * O tail aponta para o ícone e o Radix o gira conforme o lado. A distância do balão ao
-           * ícone é a altura dele. Desenho próprio: fundo do balão e borda só nos lados
-           * inclinados, 1px por cima da borda do balão, para os dois parecerem uma peça só.
+           * ícone é a altura dele. Desenho próprio: fundo do balão e contorno só nos lados
+           * inclinados. A base cobre o contorno do balão, para os dois parecerem uma peça só.
            * 12×6px, como os passos 3 e 1.5 da escala de espaçamento.
            */}
           <Arrow asChild width={12} height={6}>
-            <svg aria-hidden="true" viewBox="0 0 12 6" className="block -translate-y-px">
+            <svg aria-hidden="true" viewBox="0 0 12 6" className="block">
               <path
                 d="M0 0 L6 6 L12 0"
                 className="fill-[var(--ali-color-surface-overlay)] stroke-[var(--ali-color-border-subtle)]"

@@ -25,7 +25,9 @@ describe("Toggletip", () => {
     render(<Toggletip>Usamos só para avisos.</Toggletip>);
     const trigger = screen.getByRole("button", { name: "Mais informações" });
     expect(trigger.getAttribute("aria-expanded")).toBe("false");
-    expect(trigger.querySelector("svg")?.getAttribute("aria-hidden")).toBe("true");
+    const icon = trigger.querySelector("svg");
+    expect(icon?.getAttribute("aria-hidden")).toBe("true");
+    expect(icon?.getAttribute("class")).toContain("size-3.5");
   });
 
   it("aceita outro nome para o botão", () => {
