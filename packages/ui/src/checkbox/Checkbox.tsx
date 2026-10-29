@@ -12,8 +12,10 @@ import { FieldLabel } from "../lib/FieldLabel.tsx";
 export const checkboxVariants = cva([
   "group relative isolate inline-flex size-4 shrink-0 items-center justify-center rounded-sm",
   "[&_svg]:size-3",
-  // Borda default, e não subtle como no Input: o contorno de um checkbox precisa de 3:1.
-  "border border-default bg-neutral text-static-white shadow-sm",
+  // Como no Input, exceção consciente: em repouso a borda é subtle (abaixo dos 3:1 da WCAG),
+  // para a caixa ficar leve. No hover e no foco ela vai para default (3:1), e o label nomeia.
+  "border border-subtle bg-neutral text-static-white shadow-sm",
+  "hover:border-default focus-visible:border-default",
   "transition-interactive duration-fast",
   // Mesmo foco do Button: surge a 4px e chega a 2px, sem animação para quem pede menos.
   "outline-focus outline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2",

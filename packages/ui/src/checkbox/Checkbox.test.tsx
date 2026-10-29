@@ -129,10 +129,12 @@ describe("Checkbox", () => {
     expect(screen.getByText("Leia antes.").parentElement?.className).toContain("gap-0.5");
   });
 
-  it("borda com contraste, foco do Button e cursor de clique", () => {
+  it("borda suave que escurece no hover e no foco, foco do Button e cursor de clique", () => {
     render(<Checkbox label="Aceito" />);
     const { className } = screen.getByRole("checkbox");
-    expect(className).toContain("border-default");
+    expect(className).toContain("border-subtle");
+    expect(className).toContain("hover:border-default");
+    expect(className).toContain("focus-visible:border-default");
     expect(className).toContain("outline-focus");
     expect(className).toContain("focus-visible:outline-2");
     expect(className).toContain("cursor-pointer");
