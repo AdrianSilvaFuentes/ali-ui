@@ -22,6 +22,8 @@ export const inputVariants = cva(
     "outline-focus outline-offset-4 focus-within:outline-2 focus-within:outline-offset-2",
     "motion-reduce:outline-offset-2",
     "data-invalid:border-danger",
+    // Somente leitura: fundo próprio e borda que não escurece, para não parecer editável.
+    "data-readonly:bg-readonly data-readonly:border-subtle",
     // Desabilitado mantém o fundo neutro, com texto e borda em disabled.
     "data-disabled:cursor-not-allowed data-disabled:border-disabled data-disabled:text-disabled",
     "data-disabled:shadow-none",
@@ -80,6 +82,7 @@ export function Input({
   iconRight,
   id,
   disabled,
+  readOnly,
   "aria-describedby": describedBy,
   ...props
 }: InputProps) {
@@ -103,11 +106,13 @@ export function Input({
         className={inputVariants({ size })}
         data-invalid={invalid || undefined}
         data-disabled={disabled || undefined}
+        data-readonly={readOnly || undefined}
       >
         <InputIcon>{iconLeft}</InputIcon>
         <input
           id={inputId}
           disabled={disabled}
+          readOnly={readOnly}
           aria-invalid={invalid || undefined}
           aria-describedby={
             [describedBy, descriptionId, errorId].filter(Boolean).join(" ") || undefined

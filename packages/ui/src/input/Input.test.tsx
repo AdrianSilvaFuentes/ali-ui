@@ -83,6 +83,20 @@ describe("Input", () => {
     expect(box(input).hasAttribute("data-disabled")).toBe(true);
   });
 
+  it("somente leitura recebe foco, não aceita texto e ganha o fundo próprio", async () => {
+    const user = userEvent.setup();
+    render(<Input label="Plano" readOnly defaultValue="Pro" />);
+    const input = screen.getByRole("textbox", { name: "Plano" }) as HTMLInputElement;
+    expect(input.readOnly).toBe(true);
+    await user.tab();
+    expect(document.activeElement).toBe(input);
+    await user.keyboard("X");
+    expect(input.value).toBe("Pro");
+    const { className } = box(input);
+    expect(box(input).hasAttribute("data-readonly")).toBe(true);
+    expect(className).toContain("data-readonly:bg-readonly");
+  });
+
   it("os ícones ficam escondidos do leitor de tela", () => {
     render(
       <Input
@@ -136,6 +150,7 @@ describe("Input", () => {
         <Input label="Senha" type="password" error="Senha muito curta." />
         <Input aria-label="Buscar" placeholder="Buscar" />
         <Input label="Empresa" disabled />
+        <Input label="Plano" readOnly defaultValue="Pro" />
       </div>,
     );
     expect(await violations(container)).toEqual([]);

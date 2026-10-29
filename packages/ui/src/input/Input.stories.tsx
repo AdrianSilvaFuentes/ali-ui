@@ -20,7 +20,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "Campo de texto com label, ajuda e erro. O componente já liga tudo para o leitor de tela: o label nomeia o campo, a ajuda e o erro são lidos junto, e o erro marca o campo como inválido. Sem label visível, passe um aria-label.\n\nO campo tem a mesma sombra pequena do Button (shadow-sm), mas sem o brilho no topo, que fica reservado ao que se clica. Em repouso, a borda é border-subtle, para o campo ficar leve; no hover e no foco ela escurece para border-default. Exceção consciente: a borda subtle fica abaixo do contraste de 3:1 que a WCAG pede para o contorno de campos, então use sempre um label visível (ou o contexto claro de uma busca). Os tamanhos e raios são os mesmos do Button, para os dois ficarem lado a lado na mesma altura.\n\nO placeholder usa text-placeholder, bem mais claro que o texto digitado, para o campo vazio não parecer preenchido. Exceção consciente: no tema claro ele fica abaixo do contraste de 4.5:1 da WCAG, então nunca coloque nele uma informação necessária. Use-o só para exemplos; instruções vão na ajuda (description), que não some ao digitar.\n\nO erro aparece com ícone e texto, nunca só com a cor vermelha. Desabilitado mantém o fundo neutro, perde a sombra e deixa texto e borda em disabled.",
+          "Campo de texto com label, ajuda e erro. O componente já liga tudo para o leitor de tela: o label nomeia o campo, a ajuda e o erro são lidos junto, e o erro marca o campo como inválido. Sem label visível, passe um aria-label.\n\nO campo tem a mesma sombra pequena do Button (shadow-sm), mas sem o brilho no topo, que fica reservado ao que se clica. Em repouso, a borda é border-subtle, para o campo ficar leve; no hover e no foco ela escurece para border-default. Exceção consciente: a borda subtle fica abaixo do contraste de 3:1 que a WCAG pede para o contorno de campos, então use sempre um label visível (ou o contexto claro de uma busca). Os tamanhos e raios são os mesmos do Button, para os dois ficarem lado a lado na mesma altura.\n\nO placeholder usa text-placeholder, bem mais claro que o texto digitado, para o campo vazio não parecer preenchido. Exceção consciente: no tema claro ele fica abaixo do contraste de 4.5:1 da WCAG, então nunca coloque nele uma informação necessária. Use-o só para exemplos; instruções vão na ajuda (description), que não some ao digitar.\n\nO erro aparece com ícone e texto, nunca só com a cor vermelha. Desabilitado mantém o fundo neutro, perde a sombra e deixa texto e borda em disabled. Somente leitura ganha o fundo bg-readonly e mantém o texto em default.",
       },
     },
   },
@@ -45,6 +45,11 @@ const meta = {
       options: ["sm", "md"],
       description: "Altura e raio, os mesmos do Button: sm 32px e md 40px (padrão).",
       table: { defaultValue: { summary: "md" } },
+    },
+    readOnly: {
+      control: "boolean",
+      description: "Somente leitura: mostra o valor, que pode ser copiado, mas não editado.",
+      table: { defaultValue: { summary: "false" } },
     },
     disabled: {
       control: "boolean",
@@ -92,6 +97,19 @@ export const WithError: Story = {
 export const Disabled: Story = {
   name: "Desabilitado",
   args: { disabled: true, defaultValue: "voce@exemplo.com" },
+};
+
+export const ReadOnly: Story = {
+  name: "Somente leitura",
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "O valor aparece e pode ser selecionado e copiado, mas não editado. O fundo bg-readonly e a borda que não escurece mostram que o campo não é editável; o leitor de tela anuncia somente leitura. Diferente do desabilitado, o texto mantém o contraste pleno e o campo recebe foco.",
+      },
+    },
+  },
+  args: { readOnly: true, defaultValue: "Plano Pro", label: "Plano atual" },
 };
 
 export const Sizes: Story = {
