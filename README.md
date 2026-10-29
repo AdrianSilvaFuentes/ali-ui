@@ -1,3 +1,7 @@
+<p align="center">
+  <img src=".github/assets/banner.png" alt="Ali UI Design System" width="760">
+</p>
+
 # Ali UI
 
 A personal design system and component library. Original, editorial, lean:
