@@ -70,7 +70,7 @@ const preview: Preview = {
             "Button",
             "Toggletip",
             "Form",
-            ["Input", "Textarea", "Select", "Checkbox", "RadioGroup", "Switch"],
+            ["Visão geral", "Input", "Textarea", "Select", "Checkbox", "RadioGroup", "Switch"],
           ],
         ],
       },
