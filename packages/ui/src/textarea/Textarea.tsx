@@ -88,7 +88,9 @@ export function Textarea({
 }: TextareaProps) {
   const autoId = useId();
   const textareaId = id ?? autoId;
-  const descriptionId = description ? `${textareaId}-description` : undefined;
+  // Com erro, a mensagem de erro substitui a ajuda, na tela e no leitor de tela.
+  const showDescription = Boolean(description) && !error;
+  const descriptionId = showDescription ? `${textareaId}-description` : undefined;
   const errorId = error ? `${textareaId}-error` : undefined;
   const invalid = Boolean(error);
 
@@ -131,7 +133,7 @@ export function Textarea({
           {...props}
         />
       </div>
-      {description ? (
+      {showDescription ? (
         <p id={descriptionId} className="text-body-md text-subtle">
           {description}
         </p>
