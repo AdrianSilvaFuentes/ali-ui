@@ -36,8 +36,8 @@ export const buttonVariants = cva(
           "aria-disabled:before:hidden aria-disabled:after:hidden",
         ],
         secondary: [
-          // Mesmo volume do primary, mas neutro: a borda segura o botão em qualquer superfície.
-          "border border-default bg-neutral text-default shadow-sm inset-shadow-highlight",
+          // Mesmo volume do primary, mas neutro: uma borda suave segura o botão em qualquer superfície.
+          "border border-subtle bg-neutral text-default shadow-sm inset-shadow-highlight",
           // Fundo sólido anima direto com transition-colors, sem as camadas do primary.
           "hover:bg-neutral-hovered",
           // Pressionado: escurece e perde o brilho, e o botão afunda.

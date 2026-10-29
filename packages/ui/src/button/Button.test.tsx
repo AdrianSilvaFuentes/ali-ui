@@ -98,7 +98,7 @@ describe("Button", () => {
     render(<Button variant="secondary">Cancelar</Button>);
     const { className } = screen.getByRole("button");
     expect(className).toContain("bg-neutral");
-    expect(className).toContain("border-default");
+    expect(className).toContain("border-subtle");
     expect(className).toContain("text-default");
     expect(className).toContain("hover:bg-neutral-hovered");
     expect(className).toContain("active:bg-neutral-pressed");
