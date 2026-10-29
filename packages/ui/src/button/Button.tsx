@@ -70,7 +70,7 @@ export const buttonVariants = cva(
           ...outlined,
           "border-danger text-danger",
           // O fundo rosado reforça o risco. O neutro mais escuro não daria contraste ao texto vermelho.
-          "hover:bg-danger-subtle active:bg-danger-subtle",
+          "hover:bg-danger-subtle-hovered active:bg-danger-subtle-pressed",
         ],
         ghost: [
           // Sem fundo, borda nem volume: o fundo neutro só aparece no hover e ao pressionar.

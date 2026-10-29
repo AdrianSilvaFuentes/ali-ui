@@ -163,7 +163,8 @@ describe("Button", () => {
     expect(className).toContain("bg-neutral");
     expect(className).toContain("border-danger");
     expect(className).toContain("text-danger");
-    expect(className).toContain("hover:bg-danger-subtle");
+    expect(className).toContain("hover:bg-danger-subtle-hovered");
+    expect(className).toContain("active:bg-danger-subtle-pressed");
     expect(className).not.toContain("gradient");
   });
 
