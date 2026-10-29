@@ -184,7 +184,7 @@ const DATA = {
     {
       "name": "colors/primary/primary-50",
       "type": "COLOR",
-      "value": "#f0fff9",
+      "value": "#f2fdf8",
       "scopes": [
         "ALL_SCOPES"
       ]
@@ -192,7 +192,7 @@ const DATA = {
     {
       "name": "colors/primary/primary-100",
       "type": "COLOR",
-      "value": "#c8ffea",
+      "value": "#dff9ed",
       "scopes": [
         "ALL_SCOPES"
       ]
@@ -200,7 +200,7 @@ const DATA = {
     {
       "name": "colors/primary/primary-200",
       "type": "COLOR",
-      "value": "#a3ffda",
+      "value": "#c6f2df",
       "scopes": [
         "ALL_SCOPES"
       ]
@@ -208,7 +208,7 @@ const DATA = {
     {
       "name": "colors/primary/primary-300",
       "type": "COLOR",
-      "value": "#80ffca",
+      "value": "#a9eacf",
       "scopes": [
         "ALL_SCOPES"
       ]
@@ -216,7 +216,7 @@ const DATA = {
     {
       "name": "colors/primary/primary-400",
       "type": "COLOR",
-      "value": "#60feba",
+      "value": "#88dfbd",
       "scopes": [
         "ALL_SCOPES"
       ]
@@ -224,7 +224,7 @@ const DATA = {
     {
       "name": "colors/primary/primary-500",
       "type": "COLOR",
-      "value": "#43f7a9",
+      "value": "#66d4ac",
       "scopes": [
         "ALL_SCOPES"
       ]
@@ -232,7 +232,7 @@ const DATA = {
     {
       "name": "colors/primary/primary-600",
       "type": "COLOR",
-      "value": "#28ed98",
+      "value": "#45ca9e",
       "scopes": [
         "ALL_SCOPES"
       ]
