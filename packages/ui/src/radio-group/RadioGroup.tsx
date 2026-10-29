@@ -1,10 +1,10 @@
 import { Indicator, Item, Root } from "@radix-ui/react-radio-group";
-import { IconAlertCircle } from "@tabler/icons-react";
 import { cva } from "class-variance-authority";
 import { type ComponentProps, createContext, type ReactNode, useContext, useId } from "react";
 import { choiceBase, choiceDisabled, choiceEnabled } from "../lib/choice.ts";
 import { cn } from "../lib/cn.ts";
 import { FieldLabel } from "../lib/FieldLabel.tsx";
+import { FieldError, FieldHelp } from "../lib/FieldMessage.tsx";
 
 /**
  * A bolinha de cada opção, de 16px, redonda. Borda, foco, camada verde e desabilitado vêm de
@@ -81,17 +81,8 @@ export function RadioGroup({
       >
         <RadioGroupContext.Provider value={{ disabled }}>{children}</RadioGroupContext.Provider>
       </Root>
-      {showDescription ? (
-        <p id={descriptionId} className="text-body-md text-subtle">
-          {description}
-        </p>
-      ) : null}
-      {error ? (
-        <p id={errorId} className="flex items-center gap-1.5 text-body-md text-danger">
-          <IconAlertCircle aria-hidden="true" className="size-4 shrink-0 text-icon-danger" />
-          {error}
-        </p>
-      ) : null}
+      {showDescription ? <FieldHelp id={descriptionId}>{description}</FieldHelp> : null}
+      {error ? <FieldError id={errorId}>{error}</FieldError> : null}
     </div>
   );
 }
@@ -155,9 +146,9 @@ export function RadioGroupItem({
       </div>
       {description ? (
         // O recuo de 24px (bolinha de 16px mais o espaço) alinha a ajuda com o texto do label.
-        <p id={descriptionId} className="pl-6 text-body-md text-subtle">
+        <FieldHelp id={descriptionId} className="pl-6">
           {description}
-        </p>
+        </FieldHelp>
       ) : null}
     </div>
   );

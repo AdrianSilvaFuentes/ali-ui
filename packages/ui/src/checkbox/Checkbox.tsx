@@ -1,10 +1,10 @@
 import { Indicator, Root } from "@radix-ui/react-checkbox";
-import { IconAlertCircle } from "@tabler/icons-react";
 import { cva } from "class-variance-authority";
 import { type ComponentProps, type ReactNode, useId } from "react";
 import { choiceBase, choiceDisabled, choiceEnabled } from "../lib/choice.ts";
 import { cn } from "../lib/cn.ts";
 import { FieldLabel } from "../lib/FieldLabel.tsx";
+import { FieldError, FieldHelp } from "../lib/FieldMessage.tsx";
 
 /**
  * A caixa do checkbox, de 16px. Um tamanho só: ao lado de um label de 14px, ela equilibra sem
@@ -106,15 +106,14 @@ export function Checkbox({
       {showDescription ? (
         // body-md, como o label: abaixo de uma opção, a ajuda é lida junto com ela. O recuo
         // de 24px (caixa de 16px mais o espaço) alinha as mensagens com o texto do label.
-        <p id={descriptionId} className="pl-6 text-body-md text-subtle">
+        <FieldHelp id={descriptionId} className="pl-6">
           {description}
-        </p>
+        </FieldHelp>
       ) : null}
       {error ? (
-        <p id={errorId} className="flex items-center gap-1.5 pl-6 text-body-md text-danger">
-          <IconAlertCircle aria-hidden="true" className="size-4 shrink-0 text-icon-danger" />
+        <FieldError id={errorId} className="pl-6">
           {error}
-        </p>
+        </FieldError>
       ) : null}
     </div>
   );
