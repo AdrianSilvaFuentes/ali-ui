@@ -147,7 +147,27 @@ describe("Button", () => {
     expect(className).not.toContain("gradient");
   });
 
-  it.each(["primary", "secondary", "ghost"] as const)(
+  it("destructive usa os degradês de risco, com texto branco", () => {
+    render(<Button variant="destructive">Excluir</Button>);
+    const { className } = screen.getByRole("button");
+    expect(className).toContain("bg-gradient-danger");
+    expect(className).toContain("before:bg-gradient-danger-hovered");
+    expect(className).toContain("after:bg-gradient-danger-pressed");
+    expect(className).toContain("text-static-white");
+    expect(className).not.toContain("gradient-brand");
+  });
+
+  it("destructive-secondary tem borda e texto de risco e fundo rosado no hover", () => {
+    render(<Button variant="destructive-secondary">Excluir conta</Button>);
+    const { className } = screen.getByRole("button");
+    expect(className).toContain("bg-neutral");
+    expect(className).toContain("border-danger");
+    expect(className).toContain("text-danger");
+    expect(className).toContain("hover:bg-danger-subtle");
+    expect(className).not.toContain("gradient");
+  });
+
+  it.each(["primary", "secondary", "ghost", "destructive", "destructive-secondary"] as const)(
     "%s tem o foco visível na cor de foco",
     (variant) => {
       render(<Button variant={variant}>Salvar</Button>);
@@ -168,6 +188,11 @@ describe("Button", () => {
           Cancelar
         </Button>
         <Button variant="ghost">Mais opções</Button>
+        <Button variant="destructive">Excluir</Button>
+        <Button variant="destructive-secondary">Excluir conta</Button>
+        <Button variant="destructive" disabled>
+          Excluir
+        </Button>
         <Button variant="ghost" disabled>
           Mais opções
         </Button>

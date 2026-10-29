@@ -3,6 +3,42 @@ import { cva, type VariantProps } from "class-variance-authority";
 import type { ComponentProps, ReactNode } from "react";
 import { cn } from "../lib/cn.ts";
 
+/**
+ * Preenchido com degradê (primary e destructive). Volume: sombra embaixo e um brilho fino no topo.
+ * O navegador não anima a troca de um degradê por outro. Por isso hover e pressionado são
+ * camadas por baixo do texto (before e after), que aparecem com um fade. Cada variante só
+ * escolhe os três degradês.
+ */
+const filled = [
+  "text-static-white shadow-sm inset-shadow-highlight",
+  // A camada de hover repete o brilho; a de pressionado não tem, e o botão afunda.
+  // As camadas herdam o canto do botão, para o brilho seguir a curva.
+  "before:absolute before:inset-0 before:-z-10 before:rounded-[inherit] before:inset-shadow-highlight",
+  "before:opacity-0 before:transition-opacity before:duration-fast hover:before:opacity-100",
+  "after:absolute after:inset-0 after:-z-10 after:rounded-[inherit]",
+  "after:opacity-0 after:transition-opacity after:duration-fast active:after:opacity-100",
+  "motion-reduce:before:transition-none motion-reduce:after:transition-none",
+  // Desabilitado tira o degradê e as camadas, e fica com a cor sólida de desabilitado.
+  "disabled:bg-none disabled:bg-disabled disabled:text-disabled",
+  "disabled:shadow-none disabled:inset-shadow-none disabled:before:hidden disabled:after:hidden",
+  "aria-disabled:bg-none aria-disabled:bg-disabled aria-disabled:text-disabled",
+  "aria-disabled:shadow-none aria-disabled:inset-shadow-none",
+  "aria-disabled:before:hidden aria-disabled:after:hidden",
+];
+
+/**
+ * Fundo neutro com borda (secondary e destructive-secondary): o mesmo volume do preenchido,
+ * e a borda segura o botão em qualquer superfície. Cada variante escolhe borda, texto e hover.
+ */
+const outlined = [
+  "border bg-neutral shadow-sm inset-shadow-highlight",
+  "active:inset-shadow-none",
+  "disabled:border-disabled disabled:bg-disabled disabled:text-disabled",
+  "disabled:shadow-none disabled:inset-shadow-none",
+  "aria-disabled:border-disabled aria-disabled:bg-disabled aria-disabled:text-disabled",
+  "aria-disabled:shadow-none aria-disabled:inset-shadow-none",
+];
+
 export const buttonVariants = cva(
   [
     "relative isolate inline-flex shrink-0 items-center justify-center gap-2 overflow-hidden",
@@ -16,36 +52,25 @@ export const buttonVariants = cva(
     variants: {
       variant: {
         primary: [
-          // Volume: sombra embaixo e um brilho fino no topo.
-          "bg-gradient-brand text-static-white shadow-sm inset-shadow-highlight",
-          // O navegador não anima a troca de um degradê por outro. Por isso hover e
-          // pressionado são camadas por baixo do texto, que aparecem com um fade.
-          // A camada de hover repete o brilho; a de pressionado não tem, e o botão afunda.
-          // As camadas herdam o canto do botão, para o brilho seguir a curva.
-          "before:absolute before:inset-0 before:-z-10 before:rounded-[inherit] before:bg-gradient-brand-hovered",
-          "before:inset-shadow-highlight",
-          "before:opacity-0 before:transition-opacity before:duration-fast hover:before:opacity-100",
-          "after:absolute after:inset-0 after:-z-10 after:rounded-[inherit] after:bg-gradient-brand-pressed",
-          "after:opacity-0 after:transition-opacity after:duration-fast active:after:opacity-100",
-          "motion-reduce:before:transition-none motion-reduce:after:transition-none",
-          // Desabilitado tira o degradê e as camadas, e fica com a cor sólida de desabilitado.
-          "disabled:bg-none disabled:bg-disabled disabled:text-disabled",
-          "disabled:shadow-none disabled:inset-shadow-none disabled:before:hidden disabled:after:hidden",
-          "aria-disabled:bg-none aria-disabled:bg-disabled aria-disabled:text-disabled",
-          "aria-disabled:shadow-none aria-disabled:inset-shadow-none",
-          "aria-disabled:before:hidden aria-disabled:after:hidden",
+          ...filled,
+          "bg-gradient-brand before:bg-gradient-brand-hovered after:bg-gradient-brand-pressed",
         ],
         secondary: [
-          // Mesmo volume do primary, mas neutro: uma borda suave segura o botão em qualquer superfície.
-          "border border-subtle bg-neutral text-default shadow-sm inset-shadow-highlight",
+          ...outlined,
+          "border-subtle text-default",
           // Fundo sólido anima direto com transition-colors, sem as camadas do primary.
-          "hover:bg-neutral-hovered",
           // Pressionado: escurece e perde o brilho, e o botão afunda.
-          "active:bg-neutral-pressed active:inset-shadow-none",
-          "disabled:border-disabled disabled:bg-disabled disabled:text-disabled",
-          "disabled:shadow-none disabled:inset-shadow-none",
-          "aria-disabled:border-disabled aria-disabled:bg-disabled aria-disabled:text-disabled",
-          "aria-disabled:shadow-none aria-disabled:inset-shadow-none",
+          "hover:bg-neutral-hovered active:bg-neutral-pressed",
+        ],
+        destructive: [
+          ...filled,
+          "bg-gradient-danger before:bg-gradient-danger-hovered after:bg-gradient-danger-pressed",
+        ],
+        "destructive-secondary": [
+          ...outlined,
+          "border-danger text-danger",
+          // O fundo rosado reforça o risco. O neutro mais escuro não daria contraste ao texto vermelho.
+          "hover:bg-danger-subtle active:bg-danger-subtle",
         ],
         ghost: [
           // Sem fundo, borda nem volume: o fundo neutro só aparece no hover e ao pressionar.
