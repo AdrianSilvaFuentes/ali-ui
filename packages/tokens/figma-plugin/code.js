@@ -280,7 +280,7 @@ const DATA = {
     {
       "name": "colors/red/red-100",
       "type": "COLOR",
-      "value": "#ffcbcd",
+      "value": "#ffdee0",
       "scopes": [
         "ALL_SCOPES"
       ]

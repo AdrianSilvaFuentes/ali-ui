@@ -261,7 +261,7 @@ export const contrastPairs: readonly (readonly [ColorName, ColorName, number])[]
   ["text-default", "background-neutral-pressed", 4.5],
   ["text-danger", "background-neutral", 4.5],
   ["text-danger", "background-danger-subtle-hovered", 4.5],
-  // Exceção consciente: no claro, o texto fica com 3.68:1 sobre o pressed, abaixo dos 4.5:1
+  // Exceção consciente: no claro, o texto fica com 4.2:1 sobre o pressed, abaixo dos 4.5:1
   // da WCAG AA. O estado dura só o instante do clique, e o texto já foi lido no repouso e no hover.
   ["text-danger", "background-danger-subtle-pressed", 3],
   ["text-subtle", "surface", 4.5],
