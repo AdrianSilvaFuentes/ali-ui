@@ -176,6 +176,10 @@ export function SelectItem({
 }: SelectItemProps) {
   // Ícones e avatares ficam na primeira linha, numa caixa de uma linha de altura (1lh).
   const firstLine = "flex h-[1lh] shrink-0 items-center";
+  // O ícone da opção tem 20px, na lista e no gatilho, nos dois tamanhos: não muda ao ser
+  // escolhido. O data-slot dá peso extra à regra, para vencer os 16px dos outros ícones
+  // (check e, no gatilho sm, a regra da caixa do Input).
+  const leadingSize = "data-[slot=select-leading]:[&_svg]:size-5";
   const compact = useContext(SelectSizeContext) === "sm";
   // Uma linha só: tudo centrado, e no sm a linha tem 32px, a altura do gatilho. Com segunda
   // linha: tudo alinhado ao topo, para ícone, tag e check acompanharem a primeira linha.
@@ -204,7 +208,12 @@ export function SelectItem({
       {leading ? (
         <span
           aria-hidden="true"
-          className={cn(firstLine, "text-icon-subtle group-data-disabled/item:text-icon-disabled")}
+          data-slot="select-leading"
+          className={cn(
+            firstLine,
+            leadingSize,
+            "text-icon-subtle group-data-disabled/item:text-icon-disabled",
+          )}
         >
           {leading}
         </span>
@@ -219,7 +228,11 @@ export function SelectItem({
             {leading ? (
               <span
                 aria-hidden="true"
-                className="hidden shrink-0 text-icon-subtle in-data-[slot=select-value]:inline-flex"
+                data-slot="select-leading"
+                className={cn(
+                  "hidden shrink-0 text-icon-subtle in-data-[slot=select-value]:inline-flex",
+                  leadingSize,
+                )}
               >
                 {leading}
               </span>
@@ -242,7 +255,7 @@ export function SelectItem({
           oneLine ? "inset-y-0" : ["h-[1lh]", compact ? "top-1" : "top-2"],
         )}
       >
-        <IconCheck aria-hidden="true" className="text-icon-primary" />
+        <IconCheck aria-hidden="true" className="size-4 text-icon-primary" />
       </ItemIndicator>
     </Item>
   );
