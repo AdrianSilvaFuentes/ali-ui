@@ -106,6 +106,7 @@ const colorGroup = {
   "surface-overlay": "surface",
   "background-disabled": "background",
   "background-readonly": "background",
+  "background-selected": "background",
   "background-neutral": "background",
   "background-neutral-hovered": "background",
   "background-neutral-pressed": "background",

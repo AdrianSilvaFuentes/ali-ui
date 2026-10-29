@@ -1082,6 +1082,16 @@ const DATA = {
       ]
     },
     {
+      "name": "background/selected",
+      "light": "colors/primary/primary-100",
+      "dark": "colors/primary/primary-950",
+      "description": "Fundo de um item escolhido numa lista, como a opção marcada do Select: um tom de hover na cor da marca. Texto em default.",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ]
+    },
+    {
       "name": "background/danger-subtle-hovered",
       "light": "colors/red/red-50",
       "dark": "colors/red/red-950",
