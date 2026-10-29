@@ -31,6 +31,23 @@ describe("Textarea", () => {
     expect(document.activeElement).toBe(screen.getByRole("textbox"));
   });
 
+  it("cursor de texto na caixa toda, e clicar no respiro foca o campo", async () => {
+    const user = userEvent.setup();
+    render(<Textarea label="Mensagem" />);
+    const textarea = screen.getByRole("textbox");
+    expect(box(textarea).className).toContain("cursor-text");
+    await user.click(box(textarea));
+    expect(document.activeElement).toBe(textarea);
+  });
+
+  it("desabilitado, clicar na caixa não foca o campo", async () => {
+    const user = userEvent.setup();
+    render(<Textarea label="Mensagem" disabled />);
+    const textarea = screen.getByRole("textbox");
+    await user.click(box(textarea));
+    expect(document.activeElement).not.toBe(textarea);
+  });
+
   it("aceita várias linhas e recebe foco pelo Tab", async () => {
     const user = userEvent.setup();
     render(<Textarea label="Mensagem" />);

@@ -1,7 +1,7 @@
 import { Root as LabelRoot } from "@radix-ui/react-label";
 import { IconAlertCircle } from "@tabler/icons-react";
 import { cva, type VariantProps } from "class-variance-authority";
-import { type ComponentProps, type ReactNode, useId } from "react";
+import { type ComponentProps, type MouseEvent, type ReactNode, useId } from "react";
 import { cn } from "../lib/cn.ts";
 
 /**
@@ -13,6 +13,8 @@ export const textareaVariants = cva(
   [
     // 4px bastam para a curva do canto (raio de até 12px) não alcançar a barra.
     "block w-full py-1 pr-1",
+    // Cursor de texto na caixa toda: um clique no respiro também foca o campo (veja focusField).
+    "cursor-text",
     // Mesma borda e sombra do Input. Exceção consciente: em repouso a borda é subtle (abaixo
     // dos 3:1 da WCAG), para o campo ficar leve. No hover e no foco ela vai para default.
     "border border-subtle bg-neutral text-default shadow-sm",
@@ -52,6 +54,17 @@ export interface TextareaProps
   className?: string;
 }
 
+/**
+ * Clique na caixa fora da textarea (o respiro) foca o campo. Só para o mouse: pelo teclado o
+ * foco já vai direto na textarea. O preventDefault evita que o clique tire o foco.
+ */
+function focusField(event: MouseEvent<HTMLDivElement>) {
+  const field = event.currentTarget.querySelector("textarea");
+  if (!field || event.target === field || field.disabled) return;
+  event.preventDefault();
+  field.focus();
+}
+
 /** Campo de texto longo com label, ajuda e erro já ligados para o leitor de tela. */
 export function Textarea({
   className,
@@ -82,8 +95,10 @@ export function Textarea({
           {label}
         </LabelRoot>
       ) : null}
+      {/* biome-ignore lint/a11y/noStaticElementInteractions: atalho só do mouse; o teclado foca a textarea direto. */}
       <div
         className={textareaVariants({ size })}
+        onMouseDown={focusField}
         data-invalid={invalid || undefined}
         data-disabled={disabled || undefined}
         data-readonly={readOnly || undefined}
