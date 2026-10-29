@@ -131,6 +131,7 @@ describe("integração com o Tailwind", () => {
     "text-link",
     "text-icon-default",
     "text-icon-subtle",
+    "text-icon-primary",
     "text-icon-success",
     "text-icon-danger",
     "text-inverse",

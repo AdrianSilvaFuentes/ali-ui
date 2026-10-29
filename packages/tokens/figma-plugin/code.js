@@ -1289,6 +1289,16 @@ const DATA = {
       ]
     },
     {
+      "name": "icon/primary",
+      "light": "colors/primary/primary-800",
+      "dark": "colors/primary/primary-400",
+      "description": "Ícone na cor de marca, como o check da opção escolhida do Select. Mesmos passos dos ícones de status.",
+      "scopes": [
+        "SHAPE_FILL",
+        "STROKE_COLOR"
+      ]
+    },
+    {
       "name": "icon/status/success",
       "light": "colors/green/green-800",
       "dark": "colors/green/green-400",

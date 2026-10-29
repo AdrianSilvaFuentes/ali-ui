@@ -192,6 +192,12 @@ export const color = {
     dark: neutralLight[950],
     description: "Ícone quase preto nos dois temas: sobre fotos, vídeos ou fundos fixos.",
   },
+  "icon-primary": {
+    light: primary[800],
+    dark: primary[400],
+    description:
+      "Ícone na cor de marca, como o check da opção escolhida do Select. Mesmos passos dos ícones de status.",
+  },
   "icon-success": {
     light: green[800],
     dark: green[400],
@@ -372,6 +378,12 @@ export const contrastPairs: readonly (readonly [ColorName, ColorName, number])[]
   ["border-info", "surface-sunken", 3],
   ["border-info", "surface-raised", 3],
   ["border-info", "surface-overlay", 3],
+  // Ícone na cor de marca: nas superfícies e sobre o fundo de item escolhido (Select).
+  ["icon-primary", "surface", 3],
+  ["icon-primary", "surface-sunken", 3],
+  ["icon-primary", "surface-raised", 3],
+  ["icon-primary", "surface-overlay", 3],
+  ["icon-primary", "background-selected", 3],
   ["icon-success", "surface", 3],
   ["icon-success", "surface-sunken", 3],
   ["icon-success", "surface-raised", 3],
