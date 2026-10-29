@@ -1083,9 +1083,9 @@ const DATA = {
     },
     {
       "name": "background/danger-subtle-pressed",
-      "light": "colors/red/red-50",
+      "light": "colors/red/red-100",
       "dark": "colors/red/red-950",
-      "description": "Botão destrutivo com contorno pressionado. Igual ao hover: um degrau mais forte tiraria o contraste do texto em danger, então o retorno vem do botão afundando.",
+      "description": "Botão destrutivo com contorno pressionado. No claro, um degrau mais forte que o hover; no escuro, igual ao hover, e o retorno vem do botão afundando.",
       "scopes": [
         "FRAME_FILL",
         "SHAPE_FILL"

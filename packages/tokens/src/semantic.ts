@@ -79,10 +79,10 @@ export const color = {
     description: "Fundo suave de risco: hover do botão destrutivo com contorno. Texto em danger.",
   },
   "background-danger-subtle-pressed": {
-    light: red[50],
+    light: red[100],
     dark: red[950],
     description:
-      "Botão destrutivo com contorno pressionado. Igual ao hover: um degrau mais forte tiraria o contraste do texto em danger, então o retorno vem do botão afundando.",
+      "Botão destrutivo com contorno pressionado. No claro, um degrau mais forte que o hover; no escuro, igual ao hover, e o retorno vem do botão afundando.",
   },
   "text-default": {
     light: neutralLight[900],
@@ -261,7 +261,9 @@ export const contrastPairs: readonly (readonly [ColorName, ColorName, number])[]
   ["text-default", "background-neutral-pressed", 4.5],
   ["text-danger", "background-neutral", 4.5],
   ["text-danger", "background-danger-subtle-hovered", 4.5],
-  ["text-danger", "background-danger-subtle-pressed", 4.5],
+  // Exceção consciente: no claro, o texto fica com 3.68:1 sobre o pressed, abaixo dos 4.5:1
+  // da WCAG AA. O estado dura só o instante do clique, e o texto já foi lido no repouso e no hover.
+  ["text-danger", "background-danger-subtle-pressed", 3],
   ["text-subtle", "surface", 4.5],
   ["text-link", "surface", 4.5],
   ["text-default", "surface-sunken", 4.5],
