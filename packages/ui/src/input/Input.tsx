@@ -110,7 +110,7 @@ export function Input({
           aria-describedby={
             [describedBy, descriptionId, errorId].filter(Boolean).join(" ") || undefined
           }
-          className="h-full min-w-0 flex-1 bg-transparent outline-none placeholder:text-subtle disabled:cursor-not-allowed"
+          className="h-full min-w-0 flex-1 bg-transparent outline-none placeholder:text-placeholder disabled:cursor-not-allowed"
           {...props}
         />
         <InputIcon>{iconRight}</InputIcon>

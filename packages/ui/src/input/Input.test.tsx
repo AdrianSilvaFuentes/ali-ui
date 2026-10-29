@@ -116,6 +116,11 @@ describe("Input", () => {
     expect(className).toContain("focus-within:border-default");
   });
 
+  it("o placeholder usa a cor própria, mais clara que o texto digitado", () => {
+    render(<Input label="Email" placeholder="voce@exemplo.com" />);
+    expect(screen.getByRole("textbox").className).toContain("placeholder:text-placeholder");
+  });
+
   it("mostra o foco na caixa, na cor de foco", () => {
     render(<Input label="Email" />);
     expect(box(screen.getByRole("textbox")).className).toContain("focus-within:outline-focus");
