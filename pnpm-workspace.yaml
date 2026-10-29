@@ -13,6 +13,7 @@ allowBuilds:
 catalog:
   "@biomejs/biome": 2.6.3
   "@fontsource-variable/dm-sans": 5.3.0
+  "@radix-ui/react-label": 2.1.17
   "@radix-ui/react-slot": 1.5.0
   "@storybook/addon-docs": 9.1.21
   "@storybook/react-vite": 9.1.21
