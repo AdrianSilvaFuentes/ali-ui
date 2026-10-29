@@ -26,6 +26,7 @@
   "dependencies": {
     "@ali/tokens": "workspace:*",
     "@radix-ui/react-label": "catalog:",
+    "@radix-ui/react-popover": "catalog:",
     "@radix-ui/react-slot": "catalog:",
     "@tabler/icons-react": "catalog:",
     "class-variance-authority": "catalog:",
