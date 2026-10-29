@@ -54,6 +54,14 @@ describe("Button", () => {
     expect(document.activeElement).not.toBe(button);
   });
 
+  it("mostra o cursor de clique, e o de não permitido quando desabilitado", () => {
+    render(<Button>Salvar</Button>);
+    const { className } = screen.getByRole("button");
+    expect(className).toContain("cursor-pointer");
+    expect(className).toContain("disabled:cursor-not-allowed");
+    expect(className).toContain("aria-disabled:cursor-not-allowed");
+  });
+
   it("com asChild vira um link com aparência de botão", () => {
     render(
       <Button asChild>
