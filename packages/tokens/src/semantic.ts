@@ -54,7 +54,7 @@ export const color = {
     description: "Acima de tudo: menus, popovers e diálogos. Use com shadow-overlay.",
   },
   "background-disabled": {
-    light: neutralLight[100],
+    light: neutralLight[200],
     dark: neutralDark[600],
     description: "Fundo de controles desabilitados. Texto e ícone em disabled.",
   },
@@ -101,7 +101,7 @@ export const color = {
       "Placeholder de campos: bem mais claro que o texto digitado, para o campo não parecer preenchido. Só para exemplos; instruções vão na ajuda.",
   },
   "text-disabled": {
-    light: neutralLight[300],
+    light: neutralLight[400],
     dark: neutralDark[400],
     description: "Texto de elementos desabilitados.",
   },
@@ -257,8 +257,7 @@ export type ColorName = keyof typeof color;
 /**
  * Pares de cores que aparecem juntos e o contraste mínimo exigido pela WCAG AA:
  * 4.5:1 para texto, 3:1 para ícones, contornos de controles e foco. Elementos
- * desabilitados são isentos na WCAG. Ícones desabilitados ficam acima de 3:1; o texto
- * desabilitado é bem apagado de propósito (veja os pares de text-disabled). Os testes verificam
+ * desabilitados são isentos na WCAG, mas aqui ficam acima de 3:1 para continuarem legíveis. Os testes verificam
  * todos os pares nos dois temas, e a documentação mostra o primeiro par de cada token.
  */
 export const contrastPairs: readonly (readonly [ColorName, ColorName, number])[] = [
@@ -306,15 +305,13 @@ export const contrastPairs: readonly (readonly [ColorName, ColorName, number])[]
   ["icon-subtle", "surface-overlay", 3],
   ["border-default", "surface-overlay", 3],
   ["border-focus", "surface-overlay", 3],
-  // Exceção consciente: no claro, o texto desabilitado (neutral/300) fica com cerca de 1.3:1,
-  // bem apagado, para não parecer clicável nem preenchido. A WCAG isenta elementos desabilitados.
-  ["text-disabled", "surface", 1.25],
+  ["text-disabled", "surface", 3],
   ["icon-disabled", "surface", 3],
-  ["text-disabled", "surface-sunken", 1.25],
+  ["text-disabled", "surface-sunken", 3],
   ["icon-disabled", "surface-sunken", 3],
-  ["text-disabled", "surface-raised", 1.25],
+  ["text-disabled", "surface-raised", 3],
   ["icon-disabled", "surface-raised", 3],
-  ["text-disabled", "surface-overlay", 1.25],
+  ["text-disabled", "surface-overlay", 3],
   ["icon-disabled", "surface-overlay", 3],
   ["text-success", "surface", 4.5],
   ["text-success", "surface-sunken", 4.5],

@@ -1033,7 +1033,7 @@ const DATA = {
     },
     {
       "name": "background/disabled",
-      "light": "colors/neutral-light/neutral-light-100",
+      "light": "colors/neutral-light/neutral-light-200",
       "dark": "colors/neutral-dark/neutral-dark-600",
       "description": "Fundo de controles desabilitados. Texto e ícone em disabled.",
       "scopes": [
@@ -1120,7 +1120,7 @@ const DATA = {
     },
     {
       "name": "text/disabled",
-      "light": "colors/neutral-light/neutral-light-300",
+      "light": "colors/neutral-light/neutral-light-400",
       "dark": "colors/neutral-dark/neutral-dark-400",
       "description": "Texto de elementos desabilitados.",
       "scopes": [
