@@ -67,7 +67,9 @@ describe("Select", () => {
     // Escolhida em bg-selected (tom da marca); destaque do mouse e das setas em neutral-hovered.
     expect(brasil.className).toContain("data-[state=checked]:bg-selected");
     expect(brasil.className).toContain("data-highlighted:bg-neutral-hovered");
-    expect(brasil.querySelector("svg")?.getAttribute("aria-hidden")).toBe("true");
+    const check = brasil.querySelector("svg");
+    expect(check?.getAttribute("aria-hidden")).toBe("true");
+    expect(check?.getAttribute("class")).toContain("text-icon-primary");
   });
 
   it("Esc fecha sem mudar a escolha", async () => {

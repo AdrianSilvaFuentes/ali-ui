@@ -240,7 +240,7 @@ export function SelectItem({
           oneLine ? "inset-y-0" : ["h-[1lh]", compact ? "top-1" : "top-2"],
         )}
       >
-        <IconCheck aria-hidden="true" className="text-icon-default" />
+        <IconCheck aria-hidden="true" className="text-icon-primary" />
       </ItemIndicator>
     </Item>
   );
