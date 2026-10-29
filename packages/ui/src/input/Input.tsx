@@ -11,10 +11,10 @@ import { cn } from "../lib/cn.ts";
 export const inputVariants = cva(
   [
     "group flex w-full items-center gap-2",
-    // Plano de propósito: o botão salta, o campo não.
+    // Sombra pequena, como a do Button, mas sem o brilho no topo: o campo não é para clicar.
     // Exceção consciente: em repouso a borda é subtle (abaixo dos 3:1 da WCAG), para o campo
     // ficar leve. No hover e no foco ela vai para default (3:1), e o label nomeia o campo.
-    "border border-subtle bg-neutral text-default",
+    "border border-subtle bg-neutral text-default shadow-sm",
     "hover:border-default focus-within:border-default",
     "transition-colors duration-fast",
     // Campo de texto mostra o foco também no clique, não só no teclado.
@@ -22,6 +22,7 @@ export const inputVariants = cva(
     "data-invalid:border-danger",
     // Desabilitado mantém o fundo neutro: texto disabled sobre bg-disabled não chega a 3:1.
     "data-disabled:cursor-not-allowed data-disabled:border-disabled data-disabled:text-disabled",
+    "data-disabled:shadow-none",
     "[&_svg]:shrink-0",
   ],
   {
