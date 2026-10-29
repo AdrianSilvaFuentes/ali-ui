@@ -1053,7 +1053,7 @@ const DATA = {
     },
     {
       "name": "background/neutral-hovered",
-      "light": "colors/neutral-light/neutral-light-200",
+      "light": "colors/neutral-light/neutral-light-100",
       "dark": "colors/neutral-dark/neutral-dark-600",
       "description": "Botão secundário com o cursor em cima.",
       "scopes": [
@@ -1063,7 +1063,7 @@ const DATA = {
     },
     {
       "name": "background/neutral-pressed",
-      "light": "colors/neutral-light/neutral-light-300",
+      "light": "colors/neutral-light/neutral-light-200",
       "dark": "colors/neutral-dark/neutral-dark-800",
       "description": "Botão secundário pressionado: escurece, como se afundasse.",
       "scopes": [

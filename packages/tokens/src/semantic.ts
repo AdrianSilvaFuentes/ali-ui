@@ -64,12 +64,12 @@ export const color = {
     description: "Fundo do botão secundário. Texto e ícone em default, borda em default.",
   },
   "background-neutral-hovered": {
-    light: neutralLight[200],
+    light: neutralLight[100],
     dark: neutralDark[600],
     description: "Botão secundário com o cursor em cima.",
   },
   "background-neutral-pressed": {
-    light: neutralLight[300],
+    light: neutralLight[200],
     dark: neutralDark[800],
     description: "Botão secundário pressionado: escurece, como se afundasse.",
   },
