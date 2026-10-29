@@ -558,9 +558,12 @@ export function gradientCss({ angle, from, to }: GradientToken): string {
 /**
  * Sombras internas. `highlight` é um brilho fino no topo, como luz vinda de cima, que dá
  * volume a botões. Soma com as sombras externas: `shadow-sm inset-shadow-highlight`.
+ * `sunken` é o oposto: uma sombra suave no topo, por dentro, que afunda a superfície, como o
+ * trilho do Switch desligado. Use sem sombra externa.
  */
 export const insetShadow = {
   highlight: "inset 0 1px 0 0 rgb(255 255 255 / 0.3)",
+  sunken: "inset 0 1px 2px 0 rgb(0 0 0 / 0.15)",
 } as const;
 
 /** Sombra de cada superfície elevada. No tema escuro a elevação vem mais da cor. */

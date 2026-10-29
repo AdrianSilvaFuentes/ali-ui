@@ -55,8 +55,8 @@ export function ShadowTokensPage() {
           </Section>
 
           <Section
-            title="Brilho interno"
-            description="Sombra por dentro da borda. highlight é uma linha fina e clara no topo, como luz vinda de cima, que dá volume. Soma com as sombras externas: use shadow-sm inset-shadow-highlight."
+            title="Sombras internas"
+            description="Sombra por dentro da borda. highlight é uma linha fina e clara no topo, como luz vinda de cima, que dá volume: soma com as sombras externas, como shadow-sm inset-shadow-highlight no Button. sunken é o oposto, uma sombra suave no topo que afunda a superfície, como o trilho do Switch desligado: use sem sombra externa."
           >
             <Table columns={["Token", "Classe", "Variável CSS", "Valor", "Exemplo"]}>
               {(Object.keys(insetShadow) as (keyof typeof insetShadow)[]).map((name) => (
@@ -72,11 +72,27 @@ export function ShadowTokensPage() {
                     <Code>{insetShadow[name]}</Code>
                   </td>
                   <td className="px-8 py-8">
+                    {/* highlight dá volume sobre o degradê; sunken afunda um fundo neutro. */}
                     <div className="flex gap-4">
-                      <div className="h-12 w-16 rounded-lg bg-gradient-brand shadow-sm" />
                       <div
-                        className="h-12 w-16 rounded-lg bg-gradient-brand"
-                        style={{ boxShadow: `${vars.insetShadow[name]}, ${vars.shadow.sm}` }}
+                        className={
+                          name === "highlight"
+                            ? "h-12 w-16 rounded-lg bg-gradient-brand shadow-sm"
+                            : "h-12 w-16 rounded-lg bg-neutral-pressed"
+                        }
+                      />
+                      <div
+                        className={
+                          name === "highlight"
+                            ? "h-12 w-16 rounded-lg bg-gradient-brand"
+                            : "h-12 w-16 rounded-lg bg-neutral-pressed"
+                        }
+                        style={{
+                          boxShadow:
+                            name === "highlight"
+                              ? `${vars.insetShadow[name]}, ${vars.shadow.sm}`
+                              : vars.insetShadow[name],
+                        }}
                       />
                     </div>
                     <p className="mt-2 text-body-sm text-subtle">Sem · com</p>
