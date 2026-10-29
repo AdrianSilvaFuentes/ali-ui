@@ -25,7 +25,7 @@ const meta = {
     },
   },
   args: {
-    className: "w-80",
+    className: "w-sm",
     label: "Email",
     placeholder: "voce@exemplo.com",
     size: "sm",
@@ -145,7 +145,7 @@ export const WithButton: Story = {
     },
   },
   render: (args) => (
-    <div className="flex w-96 items-end gap-2">
+    <div className="flex w-md items-end gap-2">
       <Input {...args} className="flex-1" />
       <Button size={args.size ?? "md"}>Assinar</Button>
     </div>
