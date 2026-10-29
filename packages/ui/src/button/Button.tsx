@@ -35,6 +35,18 @@ export const buttonVariants = cva(
           "aria-disabled:shadow-none aria-disabled:inset-shadow-none",
           "aria-disabled:before:hidden aria-disabled:after:hidden",
         ],
+        secondary: [
+          // Mesmo volume do primary, mas neutro: a borda segura o botão em qualquer superfície.
+          "border border-default bg-neutral text-default shadow-sm inset-shadow-highlight",
+          // Fundo sólido anima direto com transition-colors, sem as camadas do primary.
+          "hover:bg-neutral-hovered",
+          // Pressionado: escurece e perde o brilho, e o botão afunda.
+          "active:bg-neutral-pressed active:inset-shadow-none",
+          "disabled:border-disabled disabled:bg-disabled disabled:text-disabled",
+          "disabled:shadow-none disabled:inset-shadow-none",
+          "aria-disabled:border-disabled aria-disabled:bg-disabled aria-disabled:text-disabled",
+          "aria-disabled:shadow-none aria-disabled:inset-shadow-none",
+        ],
       },
       size: {
         sm: "h-8 px-3 text-label-md [&_svg]:size-4",

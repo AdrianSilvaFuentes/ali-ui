@@ -94,8 +94,19 @@ describe("Button", () => {
     expect(className).toContain("before:transition-opacity");
   });
 
-  it("tem o foco visível na cor de foco", () => {
-    render(<Button>Salvar</Button>);
+  it("secondary é neutro, com borda, e sem as camadas de degradê do primary", () => {
+    render(<Button variant="secondary">Cancelar</Button>);
+    const { className } = screen.getByRole("button");
+    expect(className).toContain("bg-neutral");
+    expect(className).toContain("border-default");
+    expect(className).toContain("text-default");
+    expect(className).toContain("hover:bg-neutral-hovered");
+    expect(className).toContain("active:bg-neutral-pressed");
+    expect(className).not.toContain("gradient");
+  });
+
+  it.each(["primary", "secondary"] as const)("%s tem o foco visível na cor de foco", (variant) => {
+    render(<Button variant={variant}>Salvar</Button>);
     expect(screen.getByRole("button").className).toContain("focus-visible:outline-focus");
   });
 
@@ -107,6 +118,10 @@ describe("Button", () => {
           <svg aria-hidden="true" />
         </Button>
         <Button disabled>Salvar</Button>
+        <Button variant="secondary">Cancelar</Button>
+        <Button variant="secondary" disabled>
+          Cancelar
+        </Button>
       </div>,
     );
     expect(await violations(container)).toEqual([]);

@@ -11,7 +11,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "Botão de ação. Use o primary para a ação principal da tela, de preferência um por tela. Ícones vão como filhos e ganham o tamanho certo para cada size. Botão só com ícone precisa de aria-label.\n\nO visual traz um toque tátil, inspirado no skeumorfismo: um degradê na cor da marca, um brilho fino no topo (inset-shadow-highlight) como luz vinda de cima e uma sombra pequena embaixo. Ao pressionar, o brilho some e o botão parece afundar. A ideia é dar volume e resposta ao clique sem perder a leveza de uma interface plana.",
+          "Botão de ação. Use o primary para a ação principal da tela, de preferência um por tela, e o secondary para as ações de apoio, como cancelar ou voltar. Ícones vão como filhos e ganham o tamanho certo para cada size. Botão só com ícone precisa de aria-label.\n\nO visual traz um toque tátil, inspirado no skeumorfismo: um degradê na cor da marca, um brilho fino no topo (inset-shadow-highlight) como luz vinda de cima e uma sombra pequena embaixo. Ao pressionar, o brilho some e o botão parece afundar. A ideia é dar volume e resposta ao clique sem perder a leveza de uma interface plana.\n\nO secondary tem o mesmo volume, mas é neutro: fundo bg-neutral, borda border-default e texto default. Sem degradê, ele não disputa atenção com o primary.",
       },
     },
   },
@@ -25,8 +25,8 @@ const meta = {
     children: { control: "text", description: "Texto do botão." },
     variant: {
       control: "inline-radio",
-      options: ["primary"],
-      description: "Estilo do botão.",
+      options: ["primary", "secondary"],
+      description: "Estilo do botão: primary para a ação principal, secondary para as de apoio.",
       table: { defaultValue: { summary: "primary" } },
     },
     size: {
@@ -57,6 +57,32 @@ export const Playground: Story = {
       <IconPlus aria-hidden />
       {children}
     </Button>
+  ),
+};
+
+export const Secondary: Story = {
+  args: { variant: "secondary", children: "Cancelar" },
+};
+
+export const Variants: Story = {
+  name: "Primary e secondary juntos",
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "O par mais comum: a ação principal em primary e a de apoio em secondary, lado a lado.",
+      },
+    },
+  },
+  render: (args) => (
+    <div className="flex items-center gap-3">
+      <Button {...args} variant="secondary">
+        Cancelar
+      </Button>
+      <Button {...args} variant="primary">
+        Salvar
+      </Button>
+    </div>
   ),
 };
 
@@ -126,6 +152,16 @@ export const Focused: Story = {
 export const Disabled: Story = {
   name: "Desabilitado",
   args: { disabled: true },
+  render: (args) => (
+    <div className="flex items-center gap-3">
+      <Button {...args} variant="secondary">
+        Cancelar
+      </Button>
+      <Button {...args} variant="primary">
+        Salvar
+      </Button>
+    </div>
+  ),
 };
 
 export const AsLink: Story = {
