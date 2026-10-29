@@ -54,7 +54,7 @@ export const color = {
     description: "Acima de tudo: menus, popovers e diálogos. Use com shadow-overlay.",
   },
   "background-disabled": {
-    light: neutralLight[200],
+    light: neutralLight[100],
     dark: neutralDark[600],
     description: "Fundo de controles desabilitados. Texto e ícone em disabled.",
   },

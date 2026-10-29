@@ -1033,7 +1033,7 @@ const DATA = {
     },
     {
       "name": "background/disabled",
-      "light": "colors/neutral-light/neutral-light-200",
+      "light": "colors/neutral-light/neutral-light-100",
       "dark": "colors/neutral-dark/neutral-dark-600",
       "description": "Fundo de controles desabilitados. Texto e ícone em disabled.",
       "scopes": [
