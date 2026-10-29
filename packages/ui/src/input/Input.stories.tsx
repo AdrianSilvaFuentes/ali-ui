@@ -28,7 +28,7 @@ const meta = {
     className: "w-80",
     label: "Email",
     placeholder: "voce@exemplo.com",
-    size: "md",
+    size: "sm",
     disabled: false,
   },
   argTypes: {
