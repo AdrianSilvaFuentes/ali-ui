@@ -1072,6 +1072,16 @@ const DATA = {
       ]
     },
     {
+      "name": "background/danger-subtle",
+      "light": "colors/red/red-50",
+      "dark": "colors/red/red-950",
+      "description": "Fundo suave de risco: hover do botão destrutivo com contorno. Texto em danger.",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ]
+    },
+    {
       "name": "text/default",
       "light": "colors/neutral-light/neutral-light-900",
       "dark": "colors/neutral-dark/neutral-dark-50",

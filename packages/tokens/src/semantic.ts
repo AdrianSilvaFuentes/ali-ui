@@ -73,6 +73,11 @@ export const color = {
     dark: neutralDark[800],
     description: "Botão secundário pressionado: escurece, como se afundasse.",
   },
+  "background-danger-subtle": {
+    light: red[50],
+    dark: red[950],
+    description: "Fundo suave de risco: hover do botão destrutivo com contorno. Texto em danger.",
+  },
   "text-default": {
     light: neutralLight[900],
     dark: neutralDark[50],
@@ -249,6 +254,7 @@ export const contrastPairs: readonly (readonly [ColorName, ColorName, number])[]
   ["text-default", "background-neutral-hovered", 4.5],
   ["text-default", "background-neutral-pressed", 4.5],
   ["text-danger", "background-neutral", 4.5],
+  ["text-danger", "background-danger-subtle", 4.5],
   ["text-subtle", "surface", 4.5],
   ["text-link", "surface", 4.5],
   ["text-default", "surface-sunken", 4.5],

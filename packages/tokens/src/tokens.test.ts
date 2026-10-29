@@ -110,6 +110,7 @@ describe("integração com o Tailwind", () => {
     "bg-neutral",
     "bg-neutral-hovered",
     "bg-neutral-pressed",
+    "bg-danger-subtle",
     "bg-gradient-brand",
     "bg-gradient-brand-hovered",
     "bg-gradient-brand-pressed",

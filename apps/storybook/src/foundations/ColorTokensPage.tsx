@@ -108,6 +108,7 @@ const colorGroup = {
   "background-neutral": "background",
   "background-neutral-hovered": "background",
   "background-neutral-pressed": "background",
+  "background-danger-subtle": "background",
   "text-default": "text",
   "text-subtle": "text",
   "text-disabled": "text",
