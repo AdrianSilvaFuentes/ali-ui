@@ -1120,7 +1120,7 @@ const DATA = {
     },
     {
       "name": "text/disabled",
-      "light": "colors/neutral-light/neutral-light-400",
+      "light": "colors/neutral-light/neutral-light-300",
       "dark": "colors/neutral-dark/neutral-dark-400",
       "description": "Texto de elementos desabilitados.",
       "scopes": [
