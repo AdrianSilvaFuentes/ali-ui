@@ -66,6 +66,36 @@ describe("Button", () => {
     expect(link.className).toContain("bg-gradient-brand");
   });
 
+  it("coloca iconLeft antes e iconRight depois do texto, escondidos do leitor de tela", () => {
+    render(
+      <Button iconLeft={<svg data-testid="left" />} iconRight={<svg data-testid="right" />}>
+        Continuar
+      </Button>,
+    );
+    const button = screen.getByRole("button", { name: "Continuar" });
+    const left = screen.getByTestId("left");
+    const right = screen.getByTestId("right");
+    expect(button.firstElementChild?.contains(left)).toBe(true);
+    expect(button.lastElementChild?.contains(right)).toBe(true);
+    expect(left.parentElement?.getAttribute("aria-hidden")).toBe("true");
+    expect(right.parentElement?.getAttribute("aria-hidden")).toBe("true");
+  });
+
+  it("sem ícone não deixa elementos vazios", () => {
+    render(<Button>Salvar</Button>);
+    expect(screen.getByRole("button").children).toHaveLength(0);
+  });
+
+  it("com asChild, os ícones entram dentro do link", () => {
+    render(
+      <Button asChild iconLeft={<svg data-testid="left" />}>
+        <a href="/novo">Criar</a>
+      </Button>,
+    );
+    const link = screen.getByRole("link", { name: "Criar" });
+    expect(link.contains(screen.getByTestId("left"))).toBe(true);
+  });
+
   it.each([
     ["sm", "h-8"],
     ["md", "h-10"],

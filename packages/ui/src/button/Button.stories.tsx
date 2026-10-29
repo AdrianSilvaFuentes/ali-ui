@@ -2,6 +2,14 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { IconArrowRight, IconPlus, IconSearch } from "@tabler/icons-react";
 import { Button } from "./Button.tsx";
 
+/** Ícones disponíveis nos controles do Storybook. */
+const icons = {
+  Nenhum: undefined,
+  Plus: <IconPlus />,
+  ArrowRight: <IconArrowRight />,
+  Search: <IconSearch />,
+};
+
 const meta = {
   title: "Components/Button",
   component: Button,
@@ -11,7 +19,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "Botão de ação. Use o primary para a ação principal da tela, de preferência um por tela, e o secondary para as ações de apoio, como cancelar ou voltar. Ícones vão como filhos e ganham o tamanho certo para cada size. Botão só com ícone precisa de aria-label.\n\nO visual traz um toque tátil, inspirado no skeumorfismo: um degradê na cor da marca, um brilho fino no topo (inset-shadow-highlight) como luz vinda de cima e uma sombra pequena embaixo. Ao pressionar, o brilho some e o botão parece afundar. A ideia é dar volume e resposta ao clique sem perder a leveza de uma interface plana.\n\nO secondary tem o mesmo volume, mas é neutro: fundo bg-neutral, borda border-subtle e texto default. Sem degradê, ele não disputa atenção com o primary.",
+          "Botão de ação. Use o primary para a ação principal da tela, de preferência um por tela, e o secondary para as ações de apoio, como cancelar ou voltar. Ícones vão em iconLeft (antes do texto) e iconRight (depois) e ganham o tamanho certo para cada size; o leitor de tela ignora esses ícones. Botão só com ícone precisa de aria-label.\n\nO visual traz um toque tátil, inspirado no skeumorfismo: um degradê na cor da marca, um brilho fino no topo (inset-shadow-highlight) como luz vinda de cima e uma sombra pequena embaixo. Ao pressionar, o brilho some e o botão parece afundar. A ideia é dar volume e resposta ao clique sem perder a leveza de uma interface plana.\n\nO secondary tem o mesmo volume, mas é neutro: fundo bg-neutral, borda border-subtle e texto default. Sem degradê, ele não disputa atenção com o primary.",
       },
     },
   },
@@ -40,6 +48,18 @@ const meta = {
       description: "Desabilita o botão.",
       table: { defaultValue: { summary: "false" } },
     },
+    iconLeft: {
+      control: "select",
+      options: Object.keys(icons),
+      mapping: icons,
+      description: "Ícone antes do texto. Decorativo: o leitor de tela lê só o texto.",
+    },
+    iconRight: {
+      control: "select",
+      options: Object.keys(icons),
+      mapping: icons,
+      description: "Ícone depois do texto, por exemplo uma seta para avançar.",
+    },
     asChild: {
       control: false,
       description: "Usa o filho (por exemplo um link) como elemento, com a aparência de botão.",
@@ -52,12 +72,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Playground: Story = {
-  render: ({ children, ...args }) => (
-    <Button {...args}>
-      <IconPlus aria-hidden />
-      {children}
-    </Button>
-  ),
+  args: { iconLeft: "Plus" },
 };
 
 export const Secondary: Story = {
@@ -100,13 +115,11 @@ export const WithIcon: Story = {
   name: "Com ícone",
   render: (args) => (
     <div className="flex items-center gap-4">
-      <Button {...args}>
-        <IconPlus aria-hidden />
+      <Button {...args} iconLeft={<IconPlus />}>
         Criar
       </Button>
-      <Button {...args}>
+      <Button {...args} iconRight={<IconArrowRight />}>
         Continuar
-        <IconArrowRight aria-hidden />
       </Button>
     </div>
   ),
@@ -117,15 +130,9 @@ export const IconOnly: Story = {
   args: { "aria-label": "Pesquisar" },
   render: (args) => (
     <div className="flex items-center gap-4">
-      <Button {...args} size="sm" className="w-8 px-0">
-        <IconSearch aria-hidden />
-      </Button>
-      <Button {...args} size="md" className="w-10 px-0">
-        <IconSearch aria-hidden />
-      </Button>
-      <Button {...args} size="lg" className="w-12 px-0">
-        <IconSearch aria-hidden />
-      </Button>
+      <Button {...args} size="sm" className="w-8 px-0" iconLeft={<IconSearch />} />
+      <Button {...args} size="md" className="w-10 px-0" iconLeft={<IconSearch />} />
+      <Button {...args} size="lg" className="w-12 px-0" iconLeft={<IconSearch />} />
     </div>
   ),
 };
@@ -140,13 +147,7 @@ export const Focused: Story = {
       },
     },
   },
-  args: { className: "outline-2 outline-offset-2 outline-focus" },
-  render: ({ children, ...args }) => (
-    <Button {...args}>
-      <IconPlus aria-hidden />
-      {children}
-    </Button>
-  ),
+  args: { className: "outline-2 outline-offset-2 outline-focus", iconLeft: "Plus" },
 };
 
 export const Disabled: Story = {

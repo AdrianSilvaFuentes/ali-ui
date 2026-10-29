@@ -1,6 +1,6 @@
-import { Slot } from "@radix-ui/react-slot";
+import { Slot, Slottable } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
-import type { ComponentProps } from "react";
+import type { ComponentProps, ReactNode } from "react";
 import { cn } from "../lib/cn.ts";
 
 export const buttonVariants = cva(
@@ -64,10 +64,34 @@ export interface ButtonProps extends ComponentProps<"button">, VariantProps<type
    * `<Button asChild><a href="/novo">Criar</a></Button>`.
    */
   asChild?: boolean;
+  /** Ícone antes do texto: `iconLeft={<IconPlus />}`. Ganha o tamanho certo para cada `size`. */
+  iconLeft?: ReactNode;
+  /** Ícone depois do texto: `iconRight={<IconArrowRight />}`. */
+  iconRight?: ReactNode;
 }
 
-/** Botão de ação. Ícones vão como filhos e ganham o tamanho certo para cada `size`. */
-export function Button({ className, variant, size, asChild = false, type, ...props }: ButtonProps) {
+/** Ícone decorativo: o nome do botão vem do texto (ou do aria-label), nunca do ícone. */
+function ButtonIcon({ children }: { children: ReactNode }) {
+  if (children == null || children === false) return null;
+  return (
+    <span aria-hidden="true" className="inline-flex shrink-0">
+      {children}
+    </span>
+  );
+}
+
+/** Botão de ação. Ícones vão em `iconLeft` e `iconRight` e ganham o tamanho certo para cada `size`. */
+export function Button({
+  className,
+  variant,
+  size,
+  asChild = false,
+  type,
+  iconLeft,
+  iconRight,
+  children,
+  ...props
+}: ButtonProps) {
   const Comp = asChild ? Slot : "button";
   return (
     <Comp
@@ -75,6 +99,11 @@ export function Button({ className, variant, size, asChild = false, type, ...pro
       type={asChild ? type : (type ?? "button")}
       className={cn(buttonVariants({ variant, size }), className)}
       {...props}
-    />
+    >
+      <ButtonIcon>{iconLeft}</ButtonIcon>
+      {/* Com asChild, os ícones entram dentro do filho (por exemplo o link), em volta do texto. */}
+      <Slottable>{children}</Slottable>
+      <ButtonIcon>{iconRight}</ButtonIcon>
+    </Comp>
   );
 }
