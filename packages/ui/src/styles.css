@@ -17,6 +17,55 @@
  * As transições de cor do Tailwind (transition-colors) mais a distância do contorno de foco.
  * Com ela, o foco aparece já visível um pouco afastado e se encaixa a 2px (veja focus-ring).
  */
+/*
+ * Degradê nas bordas de uma área que rola, só do lado em que há conteúdo escondido. A rolagem
+ * do próprio elemento move os dois degradês (scroll-driven animations). Onde o navegador
+ * ainda não suporta isso, o corte fica reto, sem degradê.
+ */
+@property --ali-fade-top {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+@property --ali-fade-bottom {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+@keyframes ali-fade-top {
+  to {
+    --ali-fade-top: var(--ali-spacing-4);
+  }
+}
+
+@keyframes ali-fade-bottom {
+  from {
+    --ali-fade-bottom: var(--ali-spacing-4);
+  }
+}
+
+@utility scroll-fade-y {
+  @supports (animation-timeline: scroll()) {
+    /* A máscara só usa a transparência: o preto aqui não é uma cor que aparece. */
+    mask-image: linear-gradient(
+      to bottom,
+      transparent,
+      black var(--ali-fade-top),
+      black calc(100% - var(--ali-fade-bottom)),
+      transparent
+    );
+    animation:
+      ali-fade-top linear both,
+      ali-fade-bottom linear both;
+    animation-timeline: scroll(self), scroll(self);
+    animation-range:
+      0 var(--ali-spacing-6),
+      calc(100% - var(--ali-spacing-6)) 100%;
+  }
+}
+
 @utility transition-interactive {
   transition-property:
     color, background-color, border-color, outline-color, text-decoration-color, fill, stroke,
