@@ -2,7 +2,7 @@
   <img src=".github/assets/banner.png" alt="Ali UI Design System" width="100%">
 </p>
 
-# Ali UI
+# Ali - Design System (UI)
 
 A personal design system and component library. Original, editorial, lean:
 few components, each one with personality.
