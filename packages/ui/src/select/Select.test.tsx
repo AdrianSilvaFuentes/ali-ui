@@ -174,6 +174,7 @@ describe("Select", () => {
     await user.keyboard("{Enter}");
     const option = screen.getByRole("option", { name: /Lia/ });
     expect(option.textContent).toContain("lia@exemplo.com");
+    expect(screen.getByText("lia@exemplo.com").className).toContain("text-body-sm");
     expect(option.textContent).toContain("Admin");
   });
 

@@ -242,7 +242,8 @@ export function SelectItem({
         </ItemText>
         {/* Desabilitada, a opção inteira fica em cinza: o nome, a segunda linha e o ícone. */}
         {description ? (
-          <span className="text-body-md text-subtle group-data-disabled/item:text-disabled">
+          // body-sm: na lista, a segunda linha é um detalhe da opção, menor que o nome.
+          <span className="text-body-sm text-subtle group-data-disabled/item:text-disabled">
             {description}
           </span>
         ) : null}
