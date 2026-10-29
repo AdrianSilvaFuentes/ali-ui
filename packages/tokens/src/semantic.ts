@@ -196,9 +196,9 @@ export const color = {
     description: "Ícone de aviso.",
   },
   "icon-danger": {
-    light: red[500],
-    dark: red[400],
-    description: "Ícone de erro.",
+    light: red[700],
+    dark: red[300],
+    description: "Ícone de erro. Mesmo tom do text-danger, para ícone e mensagem combinarem.",
   },
   "icon-info": {
     light: blue[700],

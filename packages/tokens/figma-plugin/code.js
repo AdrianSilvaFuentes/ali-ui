@@ -1300,9 +1300,9 @@ const DATA = {
     },
     {
       "name": "icon/status/danger",
-      "light": "colors/red/red-500",
-      "dark": "colors/red/red-400",
-      "description": "Ícone de erro.",
+      "light": "colors/red/red-700",
+      "dark": "colors/red/red-300",
+      "description": "Ícone de erro. Mesmo tom do text-danger, para ícone e mensagem combinarem.",
       "scopes": [
         "SHAPE_FILL",
         "STROKE_COLOR"
