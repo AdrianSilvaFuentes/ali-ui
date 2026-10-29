@@ -6,7 +6,7 @@ import { describe, expect, it } from "vitest";
 import { contrastRatio, toHex, toOklch } from "./color.ts";
 import { renderTailwindCss, renderTokensCss } from "./css.ts";
 import { neutralLight } from "./primitives.ts";
-import { color, contrastPairs, type ThemeName } from "./semantic.ts";
+import { color, contrastPairs, gradient, type ThemeName } from "./semantic.ts";
 
 describe("contraste das cores semânticas", () => {
   for (const theme of ["light", "dark"] satisfies ThemeName[]) {
@@ -14,6 +14,16 @@ describe("contraste das cores semânticas", () => {
       expect(contrastRatio(color[fg][theme], color[bg][theme])).toBeGreaterThanOrEqual(min);
     });
   }
+});
+
+describe("contraste dos degradês", () => {
+  // O texto em static-white precisa de 4.5:1 nas duas pontas, onde o degradê é mais claro.
+  const danger = ["danger", "danger-hovered", "danger-pressed"] as const;
+  it.each(danger)("static-white sobre %s", (name) => {
+    const white = color["text-static-white"].light;
+    expect(contrastRatio(white, gradient[name].from)).toBeGreaterThanOrEqual(4.5);
+    expect(contrastRatio(white, gradient[name].to)).toBeGreaterThanOrEqual(4.5);
+  });
 });
 
 describe("conversão de cor", () => {
@@ -103,6 +113,9 @@ describe("integração com o Tailwind", () => {
     "bg-gradient-brand",
     "bg-gradient-brand-hovered",
     "bg-gradient-brand-pressed",
+    "bg-gradient-danger",
+    "bg-gradient-danger-hovered",
+    "bg-gradient-danger-pressed",
     "inset-shadow-highlight",
     "shadow-raised",
     "shadow-overlay",

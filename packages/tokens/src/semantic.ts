@@ -248,6 +248,7 @@ export const contrastPairs: readonly (readonly [ColorName, ColorName, number])[]
   ["text-default", "background-neutral", 4.5],
   ["text-default", "background-neutral-hovered", 4.5],
   ["text-default", "background-neutral-pressed", 4.5],
+  ["text-danger", "background-neutral", 4.5],
   ["text-subtle", "surface", 4.5],
   ["text-link", "surface", 4.5],
   ["text-default", "surface-sunken", 4.5],
@@ -488,6 +489,24 @@ export const gradient = {
     from: primary[900],
     to: primary[950],
     description: "Botão primário pressionado.",
+  },
+  danger: {
+    angle: 135,
+    from: red[700],
+    to: red[800],
+    description: "Fundo do botão destrutivo. Texto e ícone em static-white.",
+  },
+  "danger-hovered": {
+    angle: 135,
+    from: red[800],
+    to: red[900],
+    description: "Botão destrutivo com o cursor em cima.",
+  },
+  "danger-pressed": {
+    angle: 135,
+    from: red[900],
+    to: red[950],
+    description: "Botão destrutivo pressionado.",
   },
 } as const satisfies Record<string, GradientToken>;
 
