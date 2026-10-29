@@ -1042,6 +1042,36 @@ const DATA = {
       ]
     },
     {
+      "name": "background/neutral",
+      "light": "colors/neutral-light/neutral-light-50",
+      "dark": "colors/neutral-dark/neutral-dark-700",
+      "description": "Fundo do botão secundário. Texto e ícone em default, borda em default.",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ]
+    },
+    {
+      "name": "background/neutral-hovered",
+      "light": "colors/neutral-light/neutral-light-200",
+      "dark": "colors/neutral-dark/neutral-dark-600",
+      "description": "Botão secundário com o cursor em cima.",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ]
+    },
+    {
+      "name": "background/neutral-pressed",
+      "light": "colors/neutral-light/neutral-light-300",
+      "dark": "colors/neutral-dark/neutral-dark-800",
+      "description": "Botão secundário pressionado: escurece, como se afundasse.",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ]
+    },
+    {
       "name": "text/default",
       "light": "colors/neutral-light/neutral-light-900",
       "dark": "colors/neutral-dark/neutral-dark-50",

@@ -58,6 +58,21 @@ export const color = {
     dark: neutralDark[600],
     description: "Fundo de controles desabilitados. Texto e ícone em disabled.",
   },
+  "background-neutral": {
+    light: neutralLight[50],
+    dark: neutralDark[700],
+    description: "Fundo do botão secundário. Texto e ícone em default, borda em default.",
+  },
+  "background-neutral-hovered": {
+    light: neutralLight[200],
+    dark: neutralDark[600],
+    description: "Botão secundário com o cursor em cima.",
+  },
+  "background-neutral-pressed": {
+    light: neutralLight[300],
+    dark: neutralDark[800],
+    description: "Botão secundário pressionado: escurece, como se afundasse.",
+  },
   "text-default": {
     light: neutralLight[900],
     dark: neutralDark[50],
@@ -230,6 +245,9 @@ export type ColorName = keyof typeof color;
  */
 export const contrastPairs: readonly (readonly [ColorName, ColorName, number])[] = [
   ["text-default", "surface", 4.5],
+  ["text-default", "background-neutral", 4.5],
+  ["text-default", "background-neutral-hovered", 4.5],
+  ["text-default", "background-neutral-pressed", 4.5],
   ["text-subtle", "surface", 4.5],
   ["text-link", "surface", 4.5],
   ["text-default", "surface-sunken", 4.5],
