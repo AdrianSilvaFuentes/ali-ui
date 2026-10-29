@@ -106,6 +106,14 @@ describe("Input", () => {
     expect(className).toContain(radius);
   });
 
+  it("borda suave em repouso, que escurece no hover e no foco", () => {
+    render(<Input label="Email" />);
+    const { className } = box(screen.getByRole("textbox"));
+    expect(className).toContain("border-subtle");
+    expect(className).toContain("hover:border-default");
+    expect(className).toContain("focus-within:border-default");
+  });
+
   it("mostra o foco na caixa, na cor de foco", () => {
     render(<Input label="Email" />);
     expect(box(screen.getByRole("textbox")).className).toContain("focus-within:outline-focus");

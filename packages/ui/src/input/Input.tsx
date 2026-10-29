@@ -11,8 +11,11 @@ import { cn } from "../lib/cn.ts";
 export const inputVariants = cva(
   [
     "group flex w-full items-center gap-2",
-    // Plano de propósito: o botão salta, o campo não. A borda default (3:1) mostra onde ele está.
-    "border border-default bg-neutral text-default",
+    // Plano de propósito: o botão salta, o campo não.
+    // Exceção consciente: em repouso a borda é subtle (abaixo dos 3:1 da WCAG), para o campo
+    // ficar leve. No hover e no foco ela vai para default (3:1), e o label nomeia o campo.
+    "border border-subtle bg-neutral text-default",
+    "hover:border-default focus-within:border-default",
     "transition-colors duration-fast",
     // Campo de texto mostra o foco também no clique, não só no teclado.
     "focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-focus",

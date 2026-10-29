@@ -262,6 +262,7 @@ export const contrastPairs: readonly (readonly [ColorName, ColorName, number])[]
   ["text-danger", "background-neutral", 4.5],
   // Campo de texto (Input): placeholder, borda, ícone e erro sobre o fundo neutro.
   ["text-subtle", "background-neutral", 4.5],
+  // border-default é a borda do campo no hover e no foco; em repouso ele usa subtle (exceção consciente).
   ["border-default", "background-neutral", 3],
   ["icon-subtle", "background-neutral", 3],
   ["border-danger", "background-neutral", 3],
