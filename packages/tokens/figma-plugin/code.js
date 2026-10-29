@@ -1072,6 +1072,16 @@ const DATA = {
       ]
     },
     {
+      "name": "background/readonly",
+      "light": "colors/neutral-light/neutral-light-100",
+      "dark": "colors/neutral-dark/neutral-dark-800",
+      "description": "Fundo de campos somente leitura: o valor aparece, mas não se edita. Texto em default.",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ]
+    },
+    {
       "name": "background/danger-subtle-hovered",
       "light": "colors/red/red-50",
       "dark": "colors/red/red-950",

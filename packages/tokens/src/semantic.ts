@@ -73,6 +73,12 @@ export const color = {
     dark: neutralDark[800],
     description: "Botão secundário pressionado: escurece, como se afundasse.",
   },
+  "background-readonly": {
+    light: neutralLight[100],
+    dark: neutralDark[800],
+    description:
+      "Fundo de campos somente leitura: o valor aparece, mas não se edita. Texto em default.",
+  },
   "background-danger-subtle-hovered": {
     light: red[50],
     dark: red[950],
@@ -273,6 +279,9 @@ export const contrastPairs: readonly (readonly [ColorName, ColorName, number])[]
   // border-default é a borda do campo no hover e no foco; em repouso ele usa subtle (exceção consciente).
   ["border-default", "background-neutral", 3],
   ["icon-subtle", "background-neutral", 3],
+  // Campo somente leitura: o texto continua com leitura plena.
+  ["text-default", "background-readonly", 4.5],
+  ["icon-subtle", "background-readonly", 3],
   ["border-danger", "background-neutral", 3],
   ["text-danger", "background-danger-subtle-hovered", 4.5],
   // Exceção consciente: no claro, o texto fica com 4.2:1 sobre o pressed, abaixo dos 4.5:1
