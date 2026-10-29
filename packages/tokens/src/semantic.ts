@@ -79,6 +79,12 @@ export const color = {
     description:
       "Fundo de campos somente leitura: o valor aparece, mas não se edita. Texto em default.",
   },
+  "background-selected": {
+    light: primary[100],
+    dark: primary[950],
+    description:
+      "Fundo de um item escolhido numa lista, como a opção marcada do Select: um tom de hover na cor da marca. Texto em default.",
+  },
   "background-danger-subtle-hovered": {
     light: red[50],
     dark: red[950],
@@ -283,6 +289,10 @@ export const contrastPairs: readonly (readonly [ColorName, ColorName, number])[]
   ["text-default", "background-readonly", 4.5],
   ["icon-subtle", "background-readonly", 3],
   ["border-danger", "background-neutral", 3],
+  // Item escolhido numa lista (Select): nome, segunda linha e ícone continuam legíveis.
+  ["text-default", "background-selected", 4.5],
+  ["text-subtle", "background-selected", 4.5],
+  ["icon-subtle", "background-selected", 3],
   ["text-danger", "background-danger-subtle-hovered", 4.5],
   // Exceção consciente: no claro, o texto fica com 4.2:1 sobre o pressed, abaixo dos 4.5:1
   // da WCAG AA. O estado dura só o instante do clique, e o texto já foi lido no repouso e no hover.

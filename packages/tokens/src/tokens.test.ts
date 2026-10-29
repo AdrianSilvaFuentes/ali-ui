@@ -108,6 +108,7 @@ describe("integração com o Tailwind", () => {
     "bg-surface-overlay",
     "bg-disabled",
     "bg-readonly",
+    "bg-selected",
     "bg-neutral",
     "bg-neutral-hovered",
     "bg-neutral-pressed",
