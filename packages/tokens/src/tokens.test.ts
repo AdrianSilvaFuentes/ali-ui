@@ -120,6 +120,7 @@ describe("integração com o Tailwind", () => {
     "bg-gradient-danger-hovered",
     "bg-gradient-danger-pressed",
     "inset-shadow-highlight",
+    "inset-shadow-sunken",
     "shadow-raised",
     "shadow-overlay",
     "text-default",
