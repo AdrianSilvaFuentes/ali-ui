@@ -80,6 +80,12 @@ describe("Input", () => {
     expect(screen.queryByRole("button")).toBeNull();
   });
 
+  it("ajuda e erro em body-md", () => {
+    render(<Input label="Campo" description="Ajuda." error="Erro." />);
+    expect(screen.getByText("Ajuda.").className).toContain("text-body-md");
+    expect(screen.getByText("Erro.").className).toContain("text-body-md");
+  });
+
   it("lê a ajuda junto com o campo", () => {
     render(<Input label="Email" description="Usamos só para avisos." />);
     const input = screen.getByRole("textbox");
