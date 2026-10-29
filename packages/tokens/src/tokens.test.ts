@@ -57,7 +57,7 @@ describe("tokens.css", () => {
   const css = renderTokensCss();
 
   it("carrega a DM Sans e a usa como fonte padrão", () => {
-    expect(css).toContain('@import "@fontsource-variable/dm-sans";');
+    expect(css).toContain('@import "@fontsource-variable/dm-sans/opsz.css";');
     expect(css).toContain('--ali-font-body: "DM Sans Variable"');
   });
 
@@ -107,6 +107,7 @@ describe("integração com o Tailwind", () => {
     "bg-surface-sunken",
     "bg-surface-overlay",
     "bg-disabled",
+    "bg-readonly",
     "bg-neutral",
     "bg-neutral-hovered",
     "bg-neutral-pressed",
@@ -123,6 +124,7 @@ describe("integração com o Tailwind", () => {
     "shadow-overlay",
     "text-default",
     "text-subtle",
+    "text-placeholder",
     "text-disabled",
     "text-link",
     "text-icon-default",

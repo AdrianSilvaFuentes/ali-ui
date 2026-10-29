@@ -43,8 +43,11 @@ export const buttonVariants = cva(
   [
     "relative isolate inline-flex shrink-0 items-center justify-center gap-2 overflow-hidden",
     "whitespace-nowrap select-none",
-    "transition-colors duration-fast",
-    "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus",
+    "transition-interactive duration-fast",
+    // Foco que se encaixa: o contorno já surge visível a 4px e chega a 2px em 100ms.
+    // A cor fica fixa, para não piscar de outra cor. Sem animação para quem pede menos movimento.
+    "outline-focus outline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2",
+    "motion-reduce:outline-offset-2",
     "disabled:cursor-not-allowed aria-disabled:cursor-not-allowed",
     "[&_svg]:shrink-0",
   ],
@@ -58,7 +61,7 @@ export const buttonVariants = cva(
         secondary: [
           ...outlined,
           "border-subtle text-default",
-          // Fundo sólido anima direto com transition-colors, sem as camadas do primary.
+          // Fundo sólido anima direto com a transição de cor, sem as camadas do primary.
           // Pressionado: escurece e perde o brilho, e o botão afunda.
           "hover:bg-neutral-hovered active:bg-neutral-pressed",
         ],

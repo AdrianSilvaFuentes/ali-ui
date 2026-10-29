@@ -136,7 +136,7 @@ export function FontFamiliesPage() {
       {() => (
         <Section
           title="Famílias"
-          description="A DM Sans é a fonte padrão: não precisa de classe. Só a mono se aplica com font-mono."
+          description="A DM Sans é a fonte padrão: não precisa de classe. Só a mono se aplica com font-mono. Ela tem tamanho óptico: o desenho das letras se ajusta ao tamanho do texto (mais aberto em 12px, mais fino em títulos), como no Figma."
         >
           <Table columns={["Token", "Como usar", "Família", "Exemplo"]}>
             {(Object.keys(font) as (keyof typeof font)[]).map((name) => (

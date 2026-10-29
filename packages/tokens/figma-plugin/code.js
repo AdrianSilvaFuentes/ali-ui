@@ -1044,7 +1044,7 @@ const DATA = {
     {
       "name": "background/neutral",
       "light": "colors/neutral-light/neutral-light-50",
-      "dark": "colors/neutral-dark/neutral-dark-700",
+      "dark": "colors/neutral-dark/neutral-dark-900",
       "description": "Fundo do botão secundário. Texto e ícone em default, borda em default.",
       "scopes": [
         "FRAME_FILL",
@@ -1066,6 +1066,16 @@ const DATA = {
       "light": "colors/neutral-light/neutral-light-200",
       "dark": "colors/neutral-dark/neutral-dark-800",
       "description": "Botão secundário pressionado: escurece, como se afundasse.",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ]
+    },
+    {
+      "name": "background/readonly",
+      "light": "colors/neutral-light/neutral-light-100",
+      "dark": "colors/neutral-dark/neutral-dark-800",
+      "description": "Fundo de campos somente leitura: o valor aparece, mas não se edita. Texto em default.",
       "scopes": [
         "FRAME_FILL",
         "SHAPE_FILL"
@@ -1105,6 +1115,15 @@ const DATA = {
       "light": "colors/neutral-light/neutral-light-600",
       "dark": "colors/neutral-dark/neutral-dark-200",
       "description": "Texto secundário: legendas, dicas, metadados.",
+      "scopes": [
+        "TEXT_FILL"
+      ]
+    },
+    {
+      "name": "text/placeholder",
+      "light": "colors/neutral-light/neutral-light-400",
+      "dark": "colors/neutral-dark/neutral-dark-200",
+      "description": "Placeholder de campos: bem mais claro que o texto digitado, para o campo não parecer preenchido. Só para exemplos; instruções vão na ajuda.",
       "scopes": [
         "TEXT_FILL"
       ]
@@ -1291,9 +1310,9 @@ const DATA = {
     },
     {
       "name": "icon/status/danger",
-      "light": "colors/red/red-500",
-      "dark": "colors/red/red-400",
-      "description": "Ícone de erro.",
+      "light": "colors/red/red-700",
+      "dark": "colors/red/red-300",
+      "description": "Ícone de erro. Mesmo tom do text-danger, para ícone e mensagem combinarem.",
       "scopes": [
         "SHAPE_FILL",
         "STROKE_COLOR"

@@ -85,8 +85,12 @@ function staticEntries(): [string, string][] {
  */
 export function renderTokensCss(): string {
   return `${HEADER}
-/* DM Sans variável (pesos 100 a 1000), servida com o pacote, sem depender do Google. */
-@import "@fontsource-variable/dm-sans";
+/*
+ * DM Sans variável, servida com o pacote, sem depender do Google. A versão opsz traz o eixo
+ * de tamanho óptico (9 a 40) além do peso: o navegador redesenha as letras conforme o
+ * tamanho do texto, como o Figma faz. Sem ele, 12px e títulos usariam o desenho de 14px.
+ */
+@import "@fontsource-variable/dm-sans/opsz.css";
 
 :root,
 [data-theme="light"] {

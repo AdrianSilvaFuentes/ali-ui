@@ -60,7 +60,7 @@ export const color = {
   },
   "background-neutral": {
     light: neutralLight[50],
-    dark: neutralDark[700],
+    dark: neutralDark[900],
     description: "Fundo do botão secundário. Texto e ícone em default, borda em default.",
   },
   "background-neutral-hovered": {
@@ -72,6 +72,12 @@ export const color = {
     light: neutralLight[200],
     dark: neutralDark[800],
     description: "Botão secundário pressionado: escurece, como se afundasse.",
+  },
+  "background-readonly": {
+    light: neutralLight[100],
+    dark: neutralDark[800],
+    description:
+      "Fundo de campos somente leitura: o valor aparece, mas não se edita. Texto em default.",
   },
   "background-danger-subtle-hovered": {
     light: red[50],
@@ -93,6 +99,12 @@ export const color = {
     light: neutralLight[600],
     dark: neutralDark[200],
     description: "Texto secundário: legendas, dicas, metadados.",
+  },
+  "text-placeholder": {
+    light: neutralLight[400],
+    dark: neutralDark[200],
+    description:
+      "Placeholder de campos: bem mais claro que o texto digitado, para o campo não parecer preenchido. Só para exemplos; instruções vão na ajuda.",
   },
   "text-disabled": {
     light: neutralLight[400],
@@ -190,9 +202,9 @@ export const color = {
     description: "Ícone de aviso.",
   },
   "icon-danger": {
-    light: red[500],
-    dark: red[400],
-    description: "Ícone de erro.",
+    light: red[700],
+    dark: red[300],
+    description: "Ícone de erro. Mesmo tom do text-danger, para ícone e mensagem combinarem.",
   },
   "icon-info": {
     light: blue[700],
@@ -260,6 +272,17 @@ export const contrastPairs: readonly (readonly [ColorName, ColorName, number])[]
   ["text-default", "background-neutral-hovered", 4.5],
   ["text-default", "background-neutral-pressed", 4.5],
   ["text-danger", "background-neutral", 4.5],
+  // Campo de texto (Input): placeholder, borda, ícone e erro sobre o fundo neutro.
+  // Exceção consciente: no claro, o placeholder fica com 3.28:1, abaixo dos 4.5:1 da WCAG AA,
+  // para o campo vazio não parecer preenchido. Por isso ele só leva exemplos, nunca instruções.
+  ["text-placeholder", "background-neutral", 3],
+  // border-default é a borda do campo no hover e no foco; em repouso ele usa subtle (exceção consciente).
+  ["border-default", "background-neutral", 3],
+  ["icon-subtle", "background-neutral", 3],
+  // Campo somente leitura: o texto continua com leitura plena.
+  ["text-default", "background-readonly", 4.5],
+  ["icon-subtle", "background-readonly", 3],
+  ["border-danger", "background-neutral", 3],
   ["text-danger", "background-danger-subtle-hovered", 4.5],
   // Exceção consciente: no claro, o texto fica com 4.2:1 sobre o pressed, abaixo dos 4.5:1
   // da WCAG AA. O estado dura só o instante do clique, e o texto já foi lido no repouso e no hover.

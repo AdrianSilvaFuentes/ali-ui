@@ -32,7 +32,7 @@ export const Background: Story = {
     <ColorGroupPage
       group="background"
       title="Background"
-      description="Fundos de controles, que vão sobre as superfícies. O neutro do botão secundário, com os estados de cursor em cima e pressionado, os fundos suaves de risco (hover e pressionado do botão destrutivo com contorno) e o fundo de controles desabilitados. A cor da marca do botão primário é um degradê (veja Gradients). A classe é bg-*, sem o prefixo background-."
+      description="Fundos de controles, que vão sobre as superfícies. O neutro do botão secundário, com os estados de cursor em cima e pressionado, os fundos suaves de risco (hover e pressionado do botão destrutivo com contorno) o fundo de campos somente leitura e o fundo de controles desabilitados. A cor da marca do botão primário é um degradê (veja Gradients). A classe é bg-*, sem o prefixo background-."
     />
   ),
 };
