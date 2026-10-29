@@ -88,6 +88,12 @@ describe("Textarea", () => {
     expect(screen.queryByRole("button")).toBeNull();
   });
 
+  it("ajuda e erro em body-md", () => {
+    render(<Textarea label="Campo" description="Ajuda." error="Erro." />);
+    expect(screen.getByText("Ajuda.").className).toContain("text-body-md");
+    expect(screen.getByText("Erro.").className).toContain("text-body-md");
+  });
+
   it("lê a ajuda junto com o campo", () => {
     render(<Textarea label="Mensagem" description="Respondemos em dois dias." />);
     expect(screen.getByRole("textbox").getAttribute("aria-describedby")).toBe(

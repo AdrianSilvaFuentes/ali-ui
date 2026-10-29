@@ -132,12 +132,12 @@ export function Textarea({
         />
       </div>
       {description ? (
-        <p id={descriptionId} className="text-body-sm text-subtle">
+        <p id={descriptionId} className="text-body-md text-subtle">
           {description}
         </p>
       ) : null}
       {error ? (
-        <p id={errorId} className="flex items-center gap-1.5 text-body-sm text-danger">
+        <p id={errorId} className="flex items-center gap-1.5 text-body-md text-danger">
           <IconAlertCircle aria-hidden="true" className="size-4 shrink-0 text-icon-danger" />
           {error}
         </p>
