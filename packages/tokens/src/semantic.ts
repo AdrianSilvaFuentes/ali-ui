@@ -58,6 +58,32 @@ export const color = {
     dark: neutralDark[600],
     description: "Fundo de controles desabilitados. Texto e ícone em disabled.",
   },
+  "background-neutral": {
+    light: neutralLight[50],
+    dark: neutralDark[700],
+    description: "Fundo do botão secundário. Texto e ícone em default, borda em default.",
+  },
+  "background-neutral-hovered": {
+    light: neutralLight[100],
+    dark: neutralDark[600],
+    description: "Botão secundário com o cursor em cima.",
+  },
+  "background-neutral-pressed": {
+    light: neutralLight[200],
+    dark: neutralDark[800],
+    description: "Botão secundário pressionado: escurece, como se afundasse.",
+  },
+  "background-danger-subtle-hovered": {
+    light: red[50],
+    dark: red[950],
+    description: "Fundo suave de risco: hover do botão destrutivo com contorno. Texto em danger.",
+  },
+  "background-danger-subtle-pressed": {
+    light: red[100],
+    dark: red[950],
+    description:
+      "Botão destrutivo com contorno pressionado. No claro, um degrau mais forte que o hover; no escuro, igual ao hover, e o retorno vem do botão afundando.",
+  },
   "text-default": {
     light: neutralLight[900],
     dark: neutralDark[50],
@@ -230,6 +256,14 @@ export type ColorName = keyof typeof color;
  */
 export const contrastPairs: readonly (readonly [ColorName, ColorName, number])[] = [
   ["text-default", "surface", 4.5],
+  ["text-default", "background-neutral", 4.5],
+  ["text-default", "background-neutral-hovered", 4.5],
+  ["text-default", "background-neutral-pressed", 4.5],
+  ["text-danger", "background-neutral", 4.5],
+  ["text-danger", "background-danger-subtle-hovered", 4.5],
+  // Exceção consciente: no claro, o texto fica com 4.2:1 sobre o pressed, abaixo dos 4.5:1
+  // da WCAG AA. O estado dura só o instante do clique, e o texto já foi lido no repouso e no hover.
+  ["text-danger", "background-danger-subtle-pressed", 3],
   ["text-subtle", "surface", 4.5],
   ["text-link", "surface", 4.5],
   ["text-default", "surface-sunken", 4.5],
@@ -470,6 +504,24 @@ export const gradient = {
     from: primary[900],
     to: primary[950],
     description: "Botão primário pressionado.",
+  },
+  danger: {
+    angle: 135,
+    from: red[700],
+    to: red[800],
+    description: "Fundo do botão destrutivo. Texto e ícone em static-white.",
+  },
+  "danger-hovered": {
+    angle: 135,
+    from: red[800],
+    to: red[900],
+    description: "Botão destrutivo com o cursor em cima.",
+  },
+  "danger-pressed": {
+    angle: 135,
+    from: red[900],
+    to: red[950],
+    description: "Botão destrutivo pressionado.",
   },
 } as const satisfies Record<string, GradientToken>;
 

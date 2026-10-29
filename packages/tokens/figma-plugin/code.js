@@ -280,7 +280,7 @@ const DATA = {
     {
       "name": "colors/red/red-100",
       "type": "COLOR",
-      "value": "#ffcbcd",
+      "value": "#ffdee0",
       "scopes": [
         "ALL_SCOPES"
       ]
@@ -1036,6 +1036,56 @@ const DATA = {
       "light": "colors/neutral-light/neutral-light-200",
       "dark": "colors/neutral-dark/neutral-dark-600",
       "description": "Fundo de controles desabilitados. Texto e ícone em disabled.",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ]
+    },
+    {
+      "name": "background/neutral",
+      "light": "colors/neutral-light/neutral-light-50",
+      "dark": "colors/neutral-dark/neutral-dark-700",
+      "description": "Fundo do botão secundário. Texto e ícone em default, borda em default.",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ]
+    },
+    {
+      "name": "background/neutral-hovered",
+      "light": "colors/neutral-light/neutral-light-100",
+      "dark": "colors/neutral-dark/neutral-dark-600",
+      "description": "Botão secundário com o cursor em cima.",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ]
+    },
+    {
+      "name": "background/neutral-pressed",
+      "light": "colors/neutral-light/neutral-light-200",
+      "dark": "colors/neutral-dark/neutral-dark-800",
+      "description": "Botão secundário pressionado: escurece, como se afundasse.",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ]
+    },
+    {
+      "name": "background/danger-subtle-hovered",
+      "light": "colors/red/red-50",
+      "dark": "colors/red/red-950",
+      "description": "Fundo suave de risco: hover do botão destrutivo com contorno. Texto em danger.",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ]
+    },
+    {
+      "name": "background/danger-subtle-pressed",
+      "light": "colors/red/red-100",
+      "dark": "colors/red/red-950",
+      "description": "Botão destrutivo com contorno pressionado. No claro, um degrau mais forte que o hover; no escuro, igual ao hover, e o retorno vem do botão afundando.",
       "scopes": [
         "FRAME_FILL",
         "SHAPE_FILL"

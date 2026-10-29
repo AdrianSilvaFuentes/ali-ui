@@ -66,13 +66,44 @@ describe("Button", () => {
     expect(link.className).toContain("bg-gradient-brand");
   });
 
+  it("coloca iconLeft antes e iconRight depois do texto, escondidos do leitor de tela", () => {
+    render(
+      <Button iconLeft={<svg data-testid="left" />} iconRight={<svg data-testid="right" />}>
+        Continuar
+      </Button>,
+    );
+    const button = screen.getByRole("button", { name: "Continuar" });
+    const left = screen.getByTestId("left");
+    const right = screen.getByTestId("right");
+    expect(button.firstElementChild?.contains(left)).toBe(true);
+    expect(button.lastElementChild?.contains(right)).toBe(true);
+    expect(left.parentElement?.getAttribute("aria-hidden")).toBe("true");
+    expect(right.parentElement?.getAttribute("aria-hidden")).toBe("true");
+  });
+
+  it("sem ícone não deixa elementos vazios", () => {
+    render(<Button>Salvar</Button>);
+    expect(screen.getByRole("button").children).toHaveLength(0);
+  });
+
+  it("com asChild, os ícones entram dentro do link", () => {
+    render(
+      <Button asChild iconLeft={<svg data-testid="left" />}>
+        <a href="/novo">Criar</a>
+      </Button>,
+    );
+    const link = screen.getByRole("link", { name: "Criar" });
+    expect(link.contains(screen.getByTestId("left"))).toBe(true);
+  });
+
   it.each([
-    ["sm", "h-8"],
-    ["md", "h-10"],
-    ["lg", "h-12"],
-  ] as const)("tamanho %s usa a altura %s", (size, height) => {
+    ["sm", "h-8", "rounded-lg"],
+    ["md", "h-10", "rounded-xl"],
+  ] as const)("tamanho %s usa a altura %s e o raio %s", (size, height, radius) => {
     render(<Button size={size}>Salvar</Button>);
-    expect(screen.getByRole("button").className).toContain(height);
+    const { className } = screen.getByRole("button");
+    expect(className).toContain(height);
+    expect(className).toContain(radius);
   });
 
   it("aceita classes extras sem perder as do token", () => {
@@ -94,10 +125,56 @@ describe("Button", () => {
     expect(className).toContain("before:transition-opacity");
   });
 
-  it("tem o foco visível na cor de foco", () => {
-    render(<Button>Salvar</Button>);
-    expect(screen.getByRole("button").className).toContain("focus-visible:outline-focus");
+  it("secondary é neutro, com borda, e sem as camadas de degradê do primary", () => {
+    render(<Button variant="secondary">Cancelar</Button>);
+    const { className } = screen.getByRole("button");
+    expect(className).toContain("bg-neutral");
+    expect(className).toContain("border-subtle");
+    expect(className).toContain("text-default");
+    expect(className).toContain("hover:bg-neutral-hovered");
+    expect(className).toContain("active:bg-neutral-pressed");
+    expect(className).not.toContain("gradient");
   });
+
+  it("ghost não tem fundo, borda nem sombra, só o fundo neutro no hover e ao pressionar", () => {
+    render(<Button variant="ghost">Mais opções</Button>);
+    const { className } = screen.getByRole("button");
+    expect(className).toContain("bg-transparent");
+    expect(className).toContain("text-default");
+    expect(className).toContain("hover:bg-neutral-hovered");
+    expect(className).toContain("active:bg-neutral-pressed");
+    expect(className).not.toMatch(/(^|\s)(border|shadow-sm|inset-shadow-highlight)(\s|$)/);
+    expect(className).not.toContain("gradient");
+  });
+
+  it("destructive usa os degradês de risco, com texto branco", () => {
+    render(<Button variant="destructive">Excluir</Button>);
+    const { className } = screen.getByRole("button");
+    expect(className).toContain("bg-gradient-danger");
+    expect(className).toContain("before:bg-gradient-danger-hovered");
+    expect(className).toContain("after:bg-gradient-danger-pressed");
+    expect(className).toContain("text-static-white");
+    expect(className).not.toContain("gradient-brand");
+  });
+
+  it("destructive-secondary tem borda e texto de risco e fundo rosado no hover", () => {
+    render(<Button variant="destructive-secondary">Excluir conta</Button>);
+    const { className } = screen.getByRole("button");
+    expect(className).toContain("bg-neutral");
+    expect(className).toContain("border-danger");
+    expect(className).toContain("text-danger");
+    expect(className).toContain("hover:bg-danger-subtle-hovered");
+    expect(className).toContain("active:bg-danger-subtle-pressed");
+    expect(className).not.toContain("gradient");
+  });
+
+  it.each(["primary", "secondary", "ghost", "destructive", "destructive-secondary"] as const)(
+    "%s tem o foco visível na cor de foco",
+    (variant) => {
+      render(<Button variant={variant}>Salvar</Button>);
+      expect(screen.getByRole("button").className).toContain("focus-visible:outline-focus");
+    },
+  );
 
   it("não tem problemas de acessibilidade, com texto ou só ícone", async () => {
     const { container } = render(
@@ -107,6 +184,19 @@ describe("Button", () => {
           <svg aria-hidden="true" />
         </Button>
         <Button disabled>Salvar</Button>
+        <Button variant="secondary">Cancelar</Button>
+        <Button variant="secondary" disabled>
+          Cancelar
+        </Button>
+        <Button variant="ghost">Mais opções</Button>
+        <Button variant="destructive">Excluir</Button>
+        <Button variant="destructive-secondary">Excluir conta</Button>
+        <Button variant="destructive" disabled>
+          Excluir
+        </Button>
+        <Button variant="ghost" disabled>
+          Mais opções
+        </Button>
       </div>,
     );
     expect(await violations(container)).toEqual([]);

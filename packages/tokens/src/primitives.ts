@@ -59,7 +59,7 @@ export const primary = {
 /** Vermelho para erros e ações destrutivas. */
 export const red = {
   50: "#fff0f1",
-  100: "#ffcbcd",
+  100: "#ffdee0",
   200: "#ffa8ab",
   300: "#ff888c",
   400: "#ff6a6e",
