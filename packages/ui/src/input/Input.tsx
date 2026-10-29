@@ -16,9 +16,11 @@ export const inputVariants = cva(
     // ficar leve. No hover e no foco ela vai para default (3:1), e o label nomeia o campo.
     "border border-subtle bg-neutral text-default shadow-sm",
     "hover:border-default focus-within:border-default",
-    "transition-colors duration-fast",
-    // Campo de texto mostra o foco também no clique, não só no teclado.
-    "focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-focus",
+    "transition-interactive duration-fast",
+    // Campo de texto mostra o foco também no clique, não só no teclado. O contorno se encaixa
+    // como no Button: surge a 4px e chega a 2px. Sem animação para quem pede menos movimento.
+    "outline-focus outline-offset-4 focus-within:outline-2 focus-within:outline-offset-2",
+    "motion-reduce:outline-offset-2",
     "data-invalid:border-danger",
     // Desabilitado mantém o fundo neutro, com texto e borda em disabled.
     "data-disabled:cursor-not-allowed data-disabled:border-disabled data-disabled:text-disabled",

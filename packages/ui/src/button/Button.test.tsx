@@ -172,7 +172,10 @@ describe("Button", () => {
     "%s tem o foco visível na cor de foco",
     (variant) => {
       render(<Button variant={variant}>Salvar</Button>);
-      expect(screen.getByRole("button").className).toContain("focus-visible:outline-focus");
+      const { className } = screen.getByRole("button");
+      expect(className).toContain("outline-focus");
+      expect(className).toContain("focus-visible:outline-2");
+      expect(className).toContain("focus-visible:outline-offset-2");
     },
   );
 

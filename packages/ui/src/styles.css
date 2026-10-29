@@ -12,3 +12,15 @@
 .tabler-icon {
   stroke-width: 1.5;
 }
+
+/*
+ * As transições de cor do Tailwind (transition-colors) mais a distância do contorno de foco.
+ * Com ela, o foco aparece já visível um pouco afastado e se encaixa a 2px (veja focus-ring).
+ */
+@utility transition-interactive {
+  transition-property:
+    color, background-color, border-color, outline-color, text-decoration-color, fill, stroke,
+    outline-offset;
+  transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
+  transition-duration: var(--tw-duration, var(--default-transition-duration));
+}

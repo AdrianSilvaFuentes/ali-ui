@@ -123,7 +123,10 @@ describe("Input", () => {
 
   it("mostra o foco na caixa, na cor de foco", () => {
     render(<Input label="Email" />);
-    expect(box(screen.getByRole("textbox")).className).toContain("focus-within:outline-focus");
+    const { className } = box(screen.getByRole("textbox"));
+    expect(className).toContain("outline-focus");
+    expect(className).toContain("focus-within:outline-2");
+    expect(className).toContain("motion-reduce:outline-offset-2");
   });
 
   it("não tem problemas de acessibilidade", async () => {
