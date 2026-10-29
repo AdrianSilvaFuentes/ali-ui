@@ -11,17 +11,19 @@ interface FieldLabelProps {
   /** Ajuda extra num Toggletip no fim do label. */
   info?: ReactNode;
   disabled?: boolean;
+  /** Classes do texto do label, por exemplo outro estilo de texto. */
+  className?: string;
 }
 
 /**
  * Label dos campos (Input e Textarea), com o ícone de info opcional no fim. O ícone fica ao
  * lado do `<label>`, não dentro: dentro, o clique nele também focaria o campo.
  */
-export function FieldLabel({ htmlFor, children, info, disabled }: FieldLabelProps) {
+export function FieldLabel({ htmlFor, children, info, disabled, className }: FieldLabelProps) {
   const label = (
     <LabelRoot
       htmlFor={htmlFor}
-      className={cn("text-label-md", disabled ? "text-disabled" : "text-default")}
+      className={cn("text-label-md", disabled ? "text-disabled" : "text-default", className)}
     >
       {children}
     </LabelRoot>
