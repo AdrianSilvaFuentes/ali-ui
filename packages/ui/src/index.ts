@@ -10,5 +10,6 @@ export {
   type RadioGroupProps,
   radioVariants,
 } from "./radio-group/RadioGroup.tsx";
+export { Switch, type SwitchProps, switchVariants } from "./switch/Switch.tsx";
 export { Textarea, type TextareaProps, textareaVariants } from "./textarea/Textarea.tsx";
 export { Toggletip, type ToggletipProps } from "./toggletip/Toggletip.tsx";
