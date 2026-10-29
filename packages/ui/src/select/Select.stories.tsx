@@ -6,7 +6,7 @@ import { Input } from "../input/Input.tsx";
 import { Select, SelectGroup, SelectItem, SelectSeparator } from "./Select.tsx";
 
 const meta = {
-  title: "Components/Select",
+  title: "Components/Form/Select",
   component: Select,
   subcomponents: { SelectItem, SelectGroup, SelectSeparator },
   tags: ["autodocs"],
