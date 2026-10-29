@@ -98,7 +98,9 @@ export function Select({
         >
           {/* data-slot avisa as opções que estão no gatilho: lá o ícone (leading) aparece. */}
           <span data-slot="select-value" className="flex min-w-0 flex-1 items-center truncate">
-            <Value placeholder={placeholder} />
+            {/* Bloco flexível, e não linha de texto: ícone e nome centrados entre si, sem
+                depender da base das letras (que mudava com a fonte e a altura de linha). */}
+            <Value placeholder={placeholder} className="flex min-w-0 items-center" />
           </span>
           <Icon asChild>
             {/* A seta vira para cima com a lista aberta, como quem diz "fechar". */}
@@ -213,7 +215,7 @@ export function SelectItem({
          * lista (já aparece à esquerda) e visível só dentro do gatilho (data-slot).
          */}
         <ItemText>
-          <span className="inline-flex min-w-0 items-center gap-2">
+          <span className="flex min-w-0 items-center gap-2">
             {leading ? (
               <span
                 aria-hidden="true"
