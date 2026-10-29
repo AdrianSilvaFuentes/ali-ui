@@ -1044,7 +1044,7 @@ const DATA = {
     {
       "name": "background/neutral",
       "light": "colors/neutral-light/neutral-light-50",
-      "dark": "colors/neutral-dark/neutral-dark-700",
+      "dark": "colors/neutral-dark/neutral-dark-900",
       "description": "Fundo do botão secundário. Texto e ícone em default, borda em default.",
       "scopes": [
         "FRAME_FILL",

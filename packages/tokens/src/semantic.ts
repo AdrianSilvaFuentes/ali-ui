@@ -60,7 +60,7 @@ export const color = {
   },
   "background-neutral": {
     light: neutralLight[50],
-    dark: neutralDark[700],
+    dark: neutralDark[900],
     description: "Fundo do botão secundário. Texto e ícone em default, borda em default.",
   },
   "background-neutral-hovered": {
