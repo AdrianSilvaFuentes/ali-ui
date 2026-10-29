@@ -1,8 +1,8 @@
-import { Root as LabelRoot } from "@radix-ui/react-label";
 import { IconAlertCircle } from "@tabler/icons-react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { type ComponentProps, type MouseEvent, type ReactNode, useId } from "react";
 import { cn } from "../lib/cn.ts";
+import { FieldLabel } from "../lib/FieldLabel.tsx";
 
 /**
  * A caixa do campo, como no Input: borda, foco, erro e desabilitado ficam nela, e a textarea
@@ -24,7 +24,8 @@ export const textareaVariants = cva(
     "outline-focus outline-offset-4 focus-within:outline-2 focus-within:outline-offset-2",
     "motion-reduce:outline-offset-2",
     "data-invalid:border-danger",
-    "data-readonly:bg-readonly data-readonly:border-subtle",
+    // Somente leitura: cursor de seta, sem o "proibido" do desabilitado (o texto pode ser copiado).
+    "data-readonly:bg-readonly data-readonly:border-subtle data-readonly:cursor-default",
     "data-disabled:cursor-not-allowed data-disabled:border-disabled data-disabled:text-disabled",
     "data-disabled:shadow-none",
   ],
@@ -46,6 +47,11 @@ export interface TextareaProps
     VariantProps<typeof textareaVariants> {
   /** Nome do campo, ligado à textarea. Sem label, passe um `aria-label`. */
   label?: ReactNode;
+  /**
+   * Ajuda extra num ícone de info no fim do label, que abre um Toggletip. Para o que não
+   * cabe na ajuda abaixo do campo. Precisa de `label`.
+   */
+  labelInfo?: ReactNode;
   /** Texto de ajuda abaixo do campo, lido pelo leitor de tela junto com o label. */
   description?: ReactNode;
   /** Mensagem de erro. Marca o campo como inválido e aparece com ícone, não só em vermelho. */
@@ -70,6 +76,7 @@ export function Textarea({
   className,
   size,
   label,
+  labelInfo,
   description,
   error,
   id,
@@ -88,12 +95,9 @@ export function Textarea({
   return (
     <div className={cn("flex flex-col gap-1.5", className)}>
       {label ? (
-        <LabelRoot
-          htmlFor={textareaId}
-          className={cn("text-label-md", disabled ? "text-disabled" : "text-default")}
-        >
+        <FieldLabel htmlFor={textareaId} info={labelInfo} disabled={disabled}>
           {label}
-        </LabelRoot>
+        </FieldLabel>
       ) : null}
       {/* biome-ignore lint/a11y/noStaticElementInteractions: atalho só do mouse; o teclado foca a textarea direto. */}
       <div
@@ -122,6 +126,7 @@ export function Textarea({
             "scroll-fade-y",
             // Desabilitado não estica: a alça sugeriria que o campo ainda responde.
             "disabled:cursor-not-allowed disabled:resize-none",
+            readOnly && "cursor-default",
           )}
           {...props}
         />

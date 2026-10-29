@@ -7,6 +7,13 @@ import { Input } from "./Input.tsx";
 
 afterEach(cleanup);
 
+// O Toggletip do label mede o próprio tail com ResizeObserver, que o jsdom não tem.
+globalThis.ResizeObserver ??= class {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+};
+
 /** Violações de acessibilidade (o contraste de cor é testado nos tokens). */
 async function violations(container: HTMLElement) {
   const result = await axe.run(container, { rules: { "color-contrast": { enabled: false } } });
@@ -57,6 +64,22 @@ describe("Input", () => {
     expect((input as HTMLInputElement).value).toBe("Ali");
   });
 
+  it("labelInfo põe um ícone de info no fim do label, que abre a ajuda", async () => {
+    const user = userEvent.setup();
+    render(<Input label="Email" labelInfo="Só para avisos." />);
+    const field = screen.getByRole("textbox", { name: "Email" });
+    const info = screen.getByRole("button", { name: "Mais informações sobre Email" });
+    expect(info.closest("label")).toBeNull();
+    await user.click(info);
+    expect(screen.getByRole("dialog").textContent).toBe("Só para avisos.");
+    expect(document.activeElement).not.toBe(field);
+  });
+
+  it("sem labelInfo, não há ícone de info", () => {
+    render(<Input label="Email" />);
+    expect(screen.queryByRole("button")).toBeNull();
+  });
+
   it("lê a ajuda junto com o campo", () => {
     render(<Input label="Email" description="Usamos só para avisos." />);
     const input = screen.getByRole("textbox");
@@ -97,6 +120,13 @@ describe("Input", () => {
     await user.tab();
     expect(document.activeElement).not.toBe(input);
     expect(box(input).hasAttribute("data-disabled")).toBe(true);
+  });
+
+  it("somente leitura mostra a seta, não o cursor de texto nem o de proibido", () => {
+    render(<Input label="Notas" readOnly defaultValue="Pro" />);
+    const field = screen.getByRole("textbox");
+    expect(field.className).toContain("cursor-default");
+    expect(box(field).className).toContain("data-readonly:cursor-default");
   });
 
   it("somente leitura recebe foco, não aceita texto e ganha o fundo próprio", async () => {
@@ -163,6 +193,7 @@ describe("Input", () => {
     const { container } = render(
       <div>
         <Input label="Email" description="Usamos só para avisos." />
+        <Input label="Nome" labelInfo="Como aparece no perfil." />
         <Input label="Senha" type="password" error="Senha muito curta." />
         <Input aria-label="Buscar" placeholder="Buscar" />
         <Input label="Empresa" disabled />

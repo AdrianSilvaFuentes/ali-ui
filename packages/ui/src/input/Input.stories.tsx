@@ -27,12 +27,17 @@ const meta = {
   args: {
     className: "w-sm",
     label: "Email",
+    labelInfo: "Usamos o email só para avisos da conta. Nunca para propaganda.",
     placeholder: "voce@exemplo.com",
     size: "sm",
     disabled: false,
   },
   argTypes: {
     label: { control: "text", description: "Nome do campo." },
+    labelInfo: {
+      control: "text",
+      description: "Ajuda extra num ícone de info no fim do label, que abre um Toggletip.",
+    },
     className: { control: false, description: "Classes do bloco inteiro, por exemplo a largura." },
     description: { control: "text", description: "Texto de ajuda abaixo do campo." },
     error: {
@@ -79,6 +84,19 @@ export const Playground: Story = {
   args: { description: "Usamos só para avisos da conta." },
 };
 
+export const WithLabelInfo: Story = {
+  name: "Com info no label",
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Com labelInfo, um ícone de info no fim do label abre um Toggletip com ajuda extra. Use para o que é bom saber, mas não é necessário para preencher: o necessário vai na ajuda (description), sempre visível. Para o leitor de tela, o ícone se chama Mais informações sobre o nome do campo.",
+      },
+    },
+  },
+  args: { description: "Você pode trocar depois." },
+};
+
 export const WithIcon: Story = {
   name: "Com ícone",
   args: { iconLeft: "Mail" },
@@ -105,18 +123,23 @@ export const ReadOnly: Story = {
     docs: {
       description: {
         story:
-          "O valor aparece e pode ser selecionado e copiado, mas não editado. O fundo bg-readonly e a borda que não escurece mostram que o campo não é editável; o leitor de tela anuncia somente leitura. Diferente do desabilitado, o texto mantém o contraste pleno e o campo recebe foco.",
+          "O valor aparece e pode ser selecionado e copiado, mas não editado. O fundo bg-readonly e a borda que não escurece mostram que o campo não é editável; o leitor de tela anuncia somente leitura. Diferente do desabilitado, o texto mantém o contraste pleno e o campo recebe foco. No mouse, o cursor é a seta normal: nem o de digitar, nem o de proibido do desabilitado.",
       },
     },
   },
-  args: { readOnly: true, defaultValue: "Plano Pro", label: "Plano atual" },
+  args: {
+    readOnly: true,
+    defaultValue: "Plano Pro",
+    label: "Plano atual",
+    labelInfo: "Para mudar de plano, vá em Assinatura.",
+  },
 };
 
 export const Sizes: Story = {
   render: (args) => (
     <div className="flex flex-col gap-4">
-      <Input {...args} size="sm" label="Pequeno (sm)" />
-      <Input {...args} size="md" label="Médio (md)" />
+      <Input {...args} size="sm" label="Pequeno (sm)" labelInfo="Altura de 32px." />
+      <Input {...args} size="md" label="Médio (md)" labelInfo="Altura de 40px, o padrão." />
     </div>
   ),
 };
