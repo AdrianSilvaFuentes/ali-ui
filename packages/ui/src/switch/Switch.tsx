@@ -1,10 +1,10 @@
 import { Root, Thumb } from "@radix-ui/react-switch";
-import { IconAlertCircle } from "@tabler/icons-react";
 import { cva } from "class-variance-authority";
 import { type ComponentProps, type ReactNode, useId } from "react";
 import { choiceBase, choiceDisabled, choiceEnabled } from "../lib/choice.ts";
 import { cn } from "../lib/cn.ts";
 import { FieldLabel } from "../lib/FieldLabel.tsx";
+import { FieldError, FieldHelp } from "../lib/FieldMessage.tsx";
 
 /**
  * O trilho, de 28×16px: a mesma altura do Checkbox. Borda, foco, camada verde e desabilitado
@@ -110,15 +110,14 @@ export function Switch({
       </div>
       {/* O recuo de 36px (trilho de 28px mais o espaço) alinha as mensagens com o label. */}
       {showDescription ? (
-        <p id={descriptionId} className="pl-9 text-body-md text-subtle">
+        <FieldHelp id={descriptionId} className="pl-9">
           {description}
-        </p>
+        </FieldHelp>
       ) : null}
       {error ? (
-        <p id={errorId} className="flex items-center gap-1.5 pl-9 text-body-md text-danger">
-          <IconAlertCircle aria-hidden="true" className="size-4 shrink-0 text-icon-danger" />
+        <FieldError id={errorId} className="pl-9">
           {error}
-        </p>
+        </FieldError>
       ) : null}
     </div>
   );

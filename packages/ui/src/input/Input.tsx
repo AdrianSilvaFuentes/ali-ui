@@ -1,8 +1,8 @@
-import { IconAlertCircle } from "@tabler/icons-react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { type ComponentProps, type MouseEvent, type ReactNode, useId } from "react";
 import { cn } from "../lib/cn.ts";
 import { FieldLabel } from "../lib/FieldLabel.tsx";
+import { FieldError, FieldHelp } from "../lib/FieldMessage.tsx";
 
 /**
  * A caixa do campo. O input fica dentro dela, sem borda própria, para os ícones caberem
@@ -149,17 +149,8 @@ export function Input({
         />
         <InputIcon>{iconRight}</InputIcon>
       </div>
-      {showDescription ? (
-        <p id={descriptionId} className="text-body-md text-subtle">
-          {description}
-        </p>
-      ) : null}
-      {error ? (
-        <p id={errorId} className="flex items-center gap-1.5 text-body-md text-danger">
-          <IconAlertCircle aria-hidden="true" className="size-4 shrink-0 text-icon-danger" />
-          {error}
-        </p>
-      ) : null}
+      {showDescription ? <FieldHelp id={descriptionId}>{description}</FieldHelp> : null}
+      {error ? <FieldError id={errorId}>{error}</FieldError> : null}
     </div>
   );
 }
