@@ -57,7 +57,7 @@ describe("tokens.css", () => {
   const css = renderTokensCss();
 
   it("carrega a DM Sans e a usa como fonte padrão", () => {
-    expect(css).toContain('@import "@fontsource-variable/dm-sans";');
+    expect(css).toContain('@import "@fontsource-variable/dm-sans/opsz.css";');
     expect(css).toContain('--ali-font-body: "DM Sans Variable"');
   });
 
