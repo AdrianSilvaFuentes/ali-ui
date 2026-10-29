@@ -135,6 +135,21 @@
   }
 }
 
+/* Entrada que cresce do centro, como o ponto do Radio ao marcar. Sem crescer para quem pede menos movimento. */
+@keyframes ali-scale-in {
+  from {
+    scale: 0;
+  }
+}
+
+@utility animate-scale-in {
+  animation: ali-scale-in var(--ali-duration-fast) ease-out;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
 /* Saída em fade, como o check do Checkbox ao desmarcar. O Radix espera a animação acabar. */
 @keyframes ali-fade-out {
   to {
