@@ -1054,7 +1054,7 @@ const DATA = {
     {
       "name": "background/neutral-hovered",
       "light": "colors/neutral-light/neutral-light-100",
-      "dark": "colors/neutral-dark/neutral-dark-600",
+      "dark": "colors/neutral-dark/neutral-dark-800",
       "description": "Botão secundário com o cursor em cima.",
       "scopes": [
         "FRAME_FILL",
@@ -1064,8 +1064,8 @@ const DATA = {
     {
       "name": "background/neutral-pressed",
       "light": "colors/neutral-light/neutral-light-200",
-      "dark": "colors/neutral-dark/neutral-dark-800",
-      "description": "Botão secundário pressionado: escurece, como se afundasse.",
+      "dark": "colors/neutral-dark/neutral-dark-700",
+      "description": "Botão secundário pressionado: um passo além do hover. No claro escurece; no escuro clareia.",
       "scopes": [
         "FRAME_FILL",
         "SHAPE_FILL"
