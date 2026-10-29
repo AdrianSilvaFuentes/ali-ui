@@ -94,6 +94,11 @@ export const color = {
     dark: neutralDark[200],
     description: "Texto secundário: legendas, dicas, metadados.",
   },
+  "text-placeholder": {
+    light: neutralLight[500],
+    dark: neutralDark[200],
+    description: "Placeholder de campos: mais claro que o texto digitado, para o campo não parecer preenchido.",
+  },
   "text-disabled": {
     light: neutralLight[400],
     dark: neutralDark[400],
@@ -261,7 +266,7 @@ export const contrastPairs: readonly (readonly [ColorName, ColorName, number])[]
   ["text-default", "background-neutral-pressed", 4.5],
   ["text-danger", "background-neutral", 4.5],
   // Campo de texto (Input): placeholder, borda, ícone e erro sobre o fundo neutro.
-  ["text-subtle", "background-neutral", 4.5],
+  ["text-placeholder", "background-neutral", 4.5],
   // border-default é a borda do campo no hover e no foco; em repouso ele usa subtle (exceção consciente).
   ["border-default", "background-neutral", 3],
   ["icon-subtle", "background-neutral", 3],

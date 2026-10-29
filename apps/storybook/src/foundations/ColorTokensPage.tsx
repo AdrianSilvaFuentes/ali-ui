@@ -112,6 +112,7 @@ const colorGroup = {
   "background-danger-subtle-pressed": "background",
   "text-default": "text",
   "text-subtle": "text",
+  "text-placeholder": "text",
   "text-disabled": "text",
   "text-link": "text",
   "text-inverse": "text-special",

@@ -1110,6 +1110,15 @@ const DATA = {
       ]
     },
     {
+      "name": "text/placeholder",
+      "light": "colors/neutral-light/neutral-light-500",
+      "dark": "colors/neutral-dark/neutral-dark-200",
+      "description": "Placeholder de campos: mais claro que o texto digitado, para o campo não parecer preenchido.",
+      "scopes": [
+        "TEXT_FILL"
+      ]
+    },
+    {
       "name": "text/disabled",
       "light": "colors/neutral-light/neutral-light-400",
       "dark": "colors/neutral-dark/neutral-dark-400",

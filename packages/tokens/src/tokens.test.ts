@@ -123,6 +123,7 @@ describe("integração com o Tailwind", () => {
     "shadow-overlay",
     "text-default",
     "text-subtle",
+    "text-placeholder",
     "text-disabled",
     "text-link",
     "text-icon-default",
