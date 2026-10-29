@@ -7,6 +7,13 @@ import { Textarea } from "./Textarea.tsx";
 
 afterEach(cleanup);
 
+// O Toggletip do label mede o próprio tail com ResizeObserver, que o jsdom não tem.
+globalThis.ResizeObserver ??= class {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+};
+
 /** Violações de acessibilidade (o contraste de cor é testado nos tokens). */
 async function violations(container: HTMLElement) {
   const result = await axe.run(container, { rules: { "color-contrast": { enabled: false } } });
@@ -65,6 +72,22 @@ describe("Textarea", () => {
     expect((screen.getByRole("textbox") as HTMLTextAreaElement).rows).toBe(6);
   });
 
+  it("labelInfo põe um ícone de info no fim do label, que abre a ajuda", async () => {
+    const user = userEvent.setup();
+    render(<Textarea label="Mensagem" labelInfo="Só para avisos." />);
+    const field = screen.getByRole("textbox", { name: "Mensagem" });
+    const info = screen.getByRole("button", { name: "Mais informações sobre Mensagem" });
+    expect(info.closest("label")).toBeNull();
+    await user.click(info);
+    expect(screen.getByRole("dialog").textContent).toBe("Só para avisos.");
+    expect(document.activeElement).not.toBe(field);
+  });
+
+  it("sem labelInfo, não há ícone de info", () => {
+    render(<Textarea label="Mensagem" />);
+    expect(screen.queryByRole("button")).toBeNull();
+  });
+
   it("lê a ajuda junto com o campo", () => {
     render(<Textarea label="Mensagem" description="Respondemos em dois dias." />);
     expect(screen.getByRole("textbox").getAttribute("aria-describedby")).toBe(
@@ -105,6 +128,13 @@ describe("Textarea", () => {
     expect(document.activeElement).not.toBe(textarea);
     expect(box(textarea).hasAttribute("data-disabled")).toBe(true);
     expect(textarea.className).toContain("disabled:resize-none");
+  });
+
+  it("somente leitura mostra a seta, não o cursor de texto nem o de proibido", () => {
+    render(<Textarea label="Notas" readOnly defaultValue="Ligar antes." />);
+    const field = screen.getByRole("textbox");
+    expect(field.className).toContain("cursor-default");
+    expect(box(field).className).toContain("data-readonly:cursor-default");
   });
 
   it("somente leitura recebe foco, não aceita texto e ganha o fundo próprio", async () => {
@@ -177,6 +207,7 @@ describe("Textarea", () => {
     const { container } = render(
       <div>
         <Textarea label="Mensagem" description="Respondemos em dois dias." />
+        <Textarea label="Resumo" labelInfo="Aparece no topo do perfil." />
         <Textarea label="Bio" error="Texto muito curto." />
         <Textarea aria-label="Responder" placeholder="Escreva uma resposta" />
         <Textarea label="Motivo" disabled />

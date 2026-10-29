@@ -18,12 +18,17 @@ const meta = {
   args: {
     className: "w-sm",
     label: "Mensagem",
+    labelInfo: "Lemos todas as mensagens. As mais urgentes são respondidas primeiro.",
     placeholder: "Conte o que você precisa",
     size: "md",
     disabled: false,
   },
   argTypes: {
     label: { control: "text", description: "Nome do campo." },
+    labelInfo: {
+      control: "text",
+      description: "Ajuda extra num ícone de info no fim do label, que abre um Toggletip.",
+    },
     className: { control: false, description: "Classes do bloco inteiro, por exemplo a largura." },
     description: { control: "text", description: "Texto de ajuda abaixo do campo." },
     error: {
@@ -63,6 +68,19 @@ export const Playground: Story = {
   args: { description: "Respondemos em até dois dias úteis." },
 };
 
+export const WithLabelInfo: Story = {
+  name: "Com info no label",
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Com labelInfo, um ícone de info no fim do label abre um Toggletip com ajuda extra, como no Input. O necessário para preencher continua na ajuda (description), sempre visível.",
+      },
+    },
+  },
+  args: { description: "Respondemos em até dois dias úteis." },
+};
+
 export const WithError: Story = {
   name: "Com erro",
   args: {
@@ -83,13 +101,14 @@ export const ReadOnly: Story = {
     docs: {
       description: {
         story:
-          "O texto pode ser selecionado e copiado, mas não editado. Fundo bg-readonly e borda que não escurece, como no Input; o texto mantém o contraste pleno e o campo recebe foco.",
+          "O texto pode ser selecionado e copiado, mas não editado. Fundo bg-readonly e borda que não escurece, como no Input; o texto mantém o contraste pleno e o campo recebe foco. No mouse, o cursor é a seta normal: nem o de digitar, nem o de proibido do desabilitado.",
       },
     },
   },
   args: {
     readOnly: true,
     label: "Observações do pedido",
+    labelInfo: "Escritas por quem fez o pedido, na hora da compra.",
     defaultValue: "Entregar na portaria. Ligar antes de subir.",
   },
 };
@@ -97,8 +116,8 @@ export const ReadOnly: Story = {
 export const Sizes: Story = {
   render: (args) => (
     <div className="flex flex-col gap-4">
-      <Textarea {...args} size="sm" label="Pequeno (sm)" />
-      <Textarea {...args} size="md" label="Médio (md)" />
+      <Textarea {...args} size="sm" label="Pequeno (sm)" labelInfo="Respiro e raio menores." />
+      <Textarea {...args} size="md" label="Médio (md)" labelInfo="O tamanho padrão." />
     </div>
   ),
 };
