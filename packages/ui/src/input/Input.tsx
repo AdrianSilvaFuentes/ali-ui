@@ -1,7 +1,7 @@
 import { Root as LabelRoot } from "@radix-ui/react-label";
 import { IconAlertCircle } from "@tabler/icons-react";
 import { cva, type VariantProps } from "class-variance-authority";
-import { type ComponentProps, type ReactNode, useId } from "react";
+import { type ComponentProps, type MouseEvent, type ReactNode, useId } from "react";
 import { cn } from "../lib/cn.ts";
 
 /**
@@ -11,6 +11,9 @@ import { cn } from "../lib/cn.ts";
 export const inputVariants = cva(
   [
     "group flex w-full items-center gap-2",
+    // Cursor de texto na caixa toda, não só no input: um clique no respiro ou num ícone também
+    // foca o campo (veja focusField).
+    "cursor-text",
     // Sombra pequena, como a do Button, mas sem o brilho no topo: o campo não é para clicar.
     // Exceção consciente: em repouso a borda é subtle (abaixo dos 3:1 da WCAG), para o campo
     // ficar leve. No hover e no foco ela vai para default (3:1), e o label nomeia o campo.
@@ -71,6 +74,17 @@ function InputIcon({ children }: { children: ReactNode }) {
   );
 }
 
+/**
+ * Clique na caixa fora do input (respiro ou ícone) foca o campo. Só para o mouse: pelo
+ * teclado o foco já vai direto no input. O preventDefault evita que o clique tire o foco.
+ */
+function focusField(event: MouseEvent<HTMLDivElement>) {
+  const field = event.currentTarget.querySelector("input");
+  if (!field || event.target === field || field.disabled) return;
+  event.preventDefault();
+  field.focus();
+}
+
 /** Campo de texto com label, ajuda e erro já ligados ao input para o leitor de tela. */
 export function Input({
   className,
@@ -102,8 +116,10 @@ export function Input({
           {label}
         </LabelRoot>
       ) : null}
+      {/* biome-ignore lint/a11y/noStaticElementInteractions: atalho só do mouse; o teclado foca o input direto. */}
       <div
         className={inputVariants({ size })}
+        onMouseDown={focusField}
         data-invalid={invalid || undefined}
         data-disabled={disabled || undefined}
         data-readonly={readOnly || undefined}

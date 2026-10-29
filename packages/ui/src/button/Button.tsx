@@ -48,7 +48,8 @@ export const buttonVariants = cva(
     // A cor fica fixa, para não piscar de outra cor. Sem animação para quem pede menos movimento.
     "outline-focus outline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2",
     "motion-reduce:outline-offset-2",
-    "disabled:cursor-not-allowed aria-disabled:cursor-not-allowed",
+    // Cursor de clique, como no Toggletip. Desabilitado troca pelo de não permitido.
+    "cursor-pointer disabled:cursor-not-allowed aria-disabled:cursor-not-allowed",
     "[&_svg]:shrink-0",
   ],
   {

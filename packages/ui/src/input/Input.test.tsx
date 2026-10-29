@@ -31,6 +31,22 @@ describe("Input", () => {
     expect(document.activeElement).toBe(screen.getByRole("textbox"));
   });
 
+  it("cursor de texto na caixa toda, e clicar no ícone foca o campo", async () => {
+    const user = userEvent.setup();
+    render(<Input label="Buscar" iconLeft={<svg data-testid="icon" />} />);
+    const input = screen.getByRole("textbox");
+    expect(box(input).className).toContain("cursor-text");
+    await user.click(screen.getByTestId("icon"));
+    expect(document.activeElement).toBe(input);
+  });
+
+  it("desabilitado, clicar na caixa não foca o campo", async () => {
+    const user = userEvent.setup();
+    render(<Input label="Buscar" disabled iconLeft={<svg data-testid="icon" />} />);
+    await user.click(screen.getByTestId("icon"));
+    expect(document.activeElement).not.toBe(screen.getByRole("textbox"));
+  });
+
   it("aceita digitação e recebe foco pelo Tab", async () => {
     const user = userEvent.setup();
     render(<Input label="Nome" />);
