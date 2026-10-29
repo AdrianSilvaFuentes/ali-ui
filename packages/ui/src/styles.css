@@ -116,6 +116,36 @@
   }
 }
 
+/*
+ * Traço que se desenha, como o check do Checkbox ao marcar. O path precisa de pathLength="1",
+ * para o traço inteiro valer 1. Quem pede menos movimento vê o traço pronto.
+ */
+@keyframes ali-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+}
+
+@utility animate-draw {
+  stroke-dasharray: 1;
+  animation: ali-draw var(--ali-duration-base) ease-out;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+/* Saída em fade, como o check do Checkbox ao desmarcar. O Radix espera a animação acabar. */
+@keyframes ali-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@utility animate-fade-out {
+  animation: ali-fade-out var(--ali-duration-fast) ease-in forwards;
+}
+
 @utility transition-interactive {
   transition-property:
     color, background-color, border-color, outline-color, text-decoration-color, fill, stroke,

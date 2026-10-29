@@ -80,6 +80,23 @@ describe("Input", () => {
     expect(screen.queryByRole("button")).toBeNull();
   });
 
+  it("ajuda e erro em body-md", () => {
+    const { rerender } = render(<Input label="Campo" description="Ajuda." />);
+    expect(screen.getByText("Ajuda.").className).toContain("text-body-md");
+    rerender(<Input label="Campo" error="Erro." />);
+    expect(screen.getByText("Erro.").className).toContain("text-body-md");
+  });
+
+  it("com erro, a mensagem de erro substitui a ajuda", () => {
+    const { rerender } = render(<Input label="Campo" description="Ajuda." error="Erro." />);
+    expect(screen.queryByText("Ajuda.")).toBeNull();
+    expect(screen.getByRole("textbox").getAttribute("aria-describedby")).toBe(
+      screen.getByText("Erro.").id,
+    );
+    rerender(<Input label="Campo" description="Ajuda." />);
+    expect(screen.getByText("Ajuda.")).toBeTruthy();
+  });
+
   it("lê a ajuda junto com o campo", () => {
     render(<Input label="Email" description="Usamos só para avisos." />);
     const input = screen.getByRole("textbox");
@@ -89,13 +106,12 @@ describe("Input", () => {
   });
 
   it("com erro, marca o campo como inválido, lê a mensagem e mostra um ícone", () => {
-    render(<Input label="Email" description="Seu email." error="Falta o domínio." />);
+    render(<Input label="Email" error="Falta o domínio." />);
     const input = screen.getByRole("textbox", { name: "Email" });
     expect(input.getAttribute("aria-invalid")).toBe("true");
     const describedBy = input.getAttribute("aria-describedby")?.split(" ") ?? [];
     const message = screen.getByText("Falta o domínio.");
     expect(describedBy).toContain(message.id);
-    expect(describedBy).toContain(screen.getByText("Seu email.").id);
     expect(message.querySelector("svg")?.getAttribute("aria-hidden")).toBe("true");
     expect(box(input).hasAttribute("data-invalid")).toBe(true);
   });

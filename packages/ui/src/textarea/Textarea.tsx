@@ -88,7 +88,9 @@ export function Textarea({
 }: TextareaProps) {
   const autoId = useId();
   const textareaId = id ?? autoId;
-  const descriptionId = description ? `${textareaId}-description` : undefined;
+  // Com erro, a mensagem de erro substitui a ajuda, na tela e no leitor de tela.
+  const showDescription = Boolean(description) && !error;
+  const descriptionId = showDescription ? `${textareaId}-description` : undefined;
   const errorId = error ? `${textareaId}-error` : undefined;
   const invalid = Boolean(error);
 
@@ -131,13 +133,13 @@ export function Textarea({
           {...props}
         />
       </div>
-      {description ? (
-        <p id={descriptionId} className="text-body-sm text-subtle">
+      {showDescription ? (
+        <p id={descriptionId} className="text-body-md text-subtle">
           {description}
         </p>
       ) : null}
       {error ? (
-        <p id={errorId} className="flex items-center gap-1.5 text-body-sm text-danger">
+        <p id={errorId} className="flex items-center gap-1.5 text-body-md text-danger">
           <IconAlertCircle aria-hidden="true" className="size-4 shrink-0 text-icon-danger" />
           {error}
         </p>

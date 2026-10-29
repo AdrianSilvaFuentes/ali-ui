@@ -65,7 +65,7 @@ export function Toggletip({
             // Mesmo raio do Input no tamanho padrão (md). O contorno é um ring, e não uma border:
             // a border mudaria a referência do tail enquanto a animação roda, e ele pularia 1px.
             "z-50 max-w-xs rounded-xl bg-surface-overlay px-3 py-2 ring-1 ring-subtle",
-            // body-md, um passo acima da ajuda do campo: o balão é para ler com calma.
+            // body-md, o mesmo da ajuda dos campos: o balão é para ler com calma.
             // shadow-md, e não shadow-overlay: num balão pequeno, a sombra de menus e diálogos pesa.
             "text-body-md text-default shadow-md outline-none",
             // Brilho no topo, o mesmo do Button: luz vinda de cima em tudo que tem volume.

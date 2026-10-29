@@ -88,6 +88,23 @@ describe("Textarea", () => {
     expect(screen.queryByRole("button")).toBeNull();
   });
 
+  it("ajuda e erro em body-md", () => {
+    const { rerender } = render(<Textarea label="Campo" description="Ajuda." />);
+    expect(screen.getByText("Ajuda.").className).toContain("text-body-md");
+    rerender(<Textarea label="Campo" error="Erro." />);
+    expect(screen.getByText("Erro.").className).toContain("text-body-md");
+  });
+
+  it("com erro, a mensagem de erro substitui a ajuda", () => {
+    const { rerender } = render(<Textarea label="Campo" description="Ajuda." error="Erro." />);
+    expect(screen.queryByText("Ajuda.")).toBeNull();
+    expect(screen.getByRole("textbox").getAttribute("aria-describedby")).toBe(
+      screen.getByText("Erro.").id,
+    );
+    rerender(<Textarea label="Campo" description="Ajuda." />);
+    expect(screen.getByText("Ajuda.")).toBeTruthy();
+  });
+
   it("lê a ajuda junto com o campo", () => {
     render(<Textarea label="Mensagem" description="Respondemos em dois dias." />);
     expect(screen.getByRole("textbox").getAttribute("aria-describedby")).toBe(
@@ -96,13 +113,12 @@ describe("Textarea", () => {
   });
 
   it("com erro, marca o campo como inválido, lê a mensagem e mostra um ícone", () => {
-    render(<Textarea label="Mensagem" description="Seja breve." error="Texto muito curto." />);
+    render(<Textarea label="Mensagem" error="Texto muito curto." />);
     const textarea = screen.getByRole("textbox", { name: "Mensagem" });
     expect(textarea.getAttribute("aria-invalid")).toBe("true");
     const describedBy = textarea.getAttribute("aria-describedby")?.split(" ") ?? [];
     const message = screen.getByText("Texto muito curto.");
     expect(describedBy).toContain(message.id);
-    expect(describedBy).toContain(screen.getByText("Seja breve.").id);
     expect(message.querySelector("svg")?.getAttribute("aria-hidden")).toBe("true");
     expect(box(textarea).hasAttribute("data-invalid")).toBe(true);
   });
