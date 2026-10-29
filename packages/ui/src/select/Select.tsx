@@ -98,7 +98,9 @@ export function Select({
         >
           {/* data-slot avisa as opções que estão no gatilho: lá o ícone (leading) aparece. */}
           <span data-slot="select-value" className="flex min-w-0 flex-1 items-center truncate">
-            <Value placeholder={placeholder} />
+            {/* Bloco flexível, e não linha de texto: ícone e nome centrados entre si, sem
+                depender da base das letras (que mudava com a fonte e a altura de linha). */}
+            <Value placeholder={placeholder} className="flex min-w-0 items-center" />
           </span>
           <Icon asChild>
             {/* A seta vira para cima com a lista aberta, como quem diz "fechar". */}
@@ -115,14 +117,15 @@ export function Select({
         <Portal>
           {/*
            * A lista abre logo abaixo do gatilho (popper), com pelo menos a largura dele, e no
-           * máximo a altura que cabe na tela. Mesmo balão do Toggletip, com a sombra de menus.
+           * máximo a altura que cabe na tela. Fundo surface, e não surface-overlay: no escuro,
+           * a lista fica no tom base da página, e quem a destaca é o contorno e a sombra de menus.
            */}
           <Content
             position="popper"
             className={cn(
               "z-50 min-w-[var(--radix-select-trigger-width)]",
               "max-h-[var(--radix-select-content-available-height)] overflow-hidden",
-              "rounded-xl bg-surface-overlay p-1 ring-1 ring-subtle shadow-overlay",
+              "rounded-xl bg-surface p-1 ring-1 ring-subtle shadow-overlay",
               "inset-shadow-highlight animate-enter-exit",
               "data-[side=bottom]:mt-1 data-[side=top]:mb-1",
             )}
@@ -174,6 +177,10 @@ export function SelectItem({
 }: SelectItemProps) {
   // Ícones e avatares ficam na primeira linha, numa caixa de uma linha de altura (1lh).
   const firstLine = "flex h-[1lh] shrink-0 items-center";
+  // O ícone da opção tem 20px, na lista e no gatilho, nos dois tamanhos: não muda ao ser
+  // escolhido. O data-slot dá peso extra à regra, para vencer os 16px dos outros ícones
+  // (check e, no gatilho sm, a regra da caixa do Input).
+  const leadingSize = "data-[slot=select-leading]:[&_svg]:size-5";
   const compact = useContext(SelectSizeContext) === "sm";
   // Uma linha só: tudo centrado, e no sm a linha tem 32px, a altura do gatilho. Com segunda
   // linha: tudo alinhado ao topo, para ícone, tag e check acompanharem a primeira linha.
@@ -202,7 +209,12 @@ export function SelectItem({
       {leading ? (
         <span
           aria-hidden="true"
-          className={cn(firstLine, "text-icon-subtle group-data-disabled/item:text-icon-disabled")}
+          data-slot="select-leading"
+          className={cn(
+            firstLine,
+            leadingSize,
+            "text-icon-subtle group-data-disabled/item:text-icon-disabled",
+          )}
         >
           {leading}
         </span>
@@ -213,11 +225,15 @@ export function SelectItem({
          * lista (já aparece à esquerda) e visível só dentro do gatilho (data-slot).
          */}
         <ItemText>
-          <span className="inline-flex min-w-0 items-center gap-2">
+          <span className="flex min-w-0 items-center gap-2">
             {leading ? (
               <span
                 aria-hidden="true"
-                className="hidden shrink-0 text-icon-subtle in-data-[slot=select-value]:inline-flex"
+                data-slot="select-leading"
+                className={cn(
+                  "hidden shrink-0 text-icon-subtle in-data-[slot=select-value]:inline-flex",
+                  leadingSize,
+                )}
               >
                 {leading}
               </span>
@@ -227,7 +243,8 @@ export function SelectItem({
         </ItemText>
         {/* Desabilitada, a opção inteira fica em cinza: o nome, a segunda linha e o ícone. */}
         {description ? (
-          <span className="text-body-md text-subtle group-data-disabled/item:text-disabled">
+          // body-sm: na lista, a segunda linha é um detalhe da opção, menor que o nome.
+          <span className="text-body-sm text-subtle group-data-disabled/item:text-disabled">
             {description}
           </span>
         ) : null}
@@ -240,7 +257,7 @@ export function SelectItem({
           oneLine ? "inset-y-0" : ["h-[1lh]", compact ? "top-1" : "top-2"],
         )}
       >
-        <IconCheck aria-hidden="true" className="text-icon-default" />
+        <IconCheck aria-hidden="true" className="size-4 text-icon-primary" />
       </ItemIndicator>
     </Item>
   );
@@ -256,7 +273,7 @@ export interface SelectGroupProps extends Omit<ComponentProps<typeof Group>, "as
 export function SelectGroup({ label, children, className, ...props }: SelectGroupProps) {
   return (
     <Group className={className} {...props}>
-      <Label className="px-3 pt-2 pb-1 text-label-sm text-subtle">{label}</Label>
+      <Label className="px-3 pt-2 pb-1 text-label-md text-subtle">{label}</Label>
       {children}
     </Group>
   );

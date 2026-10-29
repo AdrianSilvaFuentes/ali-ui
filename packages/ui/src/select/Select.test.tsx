@@ -63,11 +63,15 @@ describe("Select", () => {
     await user.tab();
     await user.keyboard("{Enter}");
     const brasil = screen.getByRole("option", { name: "Brasil" });
+    // A lista tem o fundo base (surface), e não o overlay, que no escuro fica mais claro.
+    expect(screen.getByRole("listbox").closest("[data-side]")?.className).toContain("bg-surface ");
     expect(brasil.getAttribute("aria-selected")).toBe("true");
     // Escolhida em bg-selected (tom da marca); destaque do mouse e das setas em neutral-hovered.
     expect(brasil.className).toContain("data-[state=checked]:bg-selected");
     expect(brasil.className).toContain("data-highlighted:bg-neutral-hovered");
-    expect(brasil.querySelector("svg")?.getAttribute("aria-hidden")).toBe("true");
+    const check = brasil.querySelector("svg");
+    expect(check?.getAttribute("aria-hidden")).toBe("true");
+    expect(check?.getAttribute("class")).toContain("text-icon-primary");
   });
 
   it("Esc fecha sem mudar a escolha", async () => {
@@ -172,6 +176,7 @@ describe("Select", () => {
     await user.keyboard("{Enter}");
     const option = screen.getByRole("option", { name: /Lia/ });
     expect(option.textContent).toContain("lia@exemplo.com");
+    expect(screen.getByText("lia@exemplo.com").className).toContain("text-body-sm");
     expect(option.textContent).toContain("Admin");
   });
 
@@ -193,7 +198,9 @@ describe("Select", () => {
     const groups = screen.getAllByRole("group");
     expect(groups).toHaveLength(2);
     expect(groups[0]?.getAttribute("aria-labelledby")).toBeTruthy();
-    expect(screen.getByText("Em casa")).toBeTruthy();
+    const title = screen.getByText("Em casa");
+    expect(title.className).toContain("text-label-md");
+    expect(title.className).toContain("text-subtle");
     // O separador é só visual: escondido do leitor de tela, que já ouve os títulos dos grupos.
     const separator = document.querySelector(".border-t.border-subtle");
     expect(separator?.getAttribute("aria-hidden")).toBe("true");

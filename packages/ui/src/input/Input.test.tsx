@@ -159,6 +159,11 @@ describe("Input", () => {
     expect(className).toContain("data-readonly:bg-readonly");
   });
 
+  it.each(["sm", "md"] as const)("no tamanho %s, os ícones têm 20px", (size) => {
+    render(<Input label="Buscar" size={size} iconLeft={<svg />} />);
+    expect(box(screen.getByRole("textbox")).className).toContain("[&_svg]:size-5");
+  });
+
   it("os ícones ficam escondidos do leitor de tela", () => {
     render(
       <Input

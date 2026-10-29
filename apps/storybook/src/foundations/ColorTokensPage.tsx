@@ -126,6 +126,7 @@ const colorGroup = {
   "icon-inverse": "icon-special",
   "icon-static-white": "icon-special",
   "icon-static-black": "icon-special",
+  "icon-primary": "icon-status",
   "icon-success": "icon-status",
   "icon-caution": "icon-status",
   "icon-warning": "icon-status",
