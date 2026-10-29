@@ -1111,9 +1111,9 @@ const DATA = {
     },
     {
       "name": "text/placeholder",
-      "light": "colors/neutral-light/neutral-light-500",
+      "light": "colors/neutral-light/neutral-light-400",
       "dark": "colors/neutral-dark/neutral-dark-200",
-      "description": "Placeholder de campos: mais claro que o texto digitado, para o campo não parecer preenchido.",
+      "description": "Placeholder de campos: bem mais claro que o texto digitado, para o campo não parecer preenchido. Só para exemplos; instruções vão na ajuda.",
       "scopes": [
         "TEXT_FILL"
       ]

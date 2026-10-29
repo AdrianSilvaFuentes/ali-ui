@@ -95,10 +95,10 @@ export const color = {
     description: "Texto secundário: legendas, dicas, metadados.",
   },
   "text-placeholder": {
-    light: neutralLight[500],
+    light: neutralLight[400],
     dark: neutralDark[200],
     description:
-      "Placeholder de campos: mais claro que o texto digitado, para o campo não parecer preenchido.",
+      "Placeholder de campos: bem mais claro que o texto digitado, para o campo não parecer preenchido. Só para exemplos; instruções vão na ajuda.",
   },
   "text-disabled": {
     light: neutralLight[400],
@@ -267,7 +267,9 @@ export const contrastPairs: readonly (readonly [ColorName, ColorName, number])[]
   ["text-default", "background-neutral-pressed", 4.5],
   ["text-danger", "background-neutral", 4.5],
   // Campo de texto (Input): placeholder, borda, ícone e erro sobre o fundo neutro.
-  ["text-placeholder", "background-neutral", 4.5],
+  // Exceção consciente: no claro, o placeholder fica com 3.28:1, abaixo dos 4.5:1 da WCAG AA,
+  // para o campo vazio não parecer preenchido. Por isso ele só leva exemplos, nunca instruções.
+  ["text-placeholder", "background-neutral", 3],
   // border-default é a borda do campo no hover e no foco; em repouso ele usa subtle (exceção consciente).
   ["border-default", "background-neutral", 3],
   ["icon-subtle", "background-neutral", 3],
