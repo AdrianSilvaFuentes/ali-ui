@@ -196,7 +196,9 @@ describe("Select", () => {
     const groups = screen.getAllByRole("group");
     expect(groups).toHaveLength(2);
     expect(groups[0]?.getAttribute("aria-labelledby")).toBeTruthy();
-    expect(screen.getByText("Em casa")).toBeTruthy();
+    const title = screen.getByText("Em casa");
+    expect(title.className).toContain("text-label-md");
+    expect(title.className).toContain("text-subtle");
     // O separador é só visual: escondido do leitor de tela, que já ouve os títulos dos grupos.
     const separator = document.querySelector(".border-t.border-subtle");
     expect(separator?.getAttribute("aria-hidden")).toBe("true");

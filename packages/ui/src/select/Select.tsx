@@ -272,7 +272,7 @@ export interface SelectGroupProps extends Omit<ComponentProps<typeof Group>, "as
 export function SelectGroup({ label, children, className, ...props }: SelectGroupProps) {
   return (
     <Group className={className} {...props}>
-      <Label className="px-3 pt-2 pb-1 text-label-sm text-subtle">{label}</Label>
+      <Label className="px-3 pt-2 pb-1 text-label-md text-subtle">{label}</Label>
       {children}
     </Group>
   );
