@@ -43,13 +43,13 @@ export const neutralDark = {
 
 /** Cor de marca: um verde-menta. É clara, então pede texto escuro por cima. */
 export const primary = {
-  50: "#f0fff9",
-  100: "#c8ffea",
-  200: "#a3ffda",
-  300: "#80ffca",
-  400: "#60feba",
-  500: "#43f7a9",
-  600: "#28ed98",
+  50: "#f2fdf8",
+  100: "#dff9ed",
+  200: "#c6f2df",
+  300: "#a9eacf",
+  400: "#88dfbd",
+  500: "#66d4ac",
+  600: "#45ca9e",
   700: "#26bf92",
   800: "#219381",
   900: "#1b6967",
