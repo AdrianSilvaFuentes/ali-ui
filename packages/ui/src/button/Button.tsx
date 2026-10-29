@@ -6,7 +6,7 @@ import { cn } from "../lib/cn.ts";
 export const buttonVariants = cva(
   [
     "relative isolate inline-flex shrink-0 items-center justify-center gap-2 overflow-hidden",
-    "rounded-lg whitespace-nowrap select-none",
+    "whitespace-nowrap select-none",
     "transition-colors duration-fast",
     "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus",
     "disabled:cursor-not-allowed aria-disabled:cursor-not-allowed",
@@ -55,9 +55,10 @@ export const buttonVariants = cva(
           "aria-disabled:bg-transparent aria-disabled:text-disabled",
         ],
       },
+      // O raio cresce com o tamanho para manter a mesma suavidade: 8px no sm, 12px no md.
       size: {
-        sm: "h-8 px-3 text-label-md [&_svg]:size-4",
-        md: "h-10 px-4 text-label-md [&_svg]:size-5",
+        sm: "h-8 px-3 rounded-lg text-label-md [&_svg]:size-4",
+        md: "h-10 px-4 rounded-xl text-label-md [&_svg]:size-5",
       },
     },
     defaultVariants: { variant: "primary", size: "md" },

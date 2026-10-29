@@ -41,7 +41,8 @@ const meta = {
     size: {
       control: "inline-radio",
       options: ["sm", "md"],
-      description: "Altura: sm 32px (tabelas, barras e cartões) e md 40px (padrão).",
+      description:
+        "Altura e raio: sm 32px com raio lg (8px), para tabelas, barras e cartões; md 40px com raio xl (12px), o padrão.",
       table: { defaultValue: { summary: "md" } },
     },
     disabled: {

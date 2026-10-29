@@ -97,11 +97,13 @@ describe("Button", () => {
   });
 
   it.each([
-    ["sm", "h-8"],
-    ["md", "h-10"],
-  ] as const)("tamanho %s usa a altura %s", (size, height) => {
+    ["sm", "h-8", "rounded-lg"],
+    ["md", "h-10", "rounded-xl"],
+  ] as const)("tamanho %s usa a altura %s e o raio %s", (size, height, radius) => {
     render(<Button size={size}>Salvar</Button>);
-    expect(screen.getByRole("button").className).toContain(height);
+    const { className } = screen.getByRole("button");
+    expect(className).toContain(height);
+    expect(className).toContain(radius);
   });
 
   it("aceita classes extras sem perder as do token", () => {
