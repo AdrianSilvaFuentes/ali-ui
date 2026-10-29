@@ -63,6 +63,8 @@ describe("Select", () => {
     await user.tab();
     await user.keyboard("{Enter}");
     const brasil = screen.getByRole("option", { name: "Brasil" });
+    // A lista tem o fundo base (surface), e não o overlay, que no escuro fica mais claro.
+    expect(screen.getByRole("listbox").closest("[data-side]")?.className).toContain("bg-surface ");
     expect(brasil.getAttribute("aria-selected")).toBe("true");
     // Escolhida em bg-selected (tom da marca); destaque do mouse e das setas em neutral-hovered.
     expect(brasil.className).toContain("data-[state=checked]:bg-selected");

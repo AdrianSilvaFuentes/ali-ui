@@ -117,14 +117,15 @@ export function Select({
         <Portal>
           {/*
            * A lista abre logo abaixo do gatilho (popper), com pelo menos a largura dele, e no
-           * máximo a altura que cabe na tela. Mesmo balão do Toggletip, com a sombra de menus.
+           * máximo a altura que cabe na tela. Fundo surface, e não surface-overlay: no escuro,
+           * a lista fica no tom base da página, e quem a destaca é o contorno e a sombra de menus.
            */}
           <Content
             position="popper"
             className={cn(
               "z-50 min-w-[var(--radix-select-trigger-width)]",
               "max-h-[var(--radix-select-content-available-height)] overflow-hidden",
-              "rounded-xl bg-surface-overlay p-1 ring-1 ring-subtle shadow-overlay",
+              "rounded-xl bg-surface p-1 ring-1 ring-subtle shadow-overlay",
               "inset-shadow-highlight animate-enter-exit",
               "data-[side=bottom]:mt-1 data-[side=top]:mb-1",
             )}
