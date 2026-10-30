@@ -106,43 +106,85 @@ export const color = {
     light: neutralLight[200],
     dark: neutralDark[800],
     description:
-      "Neutro, fundo suave: Tag no tom neutral. Sem borda, por isso um passo mais forte que o readonly no claro. Texto em default, ícone em icon-default.",
+      "Neutro, fundo suave: para o futuro Badge de status, no tom neutro. Para categorias, use background-category-*.",
   },
   "background-primary-subtle": {
     light: primary[100],
     dark: primary[950],
     description:
-      "Marca, fundo suave: Tag no tom primary. Texto em text-primary, ícone em icon-primary.",
+      "Marca, fundo suave, que acompanha a marca escolhida. Para categorias, use background-category-*.",
   },
   "background-info-subtle": {
     light: blue[100],
     dark: blue[950],
     description:
-      "Informação, fundo suave: Tag no tom info. Texto em text-info, ícone em icon-info.",
+      "Informação, fundo suave, com significado de status (para o futuro Badge de status). Para categorias, use background-category-*.",
   },
   "background-success-subtle": {
     light: green[100],
     dark: green[950],
     description:
-      "Sucesso, fundo suave: Tag no tom success. Texto em text-success, ícone em icon-success.",
+      "Sucesso, fundo suave, com significado de status (para o futuro Badge de status). Para categorias, use background-category-*.",
   },
   "background-caution-subtle": {
     light: yellow[100],
     dark: yellow[950],
     description:
-      "Atenção leve, fundo suave: Tag no tom caution. Texto em text-caution, ícone em icon-caution.",
+      "Atenção leve, fundo suave, com significado de status (para o futuro Badge de status). Para categorias, use background-category-*.",
   },
   "background-warning-subtle": {
     light: orange[100],
     dark: orange[950],
     description:
-      "Aviso, fundo suave: Tag no tom warning. Texto em text-warning, ícone em icon-warning.",
+      "Aviso, fundo suave, com significado de status (para o futuro Badge de status). Para categorias, use background-category-*.",
   },
   "background-danger-subtle": {
     light: red[100],
     dark: red[950],
     description:
-      "Risco, fundo suave: Tag no tom danger. Texto em text-danger, ícone em icon-danger.",
+      "Risco, fundo suave, com significado de status (para o futuro Badge de status). Para categorias, use background-category-*.",
+  },
+  "background-category-gray": {
+    light: neutralLight[200],
+    dark: neutralDark[800],
+    description:
+      "Categoria Cinza, fundo suave: Tag color=gray. Cor de tipo de conteúdo, sem significado de status. Texto em text-category-gray, ícone em icon-category-gray.",
+  },
+  "background-category-teal": {
+    light: teal[100],
+    dark: teal[950],
+    description:
+      "Categoria Verde-água, fundo suave: Tag color=teal. Cor de tipo de conteúdo, sem significado de status. Texto em text-category-teal, ícone em icon-category-teal.",
+  },
+  "background-category-blue": {
+    light: blue[100],
+    dark: blue[950],
+    description:
+      "Categoria Azul, fundo suave: Tag color=blue. Cor de tipo de conteúdo, sem significado de status. Texto em text-category-blue, ícone em icon-category-blue.",
+  },
+  "background-category-green": {
+    light: green[100],
+    dark: green[950],
+    description:
+      "Categoria Verde, fundo suave: Tag color=green. Cor de tipo de conteúdo, sem significado de status. Texto em text-category-green, ícone em icon-category-green.",
+  },
+  "background-category-yellow": {
+    light: yellow[100],
+    dark: yellow[950],
+    description:
+      "Categoria Amarelo, fundo suave: Tag color=yellow. Cor de tipo de conteúdo, sem significado de status. Texto em text-category-yellow, ícone em icon-category-yellow.",
+  },
+  "background-category-orange": {
+    light: orange[100],
+    dark: orange[950],
+    description:
+      "Categoria Laranja, fundo suave: Tag color=orange. Cor de tipo de conteúdo, sem significado de status. Texto em text-category-orange, ícone em icon-category-orange.",
+  },
+  "background-category-red": {
+    light: red[100],
+    dark: red[950],
+    description:
+      "Categoria Vermelho, fundo suave: Tag color=red. Cor de tipo de conteúdo, sem significado de status. Texto em text-category-red, ícone em icon-category-red.",
   },
   "text-default": {
     light: neutralLight[900],
@@ -189,7 +231,7 @@ export const color = {
     light: primary[900],
     dark: primary[400],
     description:
-      "Texto na cor de marca sobre background-primary-subtle (Tag). No escuro, mais claro que o text-link, para ler em todas as marcas.",
+      "Texto na cor de marca sobre background-primary-subtle. No escuro, mais claro que o text-link, para ler em todas as marcas.",
   },
   "text-success": {
     light: green[900],
@@ -215,6 +257,41 @@ export const color = {
     light: blue[800],
     dark: blue[300],
     description: "Informação neutra: dicas e novidades.",
+  },
+  "text-category-gray": {
+    light: neutralLight[900],
+    dark: neutralDark[50],
+    description: "Texto da categoria Cinza sobre background-category-gray (Tag).",
+  },
+  "text-category-teal": {
+    light: teal[900],
+    dark: teal[400],
+    description: "Texto da categoria Verde-água sobre background-category-teal (Tag).",
+  },
+  "text-category-blue": {
+    light: blue[800],
+    dark: blue[300],
+    description: "Texto da categoria Azul sobre background-category-blue (Tag).",
+  },
+  "text-category-green": {
+    light: green[900],
+    dark: green[300],
+    description: "Texto da categoria Verde sobre background-category-green (Tag).",
+  },
+  "text-category-yellow": {
+    light: yellow[900],
+    dark: yellow[300],
+    description: "Texto da categoria Amarelo sobre background-category-yellow (Tag).",
+  },
+  "text-category-orange": {
+    light: orange[800],
+    dark: orange[300],
+    description: "Texto da categoria Laranja sobre background-category-orange (Tag).",
+  },
+  "text-category-red": {
+    light: red[800],
+    dark: red[300],
+    description: "Texto da categoria Vermelho sobre background-category-red (Tag).",
   },
   "icon-default": {
     light: neutralLight[700],
@@ -276,6 +353,41 @@ export const color = {
     light: blue[700],
     dark: blue[400],
     description: "Ícone de informação.",
+  },
+  "icon-category-gray": {
+    light: neutralLight[700],
+    dark: neutralDark[100],
+    description: "Ícone da categoria Cinza sobre background-category-gray (Tag).",
+  },
+  "icon-category-teal": {
+    light: teal[800],
+    dark: teal[400],
+    description: "Ícone da categoria Verde-água sobre background-category-teal (Tag).",
+  },
+  "icon-category-blue": {
+    light: blue[700],
+    dark: blue[400],
+    description: "Ícone da categoria Azul sobre background-category-blue (Tag).",
+  },
+  "icon-category-green": {
+    light: green[800],
+    dark: green[400],
+    description: "Ícone da categoria Verde sobre background-category-green (Tag).",
+  },
+  "icon-category-yellow": {
+    light: yellow[800],
+    dark: yellow[400],
+    description: "Ícone da categoria Amarelo sobre background-category-yellow (Tag).",
+  },
+  "icon-category-orange": {
+    light: orange[700],
+    dark: orange[400],
+    description: "Ícone da categoria Laranja sobre background-category-orange (Tag).",
+  },
+  "icon-category-red": {
+    light: red[800],
+    dark: red[300],
+    description: "Ícone da categoria Vermelho sobre background-category-red (Tag).",
   },
   "border-default": {
     light: neutralLight[400],
@@ -464,7 +576,22 @@ export const contrastPairs: readonly (readonly [ColorName, ColorName, number])[]
   ["icon-info", "surface-sunken", 3],
   ["icon-info", "surface-raised", 3],
   ["icon-info", "surface-overlay", 3],
-  // Tag: texto e ícone de cada tom sobre o próprio fundo suave.
+  // Tag: texto e ícone de cada categoria sobre o próprio fundo suave.
+  ["text-category-gray", "background-category-gray", 4.5],
+  ["icon-category-gray", "background-category-gray", 3],
+  ["text-category-teal", "background-category-teal", 4.5],
+  ["icon-category-teal", "background-category-teal", 3],
+  ["text-category-blue", "background-category-blue", 4.5],
+  ["icon-category-blue", "background-category-blue", 3],
+  ["text-category-green", "background-category-green", 4.5],
+  ["icon-category-green", "background-category-green", 3],
+  ["text-category-yellow", "background-category-yellow", 4.5],
+  ["icon-category-yellow", "background-category-yellow", 3],
+  ["text-category-orange", "background-category-orange", 4.5],
+  ["icon-category-orange", "background-category-orange", 3],
+  ["text-category-red", "background-category-red", 4.5],
+  ["icon-category-red", "background-category-red", 3],
+  // Status: texto e ícone de cada tom sobre o próprio fundo suave (futuro Badge de status).
   ["text-default", "background-neutral-subtle", 4.5],
   ["icon-default", "background-neutral-subtle", 3],
   ["text-primary", "background-primary-subtle", 4.5],

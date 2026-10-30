@@ -30,29 +30,28 @@ describe("Tag", () => {
     expect(tag.textContent).toBe("Design");
   });
 
-  it("padrão: tom neutro, tamanho md, sombra mínima, brilho no topo e sem borda", () => {
+  it("padrão: cor gray, tamanho md, sombra mínima, brilho no topo e sem borda", () => {
     render(<Tag>Design</Tag>);
     const { className } = screen.getByText("Design");
-    expect(className).toContain("bg-neutral-subtle");
+    expect(className).toContain("bg-category-gray");
     expect(className).toContain("h-6");
     expect(className).toContain("shadow-xs");
     expect(className).toContain("inset-shadow-highlight");
     expect(className).not.toMatch(/\bborder\b/);
   });
 
-  it.each([
-    ["primary", "bg-primary-subtle", "text-primary"],
-    ["info", "bg-info-subtle", "text-info"],
-    ["success", "bg-success-subtle", "text-success"],
-    ["caution", "bg-caution-subtle", "text-caution"],
-    ["warning", "bg-warning-subtle", "text-warning"],
-    ["danger", "bg-danger-subtle", "text-danger"],
-  ] as const)("tom %s: fundo %s e texto %s", (tone, bg, text) => {
-    render(<Tag tone={tone}>Design</Tag>);
-    const { className } = screen.getByText("Design");
-    expect(className).toContain(bg);
-    expect(className).toContain(text);
-  });
+  it.each(["gray", "teal", "blue", "green", "yellow", "orange", "red"] as const)(
+    "cor %s: fundo, texto e ícone nos tokens de categoria",
+    (color) => {
+      render(<Tag color={color}>Design</Tag>);
+      const { className } = screen.getByText("Design");
+      expect(className).toContain(`bg-category-${color}`);
+      expect(className).toContain(`text-category-${color}`);
+      expect(className).toContain(`[&_svg]:text-icon-category-${color}`);
+      // Categoria, não status: nenhum token de status na tag.
+      expect(className).not.toMatch(/danger|success|warning|caution|info/);
+    },
+  );
 
   it.each([
     ["sm", "h-5", "rounded-sm", "text-label-sm", "[&_[data-slot=tag-icon]_svg]:size-3"],

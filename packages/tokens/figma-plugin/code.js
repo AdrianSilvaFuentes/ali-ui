@@ -1115,7 +1115,7 @@ const DATA = {
       "name": "background/neutral-subtle",
       "light": "colors/neutral-light/neutral-light-200",
       "dark": "colors/neutral-dark/neutral-dark-800",
-      "description": "Neutro, fundo suave: Tag no tom neutral. Sem borda, por isso um passo mais forte que o readonly no claro. Texto em default, ícone em icon-default.",
+      "description": "Neutro, fundo suave: para o futuro Badge de status, no tom neutro. Para categorias, use background-category-*.",
       "scopes": [
         "FRAME_FILL",
         "SHAPE_FILL"
@@ -1125,7 +1125,7 @@ const DATA = {
       "name": "background/primary-subtle",
       "light": "colors/teal/teal-100",
       "dark": "colors/teal/teal-950",
-      "description": "Marca, fundo suave: Tag no tom primary. Texto em text-primary, ícone em icon-primary.",
+      "description": "Marca, fundo suave, que acompanha a marca escolhida. Para categorias, use background-category-*.",
       "scopes": [
         "FRAME_FILL",
         "SHAPE_FILL"
@@ -1135,7 +1135,7 @@ const DATA = {
       "name": "background/info-subtle",
       "light": "colors/blue/blue-100",
       "dark": "colors/blue/blue-950",
-      "description": "Informação, fundo suave: Tag no tom info. Texto em text-info, ícone em icon-info.",
+      "description": "Informação, fundo suave, com significado de status (para o futuro Badge de status). Para categorias, use background-category-*.",
       "scopes": [
         "FRAME_FILL",
         "SHAPE_FILL"
@@ -1145,7 +1145,7 @@ const DATA = {
       "name": "background/success-subtle",
       "light": "colors/green/green-100",
       "dark": "colors/green/green-950",
-      "description": "Sucesso, fundo suave: Tag no tom success. Texto em text-success, ícone em icon-success.",
+      "description": "Sucesso, fundo suave, com significado de status (para o futuro Badge de status). Para categorias, use background-category-*.",
       "scopes": [
         "FRAME_FILL",
         "SHAPE_FILL"
@@ -1155,7 +1155,7 @@ const DATA = {
       "name": "background/caution-subtle",
       "light": "colors/yellow/yellow-100",
       "dark": "colors/yellow/yellow-950",
-      "description": "Atenção leve, fundo suave: Tag no tom caution. Texto em text-caution, ícone em icon-caution.",
+      "description": "Atenção leve, fundo suave, com significado de status (para o futuro Badge de status). Para categorias, use background-category-*.",
       "scopes": [
         "FRAME_FILL",
         "SHAPE_FILL"
@@ -1165,7 +1165,7 @@ const DATA = {
       "name": "background/warning-subtle",
       "light": "colors/orange/orange-100",
       "dark": "colors/orange/orange-950",
-      "description": "Aviso, fundo suave: Tag no tom warning. Texto em text-warning, ícone em icon-warning.",
+      "description": "Aviso, fundo suave, com significado de status (para o futuro Badge de status). Para categorias, use background-category-*.",
       "scopes": [
         "FRAME_FILL",
         "SHAPE_FILL"
@@ -1175,7 +1175,77 @@ const DATA = {
       "name": "background/danger-subtle",
       "light": "colors/red/red-100",
       "dark": "colors/red/red-950",
-      "description": "Risco, fundo suave: Tag no tom danger. Texto em text-danger, ícone em icon-danger.",
+      "description": "Risco, fundo suave, com significado de status (para o futuro Badge de status). Para categorias, use background-category-*.",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ]
+    },
+    {
+      "name": "background/category-gray",
+      "light": "colors/neutral-light/neutral-light-200",
+      "dark": "colors/neutral-dark/neutral-dark-800",
+      "description": "Categoria Cinza, fundo suave: Tag color=gray. Cor de tipo de conteúdo, sem significado de status. Texto em text-category-gray, ícone em icon-category-gray.",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ]
+    },
+    {
+      "name": "background/category-teal",
+      "light": "colors/teal/teal-100",
+      "dark": "colors/teal/teal-950",
+      "description": "Categoria Verde-água, fundo suave: Tag color=teal. Cor de tipo de conteúdo, sem significado de status. Texto em text-category-teal, ícone em icon-category-teal.",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ]
+    },
+    {
+      "name": "background/category-blue",
+      "light": "colors/blue/blue-100",
+      "dark": "colors/blue/blue-950",
+      "description": "Categoria Azul, fundo suave: Tag color=blue. Cor de tipo de conteúdo, sem significado de status. Texto em text-category-blue, ícone em icon-category-blue.",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ]
+    },
+    {
+      "name": "background/category-green",
+      "light": "colors/green/green-100",
+      "dark": "colors/green/green-950",
+      "description": "Categoria Verde, fundo suave: Tag color=green. Cor de tipo de conteúdo, sem significado de status. Texto em text-category-green, ícone em icon-category-green.",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ]
+    },
+    {
+      "name": "background/category-yellow",
+      "light": "colors/yellow/yellow-100",
+      "dark": "colors/yellow/yellow-950",
+      "description": "Categoria Amarelo, fundo suave: Tag color=yellow. Cor de tipo de conteúdo, sem significado de status. Texto em text-category-yellow, ícone em icon-category-yellow.",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ]
+    },
+    {
+      "name": "background/category-orange",
+      "light": "colors/orange/orange-100",
+      "dark": "colors/orange/orange-950",
+      "description": "Categoria Laranja, fundo suave: Tag color=orange. Cor de tipo de conteúdo, sem significado de status. Texto em text-category-orange, ícone em icon-category-orange.",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ]
+    },
+    {
+      "name": "background/category-red",
+      "light": "colors/red/red-100",
+      "dark": "colors/red/red-950",
+      "description": "Categoria Vermelho, fundo suave: Tag color=red. Cor de tipo de conteúdo, sem significado de status. Texto em text-category-red, ícone em icon-category-red.",
       "scopes": [
         "FRAME_FILL",
         "SHAPE_FILL"
@@ -1257,7 +1327,7 @@ const DATA = {
       "name": "text/primary",
       "light": "colors/teal/teal-900",
       "dark": "colors/teal/teal-400",
-      "description": "Texto na cor de marca sobre background-primary-subtle (Tag). No escuro, mais claro que o text-link, para ler em todas as marcas.",
+      "description": "Texto na cor de marca sobre background-primary-subtle. No escuro, mais claro que o text-link, para ler em todas as marcas.",
       "scopes": [
         "TEXT_FILL"
       ]
@@ -1303,6 +1373,69 @@ const DATA = {
       "light": "colors/blue/blue-800",
       "dark": "colors/blue/blue-300",
       "description": "Informação neutra: dicas e novidades.",
+      "scopes": [
+        "TEXT_FILL"
+      ]
+    },
+    {
+      "name": "text/category-gray",
+      "light": "colors/neutral-light/neutral-light-900",
+      "dark": "colors/neutral-dark/neutral-dark-50",
+      "description": "Texto da categoria Cinza sobre background-category-gray (Tag).",
+      "scopes": [
+        "TEXT_FILL"
+      ]
+    },
+    {
+      "name": "text/category-teal",
+      "light": "colors/teal/teal-900",
+      "dark": "colors/teal/teal-400",
+      "description": "Texto da categoria Verde-água sobre background-category-teal (Tag).",
+      "scopes": [
+        "TEXT_FILL"
+      ]
+    },
+    {
+      "name": "text/category-blue",
+      "light": "colors/blue/blue-800",
+      "dark": "colors/blue/blue-300",
+      "description": "Texto da categoria Azul sobre background-category-blue (Tag).",
+      "scopes": [
+        "TEXT_FILL"
+      ]
+    },
+    {
+      "name": "text/category-green",
+      "light": "colors/green/green-900",
+      "dark": "colors/green/green-300",
+      "description": "Texto da categoria Verde sobre background-category-green (Tag).",
+      "scopes": [
+        "TEXT_FILL"
+      ]
+    },
+    {
+      "name": "text/category-yellow",
+      "light": "colors/yellow/yellow-900",
+      "dark": "colors/yellow/yellow-300",
+      "description": "Texto da categoria Amarelo sobre background-category-yellow (Tag).",
+      "scopes": [
+        "TEXT_FILL"
+      ]
+    },
+    {
+      "name": "text/category-orange",
+      "light": "colors/orange/orange-800",
+      "dark": "colors/orange/orange-300",
+      "description": "Texto da categoria Laranja sobre background-category-orange (Tag).",
+      "scopes": [
+        "TEXT_FILL"
+      ]
+    },
+    {
+      "name": "text/category-red",
+      "light": "colors/red/red-800",
+      "dark": "colors/red/red-300",
+      "description": "Texto da categoria Vermelho sobre background-category-red (Tag).",
       "scopes": [
         "TEXT_FILL"
       ]
@@ -1422,6 +1555,76 @@ const DATA = {
       "light": "colors/blue/blue-700",
       "dark": "colors/blue/blue-400",
       "description": "Ícone de informação.",
+      "scopes": [
+        "SHAPE_FILL",
+        "STROKE_COLOR"
+      ]
+    },
+    {
+      "name": "icon/category-gray",
+      "light": "colors/neutral-light/neutral-light-700",
+      "dark": "colors/neutral-dark/neutral-dark-100",
+      "description": "Ícone da categoria Cinza sobre background-category-gray (Tag).",
+      "scopes": [
+        "SHAPE_FILL",
+        "STROKE_COLOR"
+      ]
+    },
+    {
+      "name": "icon/category-teal",
+      "light": "colors/teal/teal-800",
+      "dark": "colors/teal/teal-400",
+      "description": "Ícone da categoria Verde-água sobre background-category-teal (Tag).",
+      "scopes": [
+        "SHAPE_FILL",
+        "STROKE_COLOR"
+      ]
+    },
+    {
+      "name": "icon/category-blue",
+      "light": "colors/blue/blue-700",
+      "dark": "colors/blue/blue-400",
+      "description": "Ícone da categoria Azul sobre background-category-blue (Tag).",
+      "scopes": [
+        "SHAPE_FILL",
+        "STROKE_COLOR"
+      ]
+    },
+    {
+      "name": "icon/category-green",
+      "light": "colors/green/green-800",
+      "dark": "colors/green/green-400",
+      "description": "Ícone da categoria Verde sobre background-category-green (Tag).",
+      "scopes": [
+        "SHAPE_FILL",
+        "STROKE_COLOR"
+      ]
+    },
+    {
+      "name": "icon/category-yellow",
+      "light": "colors/yellow/yellow-800",
+      "dark": "colors/yellow/yellow-400",
+      "description": "Ícone da categoria Amarelo sobre background-category-yellow (Tag).",
+      "scopes": [
+        "SHAPE_FILL",
+        "STROKE_COLOR"
+      ]
+    },
+    {
+      "name": "icon/category-orange",
+      "light": "colors/orange/orange-700",
+      "dark": "colors/orange/orange-400",
+      "description": "Ícone da categoria Laranja sobre background-category-orange (Tag).",
+      "scopes": [
+        "SHAPE_FILL",
+        "STROKE_COLOR"
+      ]
+    },
+    {
+      "name": "icon/category-red",
+      "light": "colors/red/red-800",
+      "dark": "colors/red/red-300",
+      "description": "Ícone da categoria Vermelho sobre background-category-red (Tag).",
       "scopes": [
         "SHAPE_FILL",
         "STROKE_COLOR"

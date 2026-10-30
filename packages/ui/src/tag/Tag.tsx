@@ -4,7 +4,7 @@ import type { ComponentProps, KeyboardEvent, ReactNode } from "react";
 import { cn } from "../lib/cn.ts";
 
 /**
- * Etiqueta retangular: fundo suave no tom, canto pequeno, sombra mínima e brilho no topo, sem
+ * Etiqueta retangular: fundo suave na cor, canto pequeno, sombra mínima e brilho no topo, sem
  * borda. É texto, não controle: sem hover e sem foco. O significado vem sempre do texto, nunca
  * só da cor.
  */
@@ -16,15 +16,16 @@ export const tagVariants = cva(
   ],
   {
     variants: {
-      // Cada tom escolhe fundo, texto e ícone.
-      tone: {
-        neutral: "bg-neutral-subtle text-default [&_svg]:text-icon-default",
-        primary: "bg-primary-subtle text-primary [&_svg]:text-icon-primary",
-        info: "bg-info-subtle text-info [&_svg]:text-icon-info",
-        success: "bg-success-subtle text-success [&_svg]:text-icon-success",
-        caution: "bg-caution-subtle text-caution [&_svg]:text-icon-caution",
-        warning: "bg-warning-subtle text-warning [&_svg]:text-icon-warning",
-        danger: "bg-danger-subtle text-danger [&_svg]:text-icon-danger",
+      // Cada cor escolhe fundo, texto e ícone nos tokens de categoria: a cor diz o tipo de
+      // conteúdo, não um status. Vermelho aqui não é erro (para status, o futuro Badge).
+      color: {
+        gray: "bg-category-gray text-category-gray [&_svg]:text-icon-category-gray",
+        teal: "bg-category-teal text-category-teal [&_svg]:text-icon-category-teal",
+        blue: "bg-category-blue text-category-blue [&_svg]:text-icon-category-blue",
+        green: "bg-category-green text-category-green [&_svg]:text-icon-category-green",
+        yellow: "bg-category-yellow text-category-yellow [&_svg]:text-icon-category-yellow",
+        orange: "bg-category-orange text-category-orange [&_svg]:text-icon-category-orange",
+        red: "bg-category-red text-category-red [&_svg]:text-icon-category-red",
       },
       // Ícone um pouco maior que o texto. O canto diminui com o tamanho. A regra mira o
       // data-slot dos ícones, e não só "svg": assim pesa mais que a de quem está em volta
@@ -34,7 +35,7 @@ export const tagVariants = cva(
         md: "h-6 rounded-md gap-1 px-2 text-label-sm [&_[data-slot=tag-icon]_svg]:size-3.5",
       },
     },
-    defaultVariants: { tone: "neutral", size: "md" },
+    defaultVariants: { color: "gray", size: "md" },
   },
 );
 
@@ -65,11 +66,11 @@ const removeVariants = cva(
 );
 
 export interface TagProps
-  extends Omit<ComponentProps<"span">, "children">,
+  extends Omit<ComponentProps<"span">, "children" | "color">,
     VariantProps<typeof tagVariants> {
   /** O texto da etiqueta. */
   children: ReactNode;
-  /** Ícone antes do texto: `icon={<IconTag />}`. Decorativo; ganha o tamanho e a cor do tom. */
+  /** Ícone antes do texto: `icon={<IconTag />}`. Decorativo; ganha o tamanho e a cor da etiqueta. */
   icon?: ReactNode;
   /** Mostra o X no fim da tag e é chamado ao clicar nele ou ao apertar Delete ou Backspace. */
   onRemove?: () => void;
@@ -81,12 +82,12 @@ export interface TagProps
 }
 
 /**
- * Etiqueta retangular para categorizar: texto curto, com ícone opcional, em sete tons. Com
+ * Etiqueta retangular para categorizar: texto curto, com ícone opcional, em sete cores. Com
  * `onRemove`, ganha um X para remover; depois de remover, leve o foco para outro lugar.
  */
 export function Tag({
   className,
-  tone,
+  color,
   size,
   icon,
   onRemove,
@@ -105,7 +106,7 @@ export function Tag({
   };
 
   return (
-    <span className={cn(tagVariants({ tone, size }), className)} {...props}>
+    <span className={cn(tagVariants({ color, size }), className)} {...props}>
       {/* O ícone não é anunciado: o nome da etiqueta é o texto. */}
       {icon ? (
         <span aria-hidden="true" data-slot="tag-icon" className="inline-flex">

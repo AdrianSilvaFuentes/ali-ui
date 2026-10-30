@@ -16,13 +16,15 @@ import { Input, inputVariants } from "../input/Input.tsx";
 import { cn } from "../lib/cn.ts";
 import { FieldLabel } from "../lib/FieldLabel.tsx";
 import { FieldError, FieldHelp } from "../lib/FieldMessage.tsx";
-import { Tag } from "../tag/Tag.tsx";
+import { Tag, type TagProps } from "../tag/Tag.tsx";
 
 export interface MultiSelectOption {
   /** O valor guardado na escolha. Único na lista. */
   value: string;
   /** O nome da opção, na lista e na tag. */
   label: string;
+  /** Cor da categoria, na tag do campo e na da lista. Diz o tipo, não um status. Padrão: gray. */
+  color?: TagProps["color"];
   /** Ícone decorativo antes do nome, na tag do campo e na da lista: `icon={<IconMusic />}`. */
   icon?: ReactNode;
   /** Aparece na lista, mas não pode ser escolhida. */
@@ -354,7 +356,12 @@ export function MultiSelect({
                       }
                       className="flex shrink-0 animate-pop-out"
                     >
-                      <Tag size="md" icon={option.icon} onRemove={disabled ? undefined : () => {}}>
+                      <Tag
+                        size="md"
+                        icon={option.icon}
+                        color={option.color}
+                        onRemove={disabled ? undefined : () => {}}
+                      >
                         {option.label}
                       </Tag>
                     </li>
@@ -370,6 +377,7 @@ export function MultiSelect({
                       <Tag
                         size="md"
                         icon={option.icon}
+                        color={option.color}
                         onRemove={disabled ? undefined : () => remove(index)}
                       >
                         {option.label}
@@ -517,6 +525,7 @@ export function MultiSelect({
                     <Tag
                       size="md"
                       icon={option.icon}
+                      color={option.color}
                       className={cn(option.disabled && "text-disabled [&_svg]:text-icon-disabled")}
                     >
                       {option.label}
