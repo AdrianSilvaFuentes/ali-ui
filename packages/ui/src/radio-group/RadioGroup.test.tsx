@@ -132,6 +132,7 @@ describe("RadioGroup", () => {
     expect(pro.className).toContain("rounded-full");
     expect(pro.className).toContain("before:bg-gradient-brand");
     expect(pro.className).toContain("border-subtle");
+    expect(pro.className).toContain("shadow-xs");
     await user.click(pro);
     expect(pro.querySelector("[data-state]")?.className).toContain(
       "data-[state=checked]:animate-scale-in",
