@@ -402,6 +402,31 @@ export function MultiSelect({
     });
   }, [layoutKey]);
 
+  // Quando a ordem das tags muda sem arrasto (lista reordenada, Alt+setas), cada tag desliza
+  // de onde estava até o lugar novo, em duration-fast. Guarda onde cada uma estava a cada render.
+  const tagRects = useRef(new Map<string, DOMRect>());
+  const orderKey = useRef(selected.join("\n"));
+  useLayoutEffect(() => {
+    const key = selected.join("\n");
+    const reordered = key !== orderKey.current;
+    orderKey.current = key;
+    const list = tagsRef.current;
+    const items = list ? [...list.querySelectorAll<HTMLElement>(":scope > [data-value]")] : [];
+    const duration = reordered && list ? fastDuration(list) : 0;
+    const rects = new Map<string, DOMRect>();
+    for (const item of items) {
+      const value = item.dataset.value ?? "";
+      const rect = layoutRect(item);
+      const old = tagRects.current.get(value);
+      rects.set(value, rect);
+      if (!duration || !old) continue;
+      const dx = old.left - rect.left;
+      const dy = old.top - rect.top;
+      if (dx || dy) slide(item, `translate(${dx}px, ${dy}px)`, duration);
+    }
+    tagRects.current = rects;
+  });
+
   const visible = useMemo(() => {
     const term = normalize(query.trim());
     return term ? options.filter((option) => normalize(option.label).includes(term)) : options;
@@ -637,6 +662,7 @@ export function MultiSelect({
                   ) : (
                     <li
                       key={option.value}
+                      data-value={option.value}
                       {...(disabled ? {} : tagDrag.itemProps(index))}
                       onClick={(event) => {
                         if (!disabled && !(event.target as Element).closest("button")) {
