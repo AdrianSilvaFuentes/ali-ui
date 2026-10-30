@@ -53,6 +53,42 @@ function Controlled() {
   return <Tools value={value} onValueChange={setValue} />;
 }
 
+/** Com criação: as opções criadas entram na lista, guardadas aqui fora. */
+function Creatable({ onValueChange }: { onValueChange?: (value: string[]) => void }) {
+  const [options, setOptions] = useState(interests);
+  const [value, setValue] = useState<string[]>([]);
+  return (
+    <Tools
+      options={options}
+      value={value}
+      onValueChange={(next) => {
+        setValue(next);
+        onValueChange?.(next);
+      }}
+      onCreate={(label) => {
+        const option = { value: label.toLowerCase(), label };
+        setOptions((list) => [...list, option]);
+        return option;
+      }}
+    />
+  );
+}
+
+/** Três escolhidas, controlado, para ver a ordem mudar. */
+function Ordered({ onValueChange }: { onValueChange: (value: string[]) => void }) {
+  const [value, setValue] = useState(["tipografia", "fotografia", "musica"]);
+  return (
+    <Tools
+      value={value}
+      onValueChange={(next) => {
+        setValue(next);
+        onValueChange(next);
+      }}
+      onOptionsReorder={() => {}}
+    />
+  );
+}
+
 describe("MultiSelect", () => {
   it("o botão tem o nome do label mais o que está escolhido", () => {
     render(<Tools defaultValue={["tipografia", "fotografia"]} />);
@@ -154,7 +190,7 @@ describe("MultiSelect", () => {
     expect(screen.getAllByRole("option").map((o) => o.textContent)).toEqual(["Música"]);
     await user.keyboard("xyz");
     expect(screen.queryAllByRole("option")).toHaveLength(0);
-    expect(screen.getByRole("status").textContent).toBe("Nenhuma opção encontrada");
+    expect(screen.getByText("Nenhuma opção encontrada").getAttribute("role")).toBe("status");
   });
 
   it("Esc fecha, devolve o foco ao campo e limpa a busca", async () => {
@@ -227,6 +263,165 @@ describe("MultiSelect", () => {
     expect(tags()).toHaveLength(6);
     expect(screen.queryByText("+5")).toBeNull();
     for (const spy of spies) spy.mockRestore();
+  });
+
+  it("Enter num texto novo cria a opção, escolhe e limpa a busca", async () => {
+    const user = userEvent.setup();
+    const onValueChange = vi.fn();
+    render(<Creatable onValueChange={onValueChange} />);
+    await user.tab();
+    await user.keyboard("{Enter}");
+    await user.keyboard("Design");
+    const create = screen.getByRole("option", { name: "Criar “Design”" });
+    expect(
+      screen.getByRole("combobox", { name: "Buscar opção" }).getAttribute("aria-activedescendant"),
+    ).toBe(create.id);
+    expect(screen.queryByText("Nenhuma opção encontrada")).toBeNull();
+    await user.keyboard("{Enter}");
+    expect(onValueChange).toHaveBeenLastCalledWith(["design"]);
+    expect(screen.getByRole("combobox", { name: "Buscar opção" })).toHaveProperty("value", "");
+    expect(screen.getByRole("option", { name: "Design" }).getAttribute("aria-selected")).toBe(
+      "true",
+    );
+  });
+
+  it("não oferece criar um nome que já existe, nem sem onCreate", async () => {
+    const user = userEvent.setup();
+    const { unmount } = render(<Creatable />);
+    await user.click(screen.getByRole("button"));
+    await user.keyboard("musica");
+    expect(screen.queryByRole("option", { name: /Criar/ })).toBeNull();
+    // Com parecidas, a primeira fica em destaque e a de criar fica no fim, pelas setas.
+    await user.clear(screen.getByRole("combobox"));
+    await user.keyboard("Tipo{ArrowDown}{Enter}");
+    expect(screen.getByRole("option", { name: "Tipo" }).getAttribute("aria-selected")).toBe("true");
+    unmount();
+    render(<Tools />);
+    await user.click(screen.getByRole("button"));
+    await user.keyboard("Design");
+    expect(screen.queryByRole("option", { name: /Criar/ })).toBeNull();
+    expect(screen.getByText("Nenhuma opção encontrada")).toBeTruthy();
+  });
+
+  it("Alt+setas no X movem a tag, o foco vai junto e o leitor de tela ouve o lugar novo", async () => {
+    const user = userEvent.setup();
+    const onValueChange = vi.fn();
+    render(<Ordered onValueChange={onValueChange} />);
+    screen.getByRole("button", { name: "Remover Tipografia" }).focus();
+    await user.keyboard("{Alt>}{ArrowRight}{/Alt}");
+    expect(onValueChange).toHaveBeenLastCalledWith(["fotografia", "tipografia", "musica"]);
+    expect(document.activeElement).toBe(screen.getByRole("button", { name: "Remover Tipografia" }));
+    expect(screen.getByText("Tipografia, posição 2 de 3").getAttribute("role")).toBe("status");
+    // No começo, Alt+← não faz nada.
+    screen.getByRole("button", { name: "Remover Fotografia" }).focus();
+    onValueChange.mockClear();
+    await user.keyboard("{Alt>}{ArrowLeft}{/Alt}");
+    expect(onValueChange).not.toHaveBeenCalled();
+  });
+
+  it("sem onOptionsReorder, as tags não se reordenam", async () => {
+    const user = userEvent.setup();
+    const onValueChange = vi.fn();
+    render(<Tools defaultValue={["tipografia", "fotografia"]} onValueChange={onValueChange} />);
+    screen.getByRole("button", { name: "Remover Tipografia" }).focus();
+    await user.keyboard("{Alt>}{ArrowRight}{/Alt}");
+    expect(onValueChange).not.toHaveBeenCalled();
+    expect(screen.getByText("Tipografia").closest("[data-reorder]")).toBeNull();
+  });
+
+  it("com onOptionsReorder, Alt+setas movem a opção em destaque e as tags seguem; com busca, não", async () => {
+    const user = userEvent.setup();
+    const onOptionsReorder = vi.fn();
+    const onValueChange = vi.fn();
+    render(
+      <Tools
+        onOptionsReorder={onOptionsReorder}
+        defaultValue={["tipografia", "fotografia"]}
+        onValueChange={onValueChange}
+      />,
+    );
+    await user.click(screen.getByRole("button", { name: /^Interesses/ }));
+    await user.keyboard("{Alt>}{ArrowDown}{/Alt}");
+    // As tags seguem a ordem nova da lista.
+    expect(onValueChange).toHaveBeenLastCalledWith(["fotografia", "tipografia"]);
+    expect(onOptionsReorder.mock.calls[0]?.[0].map((o: { value: string }) => o.value)).toEqual([
+      "fotografia",
+      "tipografia",
+      "ilustracao",
+      "musica",
+    ]);
+    expect(screen.getByText("Tipografia, posição 2 de 4")).toBeTruthy();
+    await user.keyboard("fo{Alt>}{ArrowDown}{/Alt}");
+    expect(onOptionsReorder).toHaveBeenCalledTimes(1);
+  });
+
+  it("com onOptionsReorder, mover a tag move a opção na lista, e a escolha nova entra no lugar dela", async () => {
+    const user = userEvent.setup();
+    const onOptionsReorder = vi.fn();
+    const onValueChange = vi.fn();
+    render(
+      <Tools
+        onOptionsReorder={onOptionsReorder}
+        defaultValue={["tipografia", "musica"]}
+        onValueChange={onValueChange}
+      />,
+    );
+    screen.getByRole("button", { name: "Remover Tipografia" }).focus();
+    await user.keyboard("{Alt>}{ArrowRight}{/Alt}");
+    expect(onValueChange).toHaveBeenLastCalledWith(["musica", "tipografia"]);
+    // As escolhidas trocam de lugar entre si; as outras ficam onde estão.
+    expect(onOptionsReorder.mock.calls[0]?.[0].map((o: { value: string }) => o.value)).toEqual([
+      "musica",
+      "fotografia",
+      "ilustracao",
+      "tipografia",
+    ]);
+    await user.click(screen.getByRole("button", { name: /^Interesses/ }));
+    await user.click(screen.getByRole("option", { name: "Fotografia" }));
+    // A lista do teste não guardou a ordem nova: Fotografia entra entre Tipografia e Música.
+    expect(onValueChange).toHaveBeenLastCalledWith(["tipografia", "fotografia", "musica"]);
+  });
+
+  it("arrastar uma opção a leva para onde o mouse soltar, sem escolher", async () => {
+    const user = userEvent.setup();
+    const onOptionsReorder = vi.fn();
+    const onValueChange = vi.fn();
+    render(<Tools onOptionsReorder={onOptionsReorder} onValueChange={onValueChange} />);
+    await user.click(screen.getByRole("button"));
+    // O jsdom não mede: cada opção tem 40px de altura, uma embaixo da outra.
+    const rows = screen.getAllByRole("option");
+    rows.forEach((row, i) => {
+      row.getBoundingClientRect = () =>
+        ({ top: i * 40, bottom: i * 40 + 40, height: 40, left: 0, width: 200 }) as DOMRect;
+    });
+    const first = rows[0] as HTMLElement;
+    fireEvent.pointerDown(first, { button: 0, clientX: 10, clientY: 20 });
+    fireEvent.pointerMove(window, { clientX: 10, clientY: 105 });
+    expect(screen.getAllByRole("option").map((o) => o.textContent)).toEqual([
+      "Fotografia",
+      "Ilustração",
+      "Tipografia",
+      "Música",
+    ]);
+    fireEvent.pointerUp(window, { clientX: 10, clientY: 105 });
+    fireEvent.click(first);
+    expect(onOptionsReorder.mock.calls[0]?.[0].map((o: { value: string }) => o.value)).toEqual([
+      "fotografia",
+      "ilustracao",
+      "tipografia",
+      "musica",
+    ]);
+    expect(onValueChange).not.toHaveBeenCalled();
+  });
+
+  it("a lista rola com a barra fina do Textarea", async () => {
+    const user = userEvent.setup();
+    render(<Tools />);
+    await user.click(screen.getByRole("button", { name: /^Interesses/ }));
+    const className = screen.getByRole("listbox").className;
+    expect(className).toContain("overflow-y-auto");
+    expect(className).toContain("[scrollbar-width:thin]");
+    expect(className).toContain("[scrollbar-color:var(--ali-color-border-default)_transparent]");
   });
 
   it("com erro, o erro substitui a ajuda e marca como inválido", () => {

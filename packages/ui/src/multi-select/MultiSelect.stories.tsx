@@ -34,7 +34,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "Campo para escolher várias opções de uma lista. As escolhidas viram tags dentro do campo, na ordem em que foram escolhidas, cada uma com um X para remover. Fechado, o campo fica numa linha só: as tags que não cabem viram um contador +N à direita, em text-subtle. Ao abrir a lista, o campo mostra todas as tags, quebrando linha e crescendo. O leitor de tela ouve todas as escolhidas no nome do campo, mesmo as do contador. Cada tag recém-escolhida entra com animate-pop-in: um fade e um leve crescimento de 95% a 100%, em duration-base. Ao sair, a tag faz o caminho inverso (animate-pop-out), no mesmo tempo. Quem pede menos movimento vê só o fade. Quando o campo muda de altura (ao escolher, remover, abrir ou fechar), a altura também anima, em duration-base; quem pede menos movimento vê a mudança direto.\n\nAo abrir, a lista traz uma busca no topo, que filtra sem diferença de maiúsculas e acentos. As escolhidas ganham o fundo bg-selected e um check à direita, como no Select, e a lista não fecha a cada escolha. As opções têm 2px entre si, como no Select, para várias escolhidas seguidas não virarem um bloco só. Pelo teclado: Enter, Espaço ou seta para baixo abrem; digitar filtra; as setas andam pela lista, pulando as desabilitadas; Enter escolhe ou tira a opção; Esc ou Tab fecham, e o foco volta para o campo. Nas tags, Delete ou Backspace no X removem, e o foco vai para a próxima tag.\n\nO campo é a caixa do Input, com a mesma altura mínima (sm 32px e md 40px), borda, raio, erro e desabilitado. Cada opção pode ter uma cor de categoria (color, padrão gray), que diz o tipo de conteúdo e não um status, e um ícone. As tags usam o tamanho md (24px) nos dois tamanhos do campo, dentro dele e na lista. Feito à mão, sem dependência nova: o balão é o Popover do Radix e o resto segue o padrão combobox do WAI-ARIA.\n\nLabel, ajuda, erro e labelInfo funcionam como no Input. Com erro, a mensagem substitui a ajuda.",
+          "Campo para escolher várias opções de uma lista. As escolhidas viram tags dentro do campo, na ordem em que foram escolhidas, cada uma com um X para remover. Fechado, o campo fica numa linha só: as tags que não cabem viram um contador +N à direita, em text-subtle. Ao abrir a lista, o campo mostra todas as tags, quebrando linha e crescendo. O leitor de tela ouve todas as escolhidas no nome do campo, mesmo as do contador. Cada tag recém-escolhida entra com animate-pop-in: um fade e um leve crescimento de 95% a 100%, em duration-base. Ao sair, a tag faz o caminho inverso (animate-pop-out), no mesmo tempo. Quem pede menos movimento vê só o fade. Quando o campo muda de altura (ao escolher, remover, abrir ou fechar), a altura também anima, em duration-base; quem pede menos movimento vê a mudança direto.\n\nAo abrir, a lista traz uma busca no topo, que filtra sem diferença de maiúsculas e acentos. As escolhidas ganham o fundo bg-selected e um check à direita, como no Select, e a lista não fecha a cada escolha. O balão vai até 320px (container-xs), ou menos se não couber na tela: a busca fica no topo e as opções rolam por dentro, com a barra de rolagem fina do Textarea (border-default sobre fundo transparente); a borda que ainda esconde opções esmaece em 24px (spacing-6), em cima e embaixo. As opções têm 2px entre si, como no Select, para várias escolhidas seguidas não virarem um bloco só. Pelo teclado: Enter, Espaço ou seta para baixo abrem; digitar filtra; as setas andam pela lista, pulando as desabilitadas; Enter escolhe ou tira a opção; Esc ou Tab fecham, e o foco volta para o campo. Nas tags, Delete ou Backspace no X removem, e o foco vai para a próxima tag.\n\nArrastar para reordenar, feito à mão com pointer events (mouse e caneta), só com onOptionsReorder; sem ele, as tags ficam na ordem em que foram escolhidas. Nas tags, arraste uma tag, ou, com o foco no X, use Alt+← e Alt+→; a ordem das tags é a ordem do valor. Na lista, cada linha ganha uma alça (IconGripVertical, 16px, text-icon-subtle) à esquerda, que some com a busca; arraste a linha, ou use Alt+↑ e Alt+↓ na opção em destaque; com a busca preenchida, não reordena. Com onOptionsReorder, tags e lista têm uma ordem só: reordenar a lista reordena as tags, que deslizam até o lugar novo em duration-fast; mover uma tag move a opção na lista (as não escolhidas ficam onde estão); e a escolha nova entra no lugar dela na lista, não no fim. Enquanto arrasta, o item segue o ponteiro (as opções ganham shadow-overlay) e os outros deslizam, em duration-fast, abrindo o vão onde ele vai cair; ao soltar, ele desliza até o vão. Quem pede menos movimento vê a troca direto. Depois de mover pelo teclado, o leitor de tela ouve o lugar novo: “Tipografia, posição 2 de 4”.\n\nCom onCreate, um texto novo na busca vira a linha Criar “texto”, no fim da lista, e Enter cria a opção e já a escolhe.\n\nO campo é a caixa do Input, com a mesma altura mínima (sm 32px e md 40px), borda, raio, erro e desabilitado. Cada opção pode ter uma cor de categoria (color, padrão gray), que diz o tipo de conteúdo e não um status, e um ícone. As tags usam o tamanho md (24px) nos dois tamanhos do campo, dentro dele e na lista. Feito à mão, sem dependência nova: o balão é o Popover do Radix e o resto segue o padrão combobox do WAI-ARIA.\n\nLabel, ajuda, erro e labelInfo funcionam como no Input. Com erro, a mensagem substitui a ajuda.",
       },
     },
   },
@@ -92,6 +92,21 @@ const meta = {
     defaultValue: { control: false, description: "Valores escolhidos no começo (sem controlar)." },
     value: { control: false, description: "Valores escolhidos (controlado), com onValueChange." },
     onValueChange: { control: false, description: "Chamado com todos os valores escolhidos." },
+    onCreate: {
+      control: false,
+      description:
+        "Liga a criação: um texto novo na busca vira a linha Criar “texto”, no fim da lista. Recebe o texto e devolve a opção nova; guarde-a em options.",
+    },
+    onOptionsReorder: {
+      control: false,
+      description:
+        "Liga a reordenação das opções da lista, arrastando ou com Alt+↑ e Alt+↓. Recebe as opções na ordem nova; guarde-as em options. Com ela, tags e lista têm uma ordem só: mover uma muda a outra, e a escolha nova entra no lugar dela na lista.",
+    },
+    createLabel: {
+      control: "text",
+      description: "O começo da linha de criar.",
+      table: { defaultValue: { summary: "Criar" } },
+    },
     className: { control: false, description: "Classes do bloco inteiro, por exemplo a largura." },
   },
 } satisfies Meta<typeof MultiSelect>;
@@ -135,6 +150,54 @@ export const Controlled: Story = {
     return (
       <div className="flex flex-col gap-3">
         <MultiSelect {...args} value={value} onValueChange={setValue} />
+        <p className="text-body-sm text-subtle">Valor: {JSON.stringify(value)}</p>
+      </div>
+    );
+  },
+};
+
+/**
+ * Criar digitando: um texto que não é o nome de nenhuma opção vira a linha "Criar “texto”", no
+ * fim da lista. Sem parecidas, ela já fica em destaque e Enter cria; com parecidas, chega-se a
+ * ela pelas setas. A opção nova entra escolhida, em gray, e a busca é limpa.
+ */
+export const Creatable: Story = {
+  render: (args) => {
+    const [options, setOptions] = useState(interests);
+    const [value, setValue] = useState(["tipografia"]);
+    return (
+      <MultiSelect
+        {...args}
+        options={options}
+        value={value}
+        onValueChange={setValue}
+        onCreate={(label) => {
+          const option = { value: label.toLowerCase(), label };
+          setOptions((list) => [...list, option]);
+          return option;
+        }}
+      />
+    );
+  },
+};
+
+/**
+ * Reordenar: arraste as tags no campo (ou Alt+← e Alt+→ no X) e as opções na lista (ou Alt+↑ e
+ * Alt+↓ na opção em destaque). A lista abaixo mostra a ordem do valor.
+ */
+export const Reorderable: Story = {
+  render: (args) => {
+    const [options, setOptions] = useState(interests);
+    const [value, setValue] = useState(["tipografia", "fotografia", "musica"]);
+    return (
+      <div className="flex flex-col gap-3">
+        <MultiSelect
+          {...args}
+          options={options}
+          value={value}
+          onValueChange={setValue}
+          onOptionsReorder={setOptions}
+        />
         <p className="text-body-sm text-subtle">Valor: {JSON.stringify(value)}</p>
       </div>
     );
