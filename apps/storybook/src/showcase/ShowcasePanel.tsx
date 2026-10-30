@@ -46,6 +46,7 @@ export function ShowcasePanel({ category, title, children }: ShowcasePanelProps)
         <img
           src={theme === "dark" ? "./logo-ali-dark.svg" : "./logo-ali.svg"}
           alt="Ali Design System"
+          width={200}
         />
         <a
           href="https://github.com/AdrianSilvaFuentes"
