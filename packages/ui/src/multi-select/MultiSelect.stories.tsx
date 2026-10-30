@@ -11,18 +11,18 @@ import {
   IconTypography,
 } from "@tabler/icons-react";
 import { useState } from "react";
-import { MultiSelect } from "./MultiSelect.tsx";
+import { MultiSelect, type MultiSelectOption } from "./MultiSelect.tsx";
 
-const interests = [
-  { value: "tipografia", icon: <IconTypography />, label: "Tipografia" },
-  { value: "fotografia", icon: <IconCamera />, label: "Fotografia" },
-  { value: "ilustracao", icon: <IconBrush />, label: "Ilustração" },
-  { value: "arquitetura", icon: <IconBuildingArch />, label: "Arquitetura" },
-  { value: "musica", icon: <IconMusic />, label: "Música" },
-  { value: "cinema", icon: <IconMovie />, label: "Cinema" },
-  { value: "viagem", icon: <IconPlane />, label: "Viagem" },
-  { value: "culinaria", icon: <IconToolsKitchen2 />, label: "Culinária" },
-  { value: "games", icon: <IconDeviceGamepad2 />, label: "Games", disabled: true },
+const interests: MultiSelectOption[] = [
+  { value: "tipografia", color: "blue", icon: <IconTypography />, label: "Tipografia" },
+  { value: "fotografia", color: "orange", icon: <IconCamera />, label: "Fotografia" },
+  { value: "ilustracao", color: "red", icon: <IconBrush />, label: "Ilustração" },
+  { value: "arquitetura", color: "gray", icon: <IconBuildingArch />, label: "Arquitetura" },
+  { value: "musica", color: "teal", icon: <IconMusic />, label: "Música" },
+  { value: "cinema", color: "yellow", icon: <IconMovie />, label: "Cinema" },
+  { value: "viagem", color: "green", icon: <IconPlane />, label: "Viagem" },
+  { value: "culinaria", color: "orange", icon: <IconToolsKitchen2 />, label: "Culinária" },
+  { value: "games", color: "gray", icon: <IconDeviceGamepad2 />, label: "Games", disabled: true },
 ];
 
 const meta = {
@@ -34,7 +34,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "Campo para escolher várias opções de uma lista. As escolhidas viram tags dentro do campo, na ordem em que foram escolhidas, cada uma com um X para remover. Fechado, o campo fica numa linha só: as tags que não cabem viram um contador +N à direita, em text-subtle. Ao abrir a lista, o campo mostra todas as tags, quebrando linha e crescendo. O leitor de tela ouve todas as escolhidas no nome do campo, mesmo as do contador. Cada tag recém-escolhida entra com animate-pop-in: um fade e um leve crescimento de 95% a 100%, em duration-base. Ao sair, a tag faz o caminho inverso (animate-pop-out), no mesmo tempo. Quem pede menos movimento vê só o fade. Quando o campo muda de altura (ao escolher, remover, abrir ou fechar), a altura também anima, em duration-base; quem pede menos movimento vê a mudança direto.\n\nAo abrir, a lista traz uma busca no topo, que filtra sem diferença de maiúsculas e acentos. As escolhidas ganham o fundo bg-selected e um check à direita, como no Select, e a lista não fecha a cada escolha. As opções têm 2px entre si, como no Select, para várias escolhidas seguidas não virarem um bloco só. Pelo teclado: Enter, Espaço ou seta para baixo abrem; digitar filtra; as setas andam pela lista, pulando as desabilitadas; Enter escolhe ou tira a opção; Esc ou Tab fecham, e o foco volta para o campo. Nas tags, Delete ou Backspace no X removem, e o foco vai para a próxima tag.\n\nO campo é a caixa do Input, com a mesma altura mínima (sm 32px e md 40px), borda, raio, erro e desabilitado. As tags usam o tom neutral e o tamanho md (24px) nos dois tamanhos do campo, dentro dele e na lista. Feito à mão, sem dependência nova: o balão é o Popover do Radix e o resto segue o padrão combobox do WAI-ARIA.\n\nLabel, ajuda, erro e labelInfo funcionam como no Input. Com erro, a mensagem substitui a ajuda.",
+          "Campo para escolher várias opções de uma lista. As escolhidas viram tags dentro do campo, na ordem em que foram escolhidas, cada uma com um X para remover. Fechado, o campo fica numa linha só: as tags que não cabem viram um contador +N à direita, em text-subtle. Ao abrir a lista, o campo mostra todas as tags, quebrando linha e crescendo. O leitor de tela ouve todas as escolhidas no nome do campo, mesmo as do contador. Cada tag recém-escolhida entra com animate-pop-in: um fade e um leve crescimento de 95% a 100%, em duration-base. Ao sair, a tag faz o caminho inverso (animate-pop-out), no mesmo tempo. Quem pede menos movimento vê só o fade. Quando o campo muda de altura (ao escolher, remover, abrir ou fechar), a altura também anima, em duration-base; quem pede menos movimento vê a mudança direto.\n\nAo abrir, a lista traz uma busca no topo, que filtra sem diferença de maiúsculas e acentos. As escolhidas ganham o fundo bg-selected e um check à direita, como no Select, e a lista não fecha a cada escolha. As opções têm 2px entre si, como no Select, para várias escolhidas seguidas não virarem um bloco só. Pelo teclado: Enter, Espaço ou seta para baixo abrem; digitar filtra; as setas andam pela lista, pulando as desabilitadas; Enter escolhe ou tira a opção; Esc ou Tab fecham, e o foco volta para o campo. Nas tags, Delete ou Backspace no X removem, e o foco vai para a próxima tag.\n\nO campo é a caixa do Input, com a mesma altura mínima (sm 32px e md 40px), borda, raio, erro e desabilitado. Cada opção pode ter uma cor de categoria (color, padrão gray), que diz o tipo de conteúdo e não um status, e um ícone. As tags usam o tamanho md (24px) nos dois tamanhos do campo, dentro dele e na lista. Feito à mão, sem dependência nova: o balão é o Popover do Radix e o resto segue o padrão combobox do WAI-ARIA.\n\nLabel, ajuda, erro e labelInfo funcionam como no Input. Com erro, a mensagem substitui a ajuda.",
       },
     },
   },
@@ -87,7 +87,7 @@ const meta = {
     options: {
       control: false,
       description:
-        "As opções: `{ value, label, icon?, disabled? }`. O ícone aparece na tag do campo e na da lista.",
+        "As opções: `{ value, label, color?, icon?, disabled? }`. A cor e o ícone aparecem na tag do campo e na da lista.",
     },
     defaultValue: { control: false, description: "Valores escolhidos no começo (sem controlar)." },
     value: { control: false, description: "Valores escolhidos (controlado), com onValueChange." },

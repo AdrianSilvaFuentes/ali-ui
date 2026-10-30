@@ -94,7 +94,10 @@ export type ColorGroup =
   | "icon-status"
   | "icon-special"
   | "border"
-  | "border-status";
+  | "border-status"
+  | "category-background"
+  | "category-text"
+  | "category-icon";
 
 /**
  * Em que página cada token de cor aparece. Um token novo sem página aqui é um erro
@@ -156,6 +159,27 @@ const colorGroup = {
   "text-warning": "text-status",
   "text-danger": "text-status",
   "text-info": "text-status",
+  "background-category-gray": "category-background",
+  "background-category-teal": "category-background",
+  "background-category-blue": "category-background",
+  "background-category-green": "category-background",
+  "background-category-yellow": "category-background",
+  "background-category-orange": "category-background",
+  "background-category-red": "category-background",
+  "text-category-gray": "category-text",
+  "text-category-teal": "category-text",
+  "text-category-blue": "category-text",
+  "text-category-green": "category-text",
+  "text-category-yellow": "category-text",
+  "text-category-orange": "category-text",
+  "text-category-red": "category-text",
+  "icon-category-gray": "category-icon",
+  "icon-category-teal": "category-icon",
+  "icon-category-blue": "category-icon",
+  "icon-category-green": "category-icon",
+  "icon-category-yellow": "category-icon",
+  "icon-category-orange": "category-icon",
+  "icon-category-red": "category-icon",
 } as const satisfies Record<ColorName, ColorGroup>;
 
 /** Tabela Token · Light · Dark com os tokens de cor de um grupo. */

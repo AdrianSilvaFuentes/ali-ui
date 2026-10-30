@@ -1,8 +1,9 @@
+import { Tag } from "@ali/ui";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { ColorGroupPage, ColorTable } from "./ColorTokensPage";
 import { ElevationDemo } from "./ElevationDemo";
 import { PrimitiveTokensPage } from "./PrimitiveTokensPage";
-import { PlaceholderPage, Section } from "./TokensLayout";
+import { PlaceholderPage, Section, TokensLayout } from "./TokensLayout";
 
 const meta = {
   title: "Foundations/Colors",
@@ -36,7 +37,7 @@ export const Background: Story = {
     >
       <Section
         title="Status"
-        description="Fundos suaves neutro, na cor da marca e de cada status: info, success, caution, warning e danger, como na Tag. Cada um leva o texto e o ícone do mesmo tom. O danger tem ainda os estados de hover e pressionado do botão destrutivo com contorno. Nunca use só a cor para passar a mensagem: acompanhe com palavra ou ícone."
+        description="Fundos suaves neutro, na cor da marca e de cada status: info, success, caution, warning e danger, para o futuro Badge de status, onde a cor tem significado. Cada um leva o texto e o ícone do mesmo tom. Para categorias, como na Tag, veja Infographics. O danger tem ainda os estados de hover e pressionado do botão destrutivo com contorno. Nunca use só a cor para passar a mensagem: acompanhe com palavra ou ícone."
       >
         <ColorTable group="background-status" />
       </Section>
@@ -116,11 +117,48 @@ export const Semantic: Story = {
   ),
 };
 
+const categoryColors = ["gray", "teal", "blue", "green", "yellow", "orange", "red"] as const;
+
 export const Infographics: Story = {
   render: () => (
-    <PlaceholderPage
+    <TokensLayout
       title="Infographics"
-      description="Cores para gráficos e visualização de dados."
-    />
+      description="Cores de categoria: dizem o tipo de um conteúdo, não um status. Uma tag red marca uma categoria, não um erro. Para cores com significado (erro, sucesso, aviso), use as de status, em Background, Text e Icon. Sete cores, nos mesmos passos dos fundos suaves de status. Mais tarde, as mesmas cores ganham preenchimentos fortes para gráficos."
+    >
+      {() => (
+        <>
+          <Section
+            title="Na Tag"
+            description="Cada cor da Tag usa o fundo, o texto e o ícone da mesma categoria: color='blue' usa background-category-blue, text-category-blue e icon-category-blue."
+          >
+            <div className="flex flex-wrap gap-2">
+              {categoryColors.map((name) => (
+                <Tag key={name} color={name}>
+                  {name}
+                </Tag>
+              ))}
+            </div>
+          </Section>
+          <Section
+            title="Fundos"
+            description="Fundos suaves de cada categoria. A classe é bg-category-*."
+          >
+            <ColorTable group="category-background" />
+          </Section>
+          <Section
+            title="Textos"
+            description="Texto de cada categoria sobre o próprio fundo, com contraste de 4.5:1 ou mais. A classe é text-category-*."
+          >
+            <ColorTable group="category-text" />
+          </Section>
+          <Section
+            title="Ícones"
+            description="Ícone de cada categoria sobre o próprio fundo, com contraste de 3:1 ou mais. A classe é text-icon-category-*."
+          >
+            <ColorTable group="category-icon" />
+          </Section>
+        </>
+      )}
+    </TokensLayout>
   ),
 };

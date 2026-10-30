@@ -3,7 +3,7 @@ import { IconTag } from "@tabler/icons-react";
 import { useRef, useState } from "react";
 import { Tag } from "./Tag.tsx";
 
-const tones = ["neutral", "primary", "info", "success", "caution", "warning", "danger"] as const;
+const colors = ["gray", "teal", "blue", "green", "yellow", "orange", "red"] as const;
 const sizes = ["md", "sm"] as const;
 
 const meta = {
@@ -15,18 +15,18 @@ const meta = {
     docs: {
       description: {
         component:
-          'Etiqueta retangular para categorizar um item: texto curto, com ícone opcional antes dele. Fundo suave no tom, sombra mínima (shadow-xs), brilho fino no topo (inset-shadow-highlight) e canto pequeno, sem borda: 6px no md e 4px no sm. É texto, não controle: não tem hover, foco nem clique.\n\nSete tons: neutral (padrão), primary (a cor da marca), info, success, caution, warning e danger. O tom reforça o texto, mas o significado está sempre escrito na etiqueta, nunca só na cor. Texto e ícone passam no contraste mínimo sobre o fundo de cada tom, nos dois temas e em todas as marcas.\n\nDois tamanhos: md 24px (padrão), com texto label-sm e ícone de 14px; sm 20px, com o mesmo texto label-sm e ícone de 12px. O ícone é decorativo: o leitor de tela lê só o texto.\n\nCom onRemove, a tag ganha um X no fim: um botão do tamanho da altura da tag, com o nome "Remover" mais o texto (troque com removeLabel). Ele recebe foco com Tab e remove com clique, Enter, espaço, Delete ou Backspace. Depois de remover, leve o foco para outro lugar, como a próxima tag ou o campo de busca, para ele não se perder.',
+          'Etiqueta retangular para categorizar um item: texto curto, com ícone opcional antes dele. Fundo suave na cor, sombra mínima (shadow-xs), brilho fino no topo (inset-shadow-highlight) e canto pequeno, sem borda: 6px no md e 4px no sm. É texto, não controle: não tem hover, foco nem clique.\n\nSete cores: gray (padrão), teal, blue, green, yellow, orange e red. A cor diz o tipo de conteúdo, não um status: vem dos tokens de categoria (background-category-*, text-category-* e icon-category-*, em Foundations → Colors → Infographics), e não dos de status. Uma tag red não é um erro; para status, use o Badge de status (em breve). Texto e ícone passam no contraste mínimo sobre o fundo de cada cor, nos dois temas.\n\nDois tamanhos: md 24px (padrão), com texto label-sm e ícone de 14px; sm 20px, com o mesmo texto label-sm e ícone de 12px. O ícone é decorativo: o leitor de tela lê só o texto.\n\nCom onRemove, a tag ganha um X no fim: um botão do tamanho da altura da tag, com o nome "Remover" mais o texto (troque com removeLabel). Ele recebe foco com Tab e remove com clique, Enter, espaço, Delete ou Backspace. Depois de remover, leve o foco para outro lugar, como a próxima tag ou o campo de busca, para ele não se perder.',
       },
     },
   },
-  args: { children: "Design", tone: "neutral", size: "md" },
+  args: { children: "Design", color: "gray", size: "md" },
   argTypes: {
     children: { control: "text", description: "O texto da etiqueta." },
-    tone: {
+    color: {
       control: "inline-radio",
-      options: tones,
-      description: "A cor da etiqueta. O significado vem do texto, não só da cor.",
-      table: { defaultValue: { summary: "neutral" } },
+      options: colors,
+      description: "A cor da categoria. Diz o tipo de conteúdo, não um status.",
+      table: { defaultValue: { summary: "gray" } },
     },
     size: {
       control: "inline-radio",
@@ -60,26 +60,26 @@ type Story = StoryObj<typeof meta>;
 
 export const Playground: Story = {};
 
-export const Tones: Story = {
+export const Colors: Story = {
   name: "Tons",
   parameters: {
     docs: {
-      description: { story: "Os sete tons, sem e com ícone." },
+      description: { story: "As sete cores, sem e com ícone." },
     },
   },
   render: (args) => (
     <div className="flex flex-col gap-3">
       <div className="flex flex-wrap items-center gap-2">
-        {tones.map((tone) => (
-          <Tag key={tone} {...args} tone={tone}>
-            {tone}
+        {colors.map((color) => (
+          <Tag key={color} {...args} color={color}>
+            {color}
           </Tag>
         ))}
       </div>
       <div className="flex flex-wrap items-center gap-2">
-        {tones.map((tone) => (
-          <Tag key={tone} {...args} tone={tone} icon={<IconTag />}>
-            {tone}
+        {colors.map((color) => (
+          <Tag key={color} {...args} color={color} icon={<IconTag />}>
+            {color}
           </Tag>
         ))}
       </div>
@@ -153,7 +153,7 @@ export const Removable: Story = {
   },
 };
 
-export const RemovableSizesAndTones: Story = {
+export const RemovableSizesAndColors: Story = {
   name: "Com X: tamanhos e tons",
   parameters: {
     docs: {
@@ -164,16 +164,16 @@ export const RemovableSizesAndTones: Story = {
     <div className="flex flex-col gap-3">
       {sizes.map((size) => (
         <div key={size} className="flex flex-wrap items-center gap-2">
-          {tones.map((tone) => (
+          {colors.map((color) => (
             <Tag
-              key={tone}
+              key={color}
               {...args}
               size={size}
-              tone={tone}
-              icon={tone === "neutral" ? undefined : <IconTag />}
+              color={color}
+              icon={color === "gray" ? undefined : <IconTag />}
               onRemove={() => {}}
             >
-              {tone}
+              {color}
             </Tag>
           ))}
         </div>
