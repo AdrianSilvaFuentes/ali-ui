@@ -12,6 +12,7 @@ import {
   type MouseEvent,
   type PointerEvent,
   type ReactNode,
+  useCallback,
   useEffect,
   useId,
   useLayoutEffect,
@@ -100,6 +101,13 @@ function sortByList(values: string[], list: MultiSelectOption[]) {
   const order = list.map((option) => option.value);
   const rank = (value: string) => (order.indexOf(value) + order.length + 1) % (order.length + 1);
   return [...values].sort((a, b) => rank(a) - rank(b));
+}
+
+/** Que bordas da lista ainda escondem opções. Devolve `old` se nada mudou, para não renderizar. */
+function hiddenEdges(list: HTMLElement | null, old: { top: boolean; bottom: boolean }) {
+  const top = Boolean(list && list.scrollTop > 0);
+  const bottom = Boolean(list && list.scrollTop + list.clientHeight < list.scrollHeight - 1);
+  return old.top === top && old.bottom === bottom ? old : { top, bottom };
 }
 
 /** O tempo de uma animação curta (duration-fast), ou 0 para quem pede menos movimento. */
@@ -323,6 +331,20 @@ export function MultiSelect({
 
   const triggerRef = useRef<HTMLButtonElement>(null);
   const searchRef = useRef<HTMLInputElement>(null);
+  const listboxRef = useRef<HTMLDivElement>(null);
+  // Com a lista rolando, a borda que ainda esconde opções esmaece.
+  const [edges, setEdges] = useState({ top: false, bottom: false });
+  const updateEdges = () => setEdges((old) => hiddenEdges(listboxRef.current, old));
+  useLayoutEffect(() => updateEdges());
+  // O Radix monta a lista um render depois de abrir e limita a altura do balão sem render:
+  // mede de novo quando a lista aparece e quando muda de tamanho.
+  const listboxRefCallback = useCallback((list: HTMLDivElement | null) => {
+    listboxRef.current = list;
+    if (!list) return;
+    const observer = new ResizeObserver(() => setEdges((old) => hiddenEdges(list, old)));
+    observer.observe(list);
+    return () => observer.disconnect();
+  }, []);
   const tagsRef = useRef<HTMLUListElement>(null);
   const fieldRef = useRef<HTMLDivElement>(null);
   // Tags que a pessoa acabou de escolher: só elas entram com animação, até ela terminar.
@@ -832,8 +854,12 @@ export function MultiSelect({
               </p>
             ) : null}
             <div
+              ref={listboxRefCallback}
               id={listboxId}
               role="listbox"
+              onScroll={updateEdges}
+              data-fade-top={edges.top || undefined}
+              data-fade-bottom={edges.bottom || undefined}
               aria-multiselectable="true"
               aria-labelledby={label ? labelId : undefined}
               aria-label={label ? undefined : ariaLabel}
@@ -843,6 +869,13 @@ export function MultiSelect({
               className={cn(
                 "flex min-h-0 flex-col gap-0.5 overflow-y-auto",
                 "[scrollbar-width:thin] [scrollbar-color:var(--ali-color-border-default)_transparent]",
+                // O esmaecido: duas máscaras (só transparência, não cor), uma por borda, cruzadas.
+                // Cada uma vai de transparente a opaco em 24px (spacing-6) na borda que ainda tem
+                // opções escondidas, e em 0 (spacing-0) na outra, sem cortar nada.
+                "[--fade-top:var(--spacing-0)] [--fade-bottom:var(--spacing-0)]",
+                "data-fade-top:[--fade-top:var(--spacing-6)] data-fade-bottom:[--fade-bottom:var(--spacing-6)]",
+                "[mask-image:linear-gradient(to_bottom,transparent,black_var(--fade-top)),linear-gradient(to_top,transparent,black_var(--fade-bottom))]",
+                "[mask-composite:intersect]",
               )}
             >
               {listed.map((option, index) => {
