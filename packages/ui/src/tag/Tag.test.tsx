@@ -29,40 +29,44 @@ describe("Tag", () => {
     expect(tag.textContent).toBe("Design");
   });
 
-  it("padrão: tom neutro, tamanho md, retangular com canto pequeno", () => {
+  it("padrão: tom neutro, tamanho md, sombra mínima, brilho no topo e sem borda", () => {
     render(<Tag>Design</Tag>);
     const { className } = screen.getByText("Design");
-    expect(className).toContain("bg-readonly");
-    expect(className).toContain("border-subtle");
+    expect(className).toContain("bg-neutral-subtle");
     expect(className).toContain("h-6");
-    expect(className).toContain("rounded-sm");
+    expect(className).toContain("shadow-xs");
+    expect(className).toContain("inset-shadow-highlight");
+    expect(className).not.toMatch(/\bborder\b/);
   });
 
   it.each([
-    ["primary", "bg-primary-subtle", "border-primary", "text-primary"],
-    ["info", "bg-info-subtle", "border-info", "text-info"],
-    ["success", "bg-success-subtle", "border-success", "text-success"],
-    ["caution", "bg-caution-subtle", "border-caution", "text-caution"],
-    ["warning", "bg-warning-subtle", "border-warning", "text-warning"],
-    ["danger", "bg-danger-subtle", "border-danger", "text-danger"],
-  ] as const)("tom %s: fundo %s, borda %s e texto %s", (tone, bg, border, text) => {
+    ["primary", "bg-primary-subtle", "text-primary"],
+    ["info", "bg-info-subtle", "text-info"],
+    ["success", "bg-success-subtle", "text-success"],
+    ["caution", "bg-caution-subtle", "text-caution"],
+    ["warning", "bg-warning-subtle", "text-warning"],
+    ["danger", "bg-danger-subtle", "text-danger"],
+  ] as const)("tom %s: fundo %s e texto %s", (tone, bg, text) => {
     render(<Tag tone={tone}>Design</Tag>);
     const { className } = screen.getByText("Design");
     expect(className).toContain(bg);
-    expect(className).toContain(border);
     expect(className).toContain(text);
   });
 
   it.each([
-    ["sm", "h-5", "text-label-xs", "[&_svg]:size-3.5"],
-    ["md", "h-6", "text-label-sm", "[&_svg]:size-4"],
-  ] as const)("tamanho %s: altura %s, texto %s e ícone %s", (size, height, text, icon) => {
-    render(<Tag size={size}>Design</Tag>);
-    const { className } = screen.getByText("Design");
-    expect(className).toContain(height);
-    expect(className).toContain(text);
-    expect(className).toContain(icon);
-  });
+    ["sm", "h-5", "rounded-sm", "text-label-sm", "[&_svg]:size-3"],
+    ["md", "h-6", "rounded-md", "text-label-sm", "[&_svg]:size-3.5"],
+  ] as const)(
+    "tamanho %s: altura %s, canto %s, texto %s e ícone %s",
+    (size, height, corner, text, icon) => {
+      render(<Tag size={size}>Design</Tag>);
+      const { className } = screen.getByText("Design");
+      expect(className).toContain(height);
+      expect(className).toContain(corner);
+      expect(className).toContain(text);
+      expect(className).toContain(icon);
+    },
+  );
 
   it("não tem violações de acessibilidade", async () => {
     const { container } = render(

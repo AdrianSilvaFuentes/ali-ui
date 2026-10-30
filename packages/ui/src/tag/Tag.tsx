@@ -3,30 +3,32 @@ import type { ComponentProps, ReactNode } from "react";
 import { cn } from "../lib/cn.ts";
 
 /**
- * Etiqueta retangular: fundo suave no tom, borda fina e canto pequeno. É texto, não controle:
- * sem sombra, sem hover e sem foco. O significado vem sempre do texto, nunca só da cor.
+ * Etiqueta retangular: fundo suave no tom, canto pequeno, sombra mínima e brilho no topo, sem
+ * borda. É texto, não controle: sem hover e sem foco. O significado vem sempre do texto, nunca
+ * só da cor.
  */
 export const tagVariants = cva(
   [
-    "inline-flex shrink-0 items-center whitespace-nowrap rounded-sm border select-none",
-    "[&_svg]:shrink-0",
+    "inline-flex shrink-0 items-center whitespace-nowrap select-none",
+    // Sombra mínima (xs) e um brilho fino no topo (highlight), como nos botões.
+    "shadow-xs inset-shadow-highlight [&_svg]:shrink-0",
   ],
   {
     variants: {
-      // Cada tom escolhe fundo, borda, texto e ícone. O neutro usa os tons dos campos.
+      // Cada tom escolhe fundo, texto e ícone.
       tone: {
-        neutral: "bg-readonly border-subtle text-default [&_svg]:text-icon-default",
-        primary: "bg-primary-subtle border-primary text-primary [&_svg]:text-icon-primary",
-        info: "bg-info-subtle border-info text-info [&_svg]:text-icon-info",
-        success: "bg-success-subtle border-success text-success [&_svg]:text-icon-success",
-        caution: "bg-caution-subtle border-caution text-caution [&_svg]:text-icon-caution",
-        warning: "bg-warning-subtle border-warning text-warning [&_svg]:text-icon-warning",
-        danger: "bg-danger-subtle border-danger text-danger [&_svg]:text-icon-danger",
+        neutral: "bg-neutral-subtle text-default [&_svg]:text-icon-default",
+        primary: "bg-primary-subtle text-primary [&_svg]:text-icon-primary",
+        info: "bg-info-subtle text-info [&_svg]:text-icon-info",
+        success: "bg-success-subtle text-success [&_svg]:text-icon-success",
+        caution: "bg-caution-subtle text-caution [&_svg]:text-icon-caution",
+        warning: "bg-warning-subtle text-warning [&_svg]:text-icon-warning",
+        danger: "bg-danger-subtle text-danger [&_svg]:text-icon-danger",
       },
-      // Ícone perto de 70% da altura, como no Avatar.
+      // Ícone um pouco maior que o texto. O canto diminui com o tamanho.
       size: {
-        sm: "h-5 gap-1 px-1.5 text-label-xs [&_svg]:size-3.5",
-        md: "h-6 gap-1 px-2 text-label-sm [&_svg]:size-4",
+        sm: "h-5 rounded-sm gap-1 px-1.5 text-label-sm [&_svg]:size-3",
+        md: "h-6 rounded-md gap-1 px-2 text-label-sm [&_svg]:size-3.5",
       },
     },
     defaultVariants: { tone: "neutral", size: "md" },

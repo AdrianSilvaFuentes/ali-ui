@@ -36,7 +36,7 @@ export const Background: Story = {
     >
       <Section
         title="Status"
-        description="Fundos suaves na cor da marca e de cada status: info, success, caution, warning e danger, como na Tag. Cada um leva o texto, o ícone e a borda do mesmo tom. O danger tem ainda os estados de hover e pressionado do botão destrutivo com contorno. Nunca use só a cor para passar a mensagem: acompanhe com palavra ou ícone."
+        description="Fundos suaves neutro, na cor da marca e de cada status: info, success, caution, warning e danger, como na Tag. Cada um leva o texto e o ícone do mesmo tom. O danger tem ainda os estados de hover e pressionado do botão destrutivo com contorno. Nunca use só a cor para passar a mensagem: acompanhe com palavra ou ícone."
       >
         <ColorTable group="background-status" />
       </Section>

@@ -14,7 +14,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "Etiqueta retangular para categorizar um item: texto curto, com ícone opcional antes dele. Fundo suave no tom, borda fina e canto pequeno (4px). É texto, não controle: não tem hover, foco nem clique.\n\nSete tons: neutral (padrão), primary (a cor da marca), info, success, caution, warning e danger. O tom reforça o texto, mas o significado está sempre escrito na etiqueta, nunca só na cor. Texto e ícone passam no contraste mínimo sobre o fundo de cada tom, nos dois temas e em todas as marcas.\n\nDois tamanhos: md 24px (padrão), com texto label-sm e ícone de 16px; sm 20px, com texto label-xs e ícone de 14px. O ícone é decorativo: o leitor de tela lê só o texto.",
+          "Etiqueta retangular para categorizar um item: texto curto, com ícone opcional antes dele. Fundo suave no tom, sombra mínima (shadow-xs), brilho fino no topo (inset-shadow-highlight) e canto pequeno, sem borda: 6px no md e 4px no sm. É texto, não controle: não tem hover, foco nem clique.\n\nSete tons: neutral (padrão), primary (a cor da marca), info, success, caution, warning e danger. O tom reforça o texto, mas o significado está sempre escrito na etiqueta, nunca só na cor. Texto e ícone passam no contraste mínimo sobre o fundo de cada tom, nos dois temas e em todas as marcas.\n\nDois tamanhos: md 24px (padrão), com texto label-sm e ícone de 14px; sm 20px, com o mesmo texto label-sm e ícone de 12px. O ícone é decorativo: o leitor de tela lê só o texto.",
       },
     },
   },
@@ -30,7 +30,7 @@ const meta = {
     size: {
       control: "inline-radio",
       options: sizes,
-      description: "md 24px (padrão) ou sm 20px.",
+      description: "md 24px com canto de 6px (padrão) ou sm 20px com canto de 4px.",
       table: { defaultValue: { summary: "md" } },
     },
     icon: {

@@ -1112,10 +1112,20 @@ const DATA = {
       ]
     },
     {
+      "name": "background/neutral-subtle",
+      "light": "colors/neutral-light/neutral-light-200",
+      "dark": "colors/neutral-dark/neutral-dark-800",
+      "description": "Neutro, fundo suave: Tag no tom neutral. Sem borda, por isso um passo mais forte que o readonly no claro. Texto em default, ícone em icon-default.",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ]
+    },
+    {
       "name": "background/primary-subtle",
-      "light": "colors/teal/teal-50",
+      "light": "colors/teal/teal-100",
       "dark": "colors/teal/teal-950",
-      "description": "Marca, fundo suave: Tag no tom primary. Texto em text-primary, ícone em icon-primary, borda em border-primary.",
+      "description": "Marca, fundo suave: Tag no tom primary. Texto em text-primary, ícone em icon-primary.",
       "scopes": [
         "FRAME_FILL",
         "SHAPE_FILL"
@@ -1123,9 +1133,9 @@ const DATA = {
     },
     {
       "name": "background/info-subtle",
-      "light": "colors/blue/blue-50",
+      "light": "colors/blue/blue-100",
       "dark": "colors/blue/blue-950",
-      "description": "Informação, fundo suave: Tag no tom info. Texto em text-info, ícone em icon-info, borda em border-info.",
+      "description": "Informação, fundo suave: Tag no tom info. Texto em text-info, ícone em icon-info.",
       "scopes": [
         "FRAME_FILL",
         "SHAPE_FILL"
@@ -1133,9 +1143,9 @@ const DATA = {
     },
     {
       "name": "background/success-subtle",
-      "light": "colors/green/green-50",
+      "light": "colors/green/green-100",
       "dark": "colors/green/green-950",
-      "description": "Sucesso, fundo suave: Tag no tom success. Texto em text-success, ícone em icon-success, borda em border-success.",
+      "description": "Sucesso, fundo suave: Tag no tom success. Texto em text-success, ícone em icon-success.",
       "scopes": [
         "FRAME_FILL",
         "SHAPE_FILL"
@@ -1143,9 +1153,9 @@ const DATA = {
     },
     {
       "name": "background/caution-subtle",
-      "light": "colors/yellow/yellow-50",
+      "light": "colors/yellow/yellow-100",
       "dark": "colors/yellow/yellow-950",
-      "description": "Atenção leve, fundo suave: Tag no tom caution. Texto em text-caution, ícone em icon-caution, borda em border-caution.",
+      "description": "Atenção leve, fundo suave: Tag no tom caution. Texto em text-caution, ícone em icon-caution.",
       "scopes": [
         "FRAME_FILL",
         "SHAPE_FILL"
@@ -1153,9 +1163,9 @@ const DATA = {
     },
     {
       "name": "background/warning-subtle",
-      "light": "colors/orange/orange-50",
+      "light": "colors/orange/orange-100",
       "dark": "colors/orange/orange-950",
-      "description": "Aviso, fundo suave: Tag no tom warning. Texto em text-warning, ícone em icon-warning, borda em border-warning.",
+      "description": "Aviso, fundo suave: Tag no tom warning. Texto em text-warning, ícone em icon-warning.",
       "scopes": [
         "FRAME_FILL",
         "SHAPE_FILL"
@@ -1163,9 +1173,9 @@ const DATA = {
     },
     {
       "name": "background/danger-subtle",
-      "light": "colors/red/red-50",
+      "light": "colors/red/red-100",
       "dark": "colors/red/red-950",
-      "description": "Risco, fundo suave: Tag no tom danger. Texto em text-danger, ícone em icon-danger, borda em border-danger.",
+      "description": "Risco, fundo suave: Tag no tom danger. Texto em text-danger, ícone em icon-danger.",
       "scopes": [
         "FRAME_FILL",
         "SHAPE_FILL"
@@ -1281,7 +1291,7 @@ const DATA = {
     },
     {
       "name": "text/status/danger",
-      "light": "colors/red/red-700",
+      "light": "colors/red/red-800",
       "dark": "colors/red/red-300",
       "description": "Erros e ações destrutivas.",
       "scopes": [
@@ -1290,7 +1300,7 @@ const DATA = {
     },
     {
       "name": "text/status/info",
-      "light": "colors/blue/blue-700",
+      "light": "colors/blue/blue-800",
       "dark": "colors/blue/blue-300",
       "description": "Informação neutra: dicas e novidades.",
       "scopes": [
@@ -1399,7 +1409,7 @@ const DATA = {
     },
     {
       "name": "icon/status/danger",
-      "light": "colors/red/red-700",
+      "light": "colors/red/red-800",
       "dark": "colors/red/red-300",
       "description": "Ícone de erro. Mesmo tom do text-danger, para ícone e mensagem combinarem.",
       "scopes": [
@@ -1448,7 +1458,7 @@ const DATA = {
       "name": "border/primary",
       "light": "colors/teal/teal-800",
       "dark": "colors/teal/teal-400",
-      "description": "Borda na cor de marca: Tag no tom primary. Mesmos passos dos ícones e bordas de status.",
+      "description": "Borda na cor de marca: um item escolhido, como um cartão selecionado. Mesmos passos dos ícones e bordas de status.",
       "scopes": [
         "STROKE_COLOR"
       ]

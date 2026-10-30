@@ -102,41 +102,47 @@ export const color = {
     description:
       "Botão destrutivo com contorno pressionado. No claro, um degrau mais forte que o hover; no escuro, igual ao hover, e o retorno vem do botão afundando.",
   },
+  "background-neutral-subtle": {
+    light: neutralLight[200],
+    dark: neutralDark[800],
+    description:
+      "Neutro, fundo suave: Tag no tom neutral. Sem borda, por isso um passo mais forte que o readonly no claro. Texto em default, ícone em icon-default.",
+  },
   "background-primary-subtle": {
-    light: primary[50],
+    light: primary[100],
     dark: primary[950],
     description:
-      "Marca, fundo suave: Tag no tom primary. Texto em text-primary, ícone em icon-primary, borda em border-primary.",
+      "Marca, fundo suave: Tag no tom primary. Texto em text-primary, ícone em icon-primary.",
   },
   "background-info-subtle": {
-    light: blue[50],
+    light: blue[100],
     dark: blue[950],
     description:
-      "Informação, fundo suave: Tag no tom info. Texto em text-info, ícone em icon-info, borda em border-info.",
+      "Informação, fundo suave: Tag no tom info. Texto em text-info, ícone em icon-info.",
   },
   "background-success-subtle": {
-    light: green[50],
+    light: green[100],
     dark: green[950],
     description:
-      "Sucesso, fundo suave: Tag no tom success. Texto em text-success, ícone em icon-success, borda em border-success.",
+      "Sucesso, fundo suave: Tag no tom success. Texto em text-success, ícone em icon-success.",
   },
   "background-caution-subtle": {
-    light: yellow[50],
+    light: yellow[100],
     dark: yellow[950],
     description:
-      "Atenção leve, fundo suave: Tag no tom caution. Texto em text-caution, ícone em icon-caution, borda em border-caution.",
+      "Atenção leve, fundo suave: Tag no tom caution. Texto em text-caution, ícone em icon-caution.",
   },
   "background-warning-subtle": {
-    light: orange[50],
+    light: orange[100],
     dark: orange[950],
     description:
-      "Aviso, fundo suave: Tag no tom warning. Texto em text-warning, ícone em icon-warning, borda em border-warning.",
+      "Aviso, fundo suave: Tag no tom warning. Texto em text-warning, ícone em icon-warning.",
   },
   "background-danger-subtle": {
-    light: red[50],
+    light: red[100],
     dark: red[950],
     description:
-      "Risco, fundo suave: Tag no tom danger. Texto em text-danger, ícone em icon-danger, borda em border-danger.",
+      "Risco, fundo suave: Tag no tom danger. Texto em text-danger, ícone em icon-danger.",
   },
   "text-default": {
     light: neutralLight[900],
@@ -201,12 +207,12 @@ export const color = {
     description: "Aviso: algo pode dar errado se nada for feito.",
   },
   "text-danger": {
-    light: red[700],
+    light: red[800],
     dark: red[300],
     description: "Erros e ações destrutivas.",
   },
   "text-info": {
-    light: blue[700],
+    light: blue[800],
     dark: blue[300],
     description: "Informação neutra: dicas e novidades.",
   },
@@ -262,7 +268,7 @@ export const color = {
     description: "Ícone de aviso.",
   },
   "icon-danger": {
-    light: red[700],
+    light: red[800],
     dark: red[300],
     description: "Ícone de erro. Mesmo tom do text-danger, para ícone e mensagem combinarem.",
   },
@@ -290,7 +296,7 @@ export const color = {
     light: primary[800],
     dark: primary[400],
     description:
-      "Borda na cor de marca: Tag no tom primary. Mesmos passos dos ícones e bordas de status.",
+      "Borda na cor de marca: um item escolhido, como um cartão selecionado. Mesmos passos dos ícones e bordas de status.",
   },
   "border-success": {
     light: green[800],
@@ -356,9 +362,7 @@ export const contrastPairs: readonly (readonly [ColorName, ColorName, number])[]
   ["text-subtle", "background-selected", 4.5],
   ["icon-subtle", "background-selected", 3],
   ["text-danger", "background-danger-subtle-hovered", 4.5],
-  // Exceção consciente: no claro, o texto fica com 4.2:1 sobre o pressed, abaixo dos 4.5:1
-  // da WCAG AA. O estado dura só o instante do clique, e o texto já foi lido no repouso e no hover.
-  ["text-danger", "background-danger-subtle-pressed", 3],
+  ["text-danger", "background-danger-subtle-pressed", 4.5],
   ["text-subtle", "surface", 4.5],
   ["text-link", "surface", 4.5],
   ["text-default", "surface-sunken", 4.5],
@@ -460,26 +464,21 @@ export const contrastPairs: readonly (readonly [ColorName, ColorName, number])[]
   ["icon-info", "surface-sunken", 3],
   ["icon-info", "surface-raised", 3],
   ["icon-info", "surface-overlay", 3],
-  // Tag: texto, ícone e borda de cada tom sobre o próprio fundo suave.
-  ["icon-default", "background-readonly", 3],
+  // Tag: texto e ícone de cada tom sobre o próprio fundo suave.
+  ["text-default", "background-neutral-subtle", 4.5],
+  ["icon-default", "background-neutral-subtle", 3],
   ["text-primary", "background-primary-subtle", 4.5],
   ["icon-primary", "background-primary-subtle", 3],
-  ["border-primary", "background-primary-subtle", 3],
   ["text-info", "background-info-subtle", 4.5],
   ["icon-info", "background-info-subtle", 3],
-  ["border-info", "background-info-subtle", 3],
   ["text-success", "background-success-subtle", 4.5],
   ["icon-success", "background-success-subtle", 3],
-  ["border-success", "background-success-subtle", 3],
   ["text-caution", "background-caution-subtle", 4.5],
   ["icon-caution", "background-caution-subtle", 3],
-  ["border-caution", "background-caution-subtle", 3],
   ["text-warning", "background-warning-subtle", 4.5],
   ["icon-warning", "background-warning-subtle", 3],
-  ["border-warning", "background-warning-subtle", 3],
   ["text-danger", "background-danger-subtle", 4.5],
   ["icon-danger", "background-danger-subtle", 3],
-  ["border-danger", "background-danger-subtle", 3],
   // O inverse vai sobre um fundo na cor do texto padrão (escuro no claro, claro no escuro).
   ["text-inverse", "text-default", 4.5],
   ["icon-inverse", "text-default", 3],

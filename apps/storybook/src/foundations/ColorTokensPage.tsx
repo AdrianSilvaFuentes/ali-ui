@@ -111,6 +111,7 @@ const colorGroup = {
   "background-neutral": "background",
   "background-neutral-hovered": "background",
   "background-neutral-pressed": "background",
+  "background-neutral-subtle": "background-status",
   "background-primary-subtle": "background-status",
   "background-info-subtle": "background-status",
   "background-success-subtle": "background-status",
