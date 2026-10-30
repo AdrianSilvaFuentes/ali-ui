@@ -12,7 +12,8 @@ import { cn } from "../lib/cn.ts";
 export const avatarVariants = cva(
   [
     "relative inline-flex shrink-0 items-center justify-center overflow-hidden",
-    "bg-readonly text-subtle shadow-xs ring-1 ring-subtle select-none",
+    // Sombra fina na base, por dentro (shade): volume, como no Figma.
+    "bg-readonly text-subtle shadow-xs inset-shadow-shade ring-1 ring-subtle select-none",
   ],
   {
     variants: {

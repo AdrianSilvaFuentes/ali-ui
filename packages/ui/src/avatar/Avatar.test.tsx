@@ -95,6 +95,7 @@ describe("Avatar", () => {
     expect(className).toContain("bg-readonly");
     expect(className).toContain("ring-subtle");
     expect(className).toContain("shadow-xs");
+    expect(className).toContain("inset-shadow-shade");
   });
 
   it("não tem problemas de acessibilidade", async () => {
