@@ -67,7 +67,8 @@ export interface MultiSelectProps extends VariantProps<typeof inputVariants> {
   createLabel?: string;
   /**
    * Liga a reordenação das opções da lista, arrastando ou com Alt+setas na opção em destaque.
-   * Recebe as opções na ordem nova; guarde-as em `options`. Com a busca preenchida, não reordena.
+   * Recebe as opções na ordem nova; guarde-as em `options`. As tags do campo passam a seguir a
+   * ordem nova. Com a busca preenchida, não reordena.
    */
   onOptionsReorder?: (options: MultiSelectOption[]) => void;
   /** Texto de ajuda abaixo do campo, lido pelo leitor de tela junto com o label. */
@@ -408,7 +409,7 @@ export function MultiSelect({
   const enabled = visible.filter((option) => !option.disabled);
   // Com a busca preenchida, a lista é só um pedaço: reordenar nela confundiria.
   const canReorderOptions = Boolean(onOptionsReorder) && !query.trim();
-  const optionDrag = useDragReorder("y", (from, to) => onOptionsReorder?.(move(options, from, to)));
+  const optionDrag = useDragReorder("y", (from, to) => reorderOptions(from, to));
   const listed = optionDrag.drag
     ? move(visible, optionDrag.drag.from, optionDrag.drag.to)
     : visible;
@@ -425,6 +426,17 @@ export function MultiSelect({
   const setValue = (next: string[]) => {
     if (valueProp === undefined) setInnerValue(next);
     onValueChange?.(next);
+  };
+
+  /** Muda a ordem da lista, e as tags do campo passam a seguir a ordem nova. */
+  const reorderOptions = (from: number, to: number) => {
+    const next = move(options, from, to);
+    onOptionsReorder?.(next);
+    // Um valor que não está na lista fica no fim.
+    const order = next.map((option) => option.value);
+    const rank = (value: string) => (order.indexOf(value) + order.length + 1) % (order.length + 1);
+    const sorted = [...selected].sort((a, b) => rank(a) - rank(b));
+    if (sorted.some((v, i) => v !== selected[i])) setValue(sorted);
   };
 
   const markLeaving = (value: string) => {
@@ -522,7 +534,7 @@ export function MultiSelect({
       const from = options.findIndex((option) => option.value === highlighted);
       const to = from + (event.key === "ArrowUp" ? -1 : 1);
       if (from === -1 || to < 0 || to >= options.length) return;
-      onOptionsReorder?.(move(options, from, to));
+      reorderOptions(from, to);
       setAnnouncement(`${options[from]?.label}, posição ${to + 1} de ${options.length}`);
     } else if (isArrow) {
       event.preventDefault();

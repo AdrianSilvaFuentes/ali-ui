@@ -318,12 +318,21 @@ describe("MultiSelect", () => {
     expect(onValueChange).not.toHaveBeenCalled();
   });
 
-  it("com onOptionsReorder, Alt+setas movem a opção em destaque; com busca, não", async () => {
+  it("com onOptionsReorder, Alt+setas movem a opção em destaque e as tags seguem; com busca, não", async () => {
     const user = userEvent.setup();
     const onOptionsReorder = vi.fn();
-    render(<Tools onOptionsReorder={onOptionsReorder} />);
-    await user.click(screen.getByRole("button"));
+    const onValueChange = vi.fn();
+    render(
+      <Tools
+        onOptionsReorder={onOptionsReorder}
+        defaultValue={["tipografia", "fotografia"]}
+        onValueChange={onValueChange}
+      />,
+    );
+    await user.click(screen.getByRole("button", { name: /^Interesses/ }));
     await user.keyboard("{Alt>}{ArrowDown}{/Alt}");
+    // As tags seguem a ordem nova da lista.
+    expect(onValueChange).toHaveBeenLastCalledWith(["fotografia", "tipografia"]);
     expect(onOptionsReorder.mock.calls[0]?.[0].map((o: { value: string }) => o.value)).toEqual([
       "fotografia",
       "tipografia",
