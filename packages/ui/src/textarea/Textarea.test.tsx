@@ -196,7 +196,7 @@ describe("Textarea", () => {
     const textarea = screen.getByRole("textbox");
     const { className } = box(textarea);
     expect(className).toContain("border-subtle");
-    expect(className).toContain("shadow-sm");
+    expect(className).toContain("shadow-xs");
     expect(className).toContain("hover:border-default");
     expect(className).toContain("focus-within:border-default");
     expect(className).toContain("outline-focus");

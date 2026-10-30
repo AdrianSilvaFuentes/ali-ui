@@ -17,7 +17,7 @@ export const textareaVariants = cva(
     "cursor-text",
     // Mesma borda e sombra do Input. Exceção consciente: em repouso a borda é subtle (abaixo
     // dos 3:1 da WCAG), para o campo ficar leve. No hover e no foco ela vai para default.
-    "border border-subtle bg-neutral text-default shadow-sm",
+    "border border-subtle bg-neutral text-default shadow-xs",
     "hover:border-default focus-within:border-default",
     "transition-interactive duration-fast",
     // Foco também no clique, como no Input: o contorno surge a 4px e chega a 2px.
