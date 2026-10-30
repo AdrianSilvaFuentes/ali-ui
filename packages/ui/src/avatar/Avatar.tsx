@@ -13,7 +13,11 @@ export const avatarVariants = cva(
   [
     "relative inline-flex shrink-0 items-center justify-center overflow-hidden",
     // Sombra fina na base, por dentro (shade): volume, como no Figma.
-    "bg-readonly text-subtle shadow-xs inset-shadow-shade ring-1 ring-subtle select-none",
+    "bg-readonly text-subtle shadow-xs inset-shadow-shade select-none",
+    // Contorno por dentro (inside, como no Figma): uma camada por cima, com o mesmo canto, para
+    // o avatar medir exatamente o tamanho dele e o contorno ficar também sobre a foto.
+    "after:pointer-events-none after:absolute after:inset-0 after:rounded-[inherit]",
+    "after:border after:border-subtle",
   ],
   {
     variants: {
