@@ -56,7 +56,7 @@ export function ShadowTokensPage() {
 
           <Section
             title="Sombras internas"
-            description="Sombra por dentro da borda. highlight é uma linha fina e clara no topo, como luz vinda de cima, que dá volume: soma com as sombras externas, como shadow-sm inset-shadow-highlight no Button. sunken é o oposto, uma sombra suave no topo que afunda a superfície, como o trilho do Switch desligado: use sem sombra externa."
+            description="Sombra por dentro da borda. highlight é uma linha fina e clara no topo, como luz vinda de cima, que dá volume: soma com as sombras externas, como shadow-sm inset-shadow-highlight no Button. sunken é o oposto, uma sombra suave no topo que afunda a superfície, como o trilho do Switch desligado: use sem sombra externa. shade é uma sombra fina na base, por dentro: junto com a sombra externa, dá volume ao Avatar."
           >
             <Table columns={["Token", "Classe", "Variável CSS", "Valor", "Exemplo"]}>
               {(Object.keys(insetShadow) as (keyof typeof insetShadow)[]).map((name) => (
@@ -78,14 +78,18 @@ export function ShadowTokensPage() {
                         className={
                           name === "highlight"
                             ? "h-12 w-16 rounded-lg bg-gradient-brand shadow-sm"
-                            : "h-12 w-16 rounded-lg bg-neutral-pressed"
+                            : name === "sunken"
+                              ? "h-12 w-16 rounded-lg bg-neutral-pressed"
+                              : "h-12 w-16 rounded-lg bg-readonly"
                         }
                       />
                       <div
                         className={
                           name === "highlight"
                             ? "h-12 w-16 rounded-lg bg-gradient-brand"
-                            : "h-12 w-16 rounded-lg bg-neutral-pressed"
+                            : name === "sunken"
+                              ? "h-12 w-16 rounded-lg bg-neutral-pressed"
+                              : "h-12 w-16 rounded-lg bg-readonly"
                         }
                         style={{
                           boxShadow:

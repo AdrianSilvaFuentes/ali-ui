@@ -11,21 +11,36 @@ import { cn } from "../lib/cn.ts";
  */
 export const avatarVariants = cva(
   [
-    "relative inline-flex shrink-0 items-center justify-center overflow-hidden rounded-full",
-    "bg-readonly text-subtle shadow-xs ring-1 ring-subtle select-none",
+    "relative inline-flex shrink-0 items-center justify-center overflow-hidden",
+    // Sombra fina na base, por dentro (shade): volume, como no Figma.
+    "bg-readonly text-subtle shadow-xs inset-shadow-shade select-none",
+    // Contorno por dentro (inside, como no Figma): uma camada por cima, com o mesmo canto, para
+    // o avatar medir exatamente o tamanho dele e o contorno ficar também sobre a foto.
+    "after:pointer-events-none after:absolute after:inset-0 after:rounded-[inherit]",
+    "after:border after:border-subtle",
   ],
   {
     variants: {
-      // Iniciais e ícone proporcionais ao círculo, perto de 40% do tamanho dele.
+      // Iniciais perto de 40% do avatar; o ícone de pessoa, perto de 65%.
       size: {
-        xs: "size-5 text-label-xs [&_svg]:size-3",
-        sm: "size-6 text-label-sm [&_svg]:size-3.5",
-        md: "size-8 text-label-md [&_svg]:size-4",
-        lg: "size-10 text-label-lg [&_svg]:size-5",
-        xl: "size-12 text-title-sm [&_svg]:size-6",
+        xs: "size-5 text-label-xs [&_svg]:size-3.5",
+        sm: "size-6 text-label-sm [&_svg]:size-4",
+        md: "size-8 text-label-md [&_svg]:size-5",
+        lg: "size-10 text-label-lg [&_svg]:size-6",
+        xl: "size-12 text-title-sm [&_svg]:size-8",
+      },
+      // Círculo (padrão) ou quadrado; o canto do quadrado diminui com o tamanho (abaixo).
+      shape: {
+        circle: "rounded-full",
+        square: "",
       },
     },
-    defaultVariants: { size: "md" },
+    compoundVariants: [
+      { shape: "square", size: ["md", "lg", "xl"], class: "rounded-lg" },
+      { shape: "square", size: "sm", class: "rounded-md" },
+      { shape: "square", size: "xs", class: "rounded-sm" },
+    ],
+    defaultVariants: { size: "md", shape: "circle" },
   },
 );
 
@@ -50,11 +65,11 @@ export interface AvatarProps
 }
 
 /**
- * Foto ou iniciais de uma pessoa, num círculo. Sem foto, mostra as iniciais do nome (uma letra
+ * Foto ou iniciais de uma pessoa, num círculo ou num quadrado (`shape`). Sem foto, mostra as iniciais do nome (uma letra
  * só no xs); sem nome, um ícone de pessoa. Para o leitor de tela, o avatar é uma imagem com o
  * nome da pessoa, nunca as iniciais soltas. Sem nome, é decorativo.
  */
-export function Avatar({ className, size, name, src, ...props }: AvatarProps) {
+export function Avatar({ className, size, shape, name, src, ...props }: AvatarProps) {
   const letters = initials(name, size === "xs" ? 1 : 2);
   const label = name?.trim() || undefined;
 
@@ -63,7 +78,7 @@ export function Avatar({ className, size, name, src, ...props }: AvatarProps) {
       role={label ? "img" : undefined}
       aria-label={label}
       aria-hidden={label ? undefined : true}
-      className={cn(avatarVariants({ size }), className)}
+      className={cn(avatarVariants({ size, shape }), className)}
       {...props}
     >
       {/*

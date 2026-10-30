@@ -47,7 +47,7 @@ describe("Avatar", () => {
 
   it("com foto que ainda não carregou (ou falhou), mostra as iniciais", () => {
     // No jsdom, a imagem nunca carrega: é o mesmo caminho de uma foto que falhou.
-    render(<Avatar name="Lia Martins" src="/avatar-sample.svg" />);
+    render(<Avatar name="Lia Martins" src="/avatar-sample.png" />);
     expect(screen.getByRole("img", { name: "Lia Martins" }).textContent).toBe("LM");
   });
 
@@ -65,12 +65,39 @@ describe("Avatar", () => {
     expect(className).toContain("rounded-full");
   });
 
-  it("fundo readonly com contorno suave e sombra xs", () => {
+  it.each([
+    ["xs", "[&_svg]:size-3.5"],
+    ["sm", "[&_svg]:size-4"],
+    ["md", "[&_svg]:size-5"],
+    ["lg", "[&_svg]:size-6"],
+    ["xl", "[&_svg]:size-8"],
+  ] as const)("tamanho %s: ícone de pessoa em %s", (size, icon) => {
+    render(<Avatar name="Lia" size={size} />);
+    expect(screen.getByRole("img").className).toContain(icon);
+  });
+
+  it.each([
+    ["xl", "rounded-lg"],
+    ["lg", "rounded-lg"],
+    ["md", "rounded-lg"],
+    ["sm", "rounded-md"],
+    ["xs", "rounded-sm"],
+  ] as const)("quadrado %s: canto %s", (size, radius) => {
+    render(<Avatar name="Lia" size={size} shape="square" />);
+    const { className } = screen.getByRole("img");
+    expect(className).toContain(radius);
+    expect(className).not.toContain("rounded-full");
+  });
+
+  it("fundo readonly com contorno suave por dentro e sombra xs", () => {
     render(<Avatar name="Lia Martins" />);
     const { className } = screen.getByRole("img");
     expect(className).toContain("bg-readonly");
-    expect(className).toContain("ring-subtle");
+    expect(className).toContain("after:border-subtle");
+    expect(className).toContain("after:inset-0");
+    expect(className).not.toContain("ring-");
     expect(className).toContain("shadow-xs");
+    expect(className).toContain("inset-shadow-shade");
   });
 
   it("não tem problemas de acessibilidade", async () => {
@@ -78,7 +105,7 @@ describe("Avatar", () => {
       <div>
         <Avatar name="Lia Martins" />
         <Avatar name="Caio Ribeiro" size="xs" />
-        <Avatar name="Nara Torres" src="/avatar-sample.svg" size="xl" />
+        <Avatar name="Nara Torres" src="/avatar-sample.png" size="xl" />
         <Avatar />
       </div>,
     );

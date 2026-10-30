@@ -12,7 +12,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "Foto ou iniciais de uma pessoa, num círculo. Com foto (src), mostra a imagem; enquanto ela carrega, ou se falhar, aparecem as iniciais. Sem foto, as iniciais do nome: a primeira letra do primeiro e do último nome (Lia Martins → LM), e uma letra só no xs, onde duas não cabem. Sem nome, um ícone de pessoa.\n\nCinco tamanhos: xl 48px, lg 40px, md 32px (padrão), sm 24px e xs 20px. As iniciais e o ícone ficam perto de 40% do círculo. O fundo é background-readonly, um passo abaixo do neutral, com contorno subtle e a sombra mínima (shadow-xs) dos controles, para o círculo aparecer em qualquer superfície.\n\nPara o leitor de tela, o avatar é uma imagem com o nome da pessoa (Lia Martins), nunca as iniciais soltas (LM). Sem nome, é decorativo e fica escondido: use assim só quando o nome já aparece ao lado.",
+          "Foto ou iniciais de uma pessoa, num círculo (padrão) ou num quadrado (shape square). Com foto (src), mostra a imagem; enquanto ela carrega, ou se falhar, aparecem as iniciais. Sem foto, as iniciais do nome: a primeira letra do primeiro e do último nome (Lia Martins → LM), e uma letra só no xs, onde duas não cabem. Sem nome, um ícone de pessoa.\n\nCinco tamanhos: xl 48px, lg 40px, md 32px (padrão), sm 24px e xs 20px. As iniciais ficam perto de 40% do avatar, e o ícone de pessoa perto de 65% (xl 32px, lg 24px, md 20px, sm 16px, xs 14px). No quadrado, o canto diminui com o tamanho: 8px no xl, lg e md; 6px no sm; 4px no xs. O fundo é background-readonly, um passo abaixo do neutral, com contorno subtle por dentro (sobre a foto também, sem aumentar o tamanho) e a sombra mínima (shadow-xs) dos controles e uma sombra fina na base, por dentro (inset-shadow-shade), que dá volume, para o círculo aparecer em qualquer superfície.\n\nPara o leitor de tela, o avatar é uma imagem com o nome da pessoa (Lia Martins), nunca as iniciais soltas (LM). Sem nome, é decorativo e fica escondido: use assim só quando o nome já aparece ao lado.",
       },
     },
   },
@@ -22,7 +22,23 @@ const meta = {
       control: "text",
       description: "Nome da pessoa: vira as iniciais e o que o leitor de tela anuncia.",
     },
-    src: { control: "text", description: "Endereço da foto." },
+    src: {
+      // Escolha rápida no painel; no código, src é o endereço da foto.
+      control: "inline-radio",
+      options: ["Sem foto", "Com foto", "Foto quebrada"],
+      mapping: {
+        "Sem foto": undefined,
+        "Com foto": "./avatar-sample.png",
+        "Foto quebrada": "./nao-existe.png",
+      },
+      description: "Endereço da foto. Enquanto carrega, ou se falhar, aparecem as iniciais.",
+    },
+    shape: {
+      control: "inline-radio",
+      options: ["circle", "square"],
+      description: "Círculo (padrão) ou quadrado, com o canto proporcional ao tamanho.",
+      table: { defaultValue: { summary: "circle" } },
+    },
     size: {
       control: "inline-radio",
       options: sizes,
@@ -67,7 +83,7 @@ export const WithImage: Story = {
       },
     },
   },
-  args: { src: "./avatar-sample.svg" },
+  args: { src: "Com foto" },
   render: (args) => (
     <div className="flex items-center gap-4">
       {sizes.map((size) => (
@@ -106,5 +122,31 @@ export const BrokenImage: Story = {
       },
     },
   },
-  args: { src: "./nao-existe.png", size: "lg" },
+  args: { src: "Foto quebrada", size: "lg" },
+};
+
+export const Square: Story = {
+  name: "Quadrado",
+  parameters: {
+    docs: {
+      description: {
+        story: 'Com shape="square". O canto é 8px no xl, lg e md; 6px no sm; 4px no xs.',
+      },
+    },
+  },
+  args: { shape: "square" },
+  render: (args) => (
+    <div className="flex flex-col gap-4">
+      <div className="flex items-center gap-4">
+        {sizes.map((size) => (
+          <Avatar key={size} {...args} size={size} />
+        ))}
+      </div>
+      <div className="flex items-center gap-4">
+        {sizes.map((size) => (
+          <Avatar key={size} {...args} size={size} name={undefined} />
+        ))}
+      </div>
+    </div>
+  ),
 };
