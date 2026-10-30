@@ -389,9 +389,18 @@ export function MultiSelect({
   // A altura do campo muda com as tags (escolher, remover, abrir e fechar). O CSS não anima
   // uma altura que cresce pelo conteúdo, então animamos da altura anterior à nova, em
   // duration-base. Sem animação para quem pede menos movimento.
+  // No sm, com as tags em mais de uma linha, o respiro de cima e de baixo vai de 2px para 4px.
+  // Numa linha só fica 2px, para o campo manter os 32px do Input (a tag de 24px centralizada).
+  const [wrapped, setWrapped] = useState(false);
+  useLayoutEffect(() => {
+    const items = tagsRef.current ? [...tagsRef.current.children] : [];
+    const rows = new Set(items.map((item) => (item as HTMLElement).offsetTop)).size;
+    if (rows > 1 !== wrapped) setWrapped(rows > 1);
+  });
+
   const fieldHeight = useRef<number | null>(null);
   const heightAnimation = useRef<Animation | null>(null);
-  const layoutKey = `${selected.length}|${leaving.length}|${open}|${shownCount}`;
+  const layoutKey = `${selected.length}|${leaving.length}|${open}|${shownCount}|${wrapped}`;
   useLayoutEffect(() => {
     const field = fieldRef.current;
     if (!field || !layoutKey) return;
@@ -659,8 +668,9 @@ export function MultiSelect({
               // respiro da esquerda fica perto do de cima, para a tag não parecer solta.
               // overflow-hidden: enquanto a altura anima, as tags não passam da borda.
               "h-auto cursor-pointer overflow-hidden px-2.5 data-[state=open]:border-default",
-              // A tag é sempre md (24px), nos dois tamanhos: no sm sobram 3px em cima e embaixo.
-              compact ? "min-h-8 py-0.5" : "min-h-10 py-1.5",
+              // A tag é sempre md (24px), nos dois tamanhos: no sm, numa linha só, sobram 3px em
+              // cima e embaixo; com várias linhas, 4px.
+              compact ? cn("min-h-8", wrapped ? "py-1" : "py-0.5") : "min-h-10 py-1.5",
               shownTags.length > 0 && (compact ? "pl-1" : "pl-1.5"),
             )}
           >
