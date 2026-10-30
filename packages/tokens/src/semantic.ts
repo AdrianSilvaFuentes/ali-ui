@@ -593,7 +593,7 @@ export function gradientCss({ angle, from, to }: GradientToken): string {
  * dentro: com o highlight no topo, dá volume a uma peça redonda, como o Avatar.
  */
 export const insetShadow = {
-  highlight: "inset 0 1px 0 0 rgb(255 255 255 / 0.3)",
+  highlight: "inset 0 2px 1px 0 rgb(255 255 255 / 0.3)",
   sunken: "inset 0 1px 2px 0 rgb(0 0 0 / 0.15)",
   shade: "inset 0 -2px 1px 0 rgb(0 0 0 / 0.05)",
 } as const;
