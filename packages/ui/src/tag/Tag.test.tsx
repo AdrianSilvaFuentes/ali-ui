@@ -55,8 +55,8 @@ describe("Tag", () => {
   });
 
   it.each([
-    ["sm", "h-5", "rounded-sm", "text-label-sm", "[&_svg]:size-3"],
-    ["md", "h-6", "rounded-md", "text-label-sm", "[&_svg]:size-3.5"],
+    ["sm", "h-5", "rounded-sm", "text-label-sm", "[&_[data-slot=tag-icon]_svg]:size-3"],
+    ["md", "h-6", "rounded-md", "text-label-sm", "[&_[data-slot=tag-icon]_svg]:size-3.5"],
   ] as const)(
     "tamanho %s: altura %s, canto %s, texto %s e ícone %s",
     (size, height, corner, text, icon) => {

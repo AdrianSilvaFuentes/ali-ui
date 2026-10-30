@@ -7,6 +7,7 @@ import {
   type ReactNode,
   useEffect,
   useId,
+  useLayoutEffect,
   useMemo,
   useRef,
   useState,
@@ -111,12 +112,82 @@ export function MultiSelect({
   const searchRef = useRef<HTMLInputElement>(null);
   const tagsRef = useRef<HTMLUListElement>(null);
   const fieldRef = useRef<HTMLDivElement>(null);
+  // Tags que a pessoa acabou de escolher: só elas entram com animação, até ela terminar.
+  const entering = useRef(new Set<string>());
+  // Tags que acabaram de sair da escolha: continuam na tela, sem interação, até a animação de
+  // saída terminar. `index` é onde estavam, para saírem do mesmo lugar.
+  const [leaving, setLeaving] = useState<{ option: MultiSelectOption; index: number }[]>([]);
   // Depois de remover uma tag, o foco vai para o X da próxima, ou para o campo.
   const focusAfterRemove = useRef<number | null>(null);
 
   const selectedOptions = selected
     .map((v) => options.find((option) => option.value === v))
     .filter((option): option is MultiSelectOption => Boolean(option));
+
+  // Fechado, as tags ficam numa linha só, e as que não cabem viram um contador "+N". Aberto,
+  // o campo mostra todas. A medida vale para esta escolha nesta largura do campo.
+  const [fieldWidth, setFieldWidth] = useState(0);
+  const fitKey = `${selected.join("\n")}|${fieldWidth}`;
+  const [fit, setFit] = useState<{ key: string; count: number } | null>(null);
+  const shownCount = !open && fit?.key === fitKey ? fit.count : selectedOptions.length;
+  const hiddenCount = selectedOptions.length - shownCount;
+
+  useEffect(() => {
+    const field = fieldRef.current;
+    if (!field) return;
+    const observer = new ResizeObserver(([entry]) =>
+      setFieldWidth(Math.round(entry?.contentRect.width ?? 0)),
+    );
+    observer.observe(field);
+    return () => observer.disconnect();
+  }, []);
+
+  // Mede antes de pintar, então a pessoa nunca vê as tags passando da borda.
+  useLayoutEffect(() => {
+    const list = tagsRef.current;
+    if (open || !list) return;
+    const overflows = list.scrollWidth > list.clientWidth;
+    if (fit?.key !== fitKey) {
+      // Com todas as tags na linha: conta as que terminam antes da borda da lista.
+      const right = list.getBoundingClientRect().right;
+      const count = overflows
+        ? [...list.children].filter(
+            (item) =>
+              !item.hasAttribute("data-leaving") && item.getBoundingClientRect().right <= right,
+          ).length
+        : selectedOptions.length;
+      setFit({ key: fitKey, count });
+    } else if (overflows && fit.count > 0) {
+      // O "+N" ocupa espaço e a lista encolhe: a última tag que deixou de caber vira contador.
+      setFit({ key: fitKey, count: fit.count - 1 });
+    }
+  });
+
+  // A altura do campo muda com as tags (escolher, remover, abrir e fechar). O CSS não anima
+  // uma altura que cresce pelo conteúdo, então animamos da altura anterior à nova, em
+  // duration-base. Sem animação para quem pede menos movimento.
+  const fieldHeight = useRef<number | null>(null);
+  const heightAnimation = useRef<Animation | null>(null);
+  const layoutKey = `${selected.length}|${leaving.length}|${open}|${shownCount}`;
+  useLayoutEffect(() => {
+    const field = fieldRef.current;
+    if (!field || !layoutKey) return;
+    // No meio de uma animação, parte da altura em que o campo está agora.
+    const running = heightAnimation.current?.playState === "running";
+    const from = running ? field.offsetHeight : fieldHeight.current;
+    heightAnimation.current?.cancel();
+    const to = field.offsetHeight;
+    fieldHeight.current = to;
+    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    if (from === null || from === to || reduce || !field.animate) return;
+    const duration = Number.parseFloat(
+      getComputedStyle(field).getPropertyValue("--ali-duration-base"),
+    );
+    heightAnimation.current = field.animate([{ height: `${from}px` }, { height: `${to}px` }], {
+      duration,
+      easing: "ease-out",
+    });
+  }, [layoutKey]);
 
   const visible = useMemo(() => {
     const term = normalize(query.trim());
@@ -129,17 +200,28 @@ export function MultiSelect({
     onValueChange?.(next);
   };
 
+  const markLeaving = (value: string) => {
+    const option = options.find((o) => o.value === value);
+    if (option) setLeaving((list) => [...list, { option, index: selected.indexOf(value) }]);
+  };
+
   const toggle = (option: MultiSelectOption) => {
     if (option.disabled) return;
-    setValue(
-      selected.includes(option.value)
-        ? selected.filter((v) => v !== option.value)
-        : [...selected, option.value],
-    );
+    if (selected.includes(option.value)) {
+      markLeaving(option.value);
+      setValue(selected.filter((v) => v !== option.value));
+    } else {
+      // Escolhida de novo antes de terminar de sair: volta a ser uma tag comum.
+      setLeaving((list) => list.filter((item) => item.option.value !== option.value));
+      entering.current.add(option.value);
+      setValue([...selected, option.value]);
+    }
   };
 
   const remove = (index: number) => {
     focusAfterRemove.current = index;
+    const value = selected[index];
+    if (value !== undefined) markLeaving(value);
     setValue(selected.filter((_, i) => i !== index));
   };
 
@@ -147,7 +229,9 @@ export function MultiSelect({
     const index = focusAfterRemove.current;
     if (index === null) return;
     focusAfterRemove.current = null;
-    const buttons = tagsRef.current?.querySelectorAll("button");
+    const buttons = tagsRef.current?.querySelectorAll<HTMLButtonElement>(
+      "li:not([data-leaving]) button",
+    );
     (buttons?.[index] ?? triggerRef.current)?.focus();
   });
 
@@ -210,6 +294,17 @@ export function MultiSelect({
     changeOpen(!open);
   };
 
+  // As tags na tela: as escolhidas que cabem, mais as que estão saindo, no lugar onde estavam.
+  const shownTags: { option: MultiSelectOption; index: number; isLeaving: boolean }[] =
+    selectedOptions.slice(0, shownCount).map((option, index) => ({
+      option,
+      index,
+      isLeaving: false,
+    }));
+  for (const item of leaving) {
+    shownTags.splice(Math.min(item.index, shownTags.length), 0, { ...item, isLeaving: true });
+  }
+
   const summary = selectedOptions.map((option) => option.label).join(", ");
 
   return (
@@ -232,29 +327,65 @@ export function MultiSelect({
               inputVariants({ size }),
               // A caixa do Input, mas cresce quando as tags quebram de linha. Com tags, o
               // respiro da esquerda fica perto do de cima, para a tag não parecer solta.
-              "h-auto cursor-pointer data-[state=open]:border-default",
-              compact ? "min-h-8 py-1" : "min-h-10 py-1.5",
-              selectedOptions.length > 0 && (compact ? "pl-1" : "pl-1.5"),
+              // overflow-hidden: enquanto a altura anima, as tags não passam da borda.
+              "h-auto cursor-pointer overflow-hidden px-2.5 data-[state=open]:border-default",
+              // A tag é sempre md (24px), nos dois tamanhos: no sm sobram 3px em cima e embaixo.
+              compact ? "min-h-8 py-0.5" : "min-h-10 py-1.5",
+              shownTags.length > 0 && (compact ? "pl-1" : "pl-1.5"),
             )}
           >
-            {selectedOptions.length > 0 ? (
-              <ul ref={tagsRef} className="flex min-w-0 flex-1 flex-wrap gap-1">
-                {selectedOptions.map((option, index) => (
-                  <li key={option.value} className="flex">
-                    <Tag
-                      size={compact ? "sm" : "md"}
-                      onRemove={disabled ? undefined : () => remove(index)}
+            {shownTags.length > 0 ? (
+              <ul
+                ref={tagsRef}
+                className={cn("flex min-w-0 flex-1 gap-1", open ? "flex-wrap" : "overflow-hidden")}
+              >
+                {shownTags.map(({ option, index, isLeaving }) =>
+                  isLeaving ? (
+                    // Saindo: escondida do leitor de tela e sem foco, só para a animação.
+                    <li
+                      key={`leaving-${option.value}`}
+                      data-leaving=""
+                      aria-hidden="true"
+                      inert
+                      onAnimationEnd={() =>
+                        setLeaving((list) => list.filter((item) => item.option !== option))
+                      }
+                      className="flex shrink-0 animate-pop-out"
                     >
-                      {option.label}
-                    </Tag>
-                  </li>
-                ))}
+                      <Tag size="md" onRemove={disabled ? undefined : () => {}}>
+                        {option.label}
+                      </Tag>
+                    </li>
+                  ) : (
+                    <li
+                      key={option.value}
+                      onAnimationEnd={() => entering.current.delete(option.value)}
+                      className={cn(
+                        "flex shrink-0",
+                        entering.current.has(option.value) && "animate-pop-in",
+                      )}
+                    >
+                      <Tag size="md" onRemove={disabled ? undefined : () => remove(index)}>
+                        {option.label}
+                      </Tag>
+                    </li>
+                  ),
+                )}
               </ul>
             ) : (
               <span className="min-w-0 flex-1 truncate text-placeholder group-data-disabled:text-disabled">
                 {placeholder}
               </span>
             )}
+            {/* Só visual: o leitor de tela já ouve todas as escolhidas no nome do campo. */}
+            {hiddenCount > 0 ? (
+              <span
+                aria-hidden="true"
+                className="shrink-0 text-body-md text-subtle group-data-disabled:text-disabled"
+              >
+                +{hiddenCount}
+              </span>
+            ) : null}
             <Trigger
               ref={triggerRef}
               id={triggerId}
@@ -271,7 +402,9 @@ export function MultiSelect({
               }}
               aria-describedby={[descriptionId, errorId].filter(Boolean).join(" ") || undefined}
               className={cn(
-                "-my-1 inline-flex shrink-0 cursor-pointer items-center rounded-md p-1 outline-none",
+                // Só a seta de 20px, a 10px da borda, como no Select. O clique no resto do campo
+                // também abre a lista.
+                "inline-flex shrink-0 cursor-pointer items-center outline-none",
                 "disabled:cursor-not-allowed",
               )}
             >
@@ -344,7 +477,9 @@ export function MultiSelect({
               aria-multiselectable="true"
               aria-labelledby={label ? labelId : undefined}
               aria-label={label ? undefined : ariaLabel}
-              className="flex min-h-0 flex-col gap-1 overflow-y-auto"
+              // 2px entre as opções, como no Select: aqui várias ficam escolhidas ao mesmo tempo,
+              // e sem o espaço as escolhidas seguidas viravam um bloco só.
+              className="flex min-h-0 flex-col gap-0.5 overflow-y-auto"
             >
               {visible.map((option) => {
                 const isSelected = selected.includes(option.value);
@@ -366,17 +501,14 @@ export function MultiSelect({
                     className={cn(
                       // Mesmas medidas e estados das opções do Select.
                       "relative flex cursor-pointer items-center gap-2 pr-9 pl-2.5 select-none",
-                      compact ? "h-8 rounded-md py-1.5" : "rounded-lg py-2",
+                      compact ? "h-8 rounded-md py-1" : "rounded-lg py-2",
                       "data-highlighted:bg-neutral-hovered",
                       isSelected && "bg-selected data-highlighted:bg-selected",
                       "data-disabled:cursor-not-allowed",
                     )}
                   >
                     {/* Desabilitada, a tag fica com o texto em cinza. */}
-                    <Tag
-                      size={compact ? "sm" : "md"}
-                      className={cn(option.disabled && "text-disabled")}
-                    >
+                    <Tag size="md" className={cn(option.disabled && "text-disabled")}>
                       {option.label}
                     </Tag>
                     {isSelected ? (
