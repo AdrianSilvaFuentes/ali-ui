@@ -127,15 +127,15 @@ export function Select({
         <Portal>
           {/*
            * A lista abre logo abaixo do gatilho (popper), com pelo menos a largura dele, e no
-           * máximo a altura que cabe na tela, até 288px. Fundo surface, e não surface-overlay: no escuro,
+           * máximo a altura que cabe na tela, até 320px. Fundo surface, e não surface-overlay: no escuro,
            * a lista fica no tom base da página, e quem a destaca é o contorno e a sombra de menus.
            */}
           <Content
             position="popper"
             className={cn(
               "z-50 min-w-[var(--radix-select-trigger-width)]",
-              // No máximo 288px (container-2xs), ou menos se não couber: a lista rola por dentro.
-              "max-h-[min(var(--container-2xs),var(--radix-select-content-available-height))]",
+              // No máximo 320px (container-xs), ou menos se não couber: a lista rola por dentro.
+              "max-h-[min(var(--container-xs),var(--radix-select-content-available-height))]",
               "overflow-hidden",
               // Canto da lista: 8px no sm, 12px no md.
               size === "sm" ? "rounded-lg" : "rounded-xl",
