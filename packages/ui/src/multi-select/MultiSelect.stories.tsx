@@ -1,17 +1,28 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import {
+  IconBrush,
+  IconBuildingArch,
+  IconCamera,
+  IconDeviceGamepad2,
+  IconMovie,
+  IconMusic,
+  IconPlane,
+  IconToolsKitchen2,
+  IconTypography,
+} from "@tabler/icons-react";
 import { useState } from "react";
 import { MultiSelect } from "./MultiSelect.tsx";
 
 const interests = [
-  { value: "tipografia", label: "Tipografia" },
-  { value: "fotografia", label: "Fotografia" },
-  { value: "ilustracao", label: "Ilustração" },
-  { value: "arquitetura", label: "Arquitetura" },
-  { value: "musica", label: "Música" },
-  { value: "cinema", label: "Cinema" },
-  { value: "viagem", label: "Viagem" },
-  { value: "culinaria", label: "Culinária" },
-  { value: "games", label: "Games", disabled: true },
+  { value: "tipografia", icon: <IconTypography />, label: "Tipografia" },
+  { value: "fotografia", icon: <IconCamera />, label: "Fotografia" },
+  { value: "ilustracao", icon: <IconBrush />, label: "Ilustração" },
+  { value: "arquitetura", icon: <IconBuildingArch />, label: "Arquitetura" },
+  { value: "musica", icon: <IconMusic />, label: "Música" },
+  { value: "cinema", icon: <IconMovie />, label: "Cinema" },
+  { value: "viagem", icon: <IconPlane />, label: "Viagem" },
+  { value: "culinaria", icon: <IconToolsKitchen2 />, label: "Culinária" },
+  { value: "games", icon: <IconDeviceGamepad2 />, label: "Games", disabled: true },
 ];
 
 const meta = {
@@ -75,7 +86,8 @@ const meta = {
     },
     options: {
       control: false,
-      description: "As opções: `{ value, label, disabled? }`.",
+      description:
+        "As opções: `{ value, label, icon?, disabled? }`. O ícone aparece na tag do campo e na da lista.",
     },
     defaultValue: { control: false, description: "Valores escolhidos no começo (sem controlar)." },
     value: { control: false, description: "Valores escolhidos (controlado), com onValueChange." },

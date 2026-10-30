@@ -23,6 +23,8 @@ export interface MultiSelectOption {
   value: string;
   /** O nome da opção, na lista e na tag. */
   label: string;
+  /** Ícone decorativo antes do nome, na tag do campo e na da lista: `icon={<IconMusic />}`. */
+  icon?: ReactNode;
   /** Aparece na lista, mas não pode ser escolhida. */
   disabled?: boolean;
 }
@@ -352,7 +354,7 @@ export function MultiSelect({
                       }
                       className="flex shrink-0 animate-pop-out"
                     >
-                      <Tag size="md" onRemove={disabled ? undefined : () => {}}>
+                      <Tag size="md" icon={option.icon} onRemove={disabled ? undefined : () => {}}>
                         {option.label}
                       </Tag>
                     </li>
@@ -365,7 +367,11 @@ export function MultiSelect({
                         entering.current.has(option.value) && "animate-pop-in",
                       )}
                     >
-                      <Tag size="md" onRemove={disabled ? undefined : () => remove(index)}>
+                      <Tag
+                        size="md"
+                        icon={option.icon}
+                        onRemove={disabled ? undefined : () => remove(index)}
+                      >
                         {option.label}
                       </Tag>
                     </li>
@@ -507,8 +513,12 @@ export function MultiSelect({
                       "data-disabled:cursor-not-allowed",
                     )}
                   >
-                    {/* Desabilitada, a tag fica com o texto em cinza. */}
-                    <Tag size="md" className={cn(option.disabled && "text-disabled")}>
+                    {/* Desabilitada, a tag fica com o texto e o ícone em cinza. */}
+                    <Tag
+                      size="md"
+                      icon={option.icon}
+                      className={cn(option.disabled && "text-disabled [&_svg]:text-icon-disabled")}
+                    >
                       {option.label}
                     </Tag>
                     {isSelected ? (

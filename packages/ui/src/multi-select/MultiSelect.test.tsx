@@ -61,6 +61,18 @@ describe("MultiSelect", () => {
     expect(screen.getAllByRole("listitem")).toHaveLength(2);
   });
 
+  it("o ícone da opção aparece na tag do campo e na da lista, escondido do leitor de tela", async () => {
+    const user = userEvent.setup();
+    const withIcon = [{ value: "musica", label: "Música", icon: <svg data-testid="icone" /> }];
+    render(<Tools options={withIcon} defaultValue={["musica"]} />);
+    expect(screen.getAllByTestId("icone")).toHaveLength(1);
+    await user.click(screen.getByRole("button", { name: /Interesses/ }));
+    const icons = screen.getAllByTestId("icone");
+    expect(icons).toHaveLength(2);
+    for (const icon of icons) expect(icon.closest("[aria-hidden='true']")).toBeTruthy();
+    expect(screen.getByRole("option", { name: "Música" })).toBeTruthy();
+  });
+
   it("sem escolha, mostra o placeholder", () => {
     render(<Tools />);
     expect(screen.getByText("Escolha seus interesses")).toBeTruthy();
