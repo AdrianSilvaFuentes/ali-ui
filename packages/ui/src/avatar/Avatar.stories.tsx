@@ -73,7 +73,7 @@ export const WithImage: Story = {
       },
     },
   },
-  args: { src: "./avatar-sample.svg" },
+  args: { src: "./avatar-sample.png" },
   render: (args) => (
     <div className="flex items-center gap-4">
       {sizes.map((size) => (

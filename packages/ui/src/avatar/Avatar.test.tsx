@@ -47,7 +47,7 @@ describe("Avatar", () => {
 
   it("com foto que ainda não carregou (ou falhou), mostra as iniciais", () => {
     // No jsdom, a imagem nunca carrega: é o mesmo caminho de uma foto que falhou.
-    render(<Avatar name="Lia Martins" src="/avatar-sample.svg" />);
+    render(<Avatar name="Lia Martins" src="/avatar-sample.png" />);
     expect(screen.getByRole("img", { name: "Lia Martins" }).textContent).toBe("LM");
   });
 
@@ -102,7 +102,7 @@ describe("Avatar", () => {
       <div>
         <Avatar name="Lia Martins" />
         <Avatar name="Caio Ribeiro" size="xs" />
-        <Avatar name="Nara Torres" src="/avatar-sample.svg" size="xl" />
+        <Avatar name="Nara Torres" src="/avatar-sample.png" size="xl" />
         <Avatar />
       </div>,
     );
