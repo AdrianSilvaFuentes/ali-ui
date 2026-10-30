@@ -103,7 +103,7 @@ export const LongList: Story = {
     docs: {
       description: {
         story:
-          "Com muitas opções, a lista ocupa a altura que cabe na tela e rola; as setas em cima e embaixo aparecem quando há mais opções escondidas. Digitar o começo de uma opção pula direto para ela.",
+          "Com muitas opções, a lista vai até 288px (container-2xs), ou menos se não couber na tela, e rola; as setas em cima e embaixo aparecem quando há mais opções escondidas. Digitar o começo de uma opção pula direto para ela.",
       },
     },
   },
