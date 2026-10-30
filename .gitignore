@@ -29,3 +29,6 @@ coverage/
 # Arquivos de sistema do macOS
 .DS_Store
 ._*
+
+# Vercel: configuração local do `vercel link` (identificadores do projeto).
+.vercel

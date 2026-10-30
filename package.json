@@ -1,6 +1,7 @@
 {
   "name": "ali-ui",
   "private": true,
+  "license": "UNLICENSED",
   "type": "module",
   "packageManager": "pnpm@12.15.0",
   "engines": {
