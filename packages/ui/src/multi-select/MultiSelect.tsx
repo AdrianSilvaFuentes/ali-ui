@@ -4,6 +4,7 @@ import type { VariantProps } from "class-variance-authority";
 import {
   type KeyboardEvent,
   type MouseEvent,
+  type PointerEvent,
   type ReactNode,
   useEffect,
   useId,
@@ -58,6 +59,11 @@ export interface MultiSelectProps extends VariantProps<typeof inputVariants> {
   onCreate?: (label: string) => MultiSelectOption;
   /** O começo da linha de criar: "Criar “texto”". */
   createLabel?: string;
+  /**
+   * Liga a reordenação das opções da lista, arrastando ou com Alt+setas na opção em destaque.
+   * Recebe as opções na ordem nova; guarde-as em `options`. Com a busca preenchida, não reordena.
+   */
+  onOptionsReorder?: (options: MultiSelectOption[]) => void;
   /** Texto de ajuda abaixo do campo, lido pelo leitor de tela junto com o label. */
   description?: ReactNode;
   /** Mensagem de erro. Substitui a ajuda e aparece com ícone, não só em vermelho. */
@@ -72,6 +78,83 @@ export interface MultiSelectProps extends VariantProps<typeof inputVariants> {
 
 /** O destaque na linha de criar, no lugar do valor de uma opção. */
 const CREATE = "__create__";
+
+/** A lista com o item de `from` levado para `to`. */
+function move<T>(list: T[], from: number, to: number) {
+  const next = [...list];
+  const [item] = next.splice(from, 1);
+  if (item !== undefined) next.splice(to, 0, item);
+  return next;
+}
+
+/**
+ * Arrastar para reordenar, à mão, com pointer events (mouse e caneta; no toque o arrasto rola a
+ * página). Os itens são os irmãos com `data-reorder`. Enquanto arrasta, `drag` diz de onde o
+ * item saiu e para onde vai, para a lista já se mostrar na ordem nova; ao soltar, chama `onDrop`.
+ * `axis` "y" é uma coluna; "x" são itens lado a lado, que podem quebrar linha.
+ */
+function useDragReorder(axis: "x" | "y", onDrop: (from: number, to: number) => void) {
+  const [drag, setDrag] = useState<{ from: number; to: number } | null>(null);
+  // O clique que vem junto com o soltar não conta como clique.
+  const dragged = useRef(false);
+
+  const itemProps = (index: number) => ({
+    "data-reorder": "",
+    "data-dragging": drag?.to === index || undefined,
+    onPointerDown: (event: PointerEvent<HTMLElement>) => {
+      dragged.current = false;
+      if (event.button !== 0 || event.pointerType === "touch") return;
+      const item = event.currentTarget;
+      const container = item.parentElement;
+      if (!container) return;
+      const start = { x: event.clientX, y: event.clientY };
+      let to = index;
+      let moving = false;
+
+      const handleMove = (e: globalThis.PointerEvent) => {
+        // Só vira arrasto depois de 4px: um clique com a mão tremendo continua um clique.
+        if (!moving && Math.hypot(e.clientX - start.x, e.clientY - start.y) < 4) return;
+        moving = true;
+        const items = [...container.querySelectorAll<HTMLElement>(":scope > [data-reorder]")];
+        const rects = items.filter((el) => el !== item).map((el) => el.getBoundingClientRect());
+        const all = items.map((el) => el.getBoundingClientRect());
+        // O lugar novo é quantos outros itens ficam antes do ponteiro.
+        if (axis === "y") {
+          to = rects.filter((r) => r.top + r.height / 2 < e.clientY).length;
+        } else {
+          // Acima ou abaixo de todas as linhas, conta como na primeira ou na última.
+          const top = Math.min(...all.map((r) => r.top));
+          const bottom = Math.max(...all.map((r) => r.bottom));
+          const y = Math.min(Math.max(e.clientY, top), bottom - 1);
+          to = rects.filter(
+            (r) => r.bottom <= y || (r.top <= y && r.left + r.width / 2 < e.clientX),
+          ).length;
+        }
+        setDrag({ from: index, to });
+      };
+      const handleUp = (e: globalThis.PointerEvent) => {
+        window.removeEventListener("pointermove", handleMove);
+        window.removeEventListener("pointerup", handleUp);
+        window.removeEventListener("pointercancel", handleUp);
+        if (!moving) return;
+        dragged.current = true;
+        setDrag(null);
+        if (e.type === "pointerup" && to !== index) onDrop(index, to);
+      };
+      window.addEventListener("pointermove", handleMove);
+      window.addEventListener("pointerup", handleUp);
+      window.addEventListener("pointercancel", handleUp);
+    },
+    onClickCapture: (event: MouseEvent<HTMLElement>) => {
+      if (!dragged.current) return;
+      dragged.current = false;
+      event.preventDefault();
+      event.stopPropagation();
+    },
+  });
+
+  return { drag, itemProps };
+}
 
 /** Busca sem diferença de maiúsculas e acentos: "edicao" encontra "Edição". */
 function normalize(text: string) {
@@ -101,6 +184,7 @@ export function MultiSelect({
   emptyMessage = "Nenhuma opção encontrada",
   onCreate,
   createLabel = "Criar",
+  onOptionsReorder,
   description,
   error,
   disabled,
@@ -135,8 +219,11 @@ export function MultiSelect({
   // Tags que acabaram de sair da escolha: continuam na tela, sem interação, até a animação de
   // saída terminar. `index` é onde estavam, para saírem do mesmo lugar.
   const [leaving, setLeaving] = useState<{ option: MultiSelectOption; index: number }[]>([]);
-  // Depois de remover uma tag, o foco vai para o X da próxima, ou para o campo.
-  const focusAfterRemove = useRef<number | null>(null);
+  // Depois de remover uma tag, o foco vai para o X da próxima, ou para o campo. Depois de
+  // mover uma tag, vai para o X dela, no lugar novo.
+  const focusTag = useRef<number | null>(null);
+  // O aviso ao leitor de tela depois de mover uma tag ou opção: "Figma, posição 2 de 4".
+  const [announcement, setAnnouncement] = useState("");
 
   const selectedOptions = selected
     .map((v) => options.find((option) => option.value === v))
@@ -147,6 +234,11 @@ export function MultiSelect({
   const [fieldWidth, setFieldWidth] = useState(0);
   const fitKey = `${selected.join("\n")}|${fieldWidth}`;
   const [fit, setFit] = useState<{ key: string; count: number } | null>(null);
+  const tagDrag = useDragReorder("x", (from, to) => setValue(move(selected, from, to)));
+  // Enquanto arrasta, as tags já aparecem na ordem nova.
+  const orderedOptions = tagDrag.drag
+    ? move(selectedOptions, tagDrag.drag.from, tagDrag.drag.to)
+    : selectedOptions;
   const shownCount = !open && fit?.key === fitKey ? fit.count : selectedOptions.length;
   const hiddenCount = selectedOptions.length - shownCount;
 
@@ -212,6 +304,12 @@ export function MultiSelect({
     return term ? options.filter((option) => normalize(option.label).includes(term)) : options;
   }, [options, query]);
   const enabled = visible.filter((option) => !option.disabled);
+  // Com a busca preenchida, a lista é só um pedaço: reordenar nela confundiria.
+  const canReorderOptions = Boolean(onOptionsReorder) && !query.trim();
+  const optionDrag = useDragReorder("y", (from, to) => onOptionsReorder?.(move(options, from, to)));
+  const listed = optionDrag.drag
+    ? move(visible, optionDrag.drag.from, optionDrag.drag.to)
+    : visible;
 
   /** Com `onCreate`, um texto que não é o nome de nenhuma opção pode virar uma opção nova. */
   const canCreate = (text: string) => {
@@ -256,21 +354,32 @@ export function MultiSelect({
   };
 
   const remove = (index: number) => {
-    focusAfterRemove.current = index;
+    focusTag.current = index;
     const value = selected[index];
     if (value !== undefined) markLeaving(value);
     setValue(selected.filter((_, i) => i !== index));
   };
 
   useEffect(() => {
-    const index = focusAfterRemove.current;
+    const index = focusTag.current;
     if (index === null) return;
-    focusAfterRemove.current = null;
+    focusTag.current = null;
     const buttons = tagsRef.current?.querySelectorAll<HTMLButtonElement>(
       "li:not([data-leaving]) button",
     );
     (buttons?.[index] ?? triggerRef.current)?.focus();
   });
+
+  /** Alt+← e Alt+→ no X de uma tag a levam um lugar para o lado, entre as que aparecem. */
+  const handleTagKeyDown = (event: KeyboardEvent<HTMLLIElement>, index: number) => {
+    if (!event.altKey || (event.key !== "ArrowLeft" && event.key !== "ArrowRight")) return;
+    event.preventDefault();
+    const to = index + (event.key === "ArrowLeft" ? -1 : 1);
+    if (to < 0 || to >= shownCount) return;
+    focusTag.current = to;
+    setValue(move(selected, index, to));
+    setAnnouncement(`${selectedOptions[index]?.label}, posição ${to + 1} de ${selected.length}`);
+  };
 
   const changeOpen = (next: boolean) => {
     if (disabled) return;
@@ -304,7 +413,16 @@ export function MultiSelect({
 
   const handleSearchKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
     const index = highlighted === null ? -1 : navigable.indexOf(highlighted);
-    if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+    const isArrow = event.key === "ArrowDown" || event.key === "ArrowUp";
+    if (isArrow && event.altKey && canReorderOptions) {
+      // Alt+setas levam a opção em destaque um lugar para cima ou para baixo.
+      event.preventDefault();
+      const from = options.findIndex((option) => option.value === highlighted);
+      const to = from + (event.key === "ArrowUp" ? -1 : 1);
+      if (from === -1 || to < 0 || to >= options.length) return;
+      onOptionsReorder?.(move(options, from, to));
+      setAnnouncement(`${options[from]?.label}, posição ${to + 1} de ${options.length}`);
+    } else if (isArrow) {
       event.preventDefault();
       if (navigable.length === 0) return;
       const step = event.key === "ArrowDown" ? 1 : -1;
@@ -328,14 +446,16 @@ export function MultiSelect({
    * mouse: pelo teclado o foco vai direto no botão da seta.
    */
   const handleFieldMouseDown = (event: MouseEvent<HTMLDivElement>) => {
-    if (disabled || (event.target as Element).closest("button")) return;
+    const target = event.target as Element;
+    if (disabled || target.closest("button")) return;
     event.preventDefault();
-    changeOpen(!open);
+    // Numa tag, abre no clique, que só vem se não houve arrasto.
+    if (!target.closest("[data-reorder]")) changeOpen(!open);
   };
 
   // As tags na tela: as escolhidas que cabem, mais as que estão saindo, no lugar onde estavam.
   const shownTags: { option: MultiSelectOption; index: number; isLeaving: boolean }[] =
-    selectedOptions.slice(0, shownCount).map((option, index) => ({
+    orderedOptions.slice(0, shownCount).map((option, index) => ({
       option,
       index,
       isLeaving: false,
@@ -403,9 +523,16 @@ export function MultiSelect({
                   ) : (
                     <li
                       key={option.value}
+                      {...(disabled ? {} : tagDrag.itemProps(index))}
+                      onClick={(event) => {
+                        if (!disabled && !(event.target as Element).closest("button")) {
+                          changeOpen(!open);
+                        }
+                      }}
+                      onKeyDown={(event) => handleTagKeyDown(event, index)}
                       onAnimationEnd={() => entering.current.delete(option.value)}
                       className={cn(
-                        "flex shrink-0",
+                        "flex shrink-0 select-none data-dragging:opacity-60",
                         entering.current.has(option.value) && "animate-pop-in",
                       )}
                     >
@@ -530,12 +657,13 @@ export function MultiSelect({
               // e sem o espaço as escolhidas seguidas viravam um bloco só.
               className="flex min-h-0 flex-col gap-0.5 overflow-y-auto"
             >
-              {visible.map((option) => {
+              {listed.map((option, index) => {
                 const isSelected = selected.includes(option.value);
                 return (
                   // biome-ignore lint/a11y/useKeyWithClickEvents: o teclado fica na busca (aria-activedescendant).
                   <div
                     key={option.value}
+                    {...(canReorderOptions ? optionDrag.itemProps(index) : {})}
                     id={`${listboxId}-${option.value}`}
                     role="option"
                     tabIndex={-1}
@@ -553,7 +681,7 @@ export function MultiSelect({
                       compact ? "h-8 rounded-md py-1" : "rounded-lg py-2",
                       "data-highlighted:bg-neutral-hovered",
                       isSelected && "bg-selected data-highlighted:bg-selected",
-                      "data-disabled:cursor-not-allowed",
+                      "data-disabled:cursor-not-allowed data-dragging:opacity-60",
                     )}
                   >
                     {/* Desabilitada, a tag fica com o texto e o ícone em cinza. */}
@@ -601,6 +729,9 @@ export function MultiSelect({
           </Content>
         </Portal>
       </Root>
+      <span role="status" className="sr-only">
+        {announcement}
+      </span>
       {showDescription ? <FieldHelp id={descriptionId}>{description}</FieldHelp> : null}
       {error ? <FieldError id={errorId}>{error}</FieldError> : null}
     </div>

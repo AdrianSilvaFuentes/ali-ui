@@ -74,6 +74,20 @@ function Creatable({ onValueChange }: { onValueChange?: (value: string[]) => voi
   );
 }
 
+/** Três escolhidas, controlado, para ver a ordem mudar. */
+function Ordered({ onValueChange }: { onValueChange: (value: string[]) => void }) {
+  const [value, setValue] = useState(["tipografia", "fotografia", "musica"]);
+  return (
+    <Tools
+      value={value}
+      onValueChange={(next) => {
+        setValue(next);
+        onValueChange(next);
+      }}
+    />
+  );
+}
+
 describe("MultiSelect", () => {
   it("o botão tem o nome do label mais o que está escolhido", () => {
     render(<Tools defaultValue={["tipografia", "fotografia"]} />);
@@ -175,7 +189,7 @@ describe("MultiSelect", () => {
     expect(screen.getAllByRole("option").map((o) => o.textContent)).toEqual(["Música"]);
     await user.keyboard("xyz");
     expect(screen.queryAllByRole("option")).toHaveLength(0);
-    expect(screen.getByRole("status").textContent).toBe("Nenhuma opção encontrada");
+    expect(screen.getByText("Nenhuma opção encontrada").getAttribute("role")).toBe("status");
   });
 
   it("Esc fecha, devolve o foco ao campo e limpa a busca", async () => {
@@ -286,6 +300,71 @@ describe("MultiSelect", () => {
     await user.keyboard("Design");
     expect(screen.queryByRole("option", { name: /Criar/ })).toBeNull();
     expect(screen.getByText("Nenhuma opção encontrada")).toBeTruthy();
+  });
+
+  it("Alt+setas no X movem a tag, o foco vai junto e o leitor de tela ouve o lugar novo", async () => {
+    const user = userEvent.setup();
+    const onValueChange = vi.fn();
+    render(<Ordered onValueChange={onValueChange} />);
+    screen.getByRole("button", { name: "Remover Tipografia" }).focus();
+    await user.keyboard("{Alt>}{ArrowRight}{/Alt}");
+    expect(onValueChange).toHaveBeenLastCalledWith(["fotografia", "tipografia", "musica"]);
+    expect(document.activeElement).toBe(screen.getByRole("button", { name: "Remover Tipografia" }));
+    expect(screen.getByText("Tipografia, posição 2 de 3").getAttribute("role")).toBe("status");
+    // No começo, Alt+← não faz nada.
+    screen.getByRole("button", { name: "Remover Fotografia" }).focus();
+    onValueChange.mockClear();
+    await user.keyboard("{Alt>}{ArrowLeft}{/Alt}");
+    expect(onValueChange).not.toHaveBeenCalled();
+  });
+
+  it("com onOptionsReorder, Alt+setas movem a opção em destaque; com busca, não", async () => {
+    const user = userEvent.setup();
+    const onOptionsReorder = vi.fn();
+    render(<Tools onOptionsReorder={onOptionsReorder} />);
+    await user.click(screen.getByRole("button"));
+    await user.keyboard("{Alt>}{ArrowDown}{/Alt}");
+    expect(onOptionsReorder.mock.calls[0]?.[0].map((o: { value: string }) => o.value)).toEqual([
+      "fotografia",
+      "tipografia",
+      "ilustracao",
+      "musica",
+    ]);
+    expect(screen.getByText("Tipografia, posição 2 de 4")).toBeTruthy();
+    await user.keyboard("fo{Alt>}{ArrowDown}{/Alt}");
+    expect(onOptionsReorder).toHaveBeenCalledTimes(1);
+  });
+
+  it("arrastar uma opção a leva para onde o mouse soltar, sem escolher", async () => {
+    const user = userEvent.setup();
+    const onOptionsReorder = vi.fn();
+    const onValueChange = vi.fn();
+    render(<Tools onOptionsReorder={onOptionsReorder} onValueChange={onValueChange} />);
+    await user.click(screen.getByRole("button"));
+    // O jsdom não mede: cada opção tem 40px de altura, uma embaixo da outra.
+    const rows = screen.getAllByRole("option");
+    rows.forEach((row, i) => {
+      row.getBoundingClientRect = () =>
+        ({ top: i * 40, bottom: i * 40 + 40, height: 40, left: 0, width: 200 }) as DOMRect;
+    });
+    const first = rows[0] as HTMLElement;
+    fireEvent.pointerDown(first, { button: 0, clientX: 10, clientY: 20 });
+    fireEvent.pointerMove(window, { clientX: 10, clientY: 105 });
+    expect(screen.getAllByRole("option").map((o) => o.textContent)).toEqual([
+      "Fotografia",
+      "Ilustração",
+      "Tipografia",
+      "Música",
+    ]);
+    fireEvent.pointerUp(window, { clientX: 10, clientY: 105 });
+    fireEvent.click(first);
+    expect(onOptionsReorder.mock.calls[0]?.[0].map((o: { value: string }) => o.value)).toEqual([
+      "fotografia",
+      "ilustracao",
+      "tipografia",
+      "musica",
+    ]);
+    expect(onValueChange).not.toHaveBeenCalled();
   });
 
   it("com erro, o erro substitui a ajuda e marca como inválido", () => {
