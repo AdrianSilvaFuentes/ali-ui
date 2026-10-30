@@ -65,6 +65,30 @@ describe("Avatar", () => {
     expect(className).toContain("rounded-full");
   });
 
+  it.each([
+    ["xs", "[&_svg]:size-3.5"],
+    ["sm", "[&_svg]:size-4"],
+    ["md", "[&_svg]:size-5"],
+    ["lg", "[&_svg]:size-6"],
+    ["xl", "[&_svg]:size-8"],
+  ] as const)("tamanho %s: ícone de pessoa em %s", (size, icon) => {
+    render(<Avatar name="Lia" size={size} />);
+    expect(screen.getByRole("img").className).toContain(icon);
+  });
+
+  it.each([
+    ["xl", "rounded-lg"],
+    ["lg", "rounded-lg"],
+    ["md", "rounded-lg"],
+    ["sm", "rounded-md"],
+    ["xs", "rounded-sm"],
+  ] as const)("quadrado %s: canto %s", (size, radius) => {
+    render(<Avatar name="Lia" size={size} shape="square" />);
+    const { className } = screen.getByRole("img");
+    expect(className).toContain(radius);
+    expect(className).not.toContain("rounded-full");
+  });
+
   it("fundo readonly com contorno suave e sombra xs", () => {
     render(<Avatar name="Lia Martins" />);
     const { className } = screen.getByRole("img");
