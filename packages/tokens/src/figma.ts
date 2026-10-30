@@ -5,16 +5,7 @@
  * O código é a fonte da verdade. Rodar o plugin de novo atualiza os valores, cria o
  * que é novo e remove o que saiu do código, sem duplicar coleções.
  */
-import {
-  blue,
-  green,
-  neutralDark,
-  neutralLight,
-  orange,
-  primary,
-  red,
-  yellow,
-} from "./primitives.ts";
+import { blue, green, neutralDark, neutralLight, orange, red, teal, yellow } from "./primitives.ts";
 import { radius, spacing } from "./scales.ts";
 import { type ColorName, color } from "./semantic.ts";
 
@@ -54,7 +45,8 @@ export interface FigmaToken {
 const colorScales = {
   "neutral-light": neutralLight,
   "neutral-dark": neutralDark,
-  primary,
+  // A marca aparece pela cor dela (teal): no Figma, os tokens de marca apontam para o teal.
+  teal,
   red,
   green,
   orange,

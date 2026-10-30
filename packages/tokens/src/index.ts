@@ -9,6 +9,8 @@ export { cssVarName, type TokenGroup };
 
 import { radius, shadow, spacing } from "./scales.ts";
 import {
+  brandPalettes,
+  brandTokens,
   color,
   contrastPairs,
   duration,
@@ -22,6 +24,7 @@ import {
 } from "./semantic.ts";
 
 export type {
+  BrandName,
   ColorName,
   ColorToken,
   GradientName,
@@ -30,6 +33,8 @@ export type {
   ThemeName,
 } from "./semantic.ts";
 export {
+  brandPalettes,
+  brandTokens,
   color,
   contrastPairs,
   duration,

@@ -6,7 +6,15 @@ import { describe, expect, it } from "vitest";
 import { contrastRatio, toHex, toOklch } from "./color.ts";
 import { renderTailwindCss, renderTokensCss } from "./css.ts";
 import { neutralLight } from "./primitives.ts";
-import { color, contrastPairs, gradient, type ThemeName } from "./semantic.ts";
+import {
+  type BrandName,
+  brandPalettes,
+  brandTokens,
+  color,
+  contrastPairs,
+  gradient,
+  type ThemeName,
+} from "./semantic.ts";
 
 describe("contraste das cores semânticas", () => {
   for (const theme of ["light", "dark"] satisfies ThemeName[]) {
@@ -15,6 +23,21 @@ describe("contraste das cores semânticas", () => {
     });
   }
 });
+
+// Com outra cor de marca, os pares que envolvem tokens da marca seguem as mesmas regras do teal.
+describe.each((Object.keys(brandPalettes) as BrandName[]).filter((name) => name !== "teal"))(
+  "contraste com a marca %s",
+  (name) => {
+    const brand = brandTokens(name);
+    const pairs = contrastPairs.filter(([fg, bg]) => fg in brand.color || bg in brand.color);
+    for (const theme of ["light", "dark"] satisfies ThemeName[]) {
+      const value = (key: keyof typeof color) => (brand.color[key] ?? color[key])[theme];
+      it.each(pairs)(`${theme}: %s sobre %s ≥ %d:1`, (fg, bg, min) => {
+        expect(contrastRatio(value(fg), value(bg))).toBeGreaterThanOrEqual(min);
+      });
+    }
+  },
+);
 
 describe("contraste dos degradês", () => {
   // O texto em static-white precisa de 4.5:1 nas duas pontas, onde o degradê é mais claro.

@@ -1,4 +1,4 @@
-import type { ThemeName } from "@ali/tokens";
+import type { BrandName, ThemeName } from "@ali/tokens";
 import type { Preview } from "@storybook/react-vite";
 import { ThemeContext } from "../src/theme";
 import { DocsContainer } from "./DocsContainer";
@@ -19,13 +19,36 @@ const preview: Preview = {
         dynamicTitle: true,
       },
     },
+    // Seletor da cor de marca: troca a paleta do primary em todas as páginas, para testar
+    // a interface com outra marca. Os tokens de status (erro, sucesso...) não mudam.
+    brand: {
+      description: "Cor de marca",
+      toolbar: {
+        title: "Marca",
+        icon: "paintbrush",
+        items: [
+          { value: "teal", title: "Teal (padrão)" },
+          { value: "blue", title: "Blue" },
+          { value: "green", title: "Green" },
+          { value: "orange", title: "Orange" },
+          { value: "red", title: "Red" },
+          { value: "yellow", title: "Yellow" },
+        ],
+        dynamicTitle: true,
+      },
+    },
   },
-  initialGlobals: { theme: "light" },
+  initialGlobals: { theme: "light", brand: "teal" },
   decorators: [
     (Story, context) => {
       const theme = context.globals.theme as ThemeName;
       // No <html>, para o fundo da página e os componentes seguirem o tema.
       document.documentElement.setAttribute("data-theme", theme);
+      // A marca também vai no <html>: o CSS dos tokens troca as cores de marca por ela.
+      document.documentElement.setAttribute(
+        "data-brand",
+        (context.globals.brand as BrandName | undefined) ?? "teal",
+      );
       return (
         <ThemeContext.Provider value={theme}>
           <Story />

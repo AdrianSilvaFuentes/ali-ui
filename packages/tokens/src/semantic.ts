@@ -5,6 +5,8 @@
  * Cada token aponta para um primitivo. Trocar a identidade é mudar esses apontamentos
  * ou os próprios primitivos, sem tocar em nenhum componente.
  */
+
+import { toOklch } from "./color.ts";
 import {
   blue,
   duration as durationScale,
@@ -19,6 +21,7 @@ import {
   orange,
   primary,
   red,
+  teal,
   yellow,
 } from "./primitives.ts";
 import { shadow } from "./scales.ts";
@@ -596,3 +599,61 @@ export const elevation = {
   raised: shadow.sm,
   overlay: shadow.lg,
 } as const;
+
+/**
+ * Paletas que podem fazer o papel de marca. A primeira (teal) é a padrão: é para onde o
+ * primary aponta. As outras servem para testar a interface com outra cor de marca, trocando
+ * o atributo `data-brand` (veja o CSS gerado). Os tokens semânticos de status continuam os
+ * mesmos: com marca vermelha, o erro continua vermelho.
+ */
+export const brandPalettes = { teal, blue, green, orange, red, yellow } as const;
+
+export type BrandName = keyof typeof brandPalettes;
+
+type Palette = Readonly<Record<string, string>>;
+
+/** Os valores do primary, para saber quais tokens vêm da marca. */
+const primaryValues = new Set<string>(Object.values(primary));
+
+/** Claridade de uma cor no OKLCH, de 0 (preto) a 1 (branco). */
+function lightness(value: string): number {
+  return Number(/^oklch\(([\d.]+)/.exec(toOklch(value))?.[1]);
+}
+
+/**
+ * A cor de outra paleta com a claridade mais parecida, ou o próprio valor quando ele não vem
+ * do primary. Pela claridade, e não pelo mesmo passo: as paletas não têm a mesma claridade em
+ * cada passo (o 600 do azul é mais escuro que o do teal), e o contraste depende da claridade.
+ * Assim o token mantém o papel e o contraste com outra cor. No teal, devolve o mesmo valor.
+ */
+function rebrand(value: string, palette: Palette): string {
+  if (!primaryValues.has(value)) return value;
+  const target = lightness(value);
+  return Object.values(palette).reduce((best, candidate) =>
+    Math.abs(lightness(candidate) - target) < Math.abs(lightness(best) - target) ? candidate : best,
+  );
+}
+
+/**
+ * Os tokens de cor e os degradês que vêm do primary, refeitos com outra paleta, cada um com a
+ * cor de claridade mais parecida (veja `rebrand`). Os outros tokens não mudam.
+ */
+export function brandTokens(name: BrandName): {
+  color: Partial<Record<ColorName, ColorToken>>;
+  gradient: Partial<Record<GradientName, GradientToken>>;
+} {
+  const palette = brandPalettes[name];
+  const colors = (Object.entries(color) as [ColorName, ColorToken][])
+    .filter(([, token]) => primaryValues.has(token.light) || primaryValues.has(token.dark))
+    .map(([key, token]) => [
+      key,
+      { ...token, light: rebrand(token.light, palette), dark: rebrand(token.dark, palette) },
+    ]);
+  const gradients = (Object.entries(gradient) as [GradientName, GradientToken][])
+    .filter(([, token]) => primaryValues.has(token.from) || primaryValues.has(token.to))
+    .map(([key, token]) => [
+      key,
+      { ...token, from: rebrand(token.from, palette), to: rebrand(token.to, palette) },
+    ]);
+  return { color: Object.fromEntries(colors), gradient: Object.fromEntries(gradients) };
+}

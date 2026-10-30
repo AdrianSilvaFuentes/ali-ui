@@ -182,7 +182,7 @@ const DATA = {
       ]
     },
     {
-      "name": "colors/primary/primary-50",
+      "name": "colors/teal/teal-50",
       "type": "COLOR",
       "value": "#f2fdf8",
       "scopes": [
@@ -190,7 +190,7 @@ const DATA = {
       ]
     },
     {
-      "name": "colors/primary/primary-100",
+      "name": "colors/teal/teal-100",
       "type": "COLOR",
       "value": "#dff9ed",
       "scopes": [
@@ -198,7 +198,7 @@ const DATA = {
       ]
     },
     {
-      "name": "colors/primary/primary-200",
+      "name": "colors/teal/teal-200",
       "type": "COLOR",
       "value": "#c6f2df",
       "scopes": [
@@ -206,7 +206,7 @@ const DATA = {
       ]
     },
     {
-      "name": "colors/primary/primary-300",
+      "name": "colors/teal/teal-300",
       "type": "COLOR",
       "value": "#a9eacf",
       "scopes": [
@@ -214,7 +214,7 @@ const DATA = {
       ]
     },
     {
-      "name": "colors/primary/primary-400",
+      "name": "colors/teal/teal-400",
       "type": "COLOR",
       "value": "#88dfbd",
       "scopes": [
@@ -222,7 +222,7 @@ const DATA = {
       ]
     },
     {
-      "name": "colors/primary/primary-500",
+      "name": "colors/teal/teal-500",
       "type": "COLOR",
       "value": "#66d4ac",
       "scopes": [
@@ -230,7 +230,7 @@ const DATA = {
       ]
     },
     {
-      "name": "colors/primary/primary-600",
+      "name": "colors/teal/teal-600",
       "type": "COLOR",
       "value": "#45ca9e",
       "scopes": [
@@ -238,7 +238,7 @@ const DATA = {
       ]
     },
     {
-      "name": "colors/primary/primary-700",
+      "name": "colors/teal/teal-700",
       "type": "COLOR",
       "value": "#26bf92",
       "scopes": [
@@ -246,7 +246,7 @@ const DATA = {
       ]
     },
     {
-      "name": "colors/primary/primary-800",
+      "name": "colors/teal/teal-800",
       "type": "COLOR",
       "value": "#219381",
       "scopes": [
@@ -254,7 +254,7 @@ const DATA = {
       ]
     },
     {
-      "name": "colors/primary/primary-900",
+      "name": "colors/teal/teal-900",
       "type": "COLOR",
       "value": "#1b6967",
       "scopes": [
@@ -262,7 +262,7 @@ const DATA = {
       ]
     },
     {
-      "name": "colors/primary/primary-950",
+      "name": "colors/teal/teal-950",
       "type": "COLOR",
       "value": "#133b41",
       "scopes": [
@@ -1083,8 +1083,8 @@ const DATA = {
     },
     {
       "name": "background/selected",
-      "light": "colors/primary/primary-100",
-      "dark": "colors/primary/primary-950",
+      "light": "colors/teal/teal-100",
+      "dark": "colors/teal/teal-950",
       "description": "Fundo de um item escolhido numa lista, como a opção marcada do Select: um tom de hover na cor da marca. Texto em default.",
       "scopes": [
         "FRAME_FILL",
@@ -1149,8 +1149,8 @@ const DATA = {
     },
     {
       "name": "text/link",
-      "light": "colors/primary/primary-900",
-      "dark": "colors/primary/primary-600",
+      "light": "colors/teal/teal-900",
+      "dark": "colors/teal/teal-600",
       "description": "Links e textos na cor de marca.",
       "scopes": [
         "TEXT_FILL"
@@ -1290,8 +1290,8 @@ const DATA = {
     },
     {
       "name": "icon/primary",
-      "light": "colors/primary/primary-800",
-      "dark": "colors/primary/primary-400",
+      "light": "colors/teal/teal-800",
+      "dark": "colors/teal/teal-400",
       "description": "Ícone na cor de marca, como o check da opção escolhida do Select. Mesmos passos dos ícones de status.",
       "scopes": [
         "SHAPE_FILL",
@@ -1422,8 +1422,8 @@ const DATA = {
     },
     {
       "name": "border/focus",
-      "light": "colors/primary/primary-800",
-      "dark": "colors/primary/primary-600",
+      "light": "colors/teal/teal-800",
+      "dark": "colors/teal/teal-600",
       "description": "Contorno de foco visível na navegação por teclado.",
       "scopes": [
         "STROKE_COLOR"

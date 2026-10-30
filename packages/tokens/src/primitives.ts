@@ -41,8 +41,8 @@ export const neutralDark = {
   950: "#0d0f12",
 } as const;
 
-/** Cor de marca: um verde-menta. É clara, então pede texto escuro por cima. */
-export const primary = {
+/** Verde-azulado (teal): a cor de marca padrão da Ali UI. */
+export const teal = {
   50: "#f2fdf8",
   100: "#dff9ed",
   200: "#c6f2df",
@@ -55,6 +55,13 @@ export const primary = {
   900: "#1b6967",
   950: "#133b41",
 } as const;
+
+/**
+ * Cor de marca: um apelido para a paleta da marca, hoje o teal. Os tokens de marca apontam
+ * para ela. Outras paletas podem fazer o papel de marca sem mudar os tokens (veja
+ * `brandPalettes` em semantic.ts e o atributo `data-brand` no CSS).
+ */
+export const primary = teal;
 
 /** Vermelho para erros e ações destrutivas. */
 export const red = {
