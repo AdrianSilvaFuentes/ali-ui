@@ -93,16 +93,80 @@ function move<T>(list: T[], from: number, to: number) {
   return next;
 }
 
+/** O tempo de uma animação curta (duration-fast), ou 0 para quem pede menos movimento. */
+function fastDuration(element: HTMLElement) {
+  if (!element.animate || window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return 0;
+  return Number.parseFloat(getComputedStyle(element).getPropertyValue("--ali-duration-fast")) || 0;
+}
+
+/** O lugar do elemento sem o deslocamento de uma animação, para não mirar num alvo andando. */
+function layoutRect(element: HTMLElement) {
+  const rect = element.getBoundingClientRect();
+  const transform = getComputedStyle(element).transform;
+  if (!transform || transform === "none") return rect;
+  const { m41: x, m42: y } = new DOMMatrixReadOnly(transform);
+  return new DOMRect(rect.left - x, rect.top - y, rect.width, rect.height);
+}
+
+/** O arrasto em curso, em `useDragReorder`. */
+interface DragSession {
+  item: HTMLElement;
+  /** Onde o item e o ponteiro começaram, e onde o ponteiro está. */
+  origin: DOMRect;
+  start: { x: number; y: number };
+  pointer: { x: number; y: number };
+  /** Onde cada item estava à vista antes da última mudança de ordem: de onde os outros deslizam. */
+  before: Map<HTMLElement, DOMRect>;
+}
+
+/** Põe o item embaixo do ponteiro: o deslocamento do ponteiro menos o quanto o lugar dele mudou. */
+function follow({ item, origin, start, pointer }: DragSession, axis: "x" | "y") {
+  item.style.transform = "";
+  const slot = item.getBoundingClientRect();
+  const dx = axis === "y" ? 0 : pointer.x - start.x - (slot.left - origin.left);
+  const dy = pointer.y - start.y - (slot.top - origin.top);
+  item.style.transform = `translate(${dx}px, ${dy}px)`;
+}
+
+/** Desliza o elemento de onde está à vista até o seu lugar. */
+function slide(element: HTMLElement, from: string, duration: number) {
+  return element.animate([{ transform: from }, { transform: "none" }], {
+    duration,
+    easing: "ease-out",
+  });
+}
+
 /**
  * Arrastar para reordenar, à mão, com pointer events (mouse e caneta; no toque o arrasto rola a
- * página). Os itens são os irmãos com `data-reorder`. Enquanto arrasta, `drag` diz de onde o
- * item saiu e para onde vai, para a lista já se mostrar na ordem nova; ao soltar, chama `onDrop`.
- * `axis` "y" é uma coluna; "x" são itens lado a lado, que podem quebrar linha.
+ * página). Os itens são os irmãos com `data-reorder`. O item arrastado segue o ponteiro, e os
+ * outros deslizam para abrir o vão onde ele vai cair: `drag` diz de onde ele saiu e para onde
+ * vai, para a lista já se mostrar na ordem nova. Ao soltar, ele desliza até o vão e `onDrop` é
+ * chamado. `axis` "y" é uma coluna (o item só sobe e desce); "x" são itens lado a lado, que
+ * podem quebrar linha.
  */
 function useDragReorder(axis: "x" | "y", onDrop: (from: number, to: number) => void) {
   const [drag, setDrag] = useState<{ from: number; to: number } | null>(null);
   // O clique que vem junto com o soltar não conta como clique.
   const dragged = useRef(false);
+  const session = useRef<DragSession | null>(null);
+
+  // Depois de cada mudança de ordem: o item volta para baixo do ponteiro, e os outros deslizam
+  // de onde estavam até o lugar novo.
+  useLayoutEffect(() => {
+    const current = session.current;
+    if (!drag || !current) return;
+    follow(current, axis);
+    const duration = fastDuration(current.item);
+    if (!duration) return;
+    for (const [element, old] of current.before) {
+      if (element === current.item || !element.isConnected) continue;
+      for (const animation of element.getAnimations()) animation.cancel();
+      const now = element.getBoundingClientRect();
+      const dx = old.left - now.left;
+      const dy = old.top - now.top;
+      if (dx || dy) slide(element, `translate(${dx}px, ${dy}px)`, duration);
+    }
+  }, [drag, axis]);
 
   const itemProps = (index: number) => ({
     "data-reorder": "",
@@ -116,26 +180,47 @@ function useDragReorder(axis: "x" | "y", onDrop: (from: number, to: number) => v
       const start = { x: event.clientX, y: event.clientY };
       let to = index;
       let moving = false;
+      let shown = false;
 
       const handleMove = (e: globalThis.PointerEvent) => {
         // Só vira arrasto depois de 4px: um clique com a mão tremendo continua um clique.
         if (!moving && Math.hypot(e.clientX - start.x, e.clientY - start.y) < 4) return;
-        moving = true;
         const items = [...container.querySelectorAll<HTMLElement>(":scope > [data-reorder]")];
-        const rects = items.filter((el) => el !== item).map((el) => el.getBoundingClientRect());
-        const all = items.map((el) => el.getBoundingClientRect());
+        if (!moving) {
+          moving = true;
+          // Por cima dos vizinhos enquanto anda.
+          item.style.position = "relative";
+          item.style.zIndex = "1";
+          session.current = {
+            item,
+            origin: item.getBoundingClientRect(),
+            start,
+            pointer: start,
+            before: new Map(),
+          };
+        }
+        const current = session.current;
+        if (!current) return;
+        current.pointer = { x: e.clientX, y: e.clientY };
+        follow(current, axis);
+        const rects = items.filter((el) => el !== item).map(layoutRect);
         // O lugar novo é quantos outros itens ficam antes do ponteiro.
+        let next: number;
         if (axis === "y") {
-          to = rects.filter((r) => r.top + r.height / 2 < e.clientY).length;
+          next = rects.filter((r) => r.top + r.height / 2 < e.clientY).length;
         } else {
           // Acima ou abaixo de todas as linhas, conta como na primeira ou na última.
-          const top = Math.min(...all.map((r) => r.top));
-          const bottom = Math.max(...all.map((r) => r.bottom));
+          const top = Math.min(...rects.map((r) => r.top));
+          const bottom = Math.max(...rects.map((r) => r.bottom));
           const y = Math.min(Math.max(e.clientY, top), bottom - 1);
-          to = rects.filter(
+          next = rects.filter(
             (r) => r.bottom <= y || (r.top <= y && r.left + r.width / 2 < e.clientX),
           ).length;
         }
+        if (next === to && shown) return;
+        to = next;
+        shown = true;
+        current.before = new Map(items.map((el) => [el, el.getBoundingClientRect()]));
         setDrag({ from: index, to });
       };
       const handleUp = (e: globalThis.PointerEvent) => {
@@ -144,6 +229,17 @@ function useDragReorder(axis: "x" | "y", onDrop: (from: number, to: number) => v
         window.removeEventListener("pointercancel", handleUp);
         if (!moving) return;
         dragged.current = true;
+        session.current = null;
+        // Do ponteiro até o vão.
+        const from = item.style.transform;
+        item.style.transform = "";
+        const reset = () => {
+          item.style.position = "";
+          item.style.zIndex = "";
+        };
+        const duration = fastDuration(item);
+        if (duration && from) slide(item, from, duration).onfinish = reset;
+        else reset();
         setDrag(null);
         if (e.type === "pointerup" && to !== index) onDrop(index, to);
       };
@@ -538,7 +634,7 @@ export function MultiSelect({
                       onKeyDown={(event) => handleTagKeyDown(event, index)}
                       onAnimationEnd={() => entering.current.delete(option.value)}
                       className={cn(
-                        "flex shrink-0 select-none data-dragging:opacity-60",
+                        "flex shrink-0 select-none data-dragging:cursor-grabbing",
                         entering.current.has(option.value) && "animate-pop-in",
                       )}
                     >
@@ -687,7 +783,7 @@ export function MultiSelect({
                       compact ? "h-8 rounded-md py-1" : "rounded-lg py-2",
                       "data-highlighted:bg-neutral-hovered",
                       isSelected && "bg-selected data-highlighted:bg-selected",
-                      "data-disabled:cursor-not-allowed data-dragging:opacity-60",
+                      "data-disabled:cursor-not-allowed data-dragging:cursor-grabbing data-dragging:shadow-overlay",
                     )}
                   >
                     {/* A alça diz que a linha se arrasta. Some com a busca, que não reordena. */}
