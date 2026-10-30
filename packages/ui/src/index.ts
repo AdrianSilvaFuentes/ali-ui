@@ -5,6 +5,11 @@ export { Checkbox, type CheckboxProps, checkboxVariants } from "./checkbox/Check
 export { Input, type InputProps, inputVariants } from "./input/Input.tsx";
 export { cn } from "./lib/cn.ts";
 export {
+  MultiSelect,
+  type MultiSelectOption,
+  type MultiSelectProps,
+} from "./multi-select/MultiSelect.tsx";
+export {
   RadioGroup,
   RadioGroupItem,
   type RadioGroupItemProps,
