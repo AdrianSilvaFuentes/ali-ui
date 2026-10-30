@@ -64,6 +64,14 @@ const preview: Preview = {
             "Motion",
           ],
           "Components",
+          // Button e Toggletip servem a qualquer tela; os campos ficam juntos em Form, dos de
+          // texto para os de escolha.
+          [
+            "Button",
+            "Toggletip",
+            "Form",
+            ["Visão geral", "Input", "Textarea", "Select", "Checkbox", "RadioGroup", "Switch"],
+          ],
         ],
       },
     },

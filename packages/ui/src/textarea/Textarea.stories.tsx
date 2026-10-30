@@ -3,7 +3,7 @@ import { Input } from "../input/Input.tsx";
 import { Textarea } from "./Textarea.tsx";
 
 const meta = {
-  title: "Components/Textarea",
+  title: "Components/Form/Textarea",
   component: Textarea,
   tags: ["autodocs"],
   parameters: {
