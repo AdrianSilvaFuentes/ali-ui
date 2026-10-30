@@ -84,6 +84,7 @@ function Ordered({ onValueChange }: { onValueChange: (value: string[]) => void }
         setValue(next);
         onValueChange(next);
       }}
+      onOptionsReorder={() => {}}
     />
   );
 }
@@ -316,6 +317,16 @@ describe("MultiSelect", () => {
     onValueChange.mockClear();
     await user.keyboard("{Alt>}{ArrowLeft}{/Alt}");
     expect(onValueChange).not.toHaveBeenCalled();
+  });
+
+  it("sem onOptionsReorder, as tags não se reordenam", async () => {
+    const user = userEvent.setup();
+    const onValueChange = vi.fn();
+    render(<Tools defaultValue={["tipografia", "fotografia"]} onValueChange={onValueChange} />);
+    screen.getByRole("button", { name: "Remover Tipografia" }).focus();
+    await user.keyboard("{Alt>}{ArrowRight}{/Alt}");
+    expect(onValueChange).not.toHaveBeenCalled();
+    expect(screen.getByText("Tipografia").closest("[data-reorder]")).toBeNull();
   });
 
   it("com onOptionsReorder, Alt+setas movem a opção em destaque e as tags seguem; com busca, não", async () => {

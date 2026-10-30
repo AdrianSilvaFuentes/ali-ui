@@ -345,6 +345,8 @@ export function MultiSelect({
   const [fieldWidth, setFieldWidth] = useState(0);
   const fitKey = `${selected.join("\n")}|${fieldWidth}`;
   const [fit, setFit] = useState<{ key: string; count: number } | null>(null);
+  // Tags e lista têm uma ordem só: reordenar, aqui ou lá, só com `onOptionsReorder`.
+  const reorderable = Boolean(onOptionsReorder) && !disabled;
   const tagDrag = useDragReorder("x", (from, to) => reorderTags(from, to));
   // Enquanto arrasta, as tags já aparecem na ordem nova.
   const orderedOptions = tagDrag.drag
@@ -540,7 +542,8 @@ export function MultiSelect({
 
   /** Alt+← e Alt+→ no X de uma tag a levam um lugar para o lado, entre as que aparecem. */
   const handleTagKeyDown = (event: KeyboardEvent<HTMLLIElement>, index: number) => {
-    if (!event.altKey || (event.key !== "ArrowLeft" && event.key !== "ArrowRight")) return;
+    if (!reorderable || !event.altKey) return;
+    if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
     event.preventDefault();
     const to = index + (event.key === "ArrowLeft" ? -1 : 1);
     if (to < 0 || to >= shownCount) return;
@@ -692,9 +695,10 @@ export function MultiSelect({
                     <li
                       key={option.value}
                       data-value={option.value}
-                      {...(disabled ? {} : tagDrag.itemProps(index))}
+                      {...(reorderable ? tagDrag.itemProps(index) : {})}
                       onClick={(event) => {
-                        if (!disabled && !(event.target as Element).closest("button")) {
+                        // Sem reordenar, o clique na tag já abriu no mousedown do campo.
+                        if (reorderable && !(event.target as Element).closest("button")) {
                           changeOpen(!open);
                         }
                       }}
