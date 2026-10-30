@@ -72,10 +72,14 @@ describe("Switch", () => {
     const { className } = screen.getByRole("switch");
     expect(className).toContain("before:bg-gradient-brand");
     expect(className).toContain("text-static-white");
-    // Desligado, o trilho é afundado: fundo cinza, sem sombra por fora e sombra por dentro.
+    // Desligado, o trilho é afundado: fundo cinza e sombra por dentro; por fora, a xs de sempre.
     expect(className).toContain("bg-neutral-pressed");
     expect(className).toContain("inset-shadow-sunken");
-    expect(className).toContain("shadow-none");
+    const classes = className.split(" ");
+    expect(classes).toContain("shadow-xs");
+    expect(classes).not.toContain("shadow-none");
+    // Ligado, sai a sombra interna de afundado.
+    expect(className).toContain("data-[state=checked]:inset-shadow-none");
     expect(className).toContain("border-subtle");
     expect(className).toContain("rounded-full");
   });
