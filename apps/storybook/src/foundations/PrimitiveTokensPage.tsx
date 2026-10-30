@@ -6,8 +6,8 @@ import {
   neutralDark,
   neutralLight,
   orange,
-  primary,
   red,
+  teal,
   yellow,
 } from "@ali/tokens/primitives";
 import { formatRatio, Section, Swatch, Table, TokensLayout } from "./TokensLayout";
@@ -68,10 +68,10 @@ export function PrimitiveTokensPage() {
           </Section>
 
           <Section
-            title="Cor de marca"
-            description="Verde-menta. Como é clara, funciona como fundo com texto escuro por cima; como texto sobre fundo claro, só a partir do 900."
+            title="Teal: a cor de marca"
+            description="Verde-azulado, a marca padrão: o primary aponta para ele. Como texto sobre fundo claro, só a partir do 900. Outras paletas desta página podem fazer o papel de marca: escolha no seletor Marca da barra de ferramentas."
           >
-            <ScaleTable name="primary" scale={primary} />
+            <ScaleTable name="teal" scale={teal} />
           </Section>
 
           <Section

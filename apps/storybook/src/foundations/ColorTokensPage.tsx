@@ -7,8 +7,8 @@ import {
   neutralDark,
   neutralLight,
   orange,
-  primary,
   red,
+  teal,
   yellow,
 } from "@ali/tokens/primitives";
 import type { ReactNode } from "react";
@@ -61,7 +61,7 @@ function ThemeCell({ name, theme }: { name: ColorName; theme: ThemeName }) {
 const scales = {
   "neutral-light": neutralLight,
   "neutral-dark": neutralDark,
-  primary,
+  teal,
   red,
   green,
   orange,
