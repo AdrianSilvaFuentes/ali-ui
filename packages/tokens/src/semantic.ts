@@ -665,6 +665,14 @@ export const insetShadow = {
   shade: "inset 0 -2px 1px 0 rgb(0 0 0 / 0.05)",
 } as const;
 
+/**
+ * Sombras internas que mudam no tema escuro. Sobre fundos escuros, o brilho branco de 30%
+ * aparece demais; no escuro ele cai pela metade.
+ */
+export const insetShadowDark = {
+  highlight: "inset 0 2px 1px 0 rgb(255 255 255 / 0.15)",
+} as const satisfies Partial<Record<keyof typeof insetShadow, string>>;
+
 /** Sombra de cada superfície elevada. No tema escuro a elevação vem mais da cor. */
 export const elevation = {
   raised: shadow.sm,
