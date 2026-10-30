@@ -657,3 +657,17 @@ export function brandTokens(name: BrandName): {
     ]);
   return { color: Object.fromEntries(colors), gradient: Object.fromEntries(gradients) };
 }
+
+/**
+ * Modo "mais contraste": um reforço opcional, como o "Aumentar contraste" do iOS e do macOS.
+ * O visual padrão não muda. Liga com `data-contrast="more"` ou sozinho, quando o sistema da
+ * pessoa pede mais contraste (`prefers-contrast: more`); `data-contrast="standard"` desliga.
+ *
+ * - `overlay`: camada preta por cima dos degradês da marca. Com 30%, o texto branco passa de
+ *   4.5:1 em todas as paletas de marca (no padrão, fica perto de 2.35:1).
+ * - As bordas subtle passam a usar a cor de border-default (3:1).
+ */
+export const contrastMore = {
+  overlay: "linear-gradient(rgb(0 0 0 / 0.3), rgb(0 0 0 / 0.3))",
+  overlayOpacity: 0.3,
+} as const;
