@@ -300,6 +300,8 @@ export const contrastPairs: readonly (readonly [ColorName, ColorName, number])[]
   // Campo somente leitura: o texto continua com leitura plena.
   ["text-default", "background-readonly", 4.5],
   ["icon-subtle", "background-readonly", 3],
+  // Avatar sem foto: iniciais em text-subtle sobre o fundo readonly.
+  ["text-subtle", "background-readonly", 4.5],
   ["border-danger", "background-neutral", 3],
   // Item escolhido numa lista (Select): nome, segunda linha e ícone continuam legíveis.
   ["text-default", "background-selected", 4.5],
