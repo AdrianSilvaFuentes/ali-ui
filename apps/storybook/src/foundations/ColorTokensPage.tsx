@@ -86,6 +86,7 @@ function classesFor(name: ColorName): string {
 export type ColorGroup =
   | "surface"
   | "background"
+  | "background-status"
   | "text"
   | "text-status"
   | "text-special"
@@ -110,14 +111,14 @@ const colorGroup = {
   "background-neutral": "background",
   "background-neutral-hovered": "background",
   "background-neutral-pressed": "background",
-  "background-danger-subtle-hovered": "background",
-  "background-danger-subtle-pressed": "background",
-  "background-primary-subtle": "background",
-  "background-info-subtle": "background",
-  "background-success-subtle": "background",
-  "background-caution-subtle": "background",
-  "background-warning-subtle": "background",
-  "background-danger-subtle": "background",
+  "background-primary-subtle": "background-status",
+  "background-info-subtle": "background-status",
+  "background-success-subtle": "background-status",
+  "background-caution-subtle": "background-status",
+  "background-warning-subtle": "background-status",
+  "background-danger-subtle": "background-status",
+  "background-danger-subtle-hovered": "background-status",
+  "background-danger-subtle-pressed": "background-status",
   "text-default": "text",
   "text-subtle": "text",
   "text-placeholder": "text",
