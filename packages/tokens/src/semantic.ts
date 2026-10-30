@@ -102,6 +102,42 @@ export const color = {
     description:
       "Botão destrutivo com contorno pressionado. No claro, um degrau mais forte que o hover; no escuro, igual ao hover, e o retorno vem do botão afundando.",
   },
+  "background-primary-subtle": {
+    light: primary[50],
+    dark: primary[950],
+    description:
+      "Marca, fundo suave: Tag no tom primary. Texto em text-primary, ícone em icon-primary, borda em border-primary.",
+  },
+  "background-info-subtle": {
+    light: blue[50],
+    dark: blue[950],
+    description:
+      "Informação, fundo suave: Tag no tom info. Texto em text-info, ícone em icon-info, borda em border-info.",
+  },
+  "background-success-subtle": {
+    light: green[50],
+    dark: green[950],
+    description:
+      "Sucesso, fundo suave: Tag no tom success. Texto em text-success, ícone em icon-success, borda em border-success.",
+  },
+  "background-caution-subtle": {
+    light: yellow[50],
+    dark: yellow[950],
+    description:
+      "Atenção leve, fundo suave: Tag no tom caution. Texto em text-caution, ícone em icon-caution, borda em border-caution.",
+  },
+  "background-warning-subtle": {
+    light: orange[50],
+    dark: orange[950],
+    description:
+      "Aviso, fundo suave: Tag no tom warning. Texto em text-warning, ícone em icon-warning, borda em border-warning.",
+  },
+  "background-danger-subtle": {
+    light: red[50],
+    dark: red[950],
+    description:
+      "Risco, fundo suave: Tag no tom danger. Texto em text-danger, ícone em icon-danger, borda em border-danger.",
+  },
   "text-default": {
     light: neutralLight[900],
     dark: neutralDark[50],
@@ -142,6 +178,12 @@ export const color = {
     light: neutralLight[950],
     dark: neutralLight[950],
     description: "Quase preto nos dois temas: sobre fotos, vídeos ou fundos fixos.",
+  },
+  "text-primary": {
+    light: primary[900],
+    dark: primary[400],
+    description:
+      "Texto na cor de marca sobre background-primary-subtle (Tag). No escuro, mais claro que o text-link, para ler em todas as marcas.",
   },
   "text-success": {
     light: green[900],
@@ -243,6 +285,12 @@ export const color = {
     light: neutralLight[200],
     dark: neutralDark[600],
     description: "Contorno de controles desabilitados.",
+  },
+  "border-primary": {
+    light: primary[800],
+    dark: primary[400],
+    description:
+      "Borda na cor de marca: Tag no tom primary. Mesmos passos dos ícones e bordas de status.",
   },
   "border-success": {
     light: green[800],
@@ -412,6 +460,26 @@ export const contrastPairs: readonly (readonly [ColorName, ColorName, number])[]
   ["icon-info", "surface-sunken", 3],
   ["icon-info", "surface-raised", 3],
   ["icon-info", "surface-overlay", 3],
+  // Tag: texto, ícone e borda de cada tom sobre o próprio fundo suave.
+  ["icon-default", "background-readonly", 3],
+  ["text-primary", "background-primary-subtle", 4.5],
+  ["icon-primary", "background-primary-subtle", 3],
+  ["border-primary", "background-primary-subtle", 3],
+  ["text-info", "background-info-subtle", 4.5],
+  ["icon-info", "background-info-subtle", 3],
+  ["border-info", "background-info-subtle", 3],
+  ["text-success", "background-success-subtle", 4.5],
+  ["icon-success", "background-success-subtle", 3],
+  ["border-success", "background-success-subtle", 3],
+  ["text-caution", "background-caution-subtle", 4.5],
+  ["icon-caution", "background-caution-subtle", 3],
+  ["border-caution", "background-caution-subtle", 3],
+  ["text-warning", "background-warning-subtle", 4.5],
+  ["icon-warning", "background-warning-subtle", 3],
+  ["border-warning", "background-warning-subtle", 3],
+  ["text-danger", "background-danger-subtle", 4.5],
+  ["icon-danger", "background-danger-subtle", 3],
+  ["border-danger", "background-danger-subtle", 3],
   // O inverse vai sobre um fundo na cor do texto padrão (escuro no claro, claro no escuro).
   ["text-inverse", "text-default", 4.5],
   ["icon-inverse", "text-default", 3],

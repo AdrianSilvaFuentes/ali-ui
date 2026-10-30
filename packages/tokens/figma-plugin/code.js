@@ -1112,6 +1112,66 @@ const DATA = {
       ]
     },
     {
+      "name": "background/primary-subtle",
+      "light": "colors/teal/teal-50",
+      "dark": "colors/teal/teal-950",
+      "description": "Marca, fundo suave: Tag no tom primary. Texto em text-primary, ícone em icon-primary, borda em border-primary.",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ]
+    },
+    {
+      "name": "background/info-subtle",
+      "light": "colors/blue/blue-50",
+      "dark": "colors/blue/blue-950",
+      "description": "Informação, fundo suave: Tag no tom info. Texto em text-info, ícone em icon-info, borda em border-info.",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ]
+    },
+    {
+      "name": "background/success-subtle",
+      "light": "colors/green/green-50",
+      "dark": "colors/green/green-950",
+      "description": "Sucesso, fundo suave: Tag no tom success. Texto em text-success, ícone em icon-success, borda em border-success.",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ]
+    },
+    {
+      "name": "background/caution-subtle",
+      "light": "colors/yellow/yellow-50",
+      "dark": "colors/yellow/yellow-950",
+      "description": "Atenção leve, fundo suave: Tag no tom caution. Texto em text-caution, ícone em icon-caution, borda em border-caution.",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ]
+    },
+    {
+      "name": "background/warning-subtle",
+      "light": "colors/orange/orange-50",
+      "dark": "colors/orange/orange-950",
+      "description": "Aviso, fundo suave: Tag no tom warning. Texto em text-warning, ícone em icon-warning, borda em border-warning.",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ]
+    },
+    {
+      "name": "background/danger-subtle",
+      "light": "colors/red/red-50",
+      "dark": "colors/red/red-950",
+      "description": "Risco, fundo suave: Tag no tom danger. Texto em text-danger, ícone em icon-danger, borda em border-danger.",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ]
+    },
+    {
       "name": "text/default",
       "light": "colors/neutral-light/neutral-light-900",
       "dark": "colors/neutral-dark/neutral-dark-50",
@@ -1179,6 +1239,15 @@ const DATA = {
       "light": "colors/neutral-light/neutral-light-950",
       "dark": "colors/neutral-light/neutral-light-950",
       "description": "Quase preto nos dois temas: sobre fotos, vídeos ou fundos fixos.",
+      "scopes": [
+        "TEXT_FILL"
+      ]
+    },
+    {
+      "name": "text/primary",
+      "light": "colors/teal/teal-900",
+      "dark": "colors/teal/teal-400",
+      "description": "Texto na cor de marca sobre background-primary-subtle (Tag). No escuro, mais claro que o text-link, para ler em todas as marcas.",
       "scopes": [
         "TEXT_FILL"
       ]
@@ -1371,6 +1440,15 @@ const DATA = {
       "light": "colors/neutral-light/neutral-light-200",
       "dark": "colors/neutral-dark/neutral-dark-600",
       "description": "Contorno de controles desabilitados.",
+      "scopes": [
+        "STROKE_COLOR"
+      ]
+    },
+    {
+      "name": "border/primary",
+      "light": "colors/teal/teal-800",
+      "dark": "colors/teal/teal-400",
+      "description": "Borda na cor de marca: Tag no tom primary. Mesmos passos dos ícones e bordas de status.",
       "scopes": [
         "STROKE_COLOR"
       ]
