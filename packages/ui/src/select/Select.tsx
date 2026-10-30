@@ -93,6 +93,8 @@ export function Select({
             inputVariants({ size }),
             // Um botão, e não um campo de texto: cursor de clique e texto à esquerda.
             "cursor-pointer text-left data-disabled:cursor-not-allowed",
+            // 10px nas laterais, como no MultiSelect: o texto alinha com o das opções (pl-2.5).
+            "px-2.5",
             "data-placeholder:text-placeholder",
           )}
         >
@@ -143,7 +145,9 @@ export function Select({
             <ScrollUpButton className="flex h-6 items-center justify-center text-icon-subtle">
               <IconChevronUp aria-hidden="true" className="size-4" />
             </ScrollUpButton>
-            <Viewport>
+            {/* 2px entre as opções, como no MultiSelect: duas linhas em destaque seguidas não
+                viram um bloco só. */}
+            <Viewport className="flex flex-col gap-0.5">
               <SelectSizeContext.Provider value={size ?? "md"}>
                 {children}
               </SelectSizeContext.Provider>
@@ -294,7 +298,7 @@ export interface SelectGroupProps extends Omit<ComponentProps<typeof Group>, "as
 /** Uma seção da lista, com título. O leitor de tela anuncia o título junto das opções. */
 export function SelectGroup({ label, children, className, ...props }: SelectGroupProps) {
   return (
-    <Group className={className} {...props}>
+    <Group className={cn("flex flex-col gap-0.5", className)} {...props}>
       <Label className="px-3 pt-2 pb-1 text-label-md text-subtle">{label}</Label>
       {children}
     </Group>

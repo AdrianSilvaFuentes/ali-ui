@@ -150,6 +150,47 @@
   }
 }
 
+/*
+ * Entrada sutil de algo que acaba de ser adicionado, como a tag no MultiSelect: aparece e
+ * cresce um pouco. Quem pede menos movimento vê só o fade.
+ */
+@keyframes ali-pop-in {
+  from {
+    opacity: 0;
+    scale: 0.95;
+  }
+}
+
+@keyframes ali-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@utility animate-pop-in {
+  animation: ali-pop-in var(--ali-duration-base) ease-out;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation-name: ali-fade-in;
+  }
+}
+
+/* A saída do pop-in, no mesmo tempo: some e encolhe um pouco. Menos movimento: só o fade. */
+@keyframes ali-pop-out {
+  to {
+    opacity: 0;
+    scale: 0.95;
+  }
+}
+
+@utility animate-pop-out {
+  animation: ali-pop-out var(--ali-duration-base) ease-in forwards;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation-name: ali-fade-out;
+  }
+}
+
 /* Saída em fade, como o check do Checkbox ao desmarcar. O Radix espera a animação acabar. */
 @keyframes ali-fade-out {
   to {

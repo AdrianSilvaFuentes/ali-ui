@@ -26,10 +26,12 @@ export const tagVariants = cva(
         warning: "bg-warning-subtle text-warning [&_svg]:text-icon-warning",
         danger: "bg-danger-subtle text-danger [&_svg]:text-icon-danger",
       },
-      // Ícone um pouco maior que o texto. O canto diminui com o tamanho.
+      // Ícone um pouco maior que o texto. O canto diminui com o tamanho. A regra mira o
+      // data-slot dos ícones, e não só "svg": assim pesa mais que a de quem está em volta
+      // (como a caixa do Input no MultiSelect, que deixa todo ícone com 20px).
       size: {
-        sm: "h-5 rounded-sm gap-1 px-1.5 text-label-sm [&_svg]:size-3",
-        md: "h-6 rounded-md gap-1 px-2 text-label-sm [&_svg]:size-3.5",
+        sm: "h-5 rounded-sm gap-1 px-1.5 text-label-sm [&_[data-slot=tag-icon]_svg]:size-3",
+        md: "h-6 rounded-md gap-1 px-2 text-label-sm [&_[data-slot=tag-icon]_svg]:size-3.5",
       },
     },
     defaultVariants: { tone: "neutral", size: "md" },
@@ -106,7 +108,7 @@ export function Tag({
     <span className={cn(tagVariants({ tone, size }), className)} {...props}>
       {/* O ícone não é anunciado: o nome da etiqueta é o texto. */}
       {icon ? (
-        <span aria-hidden="true" className="inline-flex">
+        <span aria-hidden="true" data-slot="tag-icon" className="inline-flex">
           {icon}
         </span>
       ) : null}
@@ -115,6 +117,7 @@ export function Tag({
         <button
           type="button"
           aria-label={label}
+          data-slot="tag-icon"
           className={removeVariants({ size })}
           onClick={onRemove}
           onKeyDown={handleKeyDown}
