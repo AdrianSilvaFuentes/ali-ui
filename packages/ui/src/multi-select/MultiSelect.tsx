@@ -859,8 +859,9 @@ export function MultiSelect({
                     onMouseMove={() => !option.disabled && setHighlighted(option.value)}
                     onClick={() => toggle(option)}
                     className={cn(
-                      // Mesmas medidas e estados das opções do Select.
-                      "relative flex cursor-pointer items-center gap-2 pr-9 pl-2.5 select-none",
+                      // Mesmas medidas e estados das opções do Select. O check vem na fila, empurrado
+                      // para a direita: a 10px da borda e a pelo menos 8px (gap-2) da tag.
+                      "flex cursor-pointer items-center gap-2 px-2.5 select-none",
                       compact ? "h-8 rounded-md py-1" : "rounded-lg py-2",
                       "data-highlighted:bg-neutral-hovered",
                       isSelected && "bg-selected data-highlighted:bg-selected",
@@ -886,7 +887,7 @@ export function MultiSelect({
                     {isSelected ? (
                       <IconCheck
                         aria-hidden="true"
-                        className="absolute right-2.5 size-5 text-icon-primary"
+                        className="ml-auto size-5 shrink-0 text-icon-primary"
                       />
                     ) : null}
                   </div>
