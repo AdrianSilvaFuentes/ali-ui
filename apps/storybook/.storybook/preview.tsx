@@ -37,8 +37,23 @@ const preview: Preview = {
         dynamicTitle: true,
       },
     },
+    // Modo mais contraste, como o Aumentar contraste do iOS: "Sistema" segue a preferência
+    // do computador; "Mais" liga; "Padrão" desliga mesmo com a preferência ligada.
+    contrast: {
+      description: "Contraste",
+      toolbar: {
+        title: "Contraste",
+        icon: "contrast",
+        items: [
+          { value: "system", title: "Sistema" },
+          { value: "standard", title: "Padrão" },
+          { value: "more", title: "Mais contraste" },
+        ],
+        dynamicTitle: true,
+      },
+    },
   },
-  initialGlobals: { theme: "light", brand: "teal" },
+  initialGlobals: { theme: "light", brand: "teal", contrast: "system" },
   decorators: [
     (Story, context) => {
       const theme = context.globals.theme as ThemeName;
@@ -49,6 +64,12 @@ const preview: Preview = {
         "data-brand",
         (context.globals.brand as BrandName | undefined) ?? "teal",
       );
+      const contrast = context.globals.contrast as string | undefined;
+      if (contrast === "more" || contrast === "standard") {
+        document.documentElement.setAttribute("data-contrast", contrast);
+      } else {
+        document.documentElement.removeAttribute("data-contrast");
+      }
       return (
         <ThemeContext.Provider value={theme}>
           <Story />
@@ -85,6 +106,7 @@ const preview: Preview = {
             "Typography",
             "Icons",
             "Motion",
+            "Contrast",
           ],
           "Components",
           // Button e Toggletip servem a qualquer tela; os campos ficam juntos em Form, dos de
