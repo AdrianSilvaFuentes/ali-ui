@@ -1,3 +1,5 @@
+> **Viewing only.** This code is published for viewing and evaluation only. See [LICENSE](LICENSE).
+
 <p align="center">
   <img src=".github/assets/banner.png" alt="Ali UI Design System" width="100%">
 </p>
