@@ -8,21 +8,23 @@ import { FieldError, FieldHelp } from "../lib/FieldMessage.tsx";
 
 /**
  * O trilho, de 28×16px: a mesma altura do Checkbox. Borda, foco, camada verde e desabilitado
- * vêm de `lib/choice.ts`, iguais aos do Checkbox e do Radio. Desligado, o trilho é afundado:
- * fundo neutral-pressed, sem sombra por fora e com inset-shadow-sunken por dentro. Ligado, a
- * camada verde cobre tudo. A bolinha usa a cor do texto do trilho (bg-current): branca.
+ * vêm de `lib/choice.ts`, iguais aos do Checkbox e do Radio, com a sombra mínima (xs) por
+ * fora, ligado ou não. Desligado, o trilho é afundado: fundo neutral-pressed e
+ * inset-shadow-sunken por dentro. Ligado, a camada verde cobre tudo. A bolinha usa a cor do
+ * texto do trilho (bg-current): branca.
  */
 export const switchVariants = cva([
   ...choiceBase,
   "h-4 w-7 justify-start rounded-full p-px",
-  "bg-neutral-pressed shadow-none inset-shadow-sunken",
+  "bg-neutral-pressed inset-shadow-sunken",
 ]);
 
 /**
  * Habilitado: o hover não clareia o trilho afundado (o neutral-hovered do Checkbox é quase
- * branco); quem responde ao mouse é a borda, que escurece.
+ * branco); quem responde ao mouse é a borda, que escurece. Ligado, o trilho deixa de ser
+ * afundado: sai a sombra interna.
  */
-const trackEnabled = "hover:bg-neutral-pressed";
+const trackEnabled = ["hover:bg-neutral-pressed", "data-[state=checked]:inset-shadow-none"];
 
 export interface SwitchProps extends Omit<ComponentProps<typeof Root>, "asChild" | "children"> {
   /** O texto ao lado do switch. Clicar nele também liga e desliga. Sem label, passe um `aria-label`. */

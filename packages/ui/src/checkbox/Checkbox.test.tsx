@@ -134,6 +134,7 @@ describe("Checkbox", () => {
     const { className } = screen.getByRole("checkbox");
     expect(className).toContain("border-subtle");
     expect(className).toContain("hover:border-default");
+    expect(className).toContain("shadow-xs");
     expect(className).toContain("focus-visible:border-default");
     expect(className).toContain("outline-focus");
     expect(className).toContain("focus-visible:outline-2");

@@ -4,8 +4,8 @@ import { Code, Section, Table, TokensLayout } from "./TokensLayout";
 /** Onde cada sombra da escala aparece: o que já usa e o que deve usar quando existir. */
 const scaleUsage: Record<keyof typeof shadow, string> = {
   "2xs": "Detalhes quase planos, como um chip ou uma tag. Ainda sem uso.",
-  xs: "Caixas de preview e tabela de props desta documentação.",
-  sm: "Button, Input e Textarea: o que fica na página e se clica ou preenche.",
+  xs: "Button, Input, Textarea e Select; Checkbox, Radio e Switch. Também as previews desta documentação.",
+  sm: "A mesma do raised: cartões e painéis um pouco acima da página.",
   md: "Toggletip: balões pequenos de ajuda, que flutuam sem pesar.",
   lg: "A mesma do overlay: menus, popovers e diálogos.",
   xl: "Painéis laterais e diálogos grandes. Ainda sem uso.",

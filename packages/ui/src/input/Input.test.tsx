@@ -191,7 +191,7 @@ describe("Input", () => {
     render(<Input label="Email" />);
     const { className } = box(screen.getByRole("textbox"));
     expect(className).toContain("border-subtle");
-    expect(className).toContain("shadow-sm");
+    expect(className).toContain("shadow-xs");
     expect(className).not.toContain("inset-shadow-highlight");
     expect(className).toContain("hover:border-default");
     expect(className).toContain("focus-within:border-default");

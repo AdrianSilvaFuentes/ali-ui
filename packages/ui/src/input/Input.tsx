@@ -14,10 +14,11 @@ export const inputVariants = cva(
     // Cursor de texto na caixa toda, não só no input: um clique no respiro ou num ícone também
     // foca o campo (veja focusField).
     "cursor-text",
-    // Sombra pequena, como a do Button, mas sem o brilho no topo: o campo não é para clicar.
+    // Sombra mínima (xs), a mesma do Button: num formulário, vários campos juntos com
+    // shadow-sm pesavam. Sem o brilho no topo: o campo não é para clicar.
     // Exceção consciente: em repouso a borda é subtle (abaixo dos 3:1 da WCAG), para o campo
     // ficar leve. No hover e no foco ela vai para default (3:1), e o label nomeia o campo.
-    "border border-subtle bg-neutral text-default shadow-sm",
+    "border border-subtle bg-neutral text-default shadow-xs",
     "hover:border-default focus-within:border-default",
     "transition-interactive duration-fast",
     // Campo de texto mostra o foco também no clique, não só no teclado. O contorno se encaixa
