@@ -9,6 +9,7 @@ import {
   brandPalettes,
   brandTokens,
   color,
+  contrastMore,
   duration,
   elevation,
   font,
@@ -79,7 +80,39 @@ function staticEntries(): [string, string][] {
       cssVarName("gradient", k),
       gradientCss(v),
     ]),
+    // Camada do modo "mais contraste" sobre os degradês da marca: transparente no padrão.
+    [CONTRAST_OVERLAY, "linear-gradient(transparent, transparent)"],
   ];
+}
+
+/** Variável da camada que escurece os degradês da marca no modo "mais contraste". */
+const CONTRAST_OVERLAY = "--ali-contrast-overlay";
+
+/** Degradês da marca: os que recebem a camada do modo "mais contraste". */
+const isBrandGradient = (key: string) => key.startsWith("brand");
+
+/**
+ * Modo "mais contraste": escurece os degradês da marca e reforça as bordas subtle. Liga com
+ * `data-contrast="more"` ou sozinho, pela preferência do sistema; `data-contrast="standard"`
+ * mantém o padrão mesmo com a preferência ligada.
+ */
+function contrastCss(): string {
+  const rules = declarations([
+    [CONTRAST_OVERLAY, contrastMore.overlay],
+    // A cor de border-default do tema em vigor: vale no claro e no escuro.
+    [cssVarName("color", "border-subtle"), `var(${cssVarName("color", "border-default")})`],
+  ]);
+  return `/* Modo "mais contraste". */
+[data-contrast="more"] {
+${rules}
+}
+
+@media (prefers-contrast: more) {
+  :root:not([data-contrast="standard"]) {
+${rules.replaceAll("\n  ", "\n    ").replace(/^ {2}/, "    ")}
+  }
+}
+`;
 }
 
 /**
@@ -166,7 +199,8 @@ ${declarations(staticEntries())}
 ${(Object.keys(brandPalettes) as BrandName[])
   .filter((name) => name !== "teal")
   .map(brandCss)
-  .join("\n")}`;
+  .join("\n")}
+${contrastCss()}`;
 }
 
 /**
@@ -262,7 +296,7 @@ ${Object.keys(gradient)
       k,
     ) => `/* Degradê ${k}: o Tailwind 4 não tem tema para degradês, então a classe é criada aqui. */
 @utility bg-gradient-${k} {
-  background-image: ${v("gradient", k)};
+  background-image: ${isBrandGradient(k) ? `var(${CONTRAST_OVERLAY}), ` : ""}${v("gradient", k)};
 }
 `,
   )

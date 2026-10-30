@@ -11,6 +11,7 @@ import {
   brandPalettes,
   brandTokens,
   color,
+  contrastMore,
   contrastPairs,
   gradient,
   type ThemeName,
@@ -36,6 +37,33 @@ describe.each((Object.keys(brandPalettes) as BrandName[]).filter((name) => name 
         expect(contrastRatio(value(fg), value(bg))).toBeGreaterThanOrEqual(min);
       });
     }
+  },
+);
+
+// Modo "mais contraste": com a camada preta, o texto branco passa de 4.5:1 nos degradês da
+// marca, em todas as paletas. No padrão, é uma exceção consciente (perto de 2.35:1).
+describe.each(Object.keys(brandPalettes) as BrandName[])(
+  "mais contraste com a marca %s",
+  (name) => {
+    const brandGradients =
+      name === "teal" ? gradient : { ...gradient, ...brandTokens(name).gradient };
+    // Preto com opacidade a por cima de uma cor: cada canal vezes (1 - a).
+    const darken = (hex: string) =>
+      `#${[1, 3, 5]
+        .map((i) =>
+          Math.round(Number.parseInt(hex.slice(i, i + 2), 16) * (1 - contrastMore.overlayOpacity))
+            .toString(16)
+            .padStart(2, "0"),
+        )
+        .join("")}`;
+    it.each(["brand", "brand-hovered", "brand-pressed"] as const)(
+      "static-white sobre %s",
+      (key) => {
+        const white = color["text-static-white"].light;
+        expect(contrastRatio(white, darken(brandGradients[key].from))).toBeGreaterThanOrEqual(4.5);
+        expect(contrastRatio(white, darken(brandGradients[key].to))).toBeGreaterThanOrEqual(4.5);
+      },
+    );
   },
 );
 
