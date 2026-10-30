@@ -116,6 +116,8 @@ const preview: Preview = {
             "Toggletip",
             "Form",
             ["Visão geral", "Input", "Textarea", "Select", "Checkbox", "RadioGroup", "Switch"],
+            "Data display",
+            ["Avatar"],
           ],
         ],
       },

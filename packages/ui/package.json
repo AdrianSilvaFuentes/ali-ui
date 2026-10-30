@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "@ali/tokens": "workspace:*",
+    "@radix-ui/react-avatar": "catalog:",
     "@radix-ui/react-checkbox": "catalog:",
     "@radix-ui/react-label": "catalog:",
     "@radix-ui/react-popover": "catalog:",

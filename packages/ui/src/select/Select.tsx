@@ -96,8 +96,16 @@ export function Select({
             "data-placeholder:text-placeholder",
           )}
         >
-          {/* data-slot avisa as opções que estão no gatilho: lá o ícone (leading) aparece. */}
-          <span data-slot="select-value" className="flex min-w-0 flex-1 items-center truncate">
+          {/*
+           * data-slot avisa as opções que estão no gatilho: lá o ícone (leading) aparece. O
+           * truncate corta o que passa da linha (para as reticências). O py-1, e o pl-1 com a
+           * margem negativa do mesmo tamanho, dão espaço para o contorno e a sombra de um avatar
+           * não serem cortados, sem tirar nada do lugar.
+           */}
+          <span
+            data-slot="select-value"
+            className="-ml-1 flex min-w-0 flex-1 items-center truncate py-1 pl-1"
+          >
             {/* Bloco flexível, e não linha de texto: ícone e nome centrados entre si, sem
                 depender da base das letras (que mudava com a fonte e a altura de linha). */}
             <Value placeholder={placeholder} className="flex min-w-0 items-center" />

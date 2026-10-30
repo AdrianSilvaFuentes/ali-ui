@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96">
+  <title>Ilustração de exemplo para avatar</title>
+  <!-- Ilustração abstrata para a história do Avatar com foto: não é uma pessoa real. -->
+  <rect width="96" height="96" fill="#c6f2df"/>
+  <circle cx="48" cy="40" r="18" fill="#1b6967"/>
+  <path d="M14 96c4-20 18-30 34-30s30 10 34 30z" fill="#219381"/>
+</svg>
