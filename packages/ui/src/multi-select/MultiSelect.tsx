@@ -67,8 +67,9 @@ export interface MultiSelectProps extends VariantProps<typeof inputVariants> {
   createLabel?: string;
   /**
    * Liga a reordenação das opções da lista, arrastando ou com Alt+setas na opção em destaque.
-   * Recebe as opções na ordem nova; guarde-as em `options`. As tags do campo passam a seguir a
-   * ordem nova. Com a busca preenchida, não reordena.
+   * Recebe as opções na ordem nova; guarde-as em `options`. Com ela, tags e lista têm uma ordem
+   * só: mover uma muda a outra, e a escolha nova entra no lugar dela na lista. Com a busca
+   * preenchida, não reordena.
    */
   onOptionsReorder?: (options: MultiSelectOption[]) => void;
   /** Texto de ajuda abaixo do campo, lido pelo leitor de tela junto com o label. */
@@ -92,6 +93,13 @@ function move<T>(list: T[], from: number, to: number) {
   const [item] = next.splice(from, 1);
   if (item !== undefined) next.splice(to, 0, item);
   return next;
+}
+
+/** Os valores na ordem da lista. Um valor que não está nela fica no fim. */
+function sortByList(values: string[], list: MultiSelectOption[]) {
+  const order = list.map((option) => option.value);
+  const rank = (value: string) => (order.indexOf(value) + order.length + 1) % (order.length + 1);
+  return [...values].sort((a, b) => rank(a) - rank(b));
 }
 
 /** O tempo de uma animação curta (duration-fast), ou 0 para quem pede menos movimento. */
@@ -337,7 +345,7 @@ export function MultiSelect({
   const [fieldWidth, setFieldWidth] = useState(0);
   const fitKey = `${selected.join("\n")}|${fieldWidth}`;
   const [fit, setFit] = useState<{ key: string; count: number } | null>(null);
-  const tagDrag = useDragReorder("x", (from, to) => setValue(move(selected, from, to)));
+  const tagDrag = useDragReorder("x", (from, to) => reorderTags(from, to));
   // Enquanto arrasta, as tags já aparecem na ordem nova.
   const orderedOptions = tagDrag.drag
     ? move(selectedOptions, tagDrag.drag.from, tagDrag.drag.to)
@@ -457,11 +465,32 @@ export function MultiSelect({
   const reorderOptions = (from: number, to: number) => {
     const next = move(options, from, to);
     onOptionsReorder?.(next);
-    // Um valor que não está na lista fica no fim.
-    const order = next.map((option) => option.value);
-    const rank = (value: string) => (order.indexOf(value) + order.length + 1) % (order.length + 1);
-    const sorted = [...selected].sort((a, b) => rank(a) - rank(b));
+    const sorted = sortByList(selected, next);
     if (sorted.some((v, i) => v !== selected[i])) setValue(sorted);
+  };
+
+  /**
+   * Muda a ordem das tags. Com a lista reordenável, as duas ordens são uma só: as escolhidas
+   * trocam de lugar entre si na lista, e as outras opções ficam onde estão.
+   */
+  const reorderTags = (from: number, to: number) => {
+    const next = move(selected, from, to);
+    setValue(next);
+    if (!onOptionsReorder) return;
+    const queue = next
+      .map((v) => options.find((option) => option.value === v))
+      .filter((option): option is MultiSelectOption => Boolean(option));
+    onOptionsReorder(
+      options.map((option) =>
+        selected.includes(option.value) ? (queue.shift() ?? option) : option,
+      ),
+    );
+  };
+
+  /** Uma escolha nova: no fim das tags, ou, com a lista reordenável, no lugar dela na lista. */
+  const add = (value: string) => {
+    const next = [...selected, value];
+    setValue(onOptionsReorder ? sortByList(next, options) : next);
   };
 
   const markLeaving = (value: string) => {
@@ -478,7 +507,7 @@ export function MultiSelect({
       // Escolhida de novo antes de terminar de sair: volta a ser uma tag comum.
       setLeaving((list) => list.filter((item) => item.option.value !== option.value));
       entering.current.add(option.value);
-      setValue([...selected, option.value]);
+      add(option.value);
     }
   };
 
@@ -489,7 +518,7 @@ export function MultiSelect({
     setHighlighted(option.value);
     if (selected.includes(option.value)) return;
     entering.current.add(option.value);
-    setValue([...selected, option.value]);
+    add(option.value);
   };
 
   const remove = (index: number) => {
@@ -516,7 +545,7 @@ export function MultiSelect({
     const to = index + (event.key === "ArrowLeft" ? -1 : 1);
     if (to < 0 || to >= shownCount) return;
     focusTag.current = to;
-    setValue(move(selected, index, to));
+    reorderTags(index, to);
     setAnnouncement(`${selectedOptions[index]?.label}, posição ${to + 1} de ${selected.length}`);
   };
 

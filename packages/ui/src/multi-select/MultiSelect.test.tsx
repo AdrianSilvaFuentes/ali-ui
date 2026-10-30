@@ -344,6 +344,33 @@ describe("MultiSelect", () => {
     expect(onOptionsReorder).toHaveBeenCalledTimes(1);
   });
 
+  it("com onOptionsReorder, mover a tag move a opção na lista, e a escolha nova entra no lugar dela", async () => {
+    const user = userEvent.setup();
+    const onOptionsReorder = vi.fn();
+    const onValueChange = vi.fn();
+    render(
+      <Tools
+        onOptionsReorder={onOptionsReorder}
+        defaultValue={["tipografia", "musica"]}
+        onValueChange={onValueChange}
+      />,
+    );
+    screen.getByRole("button", { name: "Remover Tipografia" }).focus();
+    await user.keyboard("{Alt>}{ArrowRight}{/Alt}");
+    expect(onValueChange).toHaveBeenLastCalledWith(["musica", "tipografia"]);
+    // As escolhidas trocam de lugar entre si; as outras ficam onde estão.
+    expect(onOptionsReorder.mock.calls[0]?.[0].map((o: { value: string }) => o.value)).toEqual([
+      "musica",
+      "fotografia",
+      "ilustracao",
+      "tipografia",
+    ]);
+    await user.click(screen.getByRole("button", { name: /^Interesses/ }));
+    await user.click(screen.getByRole("option", { name: "Fotografia" }));
+    // A lista do teste não guardou a ordem nova: Fotografia entra entre Tipografia e Música.
+    expect(onValueChange).toHaveBeenLastCalledWith(["tipografia", "fotografia", "musica"]);
+  });
+
   it("arrastar uma opção a leva para onde o mouse soltar, sem escolher", async () => {
     const user = userEvent.setup();
     const onOptionsReorder = vi.fn();
