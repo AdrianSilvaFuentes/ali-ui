@@ -119,7 +119,7 @@ describe("Button", () => {
     const { className } = screen.getByRole("button");
     expect(className).toContain("w-full");
     expect(className).toContain("text-static-white");
-    expect(className).toContain("shadow-sm");
+    expect(className).toContain("shadow-xs");
     expect(className).toContain("inset-shadow-highlight");
   });
 
@@ -151,7 +151,7 @@ describe("Button", () => {
     expect(className).toContain("text-default");
     expect(className).toContain("hover:bg-neutral-hovered");
     expect(className).toContain("active:bg-neutral-pressed");
-    expect(className).not.toMatch(/(^|\s)(border|shadow-sm|inset-shadow-highlight)(\s|$)/);
+    expect(className).not.toMatch(/(^|\s)(border|shadow-xs|inset-shadow-highlight)(\s|$)/);
     expect(className).not.toContain("gradient");
   });
 

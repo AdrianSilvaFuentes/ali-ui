@@ -10,7 +10,8 @@ import { cn } from "../lib/cn.ts";
  * escolhe os três degradês.
  */
 const filled = [
-  "text-static-white shadow-sm inset-shadow-highlight",
+  // Sombra mínima (xs), como os campos e os controles de escolha.
+  "text-static-white shadow-xs inset-shadow-highlight",
   // A camada de hover repete o brilho; a de pressionado não tem, e o botão afunda.
   // As camadas herdam o canto do botão, para o brilho seguir a curva.
   "before:absolute before:inset-0 before:-z-10 before:rounded-[inherit] before:inset-shadow-highlight",
@@ -31,7 +32,7 @@ const filled = [
  * e a borda segura o botão em qualquer superfície. Cada variante escolhe borda, texto e hover.
  */
 const outlined = [
-  "border bg-neutral shadow-sm inset-shadow-highlight",
+  "border bg-neutral shadow-xs inset-shadow-highlight",
   "active:inset-shadow-none",
   "disabled:border-disabled disabled:bg-disabled disabled:text-disabled",
   "disabled:shadow-none disabled:inset-shadow-none",
