@@ -21,6 +21,7 @@ import {
   gradient,
   gradientCss,
   insetShadow,
+  insetShadowDark,
   text,
 } from "./semantic.ts";
 
@@ -46,6 +47,7 @@ export {
   gradient,
   gradientCss,
   insetShadow,
+  insetShadowDark,
   radius,
   shadow,
   spacing,

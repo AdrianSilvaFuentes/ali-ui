@@ -32,8 +32,15 @@ export const Background: Story = {
     <ColorGroupPage
       group="background"
       title="Background"
-      description="Fundos de controles, que vão sobre as superfícies. O neutro do botão secundário, com os estados de cursor em cima e pressionado, os fundos suaves de risco (hover e pressionado do botão destrutivo com contorno) o fundo de campos somente leitura e o fundo de controles desabilitados. A cor da marca do botão primário é um degradê (veja Gradients). A classe é bg-*, sem o prefixo background-."
-    />
+      description="Fundos de controles, que vão sobre as superfícies. O neutro do botão secundário, com os estados de cursor em cima e pressionado, o fundo de item escolhido, o fundo de campos somente leitura e o fundo de controles desabilitados. Depois, os fundos suaves de status. A cor da marca do botão primário é um degradê (veja Gradients). A classe é bg-*, sem o prefixo background-."
+    >
+      <Section
+        title="Status"
+        description="Fundos suaves neutro, na cor da marca e de cada status: info, success, caution, warning e danger, como na Tag. Cada um leva o texto e o ícone do mesmo tom. O danger tem ainda os estados de hover e pressionado do botão destrutivo com contorno. Nunca use só a cor para passar a mensagem: acompanhe com palavra ou ícone."
+      >
+        <ColorTable group="background-status" />
+      </Section>
+    </ColorGroupPage>
   ),
 };
 

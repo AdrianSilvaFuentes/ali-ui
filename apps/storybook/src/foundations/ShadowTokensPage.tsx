@@ -1,4 +1,4 @@
-import { cssVarName, elevation, insetShadow, shadow, vars } from "@ali/tokens";
+import { cssVarName, elevation, insetShadow, insetShadowDark, shadow, vars } from "@ali/tokens";
 import { Code, Section, Table, TokensLayout } from "./TokensLayout";
 
 /** Onde cada sombra da escala aparece: o que já usa e o que deve usar quando existir. */
@@ -56,7 +56,7 @@ export function ShadowTokensPage() {
 
           <Section
             title="Sombras internas"
-            description="Sombra por dentro da borda. highlight é uma linha fina e clara no topo, como luz vinda de cima, que dá volume: soma com as sombras externas, como shadow-sm inset-shadow-highlight no Button. sunken é o oposto, uma sombra suave no topo que afunda a superfície, como o trilho do Switch desligado: use sem sombra externa. shade é uma sombra fina na base, por dentro: junto com a sombra externa, dá volume ao Avatar."
+            description="Sombra por dentro da borda. highlight é uma linha fina e clara no topo, como luz vinda de cima, que dá volume (no tema escuro, com metade da opacidade, para não ficar branca demais): soma com as sombras externas, como shadow-sm inset-shadow-highlight no Button. sunken é o oposto, uma sombra suave no topo que afunda a superfície, como o trilho do Switch desligado: use sem sombra externa. shade é uma sombra fina na base, por dentro: junto com a sombra externa, dá volume ao Avatar."
           >
             <Table columns={["Token", "Classe", "Variável CSS", "Valor", "Exemplo"]}>
               {(Object.keys(insetShadow) as (keyof typeof insetShadow)[]).map((name) => (
@@ -70,6 +70,11 @@ export function ShadowTokensPage() {
                   </td>
                   <td className="px-4 py-3">
                     <Code>{insetShadow[name]}</Code>
+                    {name in insetShadowDark ? (
+                      <div className="mt-1 text-body-sm text-subtle">
+                        Escuro: <Code>{insetShadowDark[name as keyof typeof insetShadowDark]}</Code>
+                      </div>
+                    ) : null}
                   </td>
                   <td className="px-8 py-8">
                     {/* highlight dá volume sobre o degradê; sunken afunda um fundo neutro. */}

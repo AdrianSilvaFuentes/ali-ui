@@ -17,6 +17,7 @@ import {
   gradient,
   gradientCss,
   insetShadow,
+  insetShadowDark,
   type ThemeName,
   text,
 } from "./semantic.ts";
@@ -47,9 +48,21 @@ function declarations(entries: [string, string][], indent = "  "): string {
   return entries.map(([name, value]) => `${indent}${name}: ${value};`).join("\n");
 }
 
+/** Sombras internas com outro valor no escuro: saem dos blocos de tema, e não do :root. */
+const themedInsetShadows = Object.keys(insetShadowDark) as (keyof typeof insetShadowDark)[];
+
 function colorDeclarations(theme: ThemeName, indent?: string): string {
   return declarations(
-    Object.entries(color).map(([key, token]) => [cssVarName("color", key), token[theme]]),
+    [
+      ...Object.entries(color).map(([key, token]): [string, string] => [
+        cssVarName("color", key),
+        token[theme],
+      ]),
+      ...themedInsetShadows.map((k): [string, string] => [
+        cssVarName("inset-shadow", k),
+        theme === "dark" ? insetShadowDark[k] : insetShadow[k],
+      ]),
+    ],
     indent,
   );
 }
@@ -72,10 +85,9 @@ function staticEntries(): [string, string][] {
     ...Object.entries(duration).map(([k, v]): [string, string] => [cssVarName("duration", k), v]),
     ...Object.entries(shadow).map(([k, v]): [string, string] => [cssVarName("shadow", k), v]),
     ...Object.entries(elevation).map(([k, v]): [string, string] => [cssVarName("elevation", k), v]),
-    ...Object.entries(insetShadow).map(([k, v]): [string, string] => [
-      cssVarName("inset-shadow", k),
-      v,
-    ]),
+    ...Object.entries(insetShadow)
+      .filter(([k]) => !(themedInsetShadows as string[]).includes(k))
+      .map(([k, v]): [string, string] => [cssVarName("inset-shadow", k), v]),
     ...Object.entries(gradient).map(([k, v]): [string, string] => [
       cssVarName("gradient", k),
       gradientCss(v),
