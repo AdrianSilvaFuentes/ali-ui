@@ -169,7 +169,7 @@ export const RichItems: Story = {
     docs: {
       description: {
         story:
-          "Opções com avatar à esquerda, uma segunda linha e uma tag à direita. Depois de escolhida, o gatilho mostra o avatar e o nome; a segunda linha e a tag ficam só na lista. O avatar é o componente Avatar (sm, 24px); a tag é um exemplo simples, até existir o componente Badge.",
+          "Opções com avatar à esquerda, uma segunda linha e uma tag à direita. Depois de escolhida, o gatilho mostra o avatar e o nome; a segunda linha e a tag ficam só na lista. O avatar é o componente Avatar no tamanho xs (20px), o mesmo dos ícones das opções; a tag é um exemplo simples, até existir o componente Badge.",
       },
     },
   },
@@ -184,7 +184,7 @@ export const RichItems: Story = {
     <Select {...args}>
       <SelectItem
         value="lia"
-        leading={<Avatar name="Lia Martins" size="sm" />}
+        leading={<Avatar name="Lia Martins" size="xs" />}
         description="lia@exemplo.com"
         trailing={<SampleTag>Admin</SampleTag>}
       >
@@ -192,14 +192,14 @@ export const RichItems: Story = {
       </SelectItem>
       <SelectItem
         value="caio"
-        leading={<Avatar name="Caio Ribeiro" size="sm" />}
+        leading={<Avatar name="Caio Ribeiro" size="xs" />}
         description="caio@exemplo.com"
       >
         Caio Ribeiro
       </SelectItem>
       <SelectItem
         value="nara"
-        leading={<Avatar name="Nara Torres" size="sm" />}
+        leading={<Avatar name="Nara Torres" size="xs" />}
         description="nara@exemplo.com"
         trailing={<SampleTag>Convite enviado</SampleTag>}
         disabled
