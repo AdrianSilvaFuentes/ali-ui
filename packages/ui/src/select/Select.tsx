@@ -133,7 +133,9 @@ export function Select({
             className={cn(
               "z-50 min-w-[var(--radix-select-trigger-width)]",
               "max-h-[var(--radix-select-content-available-height)] overflow-hidden",
-              "rounded-xl bg-surface p-1 ring-1 ring-subtle shadow-overlay",
+              // Canto da lista: 8px no sm, 12px no md.
+              size === "sm" ? "rounded-lg" : "rounded-xl",
+              "bg-surface p-1 ring-1 ring-subtle shadow-overlay",
               "inset-shadow-highlight animate-enter-exit",
               "data-[side=bottom]:mt-1 data-[side=top]:mb-1",
             )}
@@ -190,8 +192,8 @@ export function SelectItem({
   // (check e, no gatilho sm, a regra da caixa do Input).
   const leadingSize = "data-[slot=select-leading]:[&_svg]:size-5";
   const compact = useContext(SelectSizeContext) === "sm";
-  // Uma linha só: tudo centrado, e no sm a linha tem 32px, a altura do gatilho. Com segunda
-  // linha: tudo alinhado ao topo, para ícone, tag e check acompanharem a primeira linha.
+  // Uma linha só: tudo centrado. Com segunda linha: tudo alinhado ao topo, para ícone, tag e
+  // check acompanharem a primeira linha.
   const oneLine = !description;
 
   return (
@@ -199,9 +201,15 @@ export function SelectItem({
       // Para digitar e pular até a opção, só o nome conta (sem as iniciais de um avatar).
       textValue={textValue ?? (typeof children === "string" ? children : undefined)}
       className={cn(
-        "group/item relative flex cursor-pointer gap-2 rounded-lg pr-8 pl-3 select-none",
+        "group/item relative flex cursor-pointer gap-2 select-none",
+        // 10px nas laterais e espaço à direita para o check de 20px, nos dois tamanhos.
+        // sm: 6px em cima e embaixo e canto de 6px. md: canto de 8px.
+        "pr-9 pl-2.5",
+        compact ? "rounded-md" : "rounded-lg",
         oneLine ? "items-center" : "items-start",
-        compact ? (oneLine ? "min-h-8 py-1" : "py-1") : "py-2",
+        compact ? "py-1.5" : "py-2",
+        // sm de uma linha travado em 32px, a altura do campo, mesmo com os 6px de padding.
+        compact && oneLine && "h-8",
         "text-body-md text-default outline-none",
         // Destaque (mouse ou setas) em neutral-hovered, como o hover do Button secondary.
         // A escolhida fica em bg-selected, um tom de hover na cor da marca, e continua assim
@@ -261,11 +269,17 @@ export function SelectItem({
       {/* O check fica no meio da linha, ou na primeira linha quando há uma segunda. */}
       <ItemIndicator
         className={cn(
-          "absolute right-2 flex items-center",
-          oneLine ? "inset-y-0" : ["h-[1lh]", compact ? "top-1" : "top-2"],
+          "absolute right-2.5 flex items-center",
+          oneLine ? "inset-y-0" : ["h-[1lh]", compact ? "top-1.5" : "top-2"],
         )}
       >
-        <IconCheck aria-hidden="true" className="size-4 text-icon-primary" />
+        {/* 20px nos dois tamanhos: o tamanho dos ícones do campo (como a seta). */}
+        <IconCheck
+          aria-hidden="true"
+          data-slot="select-check"
+          // O data-slot dá peso extra, para vencer a regra de 16px dos ícones do item.
+          className="text-icon-primary data-[slot=select-check]:size-5"
+        />
       </ItemIndicator>
     </Item>
   );
