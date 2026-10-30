@@ -5,6 +5,9 @@
 
 import { radius, shadow, spacing } from "./scales.ts";
 import {
+  type BrandName,
+  brandPalettes,
+  brandTokens,
   color,
   duration,
   elevation,
@@ -80,8 +83,54 @@ function staticEntries(): [string, string][] {
 }
 
 /**
+ * Outra cor de marca: só os tokens que vêm do primary, refeitos com a paleta escolhida.
+ * Vale para o elemento com `data-brand` e tudo dentro dele, nos dois temas, esteja o
+ * `data-theme` no mesmo elemento, num elemento acima ou num elemento dentro dele.
+ */
+function brandCss(name: BrandName): string {
+  const tokens = brandTokens(name);
+  const colors = (theme: ThemeName, indent?: string) =>
+    declarations(
+      Object.entries(tokens.color).map(([key, token]): [string, string] => [
+        cssVarName("color", key),
+        token[theme],
+      ]),
+      indent,
+    );
+  const gradients = declarations(
+    Object.entries(tokens.gradient).map(([key, token]): [string, string] => [
+      cssVarName("gradient", key),
+      gradientCss(token),
+    ]),
+  );
+  const b = `[data-brand="${name}"]`;
+  return `/* Marca ${name}. */
+${b},
+${b} [data-theme="light"] {
+${colors("light")}
+${gradients}
+}
+
+[data-theme="dark"]${b},
+[data-theme="dark"] ${b},
+${b} [data-theme="dark"] {
+${colors("dark")}
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"])${b},
+  :root:not([data-theme="light"]) ${b}:not([data-theme="light"]) {
+${colors("dark", "    ")}
+  }
+}
+`;
+}
+
+/**
  * Variáveis CSS puras (sem Tailwind). O tema segue a preferência do sistema e pode
  * ser forçado com `data-theme="light"` ou `data-theme="dark"` em qualquer elemento.
+ * A cor de marca é o teal; outra paleta entra com `data-brand="blue"` (e as outras de
+ * `brandPalettes`) em qualquer elemento.
  */
 export function renderTokensCss(): string {
   return `${HEADER}
@@ -113,7 +162,11 @@ ${colorDeclarations("dark", "    ")}
 :root {
 ${declarations(staticEntries())}
 }
-`;
+
+${(Object.keys(brandPalettes) as BrandName[])
+  .filter((name) => name !== "teal")
+  .map(brandCss)
+  .join("\n")}`;
 }
 
 /**
