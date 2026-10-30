@@ -785,7 +785,7 @@ export function MultiSelect({
         <Portal>
           {/*
            * Mesmo balão do Select: abre abaixo do campo, com a largura dele e no máximo a
-           * altura que cabe na tela, até 288px. O foco vai para a busca; as setas mudam a opção em
+           * altura que cabe na tela, até 320px. O foco vai para a busca; as setas mudam a opção em
            * destaque sem tirar o foco dela (aria-activedescendant).
            */}
           <Content
@@ -803,8 +803,8 @@ export function MultiSelect({
             }}
             className={cn(
               "z-50 flex w-[var(--radix-popover-trigger-width)] flex-col gap-1",
-              // No máximo 288px (container-2xs), ou menos se não couber: a lista rola por dentro.
-              "max-h-[min(var(--container-2xs),var(--radix-popover-content-available-height))]",
+              // No máximo 320px (container-xs), ou menos se não couber: a lista rola por dentro.
+              "max-h-[min(var(--container-xs),var(--radix-popover-content-available-height))]",
               compact ? "rounded-lg" : "rounded-xl",
               "bg-surface p-1 ring-1 ring-subtle shadow-overlay outline-none",
               "inset-shadow-highlight animate-enter-exit",
@@ -839,7 +839,11 @@ export function MultiSelect({
               aria-label={label ? undefined : ariaLabel}
               // 2px entre as opções, como no Select: aqui várias ficam escolhidas ao mesmo tempo,
               // e sem o espaço as escolhidas seguidas viravam um bloco só.
-              className="flex min-h-0 flex-col gap-0.5 overflow-y-auto"
+              // A barra de rolagem fina, como no Textarea: border-default sobre fundo transparente.
+              className={cn(
+                "flex min-h-0 flex-col gap-0.5 overflow-y-auto",
+                "[scrollbar-width:thin] [scrollbar-color:var(--ali-color-border-default)_transparent]",
+              )}
             >
               {listed.map((option, index) => {
                 const isSelected = selected.includes(option.value);

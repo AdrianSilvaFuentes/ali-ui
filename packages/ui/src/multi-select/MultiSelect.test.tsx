@@ -414,6 +414,16 @@ describe("MultiSelect", () => {
     expect(onValueChange).not.toHaveBeenCalled();
   });
 
+  it("a lista rola com a barra fina do Textarea", async () => {
+    const user = userEvent.setup();
+    render(<Tools />);
+    await user.click(screen.getByRole("button", { name: /^Interesses/ }));
+    const className = screen.getByRole("listbox").className;
+    expect(className).toContain("overflow-y-auto");
+    expect(className).toContain("[scrollbar-width:thin]");
+    expect(className).toContain("[scrollbar-color:var(--ali-color-border-default)_transparent]");
+  });
+
   it("com erro, o erro substitui a ajuda e marca como inválido", () => {
     render(<Tools description="Até cinco." error="Escolha pelo menos uma." />);
     const trigger = screen.getByRole("button", { name: /Interesses/ });
