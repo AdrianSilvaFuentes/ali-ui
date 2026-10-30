@@ -92,6 +92,16 @@ const meta = {
     defaultValue: { control: false, description: "Valores escolhidos no começo (sem controlar)." },
     value: { control: false, description: "Valores escolhidos (controlado), com onValueChange." },
     onValueChange: { control: false, description: "Chamado com todos os valores escolhidos." },
+    onCreate: {
+      control: false,
+      description:
+        "Liga a criação: um texto novo na busca vira a linha Criar “texto”, no fim da lista. Recebe o texto e devolve a opção nova; guarde-a em options.",
+    },
+    createLabel: {
+      control: "text",
+      description: "O começo da linha de criar.",
+      table: { defaultValue: { summary: "Criar" } },
+    },
     className: { control: false, description: "Classes do bloco inteiro, por exemplo a largura." },
   },
 } satisfies Meta<typeof MultiSelect>;
@@ -137,6 +147,31 @@ export const Controlled: Story = {
         <MultiSelect {...args} value={value} onValueChange={setValue} />
         <p className="text-body-sm text-subtle">Valor: {JSON.stringify(value)}</p>
       </div>
+    );
+  },
+};
+
+/**
+ * Criar digitando: um texto que não é o nome de nenhuma opção vira a linha "Criar “texto”", no
+ * fim da lista. Sem parecidas, ela já fica em destaque e Enter cria; com parecidas, chega-se a
+ * ela pelas setas. A opção nova entra escolhida, em gray, e a busca é limpa.
+ */
+export const Creatable: Story = {
+  render: (args) => {
+    const [options, setOptions] = useState(interests);
+    const [value, setValue] = useState(["tipografia"]);
+    return (
+      <MultiSelect
+        {...args}
+        options={options}
+        value={value}
+        onValueChange={setValue}
+        onCreate={(label) => {
+          const option = { value: label.toLowerCase(), label };
+          setOptions((list) => [...list, option]);
+          return option;
+        }}
+      />
     );
   },
 };

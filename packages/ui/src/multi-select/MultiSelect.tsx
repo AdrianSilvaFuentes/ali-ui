@@ -1,5 +1,5 @@
 import { Anchor, Content, Portal, Root, Trigger } from "@radix-ui/react-popover";
-import { IconCheck, IconChevronDown, IconSearch } from "@tabler/icons-react";
+import { IconCheck, IconChevronDown, IconPlus, IconSearch } from "@tabler/icons-react";
 import type { VariantProps } from "class-variance-authority";
 import {
   type KeyboardEvent,
@@ -50,6 +50,14 @@ export interface MultiSelectProps extends VariantProps<typeof inputVariants> {
   searchPlaceholder?: string;
   /** Mensagem quando a busca não encontra nada. */
   emptyMessage?: ReactNode;
+  /**
+   * Liga a criação de opções: um texto novo na busca vira a linha "Criar “texto”", no fim da
+   * lista, e Enter nela cria a opção e já a escolhe. Recebe o texto e devolve a opção nova
+   * (`{ value, label }`, cor gray por padrão); guarde-a em `options`.
+   */
+  onCreate?: (label: string) => MultiSelectOption;
+  /** O começo da linha de criar: "Criar “texto”". */
+  createLabel?: string;
   /** Texto de ajuda abaixo do campo, lido pelo leitor de tela junto com o label. */
   description?: ReactNode;
   /** Mensagem de erro. Substitui a ajuda e aparece com ícone, não só em vermelho. */
@@ -61,6 +69,9 @@ export interface MultiSelectProps extends VariantProps<typeof inputVariants> {
   /** Classes do bloco inteiro (label, campo e mensagens), por exemplo a largura. */
   className?: string;
 }
+
+/** O destaque na linha de criar, no lugar do valor de uma opção. */
+const CREATE = "__create__";
 
 /** Busca sem diferença de maiúsculas e acentos: "edicao" encontra "Edição". */
 function normalize(text: string) {
@@ -74,7 +85,8 @@ function normalize(text: string) {
  * Campo de escolha de várias opções. As escolhidas viram tags dentro do campo, cada uma com um
  * X para remover. Ao abrir, a lista traz uma busca no topo e marca as escolhidas com um check.
  * Pelo teclado: Enter, Espaço ou seta para baixo abrem; digitar filtra; as setas andam pela
- * lista; Enter escolhe ou tira a opção; Esc ou Tab fecham.
+ * lista; Enter escolhe ou tira a opção; Esc ou Tab fecham. Com `onCreate`, Enter num texto novo
+ * cria a opção.
  */
 export function MultiSelect({
   options,
@@ -87,6 +99,8 @@ export function MultiSelect({
   placeholder,
   searchPlaceholder = "Buscar opção",
   emptyMessage = "Nenhuma opção encontrada",
+  onCreate,
+  createLabel = "Criar",
   description,
   error,
   disabled,
@@ -199,6 +213,15 @@ export function MultiSelect({
   }, [options, query]);
   const enabled = visible.filter((option) => !option.disabled);
 
+  /** Com `onCreate`, um texto que não é o nome de nenhuma opção pode virar uma opção nova. */
+  const canCreate = (text: string) => {
+    const term = normalize(text.trim());
+    return Boolean(onCreate && term && !options.some((option) => normalize(option.label) === term));
+  };
+  const creating = canCreate(query);
+  // A ordem das setas: as opções que podem ser escolhidas e, no fim, a linha de criar.
+  const navigable = [...enabled.map((option) => option.value), ...(creating ? [CREATE] : [])];
+
   const setValue = (next: string[]) => {
     if (valueProp === undefined) setInnerValue(next);
     onValueChange?.(next);
@@ -220,6 +243,16 @@ export function MultiSelect({
       entering.current.add(option.value);
       setValue([...selected, option.value]);
     }
+  };
+
+  const create = () => {
+    const option = onCreate?.(query.trim());
+    if (!option) return;
+    setQuery("");
+    setHighlighted(option.value);
+    if (selected.includes(option.value)) return;
+    entering.current.add(option.value);
+    setValue([...selected, option.value]);
   };
 
   const remove = (index: number) => {
@@ -265,20 +298,22 @@ export function MultiSelect({
     const first = options.find(
       (option) => !option.disabled && (!term || normalize(option.label).includes(term)),
     );
-    setHighlighted(first?.value ?? null);
+    // Sem nenhuma parecida, o destaque vai para a linha de criar: Enter já cria.
+    setHighlighted(first?.value ?? (canCreate(text) ? CREATE : null));
   };
 
   const handleSearchKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
-    const index = enabled.findIndex((option) => option.value === highlighted);
+    const index = highlighted === null ? -1 : navigable.indexOf(highlighted);
     if (event.key === "ArrowDown" || event.key === "ArrowUp") {
       event.preventDefault();
-      if (enabled.length === 0) return;
+      if (navigable.length === 0) return;
       const step = event.key === "ArrowDown" ? 1 : -1;
-      const next = index === -1 ? 0 : (index + step + enabled.length) % enabled.length;
-      setHighlighted(enabled[next]?.value ?? null);
+      const next = index === -1 ? 0 : (index + step + navigable.length) % navigable.length;
+      setHighlighted(navigable[next] ?? null);
     } else if (event.key === "Enter") {
       event.preventDefault();
-      const option = enabled[index];
+      if (highlighted === CREATE) create();
+      const option = enabled.find((o) => o.value === highlighted);
       if (option) toggle(option);
     } else if (event.key === "Tab") {
       // A lista fica num portal, no fim da página: o Tab sairia para lá. Fecha e o foco
@@ -480,7 +515,7 @@ export function MultiSelect({
               aria-activedescendant={highlighted ? `${listboxId}-${highlighted}` : undefined}
               autoComplete="off"
             />
-            {visible.length === 0 ? (
+            {visible.length === 0 && !creating ? (
               <p role="status" className="px-2.5 py-2 text-body-md text-subtle">
                 {emptyMessage}
               </p>
@@ -539,6 +574,29 @@ export function MultiSelect({
                   </div>
                 );
               })}
+              {creating ? (
+                // biome-ignore lint/a11y/useKeyWithClickEvents: o teclado fica na busca (aria-activedescendant).
+                <div
+                  id={`${listboxId}-${CREATE}`}
+                  role="option"
+                  tabIndex={-1}
+                  aria-selected={false}
+                  data-highlighted={highlighted === CREATE || undefined}
+                  onMouseDown={(event) => event.preventDefault()}
+                  onMouseMove={() => setHighlighted(CREATE)}
+                  onClick={create}
+                  className={cn(
+                    "flex cursor-pointer items-center gap-2 px-2.5 text-body-md text-default select-none",
+                    compact ? "h-8 rounded-md py-1" : "rounded-lg py-2",
+                    "data-highlighted:bg-neutral-hovered",
+                  )}
+                >
+                  <IconPlus aria-hidden="true" className="size-5 shrink-0 text-icon-subtle" />
+                  <span className="min-w-0 truncate">
+                    {createLabel} “{query.trim()}”
+                  </span>
+                </div>
+              ) : null}
             </div>
           </Content>
         </Portal>

@@ -53,6 +53,27 @@ function Controlled() {
   return <Tools value={value} onValueChange={setValue} />;
 }
 
+/** Com criação: as opções criadas entram na lista, guardadas aqui fora. */
+function Creatable({ onValueChange }: { onValueChange?: (value: string[]) => void }) {
+  const [options, setOptions] = useState(interests);
+  const [value, setValue] = useState<string[]>([]);
+  return (
+    <Tools
+      options={options}
+      value={value}
+      onValueChange={(next) => {
+        setValue(next);
+        onValueChange?.(next);
+      }}
+      onCreate={(label) => {
+        const option = { value: label.toLowerCase(), label };
+        setOptions((list) => [...list, option]);
+        return option;
+      }}
+    />
+  );
+}
+
 describe("MultiSelect", () => {
   it("o botão tem o nome do label mais o que está escolhido", () => {
     render(<Tools defaultValue={["tipografia", "fotografia"]} />);
@@ -227,6 +248,44 @@ describe("MultiSelect", () => {
     expect(tags()).toHaveLength(6);
     expect(screen.queryByText("+5")).toBeNull();
     for (const spy of spies) spy.mockRestore();
+  });
+
+  it("Enter num texto novo cria a opção, escolhe e limpa a busca", async () => {
+    const user = userEvent.setup();
+    const onValueChange = vi.fn();
+    render(<Creatable onValueChange={onValueChange} />);
+    await user.tab();
+    await user.keyboard("{Enter}");
+    await user.keyboard("Design");
+    const create = screen.getByRole("option", { name: "Criar “Design”" });
+    expect(
+      screen.getByRole("combobox", { name: "Buscar opção" }).getAttribute("aria-activedescendant"),
+    ).toBe(create.id);
+    expect(screen.queryByText("Nenhuma opção encontrada")).toBeNull();
+    await user.keyboard("{Enter}");
+    expect(onValueChange).toHaveBeenLastCalledWith(["design"]);
+    expect(screen.getByRole("combobox", { name: "Buscar opção" })).toHaveProperty("value", "");
+    expect(screen.getByRole("option", { name: "Design" }).getAttribute("aria-selected")).toBe(
+      "true",
+    );
+  });
+
+  it("não oferece criar um nome que já existe, nem sem onCreate", async () => {
+    const user = userEvent.setup();
+    const { unmount } = render(<Creatable />);
+    await user.click(screen.getByRole("button"));
+    await user.keyboard("musica");
+    expect(screen.queryByRole("option", { name: /Criar/ })).toBeNull();
+    // Com parecidas, a primeira fica em destaque e a de criar fica no fim, pelas setas.
+    await user.clear(screen.getByRole("combobox"));
+    await user.keyboard("Tipo{ArrowDown}{Enter}");
+    expect(screen.getByRole("option", { name: "Tipo" }).getAttribute("aria-selected")).toBe("true");
+    unmount();
+    render(<Tools />);
+    await user.click(screen.getByRole("button"));
+    await user.keyboard("Design");
+    expect(screen.queryByRole("option", { name: /Criar/ })).toBeNull();
+    expect(screen.getByText("Nenhuma opção encontrada")).toBeTruthy();
   });
 
   it("com erro, o erro substitui a ajuda e marca como inválido", () => {
