@@ -113,8 +113,13 @@ describe("Select", () => {
     await user.tab();
     await user.keyboard("{Enter}");
     const option = screen.getByRole("option", { name: "Brasil" });
-    expect(option.className).toContain("min-h-8");
-    expect(option.className).toContain("items-center");
+    const classes = option.className.split(" ");
+    // Travada em 32px, com 6px em cima e embaixo, 10px nas laterais e canto de 6px.
+    expect(classes).toContain("h-8");
+    expect(classes).toContain("py-1.5");
+    expect(classes).toContain("pl-2.5");
+    expect(classes).toContain("rounded-md");
+    expect(classes).toContain("items-center");
   });
 
   it("no md, as opções mantêm o respiro maior", async () => {
@@ -123,8 +128,11 @@ describe("Select", () => {
     await user.tab();
     await user.keyboard("{Enter}");
     const option = screen.getByRole("option", { name: "Brasil" });
-    expect(option.className).toContain("py-2");
-    expect(option.className).not.toContain("min-h-8");
+    const classes = option.className.split(" ");
+    expect(classes).toContain("py-2");
+    expect(classes).toContain("pl-2.5");
+    expect(classes).toContain("rounded-lg");
+    expect(classes).not.toContain("h-8");
   });
 
   it("lê a ajuda junto com o campo", () => {
