@@ -22,7 +22,17 @@ const meta = {
       control: "text",
       description: "Nome da pessoa: vira as iniciais e o que o leitor de tela anuncia.",
     },
-    src: { control: "text", description: "Endereço da foto." },
+    src: {
+      // Escolha rápida no painel; no código, src é o endereço da foto.
+      control: "inline-radio",
+      options: ["Sem foto", "Com foto", "Foto quebrada"],
+      mapping: {
+        "Sem foto": undefined,
+        "Com foto": "./avatar-sample.png",
+        "Foto quebrada": "./nao-existe.png",
+      },
+      description: "Endereço da foto. Enquanto carrega, ou se falhar, aparecem as iniciais.",
+    },
     shape: {
       control: "inline-radio",
       options: ["circle", "square"],
@@ -73,7 +83,7 @@ export const WithImage: Story = {
       },
     },
   },
-  args: { src: "./avatar-sample.png" },
+  args: { src: "Com foto" },
   render: (args) => (
     <div className="flex items-center gap-4">
       {sizes.map((size) => (
@@ -112,7 +122,7 @@ export const BrokenImage: Story = {
       },
     },
   },
-  args: { src: "./nao-existe.png", size: "lg" },
+  args: { src: "Foto quebrada", size: "lg" },
 };
 
 export const Square: Story = {
