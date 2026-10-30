@@ -1,8 +1,9 @@
 // @vitest-environment jsdom
 import { IconTag } from "@tabler/icons-react";
 import { cleanup, render, screen } from "@testing-library/react";
+import { userEvent } from "@testing-library/user-event";
 import axe from "axe-core";
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { Tag } from "./Tag.tsx";
 
 afterEach(cleanup);
@@ -73,6 +74,59 @@ describe("Tag", () => {
       <p>
         Categoria: <Tag icon={<IconTag />}>Design</Tag>
       </p>,
+    );
+    expect(await violations(container)).toEqual([]);
+  });
+});
+
+describe("Tag com X de remover", () => {
+  it("sem onRemove, não tem botão", () => {
+    render(<Tag>Design</Tag>);
+    expect(screen.queryByRole("button")).toBeNull();
+  });
+
+  it("o X é um botão com o nome da tag, e o ícone não é anunciado", () => {
+    render(<Tag onRemove={() => {}}>Design</Tag>);
+    const button = screen.getByRole("button", { name: "Remover Design" });
+    expect(button.getAttribute("type")).toBe("button");
+    expect(button.querySelector("svg")?.getAttribute("aria-hidden")).toBe("true");
+  });
+
+  it("removeLabel troca o nome do botão", () => {
+    render(
+      <Tag onRemove={() => {}} removeLabel="Tirar filtro Design">
+        Design
+      </Tag>,
+    );
+    expect(screen.getByRole("button", { name: "Tirar filtro Design" })).toBeTruthy();
+  });
+
+  it("clicar no X chama onRemove", async () => {
+    const user = userEvent.setup();
+    const onRemove = vi.fn();
+    render(<Tag onRemove={onRemove}>Design</Tag>);
+    await user.click(screen.getByRole("button"));
+    expect(onRemove).toHaveBeenCalledTimes(1);
+  });
+
+  it.each(["{Enter}", " ", "{Delete}", "{Backspace}"])(
+    "com foco no X, %s chama onRemove",
+    async (key) => {
+      const user = userEvent.setup();
+      const onRemove = vi.fn();
+      render(<Tag onRemove={onRemove}>Design</Tag>);
+      await user.tab();
+      expect(document.activeElement).toBe(screen.getByRole("button"));
+      await user.keyboard(key);
+      expect(onRemove).toHaveBeenCalledTimes(1);
+    },
+  );
+
+  it("não tem violações de acessibilidade", async () => {
+    const { container } = render(
+      <Tag onRemove={() => {}} icon={<IconTag />}>
+        Design
+      </Tag>,
     );
     expect(await violations(container)).toEqual([]);
   });

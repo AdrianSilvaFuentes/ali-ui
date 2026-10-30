@@ -1,5 +1,6 @@
+import { IconX } from "@tabler/icons-react";
 import { cva, type VariantProps } from "class-variance-authority";
-import type { ComponentProps, ReactNode } from "react";
+import type { ComponentProps, KeyboardEvent, ReactNode } from "react";
 import { cn } from "../lib/cn.ts";
 
 /**
@@ -35,6 +36,32 @@ export const tagVariants = cva(
   },
 );
 
+/**
+ * O X de remover: um quadrado da altura da tag, encostado na borda direita, com o mesmo canto.
+ * A margem negativa tira o espaço interno da direita e aproxima o X do texto.
+ */
+const removeVariants = cva(
+  [
+    "inline-flex shrink-0 items-center justify-center rounded-[inherit]",
+    // Cursor de clique, como no Toggletip: um ícone solto não parece clicável sem ele.
+    "cursor-pointer",
+    // Foco por dentro do quadrado, como no Toggletip: o contorno surge na borda e fecha 2px
+    // para dentro. Sem animação para quem pede menos movimento.
+    "transition-interactive duration-fast",
+    "outline-focus outline-offset-0 focus-visible:outline-2 focus-visible:-outline-offset-2",
+    "motion-reduce:-outline-offset-2",
+  ],
+  {
+    variants: {
+      size: {
+        sm: "-mr-1.5 -ml-0.5 size-5",
+        md: "-mr-2 -ml-1 size-6",
+      },
+    },
+    defaultVariants: { size: "md" },
+  },
+);
+
 export interface TagProps
   extends Omit<ComponentProps<"span">, "children">,
     VariantProps<typeof tagVariants> {
@@ -42,10 +69,39 @@ export interface TagProps
   children: ReactNode;
   /** Ícone antes do texto: `icon={<IconTag />}`. Decorativo; ganha o tamanho e a cor do tom. */
   icon?: ReactNode;
+  /** Mostra o X no fim da tag e é chamado ao clicar nele ou ao apertar Delete ou Backspace. */
+  onRemove?: () => void;
+  /**
+   * O que o leitor de tela anuncia no X. Padrão: "Remover" mais o texto da tag ("Remover
+   * Design"). Passe sempre que o texto não for uma string.
+   */
+  removeLabel?: string;
 }
 
-/** Etiqueta retangular para categorizar: texto curto, com ícone opcional, em sete tons. */
-export function Tag({ className, tone, size, icon, children, ...props }: TagProps) {
+/**
+ * Etiqueta retangular para categorizar: texto curto, com ícone opcional, em sete tons. Com
+ * `onRemove`, ganha um X para remover; depois de remover, leve o foco para outro lugar.
+ */
+export function Tag({
+  className,
+  tone,
+  size,
+  icon,
+  onRemove,
+  removeLabel,
+  children,
+  ...props
+}: TagProps) {
+  const label = removeLabel ?? (typeof children === "string" ? `Remover ${children}` : "Remover");
+
+  // Delete e Backspace removem, como nos campos de tags; Enter e espaço já clicam o botão.
+  const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
+    if (event.key === "Delete" || event.key === "Backspace") {
+      event.preventDefault();
+      onRemove?.();
+    }
+  };
+
   return (
     <span className={cn(tagVariants({ tone, size }), className)} {...props}>
       {/* O ícone não é anunciado: o nome da etiqueta é o texto. */}
@@ -55,6 +111,17 @@ export function Tag({ className, tone, size, icon, children, ...props }: TagProp
         </span>
       ) : null}
       {children}
+      {onRemove ? (
+        <button
+          type="button"
+          aria-label={label}
+          className={removeVariants({ size })}
+          onClick={onRemove}
+          onKeyDown={handleKeyDown}
+        >
+          <IconX aria-hidden="true" />
+        </button>
+      ) : null}
     </span>
   );
 }
