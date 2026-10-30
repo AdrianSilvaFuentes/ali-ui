@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { IconBuildingStore, IconTruck, IconWorld } from "@tabler/icons-react";
 import type { ReactNode } from "react";
+import { Avatar } from "../avatar/Avatar.tsx";
 import { Button } from "../button/Button.tsx";
 import { Input } from "../input/Input.tsx";
 import { Select, SelectGroup, SelectItem, SelectSeparator } from "./Select.tsx";
@@ -153,15 +154,6 @@ export const InForm: Story = {
   ),
 };
 
-/** Avatar de exemplo, só com tokens, até existir o componente Avatar. */
-function SampleAvatar({ initials }: { initials: string }) {
-  return (
-    <span className="flex size-6 items-center justify-center rounded-full bg-neutral text-label-sm text-subtle ring-1 ring-subtle">
-      {initials}
-    </span>
-  );
-}
-
 /** Tag de exemplo, só com tokens, até existir o componente Badge. */
 function SampleTag({ children }: { children: ReactNode }) {
   return (
@@ -177,7 +169,7 @@ export const RichItems: Story = {
     docs: {
       description: {
         story:
-          "Opções com avatar à esquerda, uma segunda linha e uma tag à direita. Depois de escolhida, o gatilho mostra o avatar e o nome; a segunda linha e a tag ficam só na lista. Avatar e tag aqui são exemplos simples, até existirem os componentes Avatar e Badge.",
+          "Opções com avatar à esquerda, uma segunda linha e uma tag à direita. Depois de escolhida, o gatilho mostra o avatar e o nome; a segunda linha e a tag ficam só na lista. O avatar é o componente Avatar (sm, 24px); a tag é um exemplo simples, até existir o componente Badge.",
       },
     },
   },
@@ -192,7 +184,7 @@ export const RichItems: Story = {
     <Select {...args}>
       <SelectItem
         value="lia"
-        leading={<SampleAvatar initials="LM" />}
+        leading={<Avatar name="Lia Martins" size="sm" />}
         description="lia@exemplo.com"
         trailing={<SampleTag>Admin</SampleTag>}
       >
@@ -200,14 +192,14 @@ export const RichItems: Story = {
       </SelectItem>
       <SelectItem
         value="caio"
-        leading={<SampleAvatar initials="CR" />}
+        leading={<Avatar name="Caio Ribeiro" size="sm" />}
         description="caio@exemplo.com"
       >
         Caio Ribeiro
       </SelectItem>
       <SelectItem
         value="nara"
-        leading={<SampleAvatar initials="NT" />}
+        leading={<Avatar name="Nara Torres" size="sm" />}
         description="nara@exemplo.com"
         trailing={<SampleTag>Convite enviado</SampleTag>}
         disabled
