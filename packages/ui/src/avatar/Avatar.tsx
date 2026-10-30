@@ -5,14 +5,14 @@ import type { ComponentProps } from "react";
 import { cn } from "../lib/cn.ts";
 
 /**
- * O círculo do avatar. Sem foto, fundo neutral com contorno suave, para o círculo aparecer
- * em qualquer superfície (inclusive na opção em destaque de uma lista). Sombra mínima (xs),
- * a mesma dos controles.
+ * O círculo do avatar. Sem foto, fundo readonly (um passo abaixo do neutral) com contorno
+ * suave, para o círculo aparecer em qualquer superfície, inclusive na opção em destaque de
+ * uma lista. Sombra mínima (xs), a mesma dos controles.
  */
 export const avatarVariants = cva(
   [
     "relative inline-flex shrink-0 items-center justify-center overflow-hidden rounded-full",
-    "bg-neutral text-subtle shadow-xs ring-1 ring-subtle select-none",
+    "bg-readonly text-subtle shadow-xs ring-1 ring-subtle select-none",
   ],
   {
     variants: {

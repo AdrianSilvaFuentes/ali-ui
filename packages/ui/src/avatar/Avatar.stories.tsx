@@ -12,7 +12,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "Foto ou iniciais de uma pessoa, num círculo. Com foto (src), mostra a imagem; enquanto ela carrega, ou se falhar, aparecem as iniciais. Sem foto, as iniciais do nome: a primeira letra do primeiro e do último nome (Lia Martins → LM), e uma letra só no xs, onde duas não cabem. Sem nome, um ícone de pessoa.\n\nCinco tamanhos: xl 48px, lg 40px, md 32px (padrão), sm 24px e xs 20px. As iniciais e o ícone ficam perto de 40% do círculo. O fundo é neutral, com contorno subtle e a sombra mínima (shadow-xs) dos controles, para o círculo aparecer em qualquer superfície.\n\nPara o leitor de tela, o avatar é uma imagem com o nome da pessoa (Lia Martins), nunca as iniciais soltas (LM). Sem nome, é decorativo e fica escondido: use assim só quando o nome já aparece ao lado.",
+          "Foto ou iniciais de uma pessoa, num círculo. Com foto (src), mostra a imagem; enquanto ela carrega, ou se falhar, aparecem as iniciais. Sem foto, as iniciais do nome: a primeira letra do primeiro e do último nome (Lia Martins → LM), e uma letra só no xs, onde duas não cabem. Sem nome, um ícone de pessoa.\n\nCinco tamanhos: xl 48px, lg 40px, md 32px (padrão), sm 24px e xs 20px. As iniciais e o ícone ficam perto de 40% do círculo. O fundo é background-readonly, um passo abaixo do neutral, com contorno subtle e a sombra mínima (shadow-xs) dos controles, para o círculo aparecer em qualquer superfície.\n\nPara o leitor de tela, o avatar é uma imagem com o nome da pessoa (Lia Martins), nunca as iniciais soltas (LM). Sem nome, é decorativo e fica escondido: use assim só quando o nome já aparece ao lado.",
       },
     },
   },

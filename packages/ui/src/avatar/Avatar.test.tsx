@@ -65,10 +65,10 @@ describe("Avatar", () => {
     expect(className).toContain("rounded-full");
   });
 
-  it("fundo neutral com contorno suave e sombra xs", () => {
+  it("fundo readonly com contorno suave e sombra xs", () => {
     render(<Avatar name="Lia Martins" />);
     const { className } = screen.getByRole("img");
-    expect(className).toContain("bg-neutral");
+    expect(className).toContain("bg-readonly");
     expect(className).toContain("ring-subtle");
     expect(className).toContain("shadow-xs");
   });
