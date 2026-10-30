@@ -1,5 +1,11 @@
 import { Anchor, Content, Portal, Root, Trigger } from "@radix-ui/react-popover";
-import { IconCheck, IconChevronDown, IconPlus, IconSearch } from "@tabler/icons-react";
+import {
+  IconCheck,
+  IconChevronDown,
+  IconGripVertical,
+  IconPlus,
+  IconSearch,
+} from "@tabler/icons-react";
 import type { VariantProps } from "class-variance-authority";
 import {
   type KeyboardEvent,
@@ -684,6 +690,13 @@ export function MultiSelect({
                       "data-disabled:cursor-not-allowed data-dragging:opacity-60",
                     )}
                   >
+                    {/* A alça diz que a linha se arrasta. Some com a busca, que não reordena. */}
+                    {canReorderOptions ? (
+                      <IconGripVertical
+                        aria-hidden="true"
+                        className="size-4 shrink-0 cursor-grab text-icon-subtle"
+                      />
+                    ) : null}
                     {/* Desabilitada, a tag fica com o texto e o ícone em cinza. */}
                     <Tag
                       size="md"
