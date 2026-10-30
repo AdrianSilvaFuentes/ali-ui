@@ -1,3 +1,4 @@
+import { type BrandName, brandPalettes, brandTokens } from "@ali/tokens";
 import {
   Button,
   Checkbox,
@@ -33,7 +34,31 @@ interface Errors {
  * Página de abertura do grupo Form: um formulário de exemplo com todos os campos juntos, para
  * ver de uma vez como eles combinam em altura, espaço, label, ajuda e erro.
  */
-export function FormOverviewPage() {
+interface FormOverviewPageProps {
+  /** A cor de marca escolhida, a mesma do seletor Marca da barra de ferramentas. */
+  brand?: BrandName;
+  /** Troca a cor de marca (atualiza o seletor da barra também). */
+  onBrandChange?: (brand: BrandName) => void;
+}
+
+/** Nome de cada paleta no seletor. */
+const brandNames: Record<BrandName, string> = {
+  teal: "Teal",
+  blue: "Blue",
+  green: "Green",
+  orange: "Orange",
+  red: "Red",
+  yellow: "Yellow",
+};
+
+/** A cor de cada marca na bolinha do seletor: o início do degradê do botão primário. */
+function brandSwatch(name: BrandName): string {
+  return name === "teal"
+    ? brandPalettes.teal[700]
+    : (brandTokens(name).gradient.brand?.from ?? brandPalettes[name][700]);
+}
+
+export function FormOverviewPage({ brand = "teal", onBrandChange }: FormOverviewPageProps) {
   const [errors, setErrors] = useState<Errors>({});
   const [created, setCreated] = useState(false);
 
@@ -59,6 +84,33 @@ export function FormOverviewPage() {
             Todos os campos juntos num formulário de exemplo.
           </p>
         </header>
+
+        {/* A mesma escolha do seletor Marca da barra: troca a paleta do primary na hora. */}
+        <RadioGroup
+          label="Cor da marca"
+          labelInfo="Troca a paleta do primary: botões, links, foco e itens escolhidos. Erro e sucesso não mudam."
+          orientation="horizontal"
+          value={brand}
+          onValueChange={(value) => onBrandChange?.(value as BrandName)}
+        >
+          {(Object.keys(brandNames) as BrandName[]).map((name) => (
+            <RadioGroupItem
+              key={name}
+              value={name}
+              label={
+                <span className="inline-flex items-center gap-1.5">
+                  {/* A cor vem dos tokens; a bolinha é só decorativa: o nome diz a cor. */}
+                  <span
+                    aria-hidden="true"
+                    className="size-3 rounded-full"
+                    style={{ backgroundColor: brandSwatch(name) }}
+                  />
+                  {brandNames[name]}
+                </span>
+              }
+            />
+          ))}
+        </RadioGroup>
 
         <form
           noValidate
