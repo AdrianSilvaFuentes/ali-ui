@@ -109,15 +109,18 @@ const preview: Preview = {
             "Contrast",
           ],
           "Components",
-          // Button e Toggletip servem a qualquer tela; os campos ficam juntos em Form, dos de
-          // texto para os de escolha.
+          // Categorias por função: Actions (o que a pessoa aciona), Form (os campos, dos de texto
+          // para os de escolha), Data display (o que mostra dados) e Overlay (o que flutua acima
+          // da página, ligado a um elemento).
           [
-            "Button",
-            "Toggletip",
+            "Actions",
+            ["Button"],
             "Form",
             ["Visão geral", "Input", "Textarea", "Select", "Checkbox", "RadioGroup", "Switch"],
             "Data display",
             ["Avatar"],
+            "Overlay",
+            ["Tooltip", "Toggletip"],
           ],
         ],
       },

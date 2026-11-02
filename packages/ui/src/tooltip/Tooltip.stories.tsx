@@ -4,7 +4,7 @@ import { Button } from "../button/Button.tsx";
 import { Tooltip } from "./Tooltip.tsx";
 
 const meta = {
-  title: "Components/Tooltip",
+  title: "Components/Overlay/Tooltip",
   component: Tooltip,
   tags: ["autodocs"],
   parameters: {
