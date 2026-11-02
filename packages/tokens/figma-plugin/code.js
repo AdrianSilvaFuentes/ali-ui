@@ -1032,6 +1032,16 @@ const DATA = {
       ]
     },
     {
+      "name": "surface/inverse",
+      "light": "colors/neutral-light/neutral-light-900",
+      "dark": "colors/neutral-dark/neutral-dark-50",
+      "description": "Fundo invertido, que muda com o tema: tooltips. Texto e ícone em inverse.",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ]
+    },
+    {
       "name": "background/disabled",
       "light": "colors/neutral-light/neutral-light-200",
       "dark": "colors/neutral-dark/neutral-dark-600",

@@ -11,7 +11,7 @@ const icons = {
 };
 
 const meta = {
-  title: "Components/Button",
+  title: "Components/Actions/Button",
   component: Button,
   tags: ["autodocs"],
   parameters: {

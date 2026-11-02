@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Toggletip } from "./Toggletip.tsx";
 
 const meta = {
-  title: "Components/Toggletip",
+  title: "Components/Overlay/Toggletip",
   component: Toggletip,
   tags: ["autodocs"],
   parameters: {
