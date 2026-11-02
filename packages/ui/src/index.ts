@@ -29,3 +29,4 @@ export { Switch, type SwitchProps, switchVariants } from "./switch/Switch.tsx";
 export { Tag, type TagProps, tagVariants } from "./tag/Tag.tsx";
 export { Textarea, type TextareaProps, textareaVariants } from "./textarea/Textarea.tsx";
 export { Toggletip, type ToggletipProps } from "./toggletip/Toggletip.tsx";
+export { Tooltip, type TooltipProps } from "./tooltip/Tooltip.tsx";

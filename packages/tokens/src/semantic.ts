@@ -56,6 +56,11 @@ export const color = {
     dark: neutralDark[700],
     description: "Acima de tudo: menus, popovers e diálogos. Use com shadow-overlay.",
   },
+  "surface-inverse": {
+    light: neutralLight[900],
+    dark: neutralDark[50],
+    description: "Fundo invertido, que muda com o tema: tooltips. Texto e ícone em inverse.",
+  },
   "background-disabled": {
     light: neutralLight[200],
     dark: neutralDark[600],
@@ -606,9 +611,9 @@ export const contrastPairs: readonly (readonly [ColorName, ColorName, number])[]
   ["icon-warning", "background-warning-subtle", 3],
   ["text-danger", "background-danger-subtle", 4.5],
   ["icon-danger", "background-danger-subtle", 3],
-  // O inverse vai sobre um fundo na cor do texto padrão (escuro no claro, claro no escuro).
-  ["text-inverse", "text-default", 4.5],
-  ["icon-inverse", "text-default", 3],
+  // O inverse vai sobre o fundo invertido (escuro no claro, claro no escuro).
+  ["text-inverse", "surface-inverse", 4.5],
+  ["icon-inverse", "surface-inverse", 3],
 ];
 
 /**
