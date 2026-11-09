@@ -120,6 +120,7 @@ const preview: Preview = {
               "Visão geral",
               "Input",
               "Textarea",
+              "NumberInput",
               "Select",
               "Checkbox",
               "RadioGroup",

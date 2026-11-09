@@ -10,6 +10,7 @@ export {
   type MultiSelectOption,
   type MultiSelectProps,
 } from "./multi-select/MultiSelect.tsx";
+export { NumberInput, type NumberInputProps } from "./number-input/NumberInput.tsx";
 export {
   RadioGroup,
   RadioGroupItem,

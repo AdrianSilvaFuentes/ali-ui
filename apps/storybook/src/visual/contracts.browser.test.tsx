@@ -10,6 +10,7 @@ import {
   Checkbox,
   Input,
   MultiSelect,
+  NumberInput,
   RadioGroup,
   RadioGroupItem,
   SegmentedControl,
@@ -264,6 +265,22 @@ describe("Tabs", () => {
     const scope = tabs("segmented");
     expect(size(get(scope, "[role=tablist]")).height).toBe(32);
     expect(size(get(scope, "[role=tab]")).height).toBe(28);
+  });
+});
+
+describe("NumberInput", () => {
+  test.each([
+    ["sm", 32, 126],
+    ["md", 40, 142],
+  ] as const)("%s box is %ipx tall (like the Input) and %ipx wide", (s, box, width) => {
+    const scope = render(<NumberInput aria-label="Pessoas" defaultValue={3} size={s} />);
+    const field = get(scope, "[role=spinbutton]").parentElement as HTMLElement;
+    // Largura própria: 64px para o número, os dois botões e a borda.
+    expect(size(field)).toEqual({ width, height: box });
+    // Os botões ficam dentro da borda de 1px: 2px a menos que a caixa.
+    const button = get(scope, "button");
+    expect(size(button)).toEqual({ width: box - 2, height: box - 2 });
+    expect(square(get(button, "svg"))).toBe(16);
   });
 });
 
