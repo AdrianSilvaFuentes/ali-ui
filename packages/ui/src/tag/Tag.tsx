@@ -17,7 +17,7 @@ export const tagVariants = cva(
   {
     variants: {
       // Cada cor escolhe fundo, texto e ícone nos tokens de categoria: a cor diz o tipo de
-      // conteúdo, não um status. Vermelho aqui não é erro (para status, o futuro Badge).
+      // conteúdo, não um status. Vermelho aqui não é erro (para status, o Badge).
       color: {
         gray: "bg-category-gray text-category-gray [&_svg]:text-icon-category-gray",
         teal: "bg-category-teal text-category-teal [&_svg]:text-icon-category-teal",

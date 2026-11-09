@@ -111,7 +111,7 @@ export const color = {
     light: neutralLight[200],
     dark: neutralDark[800],
     description:
-      "Neutro, fundo suave: para o futuro Badge de status, no tom neutro. Para categorias, use background-category-*.",
+      "Neutro, fundo suave: para o Badge de status, no tom neutro. Para categorias, use background-category-*.",
   },
   "background-primary-subtle": {
     light: primary[100],
@@ -123,31 +123,31 @@ export const color = {
     light: blue[100],
     dark: blue[950],
     description:
-      "Informação, fundo suave, com significado de status (para o futuro Badge de status). Para categorias, use background-category-*.",
+      "Informação, fundo suave, com significado de status (para o Badge de status). Para categorias, use background-category-*.",
   },
   "background-success-subtle": {
     light: green[100],
     dark: green[950],
     description:
-      "Sucesso, fundo suave, com significado de status (para o futuro Badge de status). Para categorias, use background-category-*.",
+      "Sucesso, fundo suave, com significado de status (para o Badge de status). Para categorias, use background-category-*.",
   },
   "background-caution-subtle": {
     light: yellow[100],
     dark: yellow[950],
     description:
-      "Atenção leve, fundo suave, com significado de status (para o futuro Badge de status). Para categorias, use background-category-*.",
+      "Atenção leve, fundo suave, com significado de status (para o Badge de status). Para categorias, use background-category-*.",
   },
   "background-warning-subtle": {
     light: orange[100],
     dark: orange[950],
     description:
-      "Aviso, fundo suave, com significado de status (para o futuro Badge de status). Para categorias, use background-category-*.",
+      "Aviso, fundo suave, com significado de status (para o Badge de status). Para categorias, use background-category-*.",
   },
   "background-danger-subtle": {
     light: red[100],
     dark: red[950],
     description:
-      "Risco, fundo suave, com significado de status (para o futuro Badge de status). Para categorias, use background-category-*.",
+      "Risco, fundo suave, com significado de status (para o Badge de status). Para categorias, use background-category-*.",
   },
   "background-category-gray": {
     light: neutralLight[200],
@@ -596,7 +596,7 @@ export const contrastPairs: readonly (readonly [ColorName, ColorName, number])[]
   ["icon-category-orange", "background-category-orange", 3],
   ["text-category-red", "background-category-red", 4.5],
   ["icon-category-red", "background-category-red", 3],
-  // Status: texto e ícone de cada tom sobre o próprio fundo suave (futuro Badge de status).
+  // Status: texto e ícone de cada tom sobre o próprio fundo suave (Badge de status).
   ["text-default", "background-neutral-subtle", 4.5],
   ["icon-default", "background-neutral-subtle", 3],
   ["text-primary", "background-primary-subtle", 4.5],
