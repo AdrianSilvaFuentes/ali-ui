@@ -1125,7 +1125,7 @@ const DATA = {
       "name": "background/neutral-subtle",
       "light": "colors/neutral-light/neutral-light-200",
       "dark": "colors/neutral-dark/neutral-dark-800",
-      "description": "Neutro, fundo suave: para o futuro Badge de status, no tom neutro. Para categorias, use background-category-*.",
+      "description": "Neutro, fundo suave: para o Badge de status, no tom neutro. Para categorias, use background-category-*.",
       "scopes": [
         "FRAME_FILL",
         "SHAPE_FILL"
@@ -1145,7 +1145,7 @@ const DATA = {
       "name": "background/info-subtle",
       "light": "colors/blue/blue-100",
       "dark": "colors/blue/blue-950",
-      "description": "Informação, fundo suave, com significado de status (para o futuro Badge de status). Para categorias, use background-category-*.",
+      "description": "Informação, fundo suave, com significado de status (para o Badge de status). Para categorias, use background-category-*.",
       "scopes": [
         "FRAME_FILL",
         "SHAPE_FILL"
@@ -1155,7 +1155,7 @@ const DATA = {
       "name": "background/success-subtle",
       "light": "colors/green/green-100",
       "dark": "colors/green/green-950",
-      "description": "Sucesso, fundo suave, com significado de status (para o futuro Badge de status). Para categorias, use background-category-*.",
+      "description": "Sucesso, fundo suave, com significado de status (para o Badge de status). Para categorias, use background-category-*.",
       "scopes": [
         "FRAME_FILL",
         "SHAPE_FILL"
@@ -1165,7 +1165,7 @@ const DATA = {
       "name": "background/caution-subtle",
       "light": "colors/yellow/yellow-100",
       "dark": "colors/yellow/yellow-950",
-      "description": "Atenção leve, fundo suave, com significado de status (para o futuro Badge de status). Para categorias, use background-category-*.",
+      "description": "Atenção leve, fundo suave, com significado de status (para o Badge de status). Para categorias, use background-category-*.",
       "scopes": [
         "FRAME_FILL",
         "SHAPE_FILL"
@@ -1175,7 +1175,7 @@ const DATA = {
       "name": "background/warning-subtle",
       "light": "colors/orange/orange-100",
       "dark": "colors/orange/orange-950",
-      "description": "Aviso, fundo suave, com significado de status (para o futuro Badge de status). Para categorias, use background-category-*.",
+      "description": "Aviso, fundo suave, com significado de status (para o Badge de status). Para categorias, use background-category-*.",
       "scopes": [
         "FRAME_FILL",
         "SHAPE_FILL"
@@ -1185,7 +1185,7 @@ const DATA = {
       "name": "background/danger-subtle",
       "light": "colors/red/red-100",
       "dark": "colors/red/red-950",
-      "description": "Risco, fundo suave, com significado de status (para o futuro Badge de status). Para categorias, use background-category-*.",
+      "description": "Risco, fundo suave, com significado de status (para o Badge de status). Para categorias, use background-category-*.",
       "scopes": [
         "FRAME_FILL",
         "SHAPE_FILL"

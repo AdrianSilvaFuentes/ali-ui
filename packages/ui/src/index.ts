@@ -1,5 +1,6 @@
 /** Componentes da Ali UI. */
 export { Avatar, type AvatarProps, avatarVariants, initials } from "./avatar/Avatar.tsx";
+export { Badge, type BadgeProps, badgeVariants } from "./badge/Badge.tsx";
 export { Button, type ButtonProps, buttonVariants } from "./button/Button.tsx";
 export { Checkbox, type CheckboxProps, checkboxVariants } from "./checkbox/Checkbox.tsx";
 export { Input, type InputProps, inputVariants } from "./input/Input.tsx";
