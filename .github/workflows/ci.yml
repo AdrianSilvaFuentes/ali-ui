@@ -30,5 +30,7 @@ jobs:
           cache: pnpm
 
       - run: pnpm install --frozen-lockfile
+      # Navegador dos testes visuais do Storybook (no Mac eles usam o Chrome instalado).
+      - run: pnpm --filter @ali/storybook exec playwright install --with-deps chromium
       - run: pnpm check
       - run: pnpm build
