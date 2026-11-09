@@ -18,6 +18,14 @@ export {
   radioVariants,
 } from "./radio-group/RadioGroup.tsx";
 export {
+  SegmentedControl,
+  SegmentedControlItem,
+  type SegmentedControlItemProps,
+  type SegmentedControlProps,
+  segmentedControlItemVariants,
+  segmentedControlVariants,
+} from "./segmented-control/SegmentedControl.tsx";
+export {
   Select,
   SelectGroup,
   type SelectGroupProps,

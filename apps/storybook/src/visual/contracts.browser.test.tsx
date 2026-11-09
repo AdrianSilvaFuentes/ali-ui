@@ -12,6 +12,8 @@ import {
   MultiSelect,
   RadioGroup,
   RadioGroupItem,
+  SegmentedControl,
+  SegmentedControlItem,
   Select,
   SelectItem,
   Slider,
@@ -262,6 +264,24 @@ describe("Tabs", () => {
     const scope = tabs("segmented");
     expect(size(get(scope, "[role=tablist]")).height).toBe(32);
     expect(size(get(scope, "[role=tab]")).height).toBe(28);
+  });
+});
+
+describe("SegmentedControl", () => {
+  test.each([
+    ["sm", 32, 28],
+    ["md", 40, 36],
+  ] as const)("%s box is %ipx with %ipx options, like the Input", (s, box, item) => {
+    const scope = render(
+      <SegmentedControl aria-label="Período" defaultValue="a" size={s}>
+        <SegmentedControlItem value="a">Dia</SegmentedControlItem>
+        <SegmentedControlItem value="b">Semana</SegmentedControlItem>
+      </SegmentedControl>,
+    );
+    expect(size(get(scope, "[role=radiogroup]")).height).toBe(box);
+    expect(size(get(scope, "[role=radio]")).height).toBe(item);
+    // O fundo elevado tem a altura da opção.
+    expect(size(get(scope, "[role=radiogroup] > [aria-hidden]")).height).toBe(item);
   });
 });
 
