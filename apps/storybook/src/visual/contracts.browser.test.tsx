@@ -14,6 +14,7 @@ import {
   RadioGroupItem,
   Select,
   SelectItem,
+  Slider,
   Switch,
   Tabs,
   TabsList,
@@ -230,6 +231,12 @@ describe("Choice controls", () => {
     const track = get(render(<Switch aria-label="Avisos" />), "[role=switch]");
     expect(size(track)).toEqual({ width: 28, height: 16 });
     expect(square(get(track, ".rounded-full.bg-current"))).toBe(12);
+  });
+
+  test("Slider has a 6px track and a 16px thumb", () => {
+    const scope = render(<Slider aria-label="Volume" defaultValue={[40]} className="w-xs" />);
+    expect(size(get(scope, ".inset-shadow-sunken")).height).toBe(6);
+    expect(square(get(scope, "[role=slider]"))).toBe(16);
   });
 });
 

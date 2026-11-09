@@ -7,6 +7,7 @@ import {
   RadioGroupItem,
   Select,
   SelectItem,
+  Slider,
   Switch,
   Textarea,
 } from "@ali/ui";
@@ -21,6 +22,7 @@ const components = [
   ["Checkbox", "components-form-checkbox--docs", "Aceitar algo ou marcar várias opções."],
   ["RadioGroup", "components-form-radiogroup--docs", "Uma escolha entre poucas opções."],
   ["Switch", "components-form-switch--docs", "Ligar e desligar algo que vale na hora."],
+  ["Slider", "components-form-slider--docs", "Um número ou uma faixa, arrastando."],
 ] as const;
 
 /** Erros do exemplo: só aparecem depois de tentar criar o projeto. */
@@ -184,6 +186,15 @@ export function FormOverviewPage({ brand = "teal", onBrandChange }: FormOverview
             />
             <RadioGroupItem value="team" label="Time" description="Para empresas, com suporte." />
           </RadioGroup>
+
+          <Slider
+            name="members"
+            label="Pessoas no time"
+            description="Dá para mudar depois, a qualquer momento."
+            defaultValue={[3]}
+            min={1}
+            max={20}
+          />
 
           <div className="flex flex-col gap-4 border-t border-subtle pt-5">
             <Switch

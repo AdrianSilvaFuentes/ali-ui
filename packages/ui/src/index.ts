@@ -26,6 +26,12 @@ export {
   type SelectProps,
   SelectSeparator,
 } from "./select/Select.tsx";
+export {
+  Slider,
+  type SliderProps,
+  sliderThumbVariants,
+  sliderVariants,
+} from "./slider/Slider.tsx";
 export { Switch, type SwitchProps, switchVariants } from "./switch/Switch.tsx";
 export {
   Tabs,
