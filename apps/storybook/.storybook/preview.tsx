@@ -122,6 +122,7 @@ const preview: Preview = {
               "Textarea",
               "NumberInput",
               "Select",
+              "Combobox",
               "Checkbox",
               "RadioGroup",
               "SegmentedControl",
