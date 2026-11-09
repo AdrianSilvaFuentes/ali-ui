@@ -27,6 +27,18 @@ export {
   SelectSeparator,
 } from "./select/Select.tsx";
 export { Switch, type SwitchProps, switchVariants } from "./switch/Switch.tsx";
+export {
+  Tabs,
+  TabsContent,
+  type TabsContentProps,
+  TabsList,
+  type TabsListProps,
+  type TabsProps,
+  TabsTrigger,
+  type TabsTriggerProps,
+  tabsListVariants,
+  tabsTriggerVariants,
+} from "./tabs/Tabs.tsx";
 export { Tag, type TagProps, tagVariants } from "./tag/Tag.tsx";
 export { Textarea, type TextareaProps, textareaVariants } from "./textarea/Textarea.tsx";
 export { Toggletip, type ToggletipProps } from "./toggletip/Toggletip.tsx";
