@@ -3,6 +3,7 @@ import {
   Button,
   Checkbox,
   Input,
+  NumberInput,
   RadioGroup,
   RadioGroupItem,
   SegmentedControl,
@@ -20,6 +21,7 @@ import { type FormEvent, useState } from "react";
 const components = [
   ["Input", "components-form-input--docs", "Texto curto: nome, email, busca."],
   ["Textarea", "components-form-textarea--docs", "Texto longo: descrições e mensagens."],
+  ["NumberInput", "components-form-numberinput--docs", "Um número pequeno, de um em um."],
   ["Select", "components-form-select--docs", "Uma escolha numa lista longa."],
   ["Checkbox", "components-form-checkbox--docs", "Aceitar algo ou marcar várias opções."],
   ["RadioGroup", "components-form-radiogroup--docs", "Uma escolha entre poucas opções."],
@@ -198,6 +200,16 @@ export function FormOverviewPage({ brand = "teal", onBrandChange }: FormOverview
             <SegmentedControlItem value="monthly">Mensal</SegmentedControlItem>
             <SegmentedControlItem value="yearly">Anual</SegmentedControlItem>
           </SegmentedControl>
+
+          <NumberInput
+            size="sm"
+            name="trial"
+            label="Dias de teste"
+            description="De 7 a 30 dias, sem cobrança."
+            defaultValue={14}
+            min={7}
+            max={30}
+          />
 
           <Slider
             name="members"
