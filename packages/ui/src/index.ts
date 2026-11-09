@@ -3,6 +3,7 @@ export { Avatar, type AvatarProps, avatarVariants, initials } from "./avatar/Ava
 export { Badge, type BadgeProps, badgeVariants } from "./badge/Badge.tsx";
 export { Button, type ButtonProps, buttonVariants } from "./button/Button.tsx";
 export { Checkbox, type CheckboxProps, checkboxVariants } from "./checkbox/Checkbox.tsx";
+export { Combobox, type ComboboxOption, type ComboboxProps } from "./combobox/Combobox.tsx";
 export { Input, type InputProps, inputVariants } from "./input/Input.tsx";
 export { cn } from "./lib/cn.ts";
 export {

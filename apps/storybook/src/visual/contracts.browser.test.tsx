@@ -8,6 +8,7 @@ import {
   Badge,
   Button,
   Checkbox,
+  Combobox,
   Input,
   MultiSelect,
   NumberInput,
@@ -265,6 +266,20 @@ describe("Tabs", () => {
     const scope = tabs("segmented");
     expect(size(get(scope, "[role=tablist]")).height).toBe(32);
     expect(size(get(scope, "[role=tab]")).height).toBe(28);
+  });
+});
+
+describe("Combobox", () => {
+  test.each([
+    ["sm", 32],
+    ["md", 40],
+  ] as const)("%s field is %ipx, like the Input, with a 20px arrow", (s, box) => {
+    const scope = render(
+      <Combobox aria-label="País" size={s} options={[{ value: "br", label: "Brasil" }]} />,
+    );
+    const field = get(scope, "[role=combobox]").parentElement as HTMLElement;
+    expect(size(field).height).toBe(box);
+    expect(square(get(field, "svg"))).toBe(20);
   });
 });
 

@@ -2,6 +2,7 @@ import { type BrandName, brandPalettes, brandTokens } from "@ali/tokens";
 import {
   Button,
   Checkbox,
+  Combobox,
   Input,
   NumberInput,
   RadioGroup,
@@ -23,6 +24,7 @@ const components = [
   ["Textarea", "components-form-textarea--docs", "Texto longo: descrições e mensagens."],
   ["NumberInput", "components-form-numberinput--docs", "Um número pequeno, de um em um."],
   ["Select", "components-form-select--docs", "Uma escolha numa lista longa."],
+  ["Combobox", "components-form-combobox--docs", "Uma escolha numa lista longa, digitando."],
   ["Checkbox", "components-form-checkbox--docs", "Aceitar algo ou marcar várias opções."],
   ["RadioGroup", "components-form-radiogroup--docs", "Uma escolha entre poucas opções."],
   [
@@ -173,6 +175,23 @@ export function FormOverviewPage({ brand = "teal", onBrandChange }: FormOverview
               Europa
             </SelectItem>
           </Select>
+
+          <Combobox
+            size="sm"
+            name="country"
+            label="País da sede"
+            placeholder="Busque um país"
+            options={[
+              { value: "ar", label: "Argentina" },
+              { value: "br", label: "Brasil" },
+              { value: "cl", label: "Chile" },
+              { value: "co", label: "Colômbia" },
+              { value: "mx", label: "México" },
+              { value: "pt", label: "Portugal" },
+              { value: "uy", label: "Uruguai" },
+            ]}
+            defaultValue="br"
+          />
 
           <Textarea
             size="sm"

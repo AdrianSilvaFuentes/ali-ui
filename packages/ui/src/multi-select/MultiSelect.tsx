@@ -24,6 +24,7 @@ import { Input, inputVariants } from "../input/Input.tsx";
 import { cn } from "../lib/cn.ts";
 import { FieldLabel } from "../lib/FieldLabel.tsx";
 import { FieldError, FieldHelp } from "../lib/FieldMessage.tsx";
+import { normalize } from "../lib/normalize.ts";
 import { Tag, type TagProps } from "../tag/Tag.tsx";
 
 export interface MultiSelectOption {
@@ -273,14 +274,6 @@ function useDragReorder(axis: "x" | "y", onDrop: (from: number, to: number) => v
   });
 
   return { drag, itemProps };
-}
-
-/** Busca sem diferença de maiúsculas e acentos: "edicao" encontra "Edição". */
-function normalize(text: string) {
-  return text
-    .normalize("NFD")
-    .replace(/\p{Diacritic}/gu, "")
-    .toLowerCase();
 }
 
 /**
