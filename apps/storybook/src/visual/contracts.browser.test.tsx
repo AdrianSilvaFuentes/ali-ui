@@ -9,6 +9,7 @@ import {
   Button,
   Checkbox,
   Combobox,
+  FileUpload,
   Input,
   MultiSelect,
   NumberInput,
@@ -280,6 +281,24 @@ describe("Combobox", () => {
     const field = get(scope, "[role=combobox]").parentElement as HTMLElement;
     expect(size(field).height).toBe(box);
     expect(square(get(field, "svg"))).toBe(20);
+  });
+});
+
+describe("FileUpload", () => {
+  test("drop area is 128px; file row is 40px with a 32px square X and 20px icons", () => {
+    const scope = render(
+      <FileUpload
+        aria-label="Anexos"
+        defaultValue={[new File(["x"], "contrato.pdf", { type: "application/pdf" })]}
+      />,
+    );
+    const row = get(scope, "li");
+    expect(size(row).height).toBe(40);
+    expect(size(get(row, "button"))).toEqual({ width: 32, height: 32 });
+    expect(square(get(row, "svg"))).toBe(20);
+    const zone = get(scope, "button[aria-label=Anexos]");
+    expect(size(zone).height).toBe(128);
+    expect(square(get(zone, "svg"))).toBe(20);
   });
 });
 
