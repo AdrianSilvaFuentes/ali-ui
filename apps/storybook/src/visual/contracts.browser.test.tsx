@@ -15,6 +15,9 @@ import {
   Select,
   SelectItem,
   Switch,
+  Tabs,
+  TabsList,
+  TabsTrigger,
   Tag,
   Textarea,
   Toggletip,
@@ -227,6 +230,31 @@ describe("Choice controls", () => {
     const track = get(render(<Switch aria-label="Avisos" />), "[role=switch]");
     expect(size(track)).toEqual({ width: 28, height: 16 });
     expect(square(get(track, ".rounded-full.bg-current"))).toBe(12);
+  });
+});
+
+describe("Tabs", () => {
+  function tabs(variant: "line" | "segmented") {
+    return render(
+      <Tabs variant={variant} defaultValue="a">
+        <TabsList aria-label="Seções">
+          <TabsTrigger value="a">Visão geral</TabsTrigger>
+          <TabsTrigger value="b">Ajustes</TabsTrigger>
+        </TabsList>
+      </Tabs>,
+    );
+  }
+
+  test("line tab is 32px, with the 1px list line below it", () => {
+    const scope = tabs("line");
+    expect(size(get(scope, "[role=tab]")).height).toBe(32);
+    expect(size(get(scope, "[role=tablist]")).height).toBe(33);
+  });
+
+  test("segmented box is 32px with 28px tabs", () => {
+    const scope = tabs("segmented");
+    expect(size(get(scope, "[role=tablist]")).height).toBe(32);
+    expect(size(get(scope, "[role=tab]")).height).toBe(28);
   });
 });
 
