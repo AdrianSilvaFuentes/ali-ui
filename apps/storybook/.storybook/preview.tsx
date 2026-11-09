@@ -128,6 +128,7 @@ const preview: Preview = {
               "SegmentedControl",
               "Switch",
               "Slider",
+              "FileUpload",
             ],
             "Data display",
             ["Avatar"],

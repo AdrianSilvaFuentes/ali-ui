@@ -3,6 +3,7 @@ import {
   Button,
   Checkbox,
   Combobox,
+  FileUpload,
   Input,
   NumberInput,
   RadioGroup,
@@ -34,6 +35,7 @@ const components = [
   ],
   ["Switch", "components-form-switch--docs", "Ligar e desligar algo que vale na hora."],
   ["Slider", "components-form-slider--docs", "Um número ou uma faixa, arrastando."],
+  ["FileUpload", "components-form-fileupload--docs", "Arrastar ou escolher arquivos."],
 ] as const;
 
 /** Erros do exemplo: só aparecem depois de tentar criar o projeto. */
@@ -237,6 +239,14 @@ export function FormOverviewPage({ brand = "teal", onBrandChange }: FormOverview
             defaultValue={[3]}
             min={1}
             max={20}
+          />
+
+          <FileUpload
+            name="logo"
+            label="Logo do projeto"
+            hint="PNG ou SVG, até 2 MB"
+            accept="image/png,image/svg+xml"
+            maxSize={2 * 1024 * 1024}
           />
 
           <div className="flex flex-col gap-4 border-t border-subtle pt-5">
