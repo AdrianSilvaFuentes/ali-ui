@@ -123,6 +123,7 @@ const preview: Preview = {
               "Select",
               "Checkbox",
               "RadioGroup",
+              "SegmentedControl",
               "Switch",
               "Slider",
             ],

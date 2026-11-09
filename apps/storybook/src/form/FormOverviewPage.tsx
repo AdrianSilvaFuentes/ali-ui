@@ -5,6 +5,8 @@ import {
   Input,
   RadioGroup,
   RadioGroupItem,
+  SegmentedControl,
+  SegmentedControlItem,
   Select,
   SelectItem,
   Slider,
@@ -21,6 +23,11 @@ const components = [
   ["Select", "components-form-select--docs", "Uma escolha numa lista longa."],
   ["Checkbox", "components-form-checkbox--docs", "Aceitar algo ou marcar várias opções."],
   ["RadioGroup", "components-form-radiogroup--docs", "Uma escolha entre poucas opções."],
+  [
+    "SegmentedControl",
+    "components-form-segmentedcontrol--docs",
+    "Uma escolha entre poucas opções curtas.",
+  ],
   ["Switch", "components-form-switch--docs", "Ligar e desligar algo que vale na hora."],
   ["Slider", "components-form-slider--docs", "Um número ou uma faixa, arrastando."],
 ] as const;
@@ -186,6 +193,11 @@ export function FormOverviewPage({ brand = "teal", onBrandChange }: FormOverview
             />
             <RadioGroupItem value="team" label="Time" description="Para empresas, com suporte." />
           </RadioGroup>
+
+          <SegmentedControl name="billing" label="Cobrança" defaultValue="monthly" size="sm">
+            <SegmentedControlItem value="monthly">Mensal</SegmentedControlItem>
+            <SegmentedControlItem value="yearly">Anual</SegmentedControlItem>
+          </SegmentedControl>
 
           <Slider
             name="members"
