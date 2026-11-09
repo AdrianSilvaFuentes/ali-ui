@@ -22,6 +22,8 @@ pnpm-debug.log*
 
 # Testes
 coverage/
+# Capturas que o Vitest tira quando um teste no navegador falha.
+.vitest/
 
 # Configurações pessoais do Claude Code
 .claude/settings.local.json
