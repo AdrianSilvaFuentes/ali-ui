@@ -198,6 +198,11 @@
   }
 }
 
+/* Entrada só em fade, sem crescer: para o que já existia e só passa a aparecer. */
+@utility animate-fade-in {
+  animation: ali-fade-in var(--ali-duration-base) ease-out;
+}
+
 @utility animate-fade-out {
   animation: ali-fade-out var(--ali-duration-fast) ease-in forwards;
 }

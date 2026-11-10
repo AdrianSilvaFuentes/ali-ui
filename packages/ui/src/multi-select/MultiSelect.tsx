@@ -20,6 +20,8 @@ import {
   useRef,
   useState,
 } from "react";
+import { Avatar } from "../avatar/Avatar.tsx";
+import { Chip } from "../chip/Chip.tsx";
 import { Input, inputVariants } from "../input/Input.tsx";
 import { cn } from "../lib/cn.ts";
 import { FieldLabel } from "../lib/FieldLabel.tsx";
@@ -36,6 +38,8 @@ export interface MultiSelectOption {
   color?: TagProps["color"];
   /** Ícone decorativo antes do nome, na tag do campo e na da lista: `icon={<IconMusic />}`. */
   icon?: ReactNode;
+  /** Com `people`, a foto da pessoa, no chip do campo e na lista. Sem ela, as iniciais. */
+  avatarSrc?: string;
   /** Aparece na lista, mas não pode ser escolhida. */
   disabled?: boolean;
 }
@@ -74,6 +78,16 @@ export interface MultiSelectProps extends VariantProps<typeof inputVariants> {
    * preenchida, não reordena.
    */
   onOptionsReorder?: (options: MultiSelectOption[]) => void;
+  /**
+   * Opções são pessoas: as escolhidas viram Chips (avatar e nome) no campo, e a lista mostra o
+   * avatar ao lado do nome, no lugar do Tag. A foto vem de `avatarSrc`; sem ela, as iniciais.
+   */
+  people?: boolean;
+  /**
+   * Quantas opções podem ser escolhidas, no máximo. No limite, as outras ficam desabilitadas na
+   * lista e o leitor de tela avisa. Escreva o limite na ajuda (`description`), para ser visto.
+   */
+  max?: number;
   /** Texto de ajuda abaixo do campo, lido pelo leitor de tela junto com o label. */
   description?: ReactNode;
   /** Mensagem de erro. Substitui a ajuda e aparece com ícone, não só em vermelho. */
@@ -111,10 +125,16 @@ function hiddenEdges(list: HTMLElement | null, old: { top: boolean; bottom: bool
   return old.top === top && old.bottom === bottom ? old : { top, bottom };
 }
 
+/** O tempo de um token de duração (fast ou base), ou 0 para quem pede menos movimento. */
+function tokenDuration(element: HTMLElement, token: "fast" | "base") {
+  if (!element.animate || window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return 0;
+  const value = getComputedStyle(element).getPropertyValue(`--ali-duration-${token}`);
+  return Number.parseFloat(value) || 0;
+}
+
 /** O tempo de uma animação curta (duration-fast), ou 0 para quem pede menos movimento. */
 function fastDuration(element: HTMLElement) {
-  if (!element.animate || window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return 0;
-  return Number.parseFloat(getComputedStyle(element).getPropertyValue("--ali-duration-fast")) || 0;
+  return tokenDuration(element, "fast");
 }
 
 /** O lugar do elemento sem o deslocamento de uma animação, para não mirar num alvo andando. */
@@ -297,6 +317,8 @@ export function MultiSelect({
   onCreate,
   createLabel = "Criar",
   onOptionsReorder,
+  people = false,
+  max,
   description,
   error,
   disabled,
@@ -351,14 +373,21 @@ export function MultiSelect({
   // O aviso ao leitor de tela depois de mover uma tag ou opção: "Figma, posição 2 de 4".
   const [announcement, setAnnouncement] = useState("");
 
+  // No limite (max), só as já escolhidas continuam clicáveis: dá para tirar, não para pôr.
+  const atLimit = max !== undefined && selected.length >= max;
+  const blocked = (option: MultiSelectOption) =>
+    Boolean(option.disabled) || (atLimit && !selected.includes(option.value));
+
   const selectedOptions = selected
     .map((v) => options.find((option) => option.value === v))
     .filter((option): option is MultiSelectOption => Boolean(option));
 
   // Fechado, as tags ficam numa linha só, e as que não cabem viram um contador "+N". Aberto,
-  // o campo mostra todas. A medida vale para esta escolha nesta largura do campo.
+  // o campo mostra todas. A medida vale para esta escolha, nesta largura do campo, com estas
+  // tags saindo: uma tag removida ainda ocupa o lugar durante o fade, e quando ela sai de vez a
+  // conta é refeita, para quem estava no "+N" entrar no espaço que sobrou.
   const [fieldWidth, setFieldWidth] = useState(0);
-  const fitKey = `${selected.join("\n")}|${fieldWidth}`;
+  const fitKey = `${selected.join("\n")}|${fieldWidth}|${leaving.length}`;
   const [fit, setFit] = useState<{ key: string; count: number } | null>(null);
   // Tags e lista têm uma ordem só: reordenar, aqui ou lá, só com `onOptionsReorder`.
   const reorderable = Boolean(onOptionsReorder) && !disabled;
@@ -437,16 +466,27 @@ export function MultiSelect({
   }, [layoutKey]);
 
   // Quando a ordem das tags muda sem arrasto (lista reordenada, Alt+setas), cada tag desliza
-  // de onde estava até o lugar novo, em duration-fast. Guarda onde cada uma estava a cada render.
+  // de onde estava até o lugar novo, em duration-fast. Quando uma tag removida termina de sair
+  // e libera o lugar, as seguintes deslizam para fechar o vão, em duration-base, em vez de
+  // pular. Guarda onde cada uma estava a cada render.
   const tagRects = useRef(new Map<string, DOMRect>());
   const orderKey = useRef(selected.join("\n"));
+  const leavingCount = useRef(leaving.length);
   useLayoutEffect(() => {
     const key = selected.join("\n");
     const reordered = key !== orderKey.current;
     orderKey.current = key;
+    const closedGap = leaving.length < leavingCount.current;
+    leavingCount.current = leaving.length;
     const list = tagsRef.current;
     const items = list ? [...list.querySelectorAll<HTMLElement>(":scope > [data-value]")] : [];
-    const duration = reordered && list ? fastDuration(list) : 0;
+    const duration = !list
+      ? 0
+      : closedGap
+        ? tokenDuration(list, "base")
+        : reordered
+          ? fastDuration(list)
+          : 0;
     const rects = new Map<string, DOMRect>();
     for (const item of items) {
       const value = item.dataset.value ?? "";
@@ -455,7 +495,11 @@ export function MultiSelect({
       rects.set(value, rect);
       if (!duration || !old) continue;
       const dx = old.left - rect.left;
-      const dy = old.top - rect.top;
+      // Ao fechar o vão, a tag que fica na mesma linha só anda para o lado: o campo se ajusta
+      // 1 ou 2px na vertical quando a tag removida sai, e isso deixava o caminho na diagonal.
+      // Só quem muda de linha (campo aberto, em várias linhas) sobe ou desce.
+      const sameRow = Math.abs(old.top - rect.top) < rect.height / 2;
+      const dy = closedGap && sameRow ? 0 : old.top - rect.top;
       if (dx || dy) slide(item, `translate(${dx}px, ${dy}px)`, duration);
     }
     tagRects.current = rects;
@@ -465,7 +509,7 @@ export function MultiSelect({
     const term = normalize(query.trim());
     return term ? options.filter((option) => normalize(option.label).includes(term)) : options;
   }, [options, query]);
-  const enabled = visible.filter((option) => !option.disabled);
+  const enabled = visible.filter((option) => !blocked(option));
   // Com a busca preenchida, a lista é só um pedaço: reordenar nela confundiria.
   const canReorderOptions = Boolean(onOptionsReorder) && !query.trim();
   const optionDrag = useDragReorder("y", (from, to) => reorderOptions(from, to));
@@ -476,7 +520,9 @@ export function MultiSelect({
   /** Com `onCreate`, um texto que não é o nome de nenhuma opção pode virar uma opção nova. */
   const canCreate = (text: string) => {
     const term = normalize(text.trim());
-    return Boolean(onCreate && term && !options.some((option) => normalize(option.label) === term));
+    return Boolean(
+      onCreate && term && !atLimit && !options.some((option) => normalize(option.label) === term),
+    );
   };
   const creating = canCreate(query);
   // A ordem das setas: as opções que podem ser escolhidas e, no fim, a linha de criar.
@@ -517,6 +563,8 @@ export function MultiSelect({
   const add = (value: string) => {
     const next = [...selected, value];
     setValue(onOptionsReorder ? sortByList(next, options) : next);
+    // Ao chegar no limite, o leitor de tela fica sabendo por que o resto ficou desabilitado.
+    if (max !== undefined && next.length >= max) setAnnouncement(`Limite de ${max} atingido.`);
   };
 
   const markLeaving = (value: string) => {
@@ -525,7 +573,7 @@ export function MultiSelect({
   };
 
   const toggle = (option: MultiSelectOption) => {
-    if (option.disabled) return;
+    if (blocked(option)) return;
     if (selected.includes(option.value)) {
       markLeaving(option.value);
       setValue(selected.filter((v) => v !== option.value));
@@ -582,11 +630,14 @@ export function MultiSelect({
     if (next) {
       // Começa na primeira escolhida, ou na primeira que pode ser escolhida.
       const start =
-        options.find((option) => !option.disabled && selected.includes(option.value)) ??
-        options.find((option) => !option.disabled);
+        options.find((option) => !blocked(option) && selected.includes(option.value)) ??
+        options.find((option) => !blocked(option));
       setHighlighted(start?.value ?? null);
     } else {
       setQuery("");
+      // A entrada com pop-in é de quem acabou de ser escolhido. Quem ainda não terminou de
+      // entrar, ao fechar a lista, ou fica à vista ou vai para o "+N": nos dois casos, já entrou.
+      entering.current.clear();
     }
   };
 
@@ -600,7 +651,7 @@ export function MultiSelect({
     setQuery(text);
     const term = normalize(text.trim());
     const first = options.find(
-      (option) => !option.disabled && (!term || normalize(option.label).includes(term)),
+      (option) => !blocked(option) && (!term || normalize(option.label).includes(term)),
     );
     // Sem nenhuma parecida, o destaque vai para a linha de criar: Enter já cria.
     setHighlighted(first?.value ?? (canCreate(text) ? CREATE : null));
@@ -661,6 +712,37 @@ export function MultiSelect({
 
   const summary = selectedOptions.map((option) => option.label).join(", ");
 
+  // As tags à vista no render anterior. Quem não estava e não acabou de ser escolhido saiu do
+  // "+N" (porque sobrou espaço): entra só com fade, sem crescer do centro, que andava na
+  // diagonal ao lado das tags que deslizam. No primeiro render, nada anima.
+  // Fica marcada até o fade acabar, mesmo que o campo renderize de novo no meio.
+  const shownBefore = useRef<Set<string> | null>(null);
+  const revealing = useRef(new Set<string>());
+  const revealed = (value: string) => {
+    if (shownBefore.current !== null && !shownBefore.current.has(value)) {
+      revealing.current.add(value);
+    }
+    return revealing.current.has(value);
+  };
+  useLayoutEffect(() => {
+    shownBefore.current = new Set(shownTags.map(({ option }) => option.value));
+  });
+
+  /** A escolhida no campo: Chip com avatar (people) ou Tag com cor e ícone. */
+  const renderToken = (option: MultiSelectOption, onRemove?: () => void) =>
+    people ? (
+      <Chip
+        name={option.label}
+        src={option.avatarSrc}
+        size={compact ? "sm" : "md"}
+        onRemove={onRemove}
+      />
+    ) : (
+      <Tag size="md" icon={option.icon} color={option.color} onRemove={onRemove}>
+        {option.label}
+      </Tag>
+    );
+
   return (
     <div className={cn("flex flex-col gap-1.5", className)}>
       {label ? (
@@ -684,8 +766,12 @@ export function MultiSelect({
               // overflow-hidden: enquanto a altura anima, as tags não passam da borda.
               "h-auto cursor-pointer overflow-hidden px-2.5 data-[state=open]:border-default",
               // A tag é sempre md (24px), nos dois tamanhos: no sm, numa linha só, sobram 3px em
-              // cima e embaixo; com várias linhas, 4px.
-              compact ? cn("min-h-8", wrapped ? "py-1" : "py-0.5") : "min-h-10 py-1.5",
+              // cima e embaixo; com várias linhas, 4px. Com people, o chip acompanha o campo: sm
+              // (24px) no sm, com as mesmas medidas da tag, e md (28px) no md, com 4px em cima e
+              // embaixo quando quebra de linha (numa linha só, fica no meio dos 40px).
+              compact
+                ? cn("min-h-8", wrapped ? "py-1" : "py-0.5")
+                : cn("min-h-10", people ? "py-1" : "py-1.5"),
               shownTags.length > 0 && (compact ? "pl-1" : "pl-1.5"),
             )}
           >
@@ -696,7 +782,9 @@ export function MultiSelect({
               >
                 {shownTags.map(({ option, index, isLeaving }) =>
                   isLeaving ? (
-                    // Saindo: escondida do leitor de tela e sem foco, só para a animação.
+                    // Saindo: escondida do leitor de tela e sem foco, só para a animação. Só some
+                    // num fade, sem encolher: encolhendo para o centro, o canto dela andava na
+                    // diagonal, o que aparecia mais na primeira tag, encostada na borda do campo.
                     <li
                       key={`leaving-${option.value}`}
                       data-leaving=""
@@ -705,16 +793,9 @@ export function MultiSelect({
                       onAnimationEnd={() =>
                         setLeaving((list) => list.filter((item) => item.option !== option))
                       }
-                      className="flex shrink-0 animate-pop-out"
+                      className="flex shrink-0 animate-fade-out"
                     >
-                      <Tag
-                        size="md"
-                        icon={option.icon}
-                        color={option.color}
-                        onRemove={disabled ? undefined : () => {}}
-                      >
-                        {option.label}
-                      </Tag>
+                      {renderToken(option, disabled ? undefined : () => {})}
                     </li>
                   ) : (
                     <li
@@ -728,20 +809,18 @@ export function MultiSelect({
                         }
                       }}
                       onKeyDown={(event) => handleTagKeyDown(event, index)}
-                      onAnimationEnd={() => entering.current.delete(option.value)}
+                      onAnimationEnd={() => {
+                        entering.current.delete(option.value);
+                        revealing.current.delete(option.value);
+                      }}
                       className={cn(
                         "flex shrink-0 select-none data-dragging:cursor-grabbing",
-                        entering.current.has(option.value) && "animate-pop-in",
+                        entering.current.has(option.value)
+                          ? "animate-pop-in"
+                          : revealed(option.value) && "animate-fade-in",
                       )}
                     >
-                      <Tag
-                        size="md"
-                        icon={option.icon}
-                        color={option.color}
-                        onRemove={disabled ? undefined : () => remove(index)}
-                      >
-                        {option.label}
-                      </Tag>
+                      {renderToken(option, disabled ? undefined : () => remove(index))}
                     </li>
                   ),
                 )}
@@ -873,6 +952,7 @@ export function MultiSelect({
             >
               {listed.map((option, index) => {
                 const isSelected = selected.includes(option.value);
+                const off = blocked(option);
                 return (
                   // biome-ignore lint/a11y/useKeyWithClickEvents: o teclado fica na busca (aria-activedescendant).
                   <div
@@ -882,12 +962,12 @@ export function MultiSelect({
                     role="option"
                     tabIndex={-1}
                     aria-selected={isSelected}
-                    aria-disabled={option.disabled || undefined}
+                    aria-disabled={off || undefined}
                     data-highlighted={highlighted === option.value || undefined}
-                    data-disabled={option.disabled || undefined}
+                    data-disabled={off || undefined}
                     // O mouse não tira o foco da busca.
                     onMouseDown={(event) => event.preventDefault()}
-                    onMouseMove={() => !option.disabled && setHighlighted(option.value)}
+                    onMouseMove={() => !off && setHighlighted(option.value)}
                     onClick={() => toggle(option)}
                     className={cn(
                       // Mesmas medidas e estados das opções do Select. O check vem na fila, empurrado
@@ -906,15 +986,28 @@ export function MultiSelect({
                         className="size-4 shrink-0 cursor-grab text-icon-subtle"
                       />
                     ) : null}
-                    {/* Desabilitada, a tag fica com o texto e o ícone em cinza. */}
-                    <Tag
-                      size="md"
-                      icon={option.icon}
-                      color={option.color}
-                      className={cn(option.disabled && "text-disabled [&_svg]:text-icon-disabled")}
-                    >
-                      {option.label}
-                    </Tag>
+                    {people ? (
+                      // Pessoa: avatar de 24px e o nome, como as opções do Select com avatar. O
+                      // avatar não é anunciado: o nome já está ao lado.
+                      <span className="flex min-w-0 items-center gap-2 text-body-md">
+                        <span aria-hidden="true" className="inline-flex">
+                          <Avatar name={option.label} src={option.avatarSrc} size="sm" />
+                        </span>
+                        <span className={cn("truncate", off ? "text-disabled" : "text-default")}>
+                          {option.label}
+                        </span>
+                      </span>
+                    ) : (
+                      // Desabilitada, a tag fica com o texto e o ícone em cinza.
+                      <Tag
+                        size="md"
+                        icon={option.icon}
+                        color={option.color}
+                        className={cn(off && "text-disabled [&_svg]:text-icon-disabled")}
+                      >
+                        {option.label}
+                      </Tag>
+                    )}
                     {isSelected ? (
                       <IconCheck
                         aria-hidden="true"

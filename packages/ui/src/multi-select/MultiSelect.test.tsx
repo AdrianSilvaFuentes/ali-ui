@@ -29,6 +29,12 @@ const interests = [
   { value: "musica", label: "Música" },
 ];
 
+const team = [
+  { value: "lia", label: "Lia Martins" },
+  { value: "caio", label: "Caio Ribeiro" },
+  { value: "nara", label: "Nara Torres" },
+];
+
 const many = ["Tipografia", "Fotografia", "Arquitetura", "Cinema", "Viagem", "Culinaria"].map(
   (label) => ({
     value: label.toLowerCase(),
@@ -147,7 +153,7 @@ describe("MultiSelect", () => {
     render(<Tools defaultValue={["tipografia", "fotografia"]} />);
     await user.click(screen.getByRole("button", { name: "Remover Tipografia" }));
     const leaving = document.querySelector("li[data-leaving]");
-    expect(leaving?.className).toContain("animate-pop-out");
+    expect(leaving?.className).toContain("animate-fade-out");
     expect(leaving?.getAttribute("aria-hidden")).toBe("true");
     expect(within(screen.getByRole("list")).getAllByRole("listitem")).toHaveLength(1);
     // O jsdom não tem AnimationEvent, e o React escuta o nome com prefixo.
@@ -422,6 +428,61 @@ describe("MultiSelect", () => {
     expect(className).toContain("overflow-y-auto");
     expect(className).toContain("[scrollbar-width:thin]");
     expect(className).toContain("[scrollbar-color:var(--ali-color-border-default)_transparent]");
+  });
+
+  it("com people, as escolhidas viram chips com avatar, e a lista mostra o avatar", async () => {
+    const user = userEvent.setup();
+    render(<MultiSelect people label="Responsáveis" options={team} defaultValue={["lia"]} />);
+    // No campo: o chip, com o X da pessoa, e sem tag.
+    expect(screen.getByRole("button", { name: "Remover Lia Martins" })).toBeTruthy();
+    expect(document.querySelector(".rounded-2xl")?.textContent).toContain("Lia Martins");
+    await user.click(screen.getByRole("button", { name: /Responsáveis/ }));
+    const option = screen.getByRole("option", { name: "Caio Ribeiro" });
+    // Na lista: o avatar escondido do leitor de tela, e o nome.
+    expect(option.querySelector("[aria-hidden] > span")?.textContent).toBe("CR");
+  });
+
+  it("com max, no limite as outras ficam desabilitadas e o leitor de tela é avisado", async () => {
+    const user = userEvent.setup();
+    const onValueChange = vi.fn();
+    render(
+      <MultiSelect
+        people
+        max={2}
+        label="Responsáveis"
+        options={team}
+        defaultValue={["lia"]}
+        onValueChange={onValueChange}
+      />,
+    );
+    await user.click(screen.getByRole("button", { name: /Responsáveis/ }));
+    await user.click(screen.getByRole("option", { name: "Caio Ribeiro" }));
+    expect(onValueChange).toHaveBeenLastCalledWith(["lia", "caio"]);
+    expect(screen.getByText("Limite de 2 atingido.")).toBeTruthy();
+    const nara = screen.getByRole("option", { name: "Nara Torres" });
+    expect(nara.getAttribute("aria-disabled")).toBe("true");
+    await user.click(nara);
+    expect(onValueChange).toHaveBeenCalledTimes(1);
+    // As escolhidas continuam clicáveis: tirar uma libera as outras.
+    const lia = screen.getByRole("option", { name: "Lia Martins" });
+    expect(lia.getAttribute("aria-disabled")).toBeNull();
+    await user.click(lia);
+    expect(onValueChange).toHaveBeenLastCalledWith(["caio"]);
+    expect(screen.getByRole("option", { name: "Nara Torres" }).getAttribute("aria-disabled")).toBe(
+      null,
+    );
+  });
+
+  it("com max, as setas pulam as opções bloqueadas", async () => {
+    const user = userEvent.setup();
+    render(<Tools max={1} defaultValue={["fotografia"]} />);
+    await user.click(screen.getByRole("button", { name: /Interesses/ }));
+    const search = screen.getByRole("combobox");
+    // Só a escolhida pode ser clicada: as setas ficam nela.
+    await user.keyboard("{ArrowDown}{ArrowDown}");
+    expect(search.getAttribute("aria-activedescendant")).toBe(
+      screen.getByRole("option", { name: "Fotografia" }).id,
+    );
   });
 
   it("com erro, o erro substitui a ajuda e marca como inválido", () => {
