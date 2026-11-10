@@ -1,4 +1,4 @@
-import { cn } from "@ali/ui";
+import { cn, Tooltip } from "@ali/ui";
 import {
   IconBrandFigma,
   IconBrandGithub,
@@ -120,9 +120,20 @@ export function ShowcasePanel({ category, title, children, animate = true }: Sho
         </div>
         <ul aria-label="Feito com" className="flex gap-3">
           {tools.map(([name, Icon]) => (
-            <li key={name}>
-              <Icon aria-hidden className="size-7 text-icon-default" />
-              <span className="sr-only">{name}</span>
+            <li key={name} className="flex">
+              {/* O nome aparece num Tooltip no hover e no foco. O ícone é uma imagem com nome,
+                  focável, para o teclado também chegar no Tooltip. */}
+              <Tooltip content={name}>
+                <span
+                  role="img"
+                  aria-label={name}
+                  // biome-ignore lint/a11y/noNoninteractiveTabindex: o foco é o que abre o Tooltip pelo teclado.
+                  tabIndex={0}
+                  className="flex rounded-sm outline-focus focus-visible:outline-2 focus-visible:outline-offset-2"
+                >
+                  <Icon aria-hidden className="size-7 text-icon-default" />
+                </span>
+              </Tooltip>
             </li>
           ))}
         </ul>
