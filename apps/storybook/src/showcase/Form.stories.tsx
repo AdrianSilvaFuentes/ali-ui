@@ -1,5 +1,6 @@
 import {
   Avatar,
+  Button,
   Checkbox,
   Combobox,
   Input,
@@ -94,10 +95,16 @@ export const InputsAndSelects: StoryObj<typeof meta> = {
             placeholder="Selecione"
             defaultValue="lia"
           >
-            <SelectItem value="lia" leading={<Avatar name="Lia Martins" size="xs" />}>
+            <SelectItem
+              value="lia"
+              leading={<Avatar name="Lia Martins" src="./avatar-sample.png" size="xs" />}
+            >
               Lia Martins
             </SelectItem>
-            <SelectItem value="caio" leading={<Avatar name="Caio Ribeiro" size="xs" />}>
+            <SelectItem
+              value="caio"
+              leading={<Avatar name="Caio Ribeiro" src="./avatar-sample-2.png" size="xs" />}
+            >
               Caio Ribeiro
             </SelectItem>
           </Select>
@@ -129,11 +136,13 @@ export const InputsAndSelects: StoryObj<typeof meta> = {
               label="Interesses"
               placeholder="Escolha seus interesses"
               options={interests}
-              defaultValue={["tipografia", "cinema"]}
+              defaultValue={["viagem", "cinema", "musica", "fotografia"]}
             />
           </Reveal>
         </div>
-        <div className="flex flex-col items-start gap-8 pt-1">
+        {/* Os botões vão para o fim da coluna (mt-auto): a coluna estica até o fim da linha da
+            grade, que é o fim do campo Interesses, à esquerda. Por isso a base dos dois coincide. */}
+        <div className="flex flex-col items-start gap-7 pt-1">
           <Reveal>
             <Checkbox label="Lembrar de mim" defaultChecked />
           </Reveal>
@@ -154,6 +163,10 @@ export const InputsAndSelects: StoryObj<typeof meta> = {
               minStepsBetweenThumbs={1}
               formatValue={(v) => `R$ ${v}`}
             />
+          </Reveal>
+          <Reveal className="mt-auto flex gap-2">
+            <Button variant="secondary">Cancelar</Button>
+            <Button>Criar projeto</Button>
           </Reveal>
         </div>
       </div>
