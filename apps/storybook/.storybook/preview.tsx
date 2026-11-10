@@ -131,7 +131,7 @@ const preview: Preview = {
               "FileUpload",
             ],
             "Data display",
-            ["Avatar"],
+            ["Avatar", "Chip"],
             "Overlay",
             ["Tooltip", "Toggletip"],
           ],
