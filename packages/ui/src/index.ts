@@ -11,6 +11,7 @@ export {
   fileUploadVariants,
   formatFileSize,
 } from "./file-upload/FileUpload.tsx";
+export { Flag, type FlagProps } from "./flag/Flag.tsx";
 export { Input, type InputProps, inputVariants } from "./input/Input.tsx";
 export { cn } from "./lib/cn.ts";
 export {
