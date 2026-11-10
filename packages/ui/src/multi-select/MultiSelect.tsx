@@ -125,10 +125,16 @@ function hiddenEdges(list: HTMLElement | null, old: { top: boolean; bottom: bool
   return old.top === top && old.bottom === bottom ? old : { top, bottom };
 }
 
+/** O tempo de um token de duração (fast ou base), ou 0 para quem pede menos movimento. */
+function tokenDuration(element: HTMLElement, token: "fast" | "base") {
+  if (!element.animate || window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return 0;
+  const value = getComputedStyle(element).getPropertyValue(`--ali-duration-${token}`);
+  return Number.parseFloat(value) || 0;
+}
+
 /** O tempo de uma animação curta (duration-fast), ou 0 para quem pede menos movimento. */
 function fastDuration(element: HTMLElement) {
-  if (!element.animate || window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return 0;
-  return Number.parseFloat(getComputedStyle(element).getPropertyValue("--ali-duration-fast")) || 0;
+  return tokenDuration(element, "fast");
 }
 
 /** O lugar do elemento sem o deslocamento de uma animação, para não mirar num alvo andando. */
@@ -458,16 +464,27 @@ export function MultiSelect({
   }, [layoutKey]);
 
   // Quando a ordem das tags muda sem arrasto (lista reordenada, Alt+setas), cada tag desliza
-  // de onde estava até o lugar novo, em duration-fast. Guarda onde cada uma estava a cada render.
+  // de onde estava até o lugar novo, em duration-fast. Quando uma tag removida termina de sair
+  // e libera o lugar, as seguintes deslizam para fechar o vão, em duration-base, em vez de
+  // pular. Guarda onde cada uma estava a cada render.
   const tagRects = useRef(new Map<string, DOMRect>());
   const orderKey = useRef(selected.join("\n"));
+  const leavingCount = useRef(leaving.length);
   useLayoutEffect(() => {
     const key = selected.join("\n");
     const reordered = key !== orderKey.current;
     orderKey.current = key;
+    const closedGap = leaving.length < leavingCount.current;
+    leavingCount.current = leaving.length;
     const list = tagsRef.current;
     const items = list ? [...list.querySelectorAll<HTMLElement>(":scope > [data-value]")] : [];
-    const duration = reordered && list ? fastDuration(list) : 0;
+    const duration = !list
+      ? 0
+      : closedGap
+        ? tokenDuration(list, "base")
+        : reordered
+          ? fastDuration(list)
+          : 0;
     const rects = new Map<string, DOMRect>();
     for (const item of items) {
       const value = item.dataset.value ?? "";
