@@ -763,7 +763,9 @@ export function MultiSelect({
               >
                 {shownTags.map(({ option, index, isLeaving }) =>
                   isLeaving ? (
-                    // Saindo: escondida do leitor de tela e sem foco, só para a animação.
+                    // Saindo: escondida do leitor de tela e sem foco, só para a animação. Só some
+                    // num fade, sem encolher: encolhendo para o centro, o canto dela andava na
+                    // diagonal, o que aparecia mais na primeira tag, encostada na borda do campo.
                     <li
                       key={`leaving-${option.value}`}
                       data-leaving=""
@@ -772,7 +774,7 @@ export function MultiSelect({
                       onAnimationEnd={() =>
                         setLeaving((list) => list.filter((item) => item.option !== option))
                       }
-                      className="flex shrink-0 animate-pop-out"
+                      className="flex shrink-0 animate-fade-out"
                     >
                       {renderToken(option, disabled ? undefined : () => {})}
                     </li>

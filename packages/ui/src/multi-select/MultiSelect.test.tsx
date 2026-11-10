@@ -153,7 +153,7 @@ describe("MultiSelect", () => {
     render(<Tools defaultValue={["tipografia", "fotografia"]} />);
     await user.click(screen.getByRole("button", { name: "Remover Tipografia" }));
     const leaving = document.querySelector("li[data-leaving]");
-    expect(leaving?.className).toContain("animate-pop-out");
+    expect(leaving?.className).toContain("animate-fade-out");
     expect(leaving?.getAttribute("aria-hidden")).toBe("true");
     expect(within(screen.getByRole("list")).getAllByRole("listitem")).toHaveLength(1);
     // O jsdom não tem AnimationEvent, e o React escuta o nome com prefixo.
