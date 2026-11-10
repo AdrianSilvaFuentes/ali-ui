@@ -14,10 +14,20 @@ const meta = {
       },
     },
   },
-  args: { name: "Lia Martins", size: "md" },
+  args: { name: "Lia Martins", size: "md", src: "Com foto" },
   argTypes: {
     name: { control: "text", description: "O nome da pessoa: o texto e as iniciais do avatar." },
-    src: { control: "text", description: "Endereço da foto. Sem ela, as iniciais." },
+    src: {
+      // Escolha rápida no painel, como no Avatar; no código, src é o endereço da foto.
+      control: "inline-radio",
+      options: ["Sem foto", "Com foto", "Foto quebrada"],
+      mapping: {
+        "Sem foto": undefined,
+        "Com foto": "./avatar-sample.png",
+        "Foto quebrada": "./nao-existe.png",
+      },
+      description: "Endereço da foto. Enquanto carrega, ou se falhar, aparecem as iniciais.",
+    },
     size: {
       control: "inline-radio",
       options: ["sm", "md"],
@@ -44,8 +54,8 @@ export const Sizes: Story = {
   name: "Tamanhos",
   render: () => (
     <div className="flex flex-col items-start gap-3">
-      <Chip name="Lia Martins" size="sm" onRemove={() => {}} />
-      <Chip name="Lia Martins" onRemove={() => {}} />
+      <Chip name="Lia Martins" src="./avatar-sample.png" size="sm" onRemove={() => {}} />
+      <Chip name="Lia Martins" src="./avatar-sample.png" onRemove={() => {}} />
     </div>
   ),
 };
@@ -54,14 +64,27 @@ export const Group: Story = {
   name: "Várias pessoas",
   parameters: {
     docs: {
-      description: { story: "O uso mais comum: as pessoas escolhidas, lado a lado." },
+      description: {
+        story:
+          "O uso mais comum: as pessoas escolhidas, lado a lado. Quem tem foto aparece com ela; quem não tem, com as iniciais.",
+      },
     },
   },
   render: () => (
     <div className="flex flex-wrap gap-1.5">
-      <Chip name="Lia Martins" onRemove={() => {}} />
-      <Chip name="Caio Ribeiro" onRemove={() => {}} />
+      <Chip name="Lia Martins" src="./avatar-sample.png" onRemove={() => {}} />
+      <Chip name="Caio Ribeiro" src="./avatar-sample-2.png" onRemove={() => {}} />
       <Chip name="Nara Torres" onRemove={() => {}} />
     </div>
   ),
+};
+
+export const WithoutPhoto: Story = {
+  name: "Sem foto",
+  parameters: {
+    docs: {
+      description: { story: "Sem src, ou se a foto falhar, o avatar mostra as iniciais do nome." },
+    },
+  },
+  args: { src: "Sem foto", onRemove: () => {} },
 };
