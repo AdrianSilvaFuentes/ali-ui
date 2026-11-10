@@ -157,14 +157,29 @@ export function SegmentedControl({
 }
 
 export interface SegmentedControlItemProps extends Omit<ComponentProps<typeof Item>, "asChild"> {
-  /** O texto da opção, com ícone opcional. Só ícone? Passe um `aria-label`. */
-  children: ReactNode;
+  /** O texto da opção. Só ícone? Deixe sem texto e passe um `aria-label`. */
+  children?: ReactNode;
+  /** Ícone antes do texto: `icon={<IconList />}`. Ganha 16px e fica escondido do leitor de tela. */
+  icon?: ReactNode;
 }
 
 /** Uma opção do SegmentedControl. O `value` é o que o formulário envia. */
-export function SegmentedControlItem({ className, ...props }: SegmentedControlItemProps) {
+export function SegmentedControlItem({
+  className,
+  icon,
+  children,
+  ...props
+}: SegmentedControlItemProps) {
   const { size, fullWidth } = useContext(SegmentedContext);
   return (
-    <Item className={cn(segmentedControlItemVariants({ size, fullWidth }), className)} {...props} />
+    <Item className={cn(segmentedControlItemVariants({ size, fullWidth }), className)} {...props}>
+      {/* O nome da opção vem do texto (ou do aria-label), nunca do ícone. */}
+      {icon ? (
+        <span aria-hidden="true" className="inline-flex shrink-0">
+          {icon}
+        </span>
+      ) : null}
+      {children}
+    </Item>
   );
 }

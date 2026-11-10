@@ -31,6 +31,22 @@ function Example(props: { variant?: "line" | "segmented"; onValueChange?: (v: st
 }
 
 describe("Tabs", () => {
+  it("icon vai antes do texto, escondido do leitor de tela", () => {
+    render(
+      <Tabs defaultValue="a">
+        <TabsList aria-label="Projeto">
+          <TabsTrigger value="a" icon={<svg data-testid="icon" />}>
+            Visão geral
+          </TabsTrigger>
+        </TabsList>
+      </Tabs>,
+    );
+    const tab = screen.getByRole("tab", { name: "Visão geral" });
+    const icon = screen.getByTestId("icon").parentElement;
+    expect(tab.firstElementChild).toBe(icon);
+    expect(icon?.getAttribute("aria-hidden")).toBe("true");
+  });
+
   it("tem lista com nome, abas e o painel da aba ativa", () => {
     render(<Example />);
     expect(screen.getByRole("tablist", { name: "Projeto" })).toBeTruthy();
