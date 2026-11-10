@@ -58,6 +58,17 @@ const meta = {
       description: "Ajuda extra num ícone de info no fim do label, que abre um Toggletip.",
     },
     placeholder: { control: "text", description: "Texto enquanto nada foi escolhido." },
+    people: {
+      control: "boolean",
+      description:
+        "Opções são pessoas: as escolhidas viram Chips com avatar, e a lista mostra o avatar ao lado do nome. A foto vem de avatarSrc em cada opção; sem ela, as iniciais.",
+      table: { defaultValue: { summary: "false" } },
+    },
+    max: {
+      control: "number",
+      description:
+        "Quantas podem ser escolhidas, no máximo. No limite, as outras ficam desabilitadas e o leitor de tela avisa. Escreva o limite na ajuda.",
+    },
     searchPlaceholder: {
       control: "text",
       description: "Texto da busca, dentro da lista.",
@@ -201,5 +212,32 @@ export const Reorderable: Story = {
         <p className="text-body-sm text-subtle">Valor: {JSON.stringify(value)}</p>
       </div>
     );
+  },
+};
+
+const team = [
+  { value: "lia", label: "Lia Martins", avatarSrc: "./avatar-sample.png" },
+  { value: "caio", label: "Caio Ribeiro", avatarSrc: "./avatar-sample-2.png" },
+  { value: "nara", label: "Nara Torres" },
+  { value: "bruno", label: "Bruno Alves" },
+  { value: "julia", label: "Júlia Costa" },
+];
+
+/**
+ * Pessoas: com people, as escolhidas viram Chips com avatar no campo, e a lista mostra o avatar
+ * ao lado do nome. Com max={3}, ao escolher a terceira, as outras ficam desabilitadas.
+ */
+export const People: Story = {
+  name: "Pessoas, com limite",
+  args: {
+    people: true,
+    max: 3,
+    label: "Responsáveis",
+    labelInfo: undefined,
+    placeholder: "Escolha as pessoas",
+    searchPlaceholder: "Buscar pessoa",
+    description: "Escolha até 3 pessoas.",
+    options: team,
+    defaultValue: ["lia", "caio"],
   },
 };

@@ -214,6 +214,26 @@ describe("Avatar", () => {
   });
 });
 
+describe("MultiSelect with people", () => {
+  test.each([
+    ["sm", 32, 24],
+    ["md", 40, 28],
+  ] as const)("%s field stays %ipx with %ipx chips", (s, field, chip) => {
+    const scope = render(
+      <MultiSelect
+        people
+        aria-label="Responsáveis"
+        size={s}
+        options={[{ value: "lia", label: "Lia Martins" }]}
+        defaultValue={["lia"]}
+      />,
+    );
+    const box = get(scope, "[data-state]");
+    expect(size(box).height).toBe(field);
+    expect(size(get(box, "li > span")).height).toBe(chip);
+  });
+});
+
 describe("Chip", () => {
   test.each([
     ["sm", 24, 20],
