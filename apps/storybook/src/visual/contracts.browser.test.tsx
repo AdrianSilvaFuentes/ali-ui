@@ -218,7 +218,7 @@ describe("MultiSelect with people", () => {
   test.each([
     ["sm", 32, 24],
     ["md", 40, 28],
-  ] as const)("%s field stays %ipx with %ipx chips", (s, field, chip) => {
+  ] as const)("%s field stays %ipx with %ipx chips and a 14px X", (s, field, chip) => {
     const scope = render(
       <MultiSelect
         people
@@ -231,6 +231,9 @@ describe("MultiSelect with people", () => {
     const box = get(scope, "[data-state]");
     expect(size(box).height).toBe(field);
     expect(size(get(box, "li > span")).height).toBe(chip);
+    // O X continua com 14px dentro do campo, que deixa os outros ícones com 20px.
+    expect(square(get(box, "li button"))).toBe(14);
+    expect(square(get(box, "li button svg"))).toBe(14);
   });
 });
 

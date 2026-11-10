@@ -18,6 +18,9 @@ export const chipVariants = cva(
     "after:pointer-events-none after:absolute after:inset-0 after:rounded-[inherit]",
     "after:border after:border-subtle",
     "transition-interactive duration-fast hover:bg-neutral-hovered",
+    // O X tem 14px. A regra mira o data-slot do X, e não só "svg": assim pesa mais que a de quem
+    // está em volta (como a caixa do Input no MultiSelect, que deixa todo ícone com 20px).
+    "[&_[data-slot=chip-remove]_svg]:size-3.5",
   ],
   {
     variants: {
@@ -46,7 +49,7 @@ export const chipVariants = cva(
  */
 const removeVariants = cva([
   "inline-flex size-3.5 shrink-0 cursor-pointer items-center justify-center rounded-full",
-  "text-icon-subtle hover:text-default [&_svg]:size-3.5",
+  "text-icon-subtle hover:text-default",
   "transition-interactive duration-fast",
   "outline-focus outline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2",
   "motion-reduce:outline-offset-2",
@@ -91,6 +94,7 @@ export function Chip({ className, size, name, src, onRemove, removeLabel, ...pro
         <button
           type="button"
           aria-label={removeLabel ?? `Remover ${name}`}
+          data-slot="chip-remove"
           className={removeVariants()}
           onClick={onRemove}
           onKeyDown={handleKeyDown}
