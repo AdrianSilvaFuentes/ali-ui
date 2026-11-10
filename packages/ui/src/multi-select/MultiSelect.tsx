@@ -495,7 +495,11 @@ export function MultiSelect({
       rects.set(value, rect);
       if (!duration || !old) continue;
       const dx = old.left - rect.left;
-      const dy = old.top - rect.top;
+      // Ao fechar o vão, a tag que fica na mesma linha só anda para o lado: o campo se ajusta
+      // 1 ou 2px na vertical quando a tag removida sai, e isso deixava o caminho na diagonal.
+      // Só quem muda de linha (campo aberto, em várias linhas) sobe ou desce.
+      const sameRow = Math.abs(old.top - rect.top) < rect.height / 2;
+      const dy = closedGap && sameRow ? 0 : old.top - rect.top;
       if (dx || dy) slide(item, `translate(${dx}px, ${dy}px)`, duration);
     }
     tagRects.current = rects;
