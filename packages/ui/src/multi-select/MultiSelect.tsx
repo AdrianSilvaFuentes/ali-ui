@@ -635,6 +635,9 @@ export function MultiSelect({
       setHighlighted(start?.value ?? null);
     } else {
       setQuery("");
+      // A entrada com pop-in é de quem acabou de ser escolhido. Quem ainda não terminou de
+      // entrar, ao fechar a lista, ou fica à vista ou vai para o "+N": nos dois casos, já entrou.
+      entering.current.clear();
     }
   };
 
@@ -708,6 +711,22 @@ export function MultiSelect({
   }
 
   const summary = selectedOptions.map((option) => option.label).join(", ");
+
+  // As tags à vista no render anterior. Quem não estava e não acabou de ser escolhido saiu do
+  // "+N" (porque sobrou espaço): entra só com fade, sem crescer do centro, que andava na
+  // diagonal ao lado das tags que deslizam. No primeiro render, nada anima.
+  // Fica marcada até o fade acabar, mesmo que o campo renderize de novo no meio.
+  const shownBefore = useRef<Set<string> | null>(null);
+  const revealing = useRef(new Set<string>());
+  const revealed = (value: string) => {
+    if (shownBefore.current !== null && !shownBefore.current.has(value)) {
+      revealing.current.add(value);
+    }
+    return revealing.current.has(value);
+  };
+  useLayoutEffect(() => {
+    shownBefore.current = new Set(shownTags.map(({ option }) => option.value));
+  });
 
   /** A escolhida no campo: Chip com avatar (people) ou Tag com cor e ícone. */
   const renderToken = (option: MultiSelectOption, onRemove?: () => void) =>
@@ -790,10 +809,15 @@ export function MultiSelect({
                         }
                       }}
                       onKeyDown={(event) => handleTagKeyDown(event, index)}
-                      onAnimationEnd={() => entering.current.delete(option.value)}
+                      onAnimationEnd={() => {
+                        entering.current.delete(option.value);
+                        revealing.current.delete(option.value);
+                      }}
                       className={cn(
                         "flex shrink-0 select-none data-dragging:cursor-grabbing",
-                        entering.current.has(option.value) && "animate-pop-in",
+                        entering.current.has(option.value)
+                          ? "animate-pop-in"
+                          : revealed(option.value) && "animate-fade-in",
                       )}
                     >
                       {renderToken(option, disabled ? undefined : () => remove(index))}
