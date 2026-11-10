@@ -335,6 +335,9 @@ importers:
       '@vitest/browser-playwright':
         specifier: 'catalog:'
         version: 5.0.5(playwright@1.65.0)(vite@7.3.7(@types/node@26.6.5)(jiti@2.7.0)(lightningcss@1.32.0))(vitest@5.0.5)
+      country-flag-icons:
+        specifier: 'catalog:'
+        version: 1.6.20
       playwright:
         specifier: 'catalog:'
         version: 1.65.0

@@ -3,6 +3,7 @@ import {
   Button,
   Checkbox,
   Combobox,
+  Flag,
   Input,
   MultiSelect,
   type MultiSelectOption,
@@ -31,6 +32,7 @@ import {
   IconToolsKitchen2,
   IconTypography,
 } from "@tabler/icons-react";
+import { AR, BR, CL, CO, PT } from "country-flag-icons/react/3x2";
 import { Reveal, ShowcasePanel, showcaseBackdrop } from "./ShowcasePanel";
 
 const interests: MultiSelectOption[] = [
@@ -64,11 +66,11 @@ const meta = {
 export default meta;
 
 const countries = [
-  { value: "ar", label: "Argentina" },
-  { value: "br", label: "Brasil" },
-  { value: "cl", label: "Chile" },
-  { value: "co", label: "Colômbia" },
-  { value: "pt", label: "Portugal" },
+  { value: "ar", label: "Argentina", icon: <Flag>{<AR />}</Flag> },
+  { value: "br", label: "Brasil", icon: <Flag>{<BR />}</Flag> },
+  { value: "cl", label: "Chile", icon: <Flag>{<CL />}</Flag> },
+  { value: "co", label: "Colômbia", icon: <Flag>{<CO />}</Flag> },
+  { value: "pt", label: "Portugal", icon: <Flag>{<PT />}</Flag> },
 ];
 
 /**
@@ -129,6 +131,7 @@ export const InputsAndSelects: StoryObj<typeof meta> = {
               labelInfo="Usamos para calcular impostos."
               placeholder="Busque um país"
               options={countries}
+              defaultValue="cl"
             />
           </Reveal>
           <Reveal>
