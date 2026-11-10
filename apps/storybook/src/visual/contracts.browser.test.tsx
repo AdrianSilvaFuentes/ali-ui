@@ -11,6 +11,7 @@ import {
   Chip,
   Combobox,
   FileUpload,
+  Flag,
   Input,
   MultiSelect,
   NumberInput,
@@ -352,6 +353,41 @@ describe("FileUpload", () => {
     const zone = get(scope, "button[aria-label=Anexos]");
     expect(size(zone).height).toBe(128);
     expect(square(get(zone, "svg"))).toBe(20);
+  });
+});
+
+describe("Flag", () => {
+  // Um SVG simples na proporção 3:2, no lugar de uma bandeira de verdade.
+  const svg = <svg viewBox="0 0 3 2" />;
+
+  test("is 20×14 alone, in the Select trigger and in the Combobox field", () => {
+    const alone = render(<Flag label="Brasil">{svg}</Flag>);
+    expect(size(get(alone, "[role=img]"))).toEqual({ width: 20, height: 14 });
+    root?.unmount();
+    container?.remove();
+
+    // As caixas do Select e do Combobox deixam os ícones de dentro com 20×20: a bandeira não.
+    const select = render(
+      <Select aria-label="País" defaultValue="br">
+        <SelectItem value="br" leading={<Flag>{svg}</Flag>}>
+          Brasil
+        </SelectItem>
+      </Select>,
+    );
+    const trigger = get(select, "button");
+    expect(size(get(trigger, "span[aria-hidden] svg"))).toEqual({ width: 20, height: 14 });
+    root?.unmount();
+    container?.remove();
+
+    const combobox = render(
+      <Combobox
+        aria-label="País"
+        options={[{ value: "br", label: "Brasil", icon: <Flag>{svg}</Flag> }]}
+        defaultValue="br"
+      />,
+    );
+    const field = get(combobox, "[role=combobox]").parentElement as HTMLElement;
+    expect(size(get(field, "svg"))).toEqual({ width: 20, height: 14 });
   });
 });
 

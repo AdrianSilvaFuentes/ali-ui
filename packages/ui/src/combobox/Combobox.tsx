@@ -24,7 +24,10 @@ export interface ComboboxOption {
   label: string;
   /** Segunda linha da opção, menor, em cinza. */
   description?: ReactNode;
-  /** Ícone de 20px antes do nome, só na lista. */
+  /**
+   * Ícone de 20px antes do nome, na lista e, depois de escolhida, no campo: `icon={<IconWorld />}`
+   * ou uma bandeira, `icon={<Flag><BR /></Flag>}`.
+   */
   icon?: ReactNode;
   disabled?: boolean;
 }
@@ -216,6 +219,16 @@ export function Combobox({
             // opções. Aberta, a borda fica em default, como no foco.
             className={cn(inputVariants({ size }), "px-2.5 data-[state=open]:border-default")}
           >
+            {/* O ícone da escolhida, no campo, enquanto não se digita. Decorativo: o nome está ao
+                lado. Ao digitar, some, porque o texto deixa de ser o da escolhida. */}
+            {query === null && selectedOption?.icon ? (
+              <span
+                aria-hidden="true"
+                className="inline-flex shrink-0 text-icon-subtle group-data-disabled:text-icon-disabled"
+              >
+                {selectedOption.icon}
+              </span>
+            ) : null}
             <input
               ref={inputRef}
               id={inputId}

@@ -1,8 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { IconBuildingStore, IconTruck, IconWorld } from "@tabler/icons-react";
+import { AR, BR, CL, MX, PT, UY } from "country-flag-icons/react/3x2";
 import type { ReactNode } from "react";
 import { Avatar } from "../avatar/Avatar.tsx";
 import { Button } from "../button/Button.tsx";
+import { Flag } from "../flag/Flag.tsx";
 import { Input } from "../input/Input.tsx";
 import { Select, SelectGroup, SelectItem, SelectSeparator } from "./Select.tsx";
 
@@ -119,6 +121,43 @@ export const LongList: Story = {
       {timezones.map((zone) => (
         <SelectItem key={zone.value} value={zone.value}>
           {zone.label}
+        </SelectItem>
+      ))}
+    </Select>
+  ),
+};
+
+export const Countries: Story = {
+  name: "Com bandeiras",
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Cada opção leva a bandeira no leading, com o componente Flag (20×14px). Depois de escolhida, a bandeira aparece também no gatilho. As bandeiras vêm da country-flag-icons, só nos exemplos.",
+      },
+    },
+  },
+  args: {
+    label: "País",
+    labelInfo: undefined,
+    placeholder: "Escolha um país",
+    description: undefined,
+    defaultValue: "br",
+  },
+  render: (args) => (
+    <Select {...args}>
+      {(
+        [
+          ["ar", "Argentina", <AR key="ar" />],
+          ["br", "Brasil", <BR key="br" />],
+          ["cl", "Chile", <CL key="cl" />],
+          ["mx", "México", <MX key="mx" />],
+          ["pt", "Portugal", <PT key="pt" />],
+          ["uy", "Uruguai", <UY key="uy" />],
+        ] as const
+      ).map(([value, label, svg]) => (
+        <SelectItem key={value} value={value} leading={<Flag>{svg}</Flag>}>
+          {label}
         </SelectItem>
       ))}
     </Select>

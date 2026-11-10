@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { IconBuilding, IconWorld } from "@tabler/icons-react";
+import * as flags from "country-flag-icons/react/3x2";
+import { Flag } from "../flag/Flag.tsx";
 import { Combobox, type ComboboxOption } from "./Combobox.tsx";
 
 const countries: ComboboxOption[] = [
@@ -144,4 +146,46 @@ export const WithError: Story = {
 export const Disabled: Story = {
   name: "Desabilitado",
   args: { disabled: true, defaultValue: "chile", labelInfo: undefined, description: undefined },
+};
+
+/** Os mesmos países, com a bandeira de cada um pelo código ISO (BR, AR...). */
+const withFlags: ComboboxOption[] = (
+  [
+    ["AR", "Argentina"],
+    ["BO", "Bolívia"],
+    ["BR", "Brasil"],
+    ["CA", "Canadá"],
+    ["CL", "Chile"],
+    ["CO", "Colômbia"],
+    ["CR", "Costa Rica"],
+    ["EC", "Equador"],
+    ["ES", "Espanha"],
+    ["US", "Estados Unidos"],
+    ["FR", "França"],
+    ["IT", "Itália"],
+    ["JP", "Japão"],
+    ["MX", "México"],
+    ["PY", "Paraguai"],
+    ["PE", "Peru"],
+    ["PT", "Portugal"],
+    ["GB", "Reino Unido"],
+    ["UY", "Uruguai"],
+    ["VE", "Venezuela"],
+  ] as [keyof typeof flags, string][]
+).map(([code, label]) => {
+  const Svg = flags[code];
+  return { value: code.toLowerCase(), label, icon: <Flag>{<Svg />}</Flag> };
+});
+
+export const WithFlags: Story = {
+  name: "Com bandeiras",
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Cada opção leva a bandeira no icon, com o componente Flag (20×14px). Depois de escolhida, a bandeira aparece também no campo, e some enquanto se digita. As bandeiras vêm da country-flag-icons, só nos exemplos.",
+      },
+    },
+  },
+  args: { options: withFlags, defaultValue: "br", labelInfo: undefined },
 };
