@@ -22,6 +22,8 @@ import {
   IconBuildingArch,
   IconCamera,
   IconDeviceGamepad2,
+  IconLayoutGrid,
+  IconListDetails,
   IconMovie,
   IconMusic,
   IconPlane,
@@ -100,9 +102,13 @@ export const InputsAndSelects: StoryObj<typeof meta> = {
           </Select>
         </Reveal>
         <Reveal className="self-end">
-          <SegmentedControl aria-label="Visualização" defaultValue="list">
-            <SegmentedControlItem value="list">Lista</SegmentedControlItem>
-            <SegmentedControlItem value="grid">Grade</SegmentedControlItem>
+          <SegmentedControl label="Visualização" defaultValue="list">
+            <SegmentedControlItem value="list" icon={<IconListDetails />}>
+              Lista
+            </SegmentedControlItem>
+            <SegmentedControlItem value="grid" icon={<IconLayoutGrid />}>
+              Grade
+            </SegmentedControlItem>
           </SegmentedControl>
         </Reveal>
         <div className="flex flex-col gap-6">
