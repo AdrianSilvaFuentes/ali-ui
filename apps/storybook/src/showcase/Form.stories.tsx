@@ -30,7 +30,7 @@ import {
   IconToolsKitchen2,
   IconTypography,
 } from "@tabler/icons-react";
-import { Reveal, ShowcasePanel } from "./ShowcasePanel";
+import { Reveal, ShowcasePanel, showcaseBackdrop } from "./ShowcasePanel";
 
 const interests: MultiSelectOption[] = [
   { value: "tipografia", color: "blue", icon: <IconTypography />, label: "Tipografia" },
@@ -47,7 +47,8 @@ const interests: MultiSelectOption[] = [
 const meta = {
   title: "Showcase/Form",
   component: ShowcasePanel,
-  parameters: { layout: "centered" },
+  parameters: { layout: "fullscreen" },
+  decorators: [showcaseBackdrop],
   args: { category: "Form", title: "Inputs and selects", animate: true },
   argTypes: {
     animate: {
