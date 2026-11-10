@@ -383,9 +383,11 @@ export function MultiSelect({
     .filter((option): option is MultiSelectOption => Boolean(option));
 
   // Fechado, as tags ficam numa linha só, e as que não cabem viram um contador "+N". Aberto,
-  // o campo mostra todas. A medida vale para esta escolha nesta largura do campo.
+  // o campo mostra todas. A medida vale para esta escolha, nesta largura do campo, com estas
+  // tags saindo: uma tag removida ainda ocupa o lugar durante o fade, e quando ela sai de vez a
+  // conta é refeita, para quem estava no "+N" entrar no espaço que sobrou.
   const [fieldWidth, setFieldWidth] = useState(0);
-  const fitKey = `${selected.join("\n")}|${fieldWidth}`;
+  const fitKey = `${selected.join("\n")}|${fieldWidth}|${leaving.length}`;
   const [fit, setFit] = useState<{ key: string; count: number } | null>(null);
   // Tags e lista têm uma ordem só: reordenar, aqui ou lá, só com `onOptionsReorder`.
   const reorderable = Boolean(onOptionsReorder) && !disabled;
