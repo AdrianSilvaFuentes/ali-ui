@@ -1,9 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { IconBuildingStore, IconTruck, IconWorld } from "@tabler/icons-react";
-import type { ReactNode } from "react";
+import { AR, BR, CL, MX, PT, UY } from "country-flag-icons/react/3x2";
 import { Avatar } from "../avatar/Avatar.tsx";
+import { Badge } from "../badge/Badge.tsx";
 import { Button } from "../button/Button.tsx";
+import { Flag } from "../flag/Flag.tsx";
 import { Input } from "../input/Input.tsx";
+import { Tag } from "../tag/Tag.tsx";
 import { Select, SelectGroup, SelectItem, SelectSeparator } from "./Select.tsx";
 
 const meta = {
@@ -125,6 +128,43 @@ export const LongList: Story = {
   ),
 };
 
+export const Countries: Story = {
+  name: "Com bandeiras",
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Cada opção leva a bandeira no leading, com o componente Flag (20×14px). Depois de escolhida, a bandeira aparece também no gatilho. As bandeiras vêm da country-flag-icons, só nos exemplos.",
+      },
+    },
+  },
+  args: {
+    label: "País",
+    labelInfo: undefined,
+    placeholder: "Escolha um país",
+    description: undefined,
+    defaultValue: "br",
+  },
+  render: (args) => (
+    <Select {...args}>
+      {(
+        [
+          ["ar", "Argentina", <AR key="ar" />],
+          ["br", "Brasil", <BR key="br" />],
+          ["cl", "Chile", <CL key="cl" />],
+          ["mx", "México", <MX key="mx" />],
+          ["pt", "Portugal", <PT key="pt" />],
+          ["uy", "Uruguai", <UY key="uy" />],
+        ] as const
+      ).map(([value, label, svg]) => (
+        <SelectItem key={value} value={value} leading={<Flag>{svg}</Flag>}>
+          {label}
+        </SelectItem>
+      ))}
+    </Select>
+  ),
+};
+
 export const InForm: Story = {
   name: "Com Input e Button",
   parameters: {
@@ -154,22 +194,13 @@ export const InForm: Story = {
   ),
 };
 
-/** Tag de exemplo, só com tokens, até existir o componente Badge. */
-function SampleTag({ children }: { children: ReactNode }) {
-  return (
-    <span className="rounded-sm border border-subtle px-1.5 text-label-sm text-subtle">
-      {children}
-    </span>
-  );
-}
-
 export const RichItems: Story = {
   name: "Com avatar, descrição e tag",
   parameters: {
     docs: {
       description: {
         story:
-          "Opções com avatar à esquerda, uma segunda linha e uma tag à direita. Depois de escolhida, o gatilho mostra o avatar e o nome; a segunda linha e a tag ficam só na lista. O avatar é o componente Avatar no tamanho xs (20px), o mesmo dos ícones das opções; a tag é um exemplo simples, até existir o componente Badge.",
+          "Opções com avatar à esquerda, uma segunda linha e uma tag à direita. Depois de escolhida, o gatilho mostra o avatar e o nome; a segunda linha e a tag ficam só na lista. O avatar é o componente Avatar no tamanho xs (20px), o mesmo dos ícones das opções; à direita, um Tag para a função da pessoa (Admin) e um Badge para um status (Convite enviado), os dois no tamanho sm.",
       },
     },
   },
@@ -186,7 +217,11 @@ export const RichItems: Story = {
         value="lia"
         leading={<Avatar name="Lia Martins" size="xs" />}
         description="lia@exemplo.com"
-        trailing={<SampleTag>Admin</SampleTag>}
+        trailing={
+          <Tag size="sm" color="gray">
+            Admin
+          </Tag>
+        }
       >
         Lia Martins
       </SelectItem>
@@ -201,7 +236,11 @@ export const RichItems: Story = {
         value="nara"
         leading={<Avatar name="Nara Torres" size="xs" />}
         description="nara@exemplo.com"
-        trailing={<SampleTag>Convite enviado</SampleTag>}
+        trailing={
+          <Badge size="sm" tone="info">
+            Convite enviado
+          </Badge>
+        }
         disabled
       >
         Nara Torres

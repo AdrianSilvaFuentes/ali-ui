@@ -1,5 +1,29 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { IconBuilding, IconWorld } from "@tabler/icons-react";
+import {
+  AR,
+  BO,
+  BR,
+  CA,
+  CL,
+  CO,
+  CR,
+  EC,
+  ES,
+  FR,
+  GB,
+  IT,
+  JP,
+  MX,
+  PE,
+  PT,
+  PY,
+  US,
+  UY,
+  VE,
+} from "country-flag-icons/react/3x2";
+import type { ComponentType, SVGProps } from "react";
+import { Flag } from "../flag/Flag.tsx";
 import { Combobox, type ComboboxOption } from "./Combobox.tsx";
 
 const countries: ComboboxOption[] = [
@@ -144,4 +168,43 @@ export const WithError: Story = {
 export const Disabled: Story = {
   name: "Desabilitado",
   args: { disabled: true, defaultValue: "chile", labelInfo: undefined, description: undefined },
+};
+
+/** Os mesmos países, com a bandeira de cada um (só as usadas são importadas). */
+const withFlags: ComboboxOption[] = (
+  [
+    [AR, "ar", "Argentina"],
+    [BO, "bo", "Bolívia"],
+    [BR, "br", "Brasil"],
+    [CA, "ca", "Canadá"],
+    [CL, "cl", "Chile"],
+    [CO, "co", "Colômbia"],
+    [CR, "cr", "Costa Rica"],
+    [EC, "ec", "Equador"],
+    [ES, "es", "Espanha"],
+    [US, "us", "Estados Unidos"],
+    [FR, "fr", "França"],
+    [IT, "it", "Itália"],
+    [JP, "jp", "Japão"],
+    [MX, "mx", "México"],
+    [PY, "py", "Paraguai"],
+    [PE, "pe", "Peru"],
+    [PT, "pt", "Portugal"],
+    [GB, "gb", "Reino Unido"],
+    [UY, "uy", "Uruguai"],
+    [VE, "ve", "Venezuela"],
+  ] as [ComponentType<SVGProps<SVGSVGElement>>, string, string][]
+).map(([Svg, value, label]) => ({ value, label, icon: <Flag>{<Svg />}</Flag> }));
+
+export const WithFlags: Story = {
+  name: "Com bandeiras",
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Cada opção leva a bandeira no icon, com o componente Flag (20×14px). Depois de escolhida, a bandeira aparece também no campo, e some enquanto se digita. As bandeiras vêm da country-flag-icons, só nos exemplos.",
+      },
+    },
+  },
+  args: { options: withFlags, defaultValue: "br", labelInfo: undefined },
 };

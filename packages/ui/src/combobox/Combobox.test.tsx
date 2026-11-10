@@ -101,6 +101,24 @@ describe("Combobox", () => {
     expect(optionNames()).toEqual(["Chile"]);
   });
 
+  it("o ícone da escolhida aparece no campo, e some enquanto se digita", async () => {
+    const user = userEvent.setup();
+    render(
+      <Combobox
+        label="País"
+        options={[{ value: "br", label: "Brasil", icon: <svg data-testid="flag" /> }]}
+        defaultValue="br"
+      />,
+    );
+    const icon = screen.getByTestId("flag").parentElement as HTMLElement;
+    expect(icon.getAttribute("aria-hidden")).toBe("true");
+    expect(icon.nextElementSibling).toBe(field());
+    await user.click(field());
+    await user.keyboard("bra");
+    // A caixa do campo (pai do input) fica sem o ícone; ele continua só na lista.
+    expect(field().parentElement?.querySelector("[data-testid=flag]")).toBeNull();
+  });
+
   it("só vale o que está na lista: texto solto volta para a escolhida ao sair", async () => {
     const user = userEvent.setup();
     render(<Combobox label="País" options={countries} defaultValue="ar" />);
