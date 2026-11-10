@@ -1,6 +1,28 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { IconBuilding, IconWorld } from "@tabler/icons-react";
-import * as flags from "country-flag-icons/react/3x2";
+import {
+  AR,
+  BO,
+  BR,
+  CA,
+  CL,
+  CO,
+  CR,
+  EC,
+  ES,
+  FR,
+  GB,
+  IT,
+  JP,
+  MX,
+  PE,
+  PT,
+  PY,
+  US,
+  UY,
+  VE,
+} from "country-flag-icons/react/3x2";
+import type { ComponentType, SVGProps } from "react";
 import { Flag } from "../flag/Flag.tsx";
 import { Combobox, type ComboboxOption } from "./Combobox.tsx";
 
@@ -148,34 +170,31 @@ export const Disabled: Story = {
   args: { disabled: true, defaultValue: "chile", labelInfo: undefined, description: undefined },
 };
 
-/** Os mesmos países, com a bandeira de cada um pelo código ISO (BR, AR...). */
+/** Os mesmos países, com a bandeira de cada um (só as usadas são importadas). */
 const withFlags: ComboboxOption[] = (
   [
-    ["AR", "Argentina"],
-    ["BO", "Bolívia"],
-    ["BR", "Brasil"],
-    ["CA", "Canadá"],
-    ["CL", "Chile"],
-    ["CO", "Colômbia"],
-    ["CR", "Costa Rica"],
-    ["EC", "Equador"],
-    ["ES", "Espanha"],
-    ["US", "Estados Unidos"],
-    ["FR", "França"],
-    ["IT", "Itália"],
-    ["JP", "Japão"],
-    ["MX", "México"],
-    ["PY", "Paraguai"],
-    ["PE", "Peru"],
-    ["PT", "Portugal"],
-    ["GB", "Reino Unido"],
-    ["UY", "Uruguai"],
-    ["VE", "Venezuela"],
-  ] as [keyof typeof flags, string][]
-).map(([code, label]) => {
-  const Svg = flags[code];
-  return { value: code.toLowerCase(), label, icon: <Flag>{<Svg />}</Flag> };
-});
+    [AR, "ar", "Argentina"],
+    [BO, "bo", "Bolívia"],
+    [BR, "br", "Brasil"],
+    [CA, "ca", "Canadá"],
+    [CL, "cl", "Chile"],
+    [CO, "co", "Colômbia"],
+    [CR, "cr", "Costa Rica"],
+    [EC, "ec", "Equador"],
+    [ES, "es", "Espanha"],
+    [US, "us", "Estados Unidos"],
+    [FR, "fr", "França"],
+    [IT, "it", "Itália"],
+    [JP, "jp", "Japão"],
+    [MX, "mx", "México"],
+    [PY, "py", "Paraguai"],
+    [PE, "pe", "Peru"],
+    [PT, "pt", "Portugal"],
+    [GB, "gb", "Reino Unido"],
+    [UY, "uy", "Uruguai"],
+    [VE, "ve", "Venezuela"],
+  ] as [ComponentType<SVGProps<SVGSVGElement>>, string, string][]
+).map(([Svg, value, label]) => ({ value, label, icon: <Flag>{<Svg />}</Flag> }));
 
 export const WithFlags: Story = {
   name: "Com bandeiras",
