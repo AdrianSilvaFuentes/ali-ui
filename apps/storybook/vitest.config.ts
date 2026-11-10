@@ -11,8 +11,8 @@ export default defineConfig({
     browser: {
       enabled: true,
       headless: true,
-      // No Mac usa o Chrome instalado; no CI usa o Chromium baixado pelo Playwright.
-      provider: playwright({ launchOptions: process.env.CI ? {} : { channel: "chrome" } }),
+      // Usa o Google Chrome instalado: o do Mac e o que já vem nos servidores do GitHub.
+      provider: playwright({ launchOptions: { channel: "chrome" } }),
       instances: [{ browser: "chromium" }],
     },
   },
