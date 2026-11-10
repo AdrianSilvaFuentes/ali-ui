@@ -29,8 +29,8 @@ jobs:
           node-version: 24
           cache: pnpm
 
+      # Os testes visuais do Storybook usam o Google Chrome que já vem instalado no servidor
+      # do GitHub (como no Mac): sem baixar um Chromium a cada execução.
       - run: pnpm install --frozen-lockfile
-      # Navegador dos testes visuais do Storybook (no Mac eles usam o Chrome instalado).
-      - run: pnpm --filter @ali/storybook exec playwright install --with-deps chromium
       - run: pnpm check
       - run: pnpm build

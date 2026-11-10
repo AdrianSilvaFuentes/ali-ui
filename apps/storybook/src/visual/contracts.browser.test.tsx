@@ -29,6 +29,7 @@ import {
   Textarea,
   Toggletip,
 } from "../../../../packages/ui/src/index.ts";
+import { ShowcasePanel } from "../showcase/ShowcasePanel";
 import "../styles.css";
 
 /**
@@ -370,5 +371,13 @@ describe("Toggletip", () => {
     const trigger = get(render(<Toggletip>Ajuda</Toggletip>), "button");
     expect(square(trigger)).toBe(24);
     expect(square(get(trigger, "svg"))).toBe(14);
+  });
+});
+
+describe("Showcase", () => {
+  // O card vira imagem e vídeo: o tamanho é fixo, e o conteúdo se ajusta a ele.
+  test("card is always 1024×768", () => {
+    const scope = render(<ShowcasePanel category="Form" title="Inputs and selects" />);
+    expect(size(get(scope, "section"))).toEqual({ width: 1024, height: 768 });
   });
 });

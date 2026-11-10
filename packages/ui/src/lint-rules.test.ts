@@ -21,6 +21,13 @@ afterAll(() => rmSync(sandbox, { recursive: true, force: true }));
 let fileCount = 0;
 
 /** Roda o lint como se `source` fosse um arquivo de componente em packages/ui. */
+/**
+ * Cada teste roda o Biome num processo à parte, o que leva alguns segundos. Com a máquina
+ * ocupada (Storybook aberto, ou o CI rodando os outros pacotes junto), passava do limite
+ * padrão de 5s e falhava sem erro de verdade.
+ */
+const LINT_TIMEOUT = 20_000;
+
 function lint(source: string): { ok: boolean; output: string } {
   const file = `packages/ui/src/Example${fileCount++}.tsx`;
   writeFileSync(join(sandbox, file), source);
@@ -34,7 +41,7 @@ function lint(source: string): { ok: boolean; output: string } {
 const component = (className: string) =>
   `export const Example = () => <div className="${className}" />;\n`;
 
-describe("regra: sem valores arbitrários fixos do Tailwind", () => {
+describe("regra: sem valores arbitrários fixos do Tailwind", { timeout: LINT_TIMEOUT }, () => {
   it.each([
     "bg-[#ff0000]",
     "p-[13px]",
@@ -67,7 +74,7 @@ describe("regra: sem valores arbitrários fixos do Tailwind", () => {
   });
 });
 
-describe("regra: componentes não importam primitivos", () => {
+describe("regra: componentes não importam primitivos", { timeout: LINT_TIMEOUT }, () => {
   it("falha ao importar @ali/tokens/primitives", () => {
     const { ok, output } = lint(
       'import { neutralLight } from "@ali/tokens/primitives";\n\nexport const x = neutralLight[100];\n',
@@ -83,7 +90,7 @@ describe("regra: componentes não importam primitivos", () => {
   });
 });
 
-describe("regras dos ícones do Tabler", () => {
+describe("regras dos ícones do Tabler", { timeout: LINT_TIMEOUT }, () => {
   it("falha ao importar um ícone preenchido", () => {
     const { ok, output } = lint(
       'import { IconHeart, IconHeartFilled } from "@tabler/icons-react";\n\nexport const icons = [IconHeart, IconHeartFilled];\n',

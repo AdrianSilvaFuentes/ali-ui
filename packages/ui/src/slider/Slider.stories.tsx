@@ -65,7 +65,10 @@ const meta = {
       description: "Mostra o valor no fim da linha do label.",
       table: { defaultValue: { summary: "true" } },
     },
-    formatValue: { control: false, description: "Como escrever cada valor: (v) => `R$ ${v}`." },
+    formatValue: {
+      control: false,
+      description: "Como escrever cada valor, com unidade: R$ 40, 12px, 50%.",
+    },
     thumbLabels: {
       control: "object",
       description: "Nome de cada bolinha para o leitor de tela. Padrão: mínimo e máximo.",
