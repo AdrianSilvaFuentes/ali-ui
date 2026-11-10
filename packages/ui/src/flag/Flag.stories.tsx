@@ -12,7 +12,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "A bandeira de um país numa moldura de 20×14px, perto da proporção 3:2 das bandeiras, com canto sm (4px). A bandeira preenche a moldura toda, cortando o que sobrar, e tem um contorno border-subtle por dentro, como o Avatar, para bandeiras com branco na borda (Japão) não sumirem no fundo. Mantém o tamanho mesmo dentro de quem dimensiona os ícones de dentro, como o campo do Input.\n\nO design system não traz as bandeiras: passe o SVG de uma biblioteca, como a country-flag-icons (licença MIT), que entrega cada país como componente React: <Flag><BR /></Flag>. Nos exemplos daqui, ela entra só no Storybook.\n\nSem label, a bandeira é decorativa e fica escondida do leitor de tela: use assim quando o nome do país já aparece ao lado, como nas opções do Select e do Combobox. Sozinha, passe label com o nome do país.",
+          "A bandeira de um país numa moldura de 20×14px, perto da proporção 3:2 das bandeiras, com canto sm (4px) e a sombra mínima (shadow-xs), sem contorno. A bandeira preenche a moldura toda, cortando o que sobrar. Mantém o tamanho mesmo dentro de quem dimensiona os ícones de dentro, como o campo do Input.\n\nO design system não traz as bandeiras: passe o SVG de uma biblioteca, como a country-flag-icons (licença MIT), que entrega cada país como componente React: <Flag><BR /></Flag>. Nos exemplos daqui, ela entra só no Storybook.\n\nSem label, a bandeira é decorativa e fica escondida do leitor de tela: use assim quando o nome do país já aparece ao lado, como nas opções do Select e do Combobox. Sozinha, passe label com o nome do país.",
       },
     },
   },

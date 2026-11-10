@@ -42,7 +42,7 @@ describe("Flag", () => {
     const frame = container.firstElementChild as HTMLElement;
     expect(frame.className).toContain("h-3.5");
     expect(frame.className).toContain("w-5");
-    expect(frame.className).toContain("after:border-subtle");
+    expect(frame.className).toContain("shadow-xs");
     const svg = frame.querySelector("svg") as SVGElement;
     expect(svg.getAttribute("preserveAspectRatio")).toBe("xMidYMid slice");
     expect(svg.style.width).toBe("100%");

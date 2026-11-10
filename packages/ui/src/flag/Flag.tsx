@@ -24,14 +24,11 @@ const fill: CSSProperties = { width: "100%", height: "100%" };
 
 /**
  * A bandeira de um país numa moldura de 20×14px, perto da proporção 3:2 das bandeiras, com o
- * canto sm (4px). O contorno border-subtle é por dentro (uma camada por cima, como no Avatar),
- * para bandeiras com branco na borda, como a do Japão, não sumirem no fundo.
+ * canto sm (4px) e a sombra mínima (shadow-xs), que separa a bandeira do fundo sem contorno.
  */
 export function Flag({ children, label, className }: FlagProps) {
   const classes = cn(
-    "relative inline-flex h-3.5 w-5 shrink-0 overflow-hidden rounded-sm",
-    "after:pointer-events-none after:absolute after:inset-0 after:rounded-[inherit]",
-    "after:border after:border-subtle",
+    "inline-flex h-3.5 w-5 shrink-0 overflow-hidden rounded-sm shadow-xs",
     className,
   );
   const svg = cloneElement(children, {
