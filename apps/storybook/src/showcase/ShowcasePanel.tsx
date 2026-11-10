@@ -1,3 +1,4 @@
+import { neutralLight } from "@ali/tokens/primitives";
 import { cn, Tooltip } from "@ali/ui";
 import {
   IconBrandFigma,
@@ -70,7 +71,7 @@ export function Reveal({ children, className }: RevealProps) {
 }
 
 /**
- * Moldura dos painéis de showcase: 1024×768 (w-5xl, 4:3), fundo surface-sunken e raio 2xl.
+ * Moldura dos painéis de showcase: 1024×768 (w-5xl, 4:3), fundo surface-sunken e cantos retos.
  * Logo e GitHub no topo, categoria, título e ferramentas no rodapé. Feito para virar imagem.
  */
 export function ShowcasePanel({ category, title, children, animate = true }: ShowcasePanelProps) {
@@ -91,7 +92,7 @@ export function ShowcasePanel({ category, title, children, animate = true }: Sho
     <section
       data-theme={theme}
       aria-label={`${category}: ${title}`}
-      className="relative flex aspect-4/3 w-5xl flex-col overflow-hidden rounded-2xl bg-surface-sunken px-10 pt-8 pb-10 text-default"
+      className="relative flex aspect-4/3 w-5xl flex-col overflow-hidden bg-surface-sunken px-10 pt-8 pb-10 text-default"
     >
       <header className="flex items-start justify-between">
         <img
@@ -139,5 +140,21 @@ export function ShowcasePanel({ category, title, children, animate = true }: Sho
         </ul>
       </footer>
     </section>
+  );
+}
+
+/**
+ * Fundo cinza atrás do card (neutral 400 da escala primitiva, igual nos dois temas), em vez do
+ * branco do Storybook: o card se destaca e fica fácil de recortar ao gravar ou exportar.
+ * Use como decorator da story, com `layout: "fullscreen"`.
+ */
+export function showcaseBackdrop(Story: () => ReactNode) {
+  return (
+    <div
+      className="flex min-h-screen items-center justify-center p-10"
+      style={{ backgroundColor: neutralLight[400] }}
+    >
+      <Story />
+    </div>
   );
 }
