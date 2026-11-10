@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { IconActivity, IconLayoutGrid, IconSettings } from "@tabler/icons-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./Tabs.tsx";
 
 const meta = {
@@ -79,6 +80,37 @@ export const Disabled: Story = {
             <TabsTrigger value="grid">Grade</TabsTrigger>
             <TabsTrigger value="map" disabled>
               Mapa
+            </TabsTrigger>
+          </TabsList>
+        </Tabs>
+      ))}
+    </div>
+  ),
+};
+
+export const WithIcons: Story = {
+  name: "Com ícones",
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Com icon, o ícone vai à esquerda do texto, com 16px, e fica escondido do leitor de tela, que lê o nome da aba. Funciona nas duas variantes.",
+      },
+    },
+  },
+  render: (args) => (
+    <div className="flex flex-col gap-8">
+      {(["line", "segmented"] as const).map((variant) => (
+        <Tabs key={variant} {...args} variant={variant} defaultValue="overview">
+          <TabsList aria-label={`Projeto (${variant})`}>
+            <TabsTrigger value="overview" icon={<IconLayoutGrid />}>
+              Visão geral
+            </TabsTrigger>
+            <TabsTrigger value="activity" icon={<IconActivity />}>
+              Atividade
+            </TabsTrigger>
+            <TabsTrigger value="settings" icon={<IconSettings />}>
+              Ajustes
             </TabsTrigger>
           </TabsList>
         </Tabs>

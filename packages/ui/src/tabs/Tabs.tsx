@@ -1,6 +1,6 @@
 import { Content, List, Root, Trigger } from "@radix-ui/react-tabs";
 import { cva, type VariantProps } from "class-variance-authority";
-import { type ComponentProps, createContext, useContext } from "react";
+import { type ComponentProps, createContext, type ReactNode, useContext } from "react";
 import { cn } from "../lib/cn.ts";
 import {
   markerMotion,
@@ -97,12 +97,25 @@ export function TabsList({ className, children, ...props }: TabsListProps) {
   );
 }
 
-export interface TabsTriggerProps extends Omit<ComponentProps<typeof Trigger>, "asChild"> {}
+export interface TabsTriggerProps extends Omit<ComponentProps<typeof Trigger>, "asChild"> {
+  /** Ícone antes do texto: `icon={<IconLayoutGrid />}`. Ganha 16px e fica escondido do leitor de tela. */
+  icon?: ReactNode;
+}
 
-/** Uma aba. O `value` liga ela ao `TabsContent` de mesmo `value`. */
-export function TabsTrigger({ className, ...props }: TabsTriggerProps) {
+/** Uma aba. O `value` liga ela ao `TabsContent` de mesmo `value`. Só ícone? Passe um `aria-label`. */
+export function TabsTrigger({ className, icon, children, ...props }: TabsTriggerProps) {
   const variant = useContext(TabsContext);
-  return <Trigger className={cn(tabsTriggerVariants({ variant }), className)} {...props} />;
+  return (
+    <Trigger className={cn(tabsTriggerVariants({ variant }), className)} {...props}>
+      {/* O nome da aba vem do texto (ou do aria-label), nunca do ícone. */}
+      {icon ? (
+        <span aria-hidden="true" className="inline-flex shrink-0">
+          {icon}
+        </span>
+      ) : null}
+      {children}
+    </Trigger>
+  );
 }
 
 export interface TabsContentProps extends Omit<ComponentProps<typeof Content>, "asChild"> {}

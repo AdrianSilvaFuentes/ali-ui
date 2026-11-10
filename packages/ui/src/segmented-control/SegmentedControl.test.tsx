@@ -124,6 +124,22 @@ describe("SegmentedControl", () => {
     expect(new FormData(form).get("period")).toBe("week");
   });
 
+  it("icon vai antes do texto, escondido do leitor de tela; só ícone usa o aria-label", () => {
+    render(
+      <SegmentedControl aria-label="Visualização" defaultValue="list">
+        <SegmentedControlItem value="list" icon={<svg data-testid="icon" />}>
+          Lista
+        </SegmentedControlItem>
+        <SegmentedControlItem value="grid" aria-label="Grade" icon={<svg />} />
+      </SegmentedControl>,
+    );
+    const list = screen.getByRole("radio", { name: "Lista" });
+    const icon = screen.getByTestId("icon").parentElement;
+    expect(list.firstElementChild).toBe(icon);
+    expect(icon?.getAttribute("aria-hidden")).toBe("true");
+    expect(screen.getByRole("radio", { name: "Grade" })).toBeTruthy();
+  });
+
   it("não tem problemas de acessibilidade", async () => {
     const { container } = render(
       <div>

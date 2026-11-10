@@ -104,29 +104,23 @@ export const WithIcons: Story = {
     docs: {
       description: {
         story:
-          "Ícones de 16px ao lado do texto. Só com ícone, passe um aria-label em cada opção, para o leitor de tela ter o que ler.",
+          "Com icon, o ícone vai à esquerda do texto, com 16px, e fica escondido do leitor de tela, que lê o texto. Só com ícone, deixe a opção sem texto e passe um aria-label, para o leitor de tela ter o que ler.",
       },
     },
   },
   render: () => (
     <div className="flex flex-col gap-6">
       <SegmentedControl label="Visualização" defaultValue="list" size="sm">
-        <SegmentedControlItem value="list">
-          <IconList aria-hidden />
+        <SegmentedControlItem value="list" icon={<IconList />}>
           Lista
         </SegmentedControlItem>
-        <SegmentedControlItem value="grid">
-          <IconLayoutGrid aria-hidden />
+        <SegmentedControlItem value="grid" icon={<IconLayoutGrid />}>
           Grade
         </SegmentedControlItem>
       </SegmentedControl>
       <SegmentedControl label="Só ícones" defaultValue="grid" size="sm">
-        <SegmentedControlItem value="list" aria-label="Lista">
-          <IconList aria-hidden />
-        </SegmentedControlItem>
-        <SegmentedControlItem value="grid" aria-label="Grade">
-          <IconLayoutGrid aria-hidden />
-        </SegmentedControlItem>
+        <SegmentedControlItem value="list" aria-label="Lista" icon={<IconList />} />
+        <SegmentedControlItem value="grid" aria-label="Grade" icon={<IconLayoutGrid />} />
       </SegmentedControl>
     </div>
   ),
