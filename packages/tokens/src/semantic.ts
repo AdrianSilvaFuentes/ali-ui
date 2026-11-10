@@ -401,12 +401,12 @@ export const color = {
   },
   "border-subtle": {
     light: neutralLight[300],
-    dark: neutralDark[500],
+    dark: neutralDark[600],
     description: "Divisórias e contornos decorativos: tabelas, cartões, separadores.",
   },
   "border-disabled": {
     light: neutralLight[200],
-    dark: neutralDark[600],
+    dark: neutralDark[700],
     description: "Contorno de controles desabilitados.",
   },
   "border-primary": {

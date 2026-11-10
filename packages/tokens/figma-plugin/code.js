@@ -1652,7 +1652,7 @@ const DATA = {
     {
       "name": "border/subtle",
       "light": "colors/neutral-light/neutral-light-300",
-      "dark": "colors/neutral-dark/neutral-dark-500",
+      "dark": "colors/neutral-dark/neutral-dark-600",
       "description": "Divisórias e contornos decorativos: tabelas, cartões, separadores.",
       "scopes": [
         "STROKE_COLOR"
@@ -1661,7 +1661,7 @@ const DATA = {
     {
       "name": "border/disabled",
       "light": "colors/neutral-light/neutral-light-200",
-      "dark": "colors/neutral-dark/neutral-dark-600",
+      "dark": "colors/neutral-dark/neutral-dark-700",
       "description": "Contorno de controles desabilitados.",
       "scopes": [
         "STROKE_COLOR"
