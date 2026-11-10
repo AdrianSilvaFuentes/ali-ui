@@ -1,3 +1,4 @@
+import { cn } from "@ali/ui";
 import {
   IconBrandFigma,
   IconBrandGithub,
@@ -7,7 +8,7 @@ import {
   IconBrandTailwind,
   IconBrandTypescript,
 } from "@tabler/icons-react";
-import type { ReactNode } from "react";
+import { createContext, type ReactNode, useContext, useLayoutEffect, useRef } from "react";
 import { useTheme } from "../theme";
 
 /** As ferramentas do design system, na ordem do rodapé do painel. */
@@ -27,14 +28,64 @@ interface ShowcasePanelProps {
   title: string;
   /** Os componentes, posicionados livremente na área do meio. */
   children?: ReactNode;
+  /**
+   * Faz cada `Reveal` aparecer em sequência ao abrir. Desligado, tudo aparece pronto: o jeito
+   * de tirar a imagem do painel.
+   */
+  animate?: boolean;
+}
+
+/** O painel avisa os `Reveal` de dentro se a entrada é animada. */
+const AnimateContext = createContext(false);
+
+/** Intervalo entre a entrada de um `Reveal` e a do próximo. */
+const STAGGER_MS = 60;
+
+interface RevealProps {
+  children: ReactNode;
+  /** Classes do bloco, como o alinhamento dele na grade (self-end) ou a largura. */
+  className?: string;
+}
+
+/**
+ * Um bloco do showcase que entra com a animação do painel: aparece com fade e sobe 8px
+ * (spacing-2), em 300ms (duration-slow), com a animação de entrada dos balões (ali-enter). O
+ * painel dá a cada um o seu atraso, na ordem em que aparecem na página. Quem pede menos
+ * movimento vê tudo direto.
+ */
+export function Reveal({ children, className }: RevealProps) {
+  const animate = useContext(AnimateContext);
+  return (
+    <div
+      data-reveal={animate || undefined}
+      className={cn(
+        animate &&
+          "animate-[ali-enter_var(--ali-duration-slow)_ease-out_both] [--ali-enter-y:var(--ali-spacing-2)] motion-reduce:animate-none",
+        className,
+      )}
+    >
+      {children}
+    </div>
+  );
 }
 
 /**
  * Moldura dos painéis de showcase: 1024×768 (w-5xl, 4:3), fundo surface-sunken e raio 2xl.
  * Logo e GitHub no topo, categoria, título e ferramentas no rodapé. Feito para virar imagem.
  */
-export function ShowcasePanel({ category, title, children }: ShowcasePanelProps) {
+export function ShowcasePanel({ category, title, children, animate = true }: ShowcasePanelProps) {
   const theme = useTheme();
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  // Cada Reveal entra 60ms depois do anterior, na ordem da página. Antes de pintar: nenhum
+  // aparece antes da hora.
+  useLayoutEffect(() => {
+    if (!animate) return;
+    const items = contentRef.current?.querySelectorAll<HTMLElement>("[data-reveal]") ?? [];
+    items.forEach((item, index) => {
+      item.style.animationDelay = `${index * STAGGER_MS}ms`;
+    });
+  }, [animate]);
 
   return (
     <section
@@ -57,7 +108,10 @@ export function ShowcasePanel({ category, title, children }: ShowcasePanelProps)
         </a>
       </header>
 
-      <div className="relative flex-1">{children}</div>
+      {/* Ao ligar a animação de novo, a chave recria o conteúdo e a entrada toca outra vez. */}
+      <div ref={contentRef} key={String(animate)} className="relative flex-1">
+        <AnimateContext.Provider value={animate}>{children}</AnimateContext.Provider>
+      </div>
 
       <footer className="flex items-end justify-between">
         <div className="flex flex-col gap-2">
