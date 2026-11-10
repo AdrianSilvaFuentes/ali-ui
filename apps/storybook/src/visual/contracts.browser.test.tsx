@@ -8,6 +8,7 @@ import {
   Badge,
   Button,
   Checkbox,
+  Chip,
   Combobox,
   FileUpload,
   Input,
@@ -209,6 +210,34 @@ describe("Avatar", () => {
     const avatar = render(<Avatar size={s} />).firstElementChild as HTMLElement;
     expect(square(avatar)).toBe(box);
     expect(square(get(avatar, "svg"))).toBe(icon);
+  });
+});
+
+describe("Chip", () => {
+  test.each([
+    ["sm", 24, 20],
+    ["md", 28, 24],
+  ] as const)("%s chip is %ipx with a %ipx avatar and a 14px X", (s, chip, avatar) => {
+    const scope = render(<Chip name="Lia Martins" size={s} onRemove={() => {}} />);
+    const pill = scope.firstElementChild as HTMLElement;
+    expect(size(pill).height).toBe(chip);
+    expect(square(get(pill, "[aria-hidden] > span"))).toBe(avatar);
+    expect(square(get(pill, "button"))).toBe(14);
+    expect(square(get(pill, "button svg"))).toBe(14);
+    // Contorno por dentro: o avatar fica a 2px da borda de fora, e o X a 6px.
+    const box = pill.getBoundingClientRect();
+    expect(get(pill, "[aria-hidden] > span").getBoundingClientRect().left - box.left).toBe(2);
+    expect(box.right - get(pill, "button").getBoundingClientRect().right).toBe(6);
+  });
+
+  test.each([
+    ["sm", 8],
+    ["md", 10],
+  ] as const)("%s chip without X ends %ipx after the name", (s, right) => {
+    const scope = render(<Chip name="Lia Martins" size={s} />);
+    const pill = scope.firstElementChild as HTMLElement;
+    expect(getComputedStyle(pill).paddingRight).toBe(`${right}px`);
+    expect(getComputedStyle(pill).borderRightWidth).toBe("0px");
   });
 });
 
