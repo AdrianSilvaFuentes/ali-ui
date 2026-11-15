@@ -1,5 +1,5 @@
 {
-  "name": "@ali-ui/tokens",
+  "name": "@adriansilvafuentes/tokens",
   "version": "0.1.0",
   "description": "Design tokens of ali-ui: CSS variables, Tailwind theme and TypeScript.",
   "license": "UNLICENSED",

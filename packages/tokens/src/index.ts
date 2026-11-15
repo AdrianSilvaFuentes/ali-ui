@@ -1,7 +1,7 @@
 /**
  * Design tokens da Ali UI: os valores semânticos que os componentes podem usar.
  *
- * Os primitivos ficam em `@ali-ui/tokens/primitives` e servem só para documentação.
+ * Os primitivos ficam em `@adriansilvafuentes/tokens/primitives` e servem só para documentação.
  */
 import { cssVarName, type TokenGroup } from "./css.ts";
 

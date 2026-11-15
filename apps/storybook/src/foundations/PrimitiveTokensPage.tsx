@@ -1,4 +1,4 @@
-import { contrastRatio, toHex, toOklch } from "@ali-ui/tokens/color";
+import { contrastRatio, toHex, toOklch } from "@adriansilvafuentes/tokens/color";
 // Os primitivos aparecem aqui só como documentação. Componentes nunca os usam.
 import {
   blue,
@@ -9,7 +9,7 @@ import {
   red,
   teal,
   yellow,
-} from "@ali-ui/tokens/primitives";
+} from "@adriansilvafuentes/tokens/primitives";
 import { formatRatio, Section, Swatch, Table, TokensLayout } from "./TokensLayout";
 
 /** Tabela de uma escala: hex, OKLCH e contraste com o fundo claro (neutral-light-50) e o escuro (neutral-dark-950). */

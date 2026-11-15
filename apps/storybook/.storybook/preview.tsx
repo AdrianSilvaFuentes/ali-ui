@@ -1,4 +1,4 @@
-import type { BrandName, ThemeName } from "@ali-ui/tokens";
+import type { BrandName, ThemeName } from "@adriansilvafuentes/tokens";
 import type { Preview } from "@storybook/react-vite";
 import { ThemeContext } from "../src/theme";
 import { DocsContainer } from "./DocsContainer";

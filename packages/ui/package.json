@@ -1,5 +1,5 @@
 {
-  "name": "@ali-ui/ui",
+  "name": "@adriansilvafuentes/ui",
   "version": "0.1.0",
   "description": "React components of ali-ui, built on Radix UI and Tailwind CSS 4.",
   "license": "UNLICENSED",
@@ -33,7 +33,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@ali-ui/tokens": "workspace:*",
+    "@adriansilvafuentes/tokens": "workspace:*",
     "@radix-ui/react-avatar": "catalog:",
     "@radix-ui/react-checkbox": "catalog:",
     "@radix-ui/react-label": "catalog:",

@@ -1,6 +1,6 @@
-import { cssVarName, spacing, vars } from "@ali-ui/tokens";
+import { cssVarName, spacing, vars } from "@adriansilvafuentes/tokens";
 // Cor de marca direto do primitivo, só para ilustrar a documentação.
-import { primary } from "@ali-ui/tokens/primitives";
+import { primary } from "@adriansilvafuentes/tokens/primitives";
 import { Code, Section, spacingSteps, Table, TokensLayout, toPx } from "./TokensLayout";
 
 // Utilitários de padding do Tailwind e os lados que cada um preenche.

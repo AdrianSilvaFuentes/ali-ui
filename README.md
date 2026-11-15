@@ -52,8 +52,8 @@ Every decision goes through a pull request, so the reasoning lives in the histor
 - **Docs and deploy:** Storybook 9 on Vercel
 
 ```
-packages/tokens   @ali-ui/tokens — design tokens as CSS variables, Tailwind theme and TypeScript
-packages/ui       @ali-ui/ui — components (coming soon)
+packages/tokens   @adriansilvafuentes/tokens — design tokens as CSS variables, Tailwind theme and TypeScript
+packages/ui       @adriansilvafuentes/ui — components (coming soon)
 apps/storybook    documentation
 ```
 
