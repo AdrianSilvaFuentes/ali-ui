@@ -1,4 +1,4 @@
-import type { ThemeName } from "@ali/tokens";
+import type { ThemeName } from "@ali-ui/tokens";
 import { composeStories, type composeStory, setProjectAnnotations } from "@storybook/react-vite";
 import { flushSync } from "react-dom";
 import { createRoot } from "react-dom/client";

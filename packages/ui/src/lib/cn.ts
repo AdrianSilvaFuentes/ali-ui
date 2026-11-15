@@ -1,4 +1,4 @@
-import { gradient, insetShadow, text } from "@ali/tokens";
+import { gradient, insetShadow, text } from "@ali-ui/tokens";
 import { type ClassValue, clsx } from "clsx";
 import { extendTailwindMerge } from "tailwind-merge";
 

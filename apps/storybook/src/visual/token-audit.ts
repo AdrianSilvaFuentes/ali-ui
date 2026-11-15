@@ -9,11 +9,11 @@ import {
   shadow,
   spacing,
   text,
-} from "@ali/tokens";
+} from "@ali-ui/tokens";
 
 /**
  * Auditoria de tokens: lê os valores calculados pelo navegador e aponta o que não
- * vem das escalas do `@ali/tokens`. Os valores permitidos também são lidos no
+ * vem das escalas do `@ali-ui/tokens`. Os valores permitidos também são lidos no
  * navegador, com o tema já aplicado, para cair no mesmo formato dos elementos.
  */
 

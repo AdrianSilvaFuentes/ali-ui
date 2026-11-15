@@ -1,4 +1,4 @@
-import type { ThemeName } from "@ali/tokens";
+import type { ThemeName } from "@ali-ui/tokens";
 import { createContext, useContext } from "react";
 
 /** Tema escolhido no seletor Light/Dark da barra de ferramentas do Storybook. */

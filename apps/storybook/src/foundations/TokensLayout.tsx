@@ -1,4 +1,4 @@
-import { spacing, type ThemeName } from "@ali/tokens";
+import { spacing, type ThemeName } from "@ali-ui/tokens";
 import type { ReactNode } from "react";
 import { useTheme } from "../theme";
 

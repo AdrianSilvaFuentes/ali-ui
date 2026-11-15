@@ -1,8 +1,16 @@
 {
-  "name": "@ali/tokens",
-  "version": "0.0.0",
-  "private": true,
+  "name": "@ali-ui/tokens",
+  "version": "0.1.0",
+  "description": "Design tokens of ali-ui: CSS variables, Tailwind theme and TypeScript.",
   "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AdrianSilvaFuentes/ali-ui.git",
+    "directory": "packages/tokens"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
   "sideEffects": [
     "*.css"

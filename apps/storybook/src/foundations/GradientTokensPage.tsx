@@ -1,5 +1,5 @@
-import { color, cssVarName, type GradientName, gradient, gradientCss, vars } from "@ali/tokens";
-import { contrastRatio, toHex } from "@ali/tokens/color";
+import { color, cssVarName, type GradientName, gradient, gradientCss, vars } from "@ali-ui/tokens";
+import { contrastRatio, toHex } from "@ali-ui/tokens/color";
 import { Code, formatRatio, Section, Table, TokensLayout } from "./TokensLayout";
 
 /** Contraste do texto static-white em uma ponta do degradê. */

@@ -298,10 +298,10 @@ importers:
 
   apps/storybook:
     dependencies:
-      '@ali/tokens':
+      '@ali-ui/tokens':
         specifier: workspace:*
         version: link:../../packages/tokens
-      '@ali/ui':
+      '@ali-ui/ui':
         specifier: workspace:*
         version: link:../../packages/ui
       '@tabler/icons-react':
@@ -378,7 +378,7 @@ importers:
 
   packages/ui:
     dependencies:
-      '@ali/tokens':
+      '@ali-ui/tokens':
         specifier: workspace:*
         version: link:../tokens
       '@radix-ui/react-avatar':

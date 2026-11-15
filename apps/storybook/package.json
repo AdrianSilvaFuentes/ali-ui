@@ -1,5 +1,5 @@
 {
-  "name": "@ali/storybook",
+  "name": "@ali-ui/storybook",
   "version": "0.0.0",
   "private": true,
   "license": "UNLICENSED",
@@ -12,8 +12,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@ali/tokens": "workspace:*",
-    "@ali/ui": "workspace:*",
+    "@ali-ui/tokens": "workspace:*",
+    "@ali-ui/ui": "workspace:*",
     "@tabler/icons-react": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:"

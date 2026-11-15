@@ -1,4 +1,4 @@
-import { type BrandName, brandPalettes, brandTokens } from "@ali/tokens";
+import { type BrandName, brandPalettes, brandTokens } from "@ali-ui/tokens";
 import {
   Button,
   Checkbox,
@@ -15,7 +15,7 @@ import {
   Slider,
   Switch,
   Textarea,
-} from "@ali/ui";
+} from "@ali-ui/ui";
 import { IconMail, IconWorld } from "@tabler/icons-react";
 import { type FormEvent, useState } from "react";
 
