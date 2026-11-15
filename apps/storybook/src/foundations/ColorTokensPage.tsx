@@ -1,5 +1,5 @@
-import { type ColorName, color, contrastPairs, type ThemeName } from "@ali/tokens";
-import { contrastRatio, toHex } from "@ali/tokens/color";
+import { type ColorName, color, contrastPairs, type ThemeName } from "@ali-ui/tokens";
+import { contrastRatio, toHex } from "@ali-ui/tokens/color";
 // Os primitivos aparecem aqui só para mostrar de onde vem cada cor. Componentes nunca os usam.
 import {
   blue,
@@ -10,7 +10,7 @@ import {
   red,
   teal,
   yellow,
-} from "@ali/tokens/primitives";
+} from "@ali-ui/tokens/primitives";
 import type { ReactNode } from "react";
 import { formatRatio, Section, Swatch, Table, TokensLayout } from "./TokensLayout";
 

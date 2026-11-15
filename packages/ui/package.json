@@ -1,8 +1,16 @@
 {
-  "name": "@ali/ui",
-  "version": "0.0.0",
-  "private": true,
+  "name": "@ali-ui/ui",
+  "version": "0.1.0",
+  "description": "React components of ali-ui, built on Radix UI and Tailwind CSS 4.",
   "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AdrianSilvaFuentes/ali-ui.git",
+    "directory": "packages/ui"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
   "sideEffects": [
     "*.css"
@@ -25,7 +33,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@ali/tokens": "workspace:*",
+    "@ali-ui/tokens": "workspace:*",
     "@radix-ui/react-avatar": "catalog:",
     "@radix-ui/react-checkbox": "catalog:",
     "@radix-ui/react-label": "catalog:",

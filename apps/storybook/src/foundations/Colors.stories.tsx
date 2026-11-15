@@ -1,4 +1,4 @@
-import { Tag } from "@ali/ui";
+import { Tag } from "@ali-ui/ui";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { ColorGroupPage, ColorTable } from "./ColorTokensPage";
 import { ElevationDemo } from "./ElevationDemo";

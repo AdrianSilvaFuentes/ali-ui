@@ -1,4 +1,4 @@
-import type { BrandName } from "@ali/tokens";
+import type { BrandName } from "@ali-ui/tokens";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useGlobals } from "storybook/preview-api";
 import { FormOverviewPage } from "./FormOverviewPage";

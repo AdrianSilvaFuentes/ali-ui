@@ -49,7 +49,7 @@
               "level": "error",
               "options": {
                 "paths": {
-                  "@ali/tokens/primitives": "Componentes usam apenas tokens semânticos (@ali/tokens), nunca primitivos."
+                  "@ali-ui/tokens/primitives": "Componentes usam apenas tokens semânticos (@ali-ui/tokens), nunca primitivos."
                 }
               }
             }

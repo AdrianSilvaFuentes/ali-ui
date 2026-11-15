@@ -1,4 +1,4 @@
-import { color, radius, type ThemeName } from "@ali/tokens";
+import { color, radius, type ThemeName } from "@ali-ui/tokens";
 import { DocsContainer as BaseContainer } from "@storybook/addon-docs/blocks";
 import type { ComponentProps } from "react";
 import { create } from "storybook/theming";

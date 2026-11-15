@@ -1,5 +1,5 @@
-import { neutralLight } from "@ali/tokens/primitives";
-import { cn, Tooltip } from "@ali/ui";
+import { neutralLight } from "@ali-ui/tokens/primitives";
+import { cn, Tooltip } from "@ali-ui/ui";
 import {
   IconBrandFigma,
   IconBrandGithub,

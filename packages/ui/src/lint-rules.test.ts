@@ -75,9 +75,9 @@ describe("regra: sem valores arbitrários fixos do Tailwind", { timeout: LINT_TI
 });
 
 describe("regra: componentes não importam primitivos", { timeout: LINT_TIMEOUT }, () => {
-  it("falha ao importar @ali/tokens/primitives", () => {
+  it("falha ao importar @ali-ui/tokens/primitives", () => {
     const { ok, output } = lint(
-      'import { neutralLight } from "@ali/tokens/primitives";\n\nexport const x = neutralLight[100];\n',
+      'import { neutralLight } from "@ali-ui/tokens/primitives";\n\nexport const x = neutralLight[100];\n',
     );
     expect(ok).toBe(false);
     expect(output).toContain("nunca primitivos");
@@ -85,7 +85,7 @@ describe("regra: componentes não importam primitivos", { timeout: LINT_TIMEOUT 
 
   it("passa ao importar os tokens semânticos", () => {
     expect(
-      lint('import { vars } from "@ali/tokens";\n\nexport const x = vars.color.link;\n'),
+      lint('import { vars } from "@ali-ui/tokens";\n\nexport const x = vars.color.link;\n'),
     ).toMatchObject({ ok: true });
   });
 });

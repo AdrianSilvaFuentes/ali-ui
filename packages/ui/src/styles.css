@@ -1,9 +1,13 @@
 /* Estilos base da Ali UI: Tailwind CSS 4 + design tokens. */
 @import "tailwindcss";
-@import "@ali/tokens/tailwind.css";
+@import "@ali-ui/tokens/tailwind.css";
 
-/* Faz o Tailwind procurar classes nos arquivos dos componentes. */
+/*
+ * Faz o Tailwind procurar classes nos arquivos dos componentes: no código-fonte (dentro do
+ * monorepo) e no JavaScript compilado (dist), que é o que vai no pacote publicado no npm.
+ */
 @source "./";
+@source "../dist";
 
 /*
  * Ícones do Tabler: traço fixo de 1.5px, mais leve que o padrão (2px).
