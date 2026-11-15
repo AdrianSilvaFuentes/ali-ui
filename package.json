@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
-    "storybook": "turbo run storybook --filter=@ali-ui/storybook",
+    "storybook": "turbo run storybook --filter=@adriansilvafuentes/storybook",
     "lint": "biome check .",
     "format": "biome check --write .",
     "typecheck": "turbo run typecheck",

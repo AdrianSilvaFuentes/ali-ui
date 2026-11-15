@@ -1,4 +1,4 @@
-import { font, fontWeight, text } from "@ali-ui/tokens";
+import { font, fontWeight, text } from "@adriansilvafuentes/tokens";
 import { Code, Section, Table, TokensLayout, toPx } from "./TokensLayout";
 
 // O Tailwind só gera classes escritas por extenso no código, por isso as listas explícitas.

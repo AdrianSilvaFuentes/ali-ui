@@ -1,6 +1,6 @@
-import { duration, vars } from "@ali-ui/tokens";
+import { duration, vars } from "@adriansilvafuentes/tokens";
 // Cor de marca direto do primitivo, só para ilustrar a documentação.
-import { primary } from "@ali-ui/tokens/primitives";
+import { primary } from "@adriansilvafuentes/tokens/primitives";
 import { useState } from "react";
 import { Section, Table, TokensLayout } from "./TokensLayout";
 

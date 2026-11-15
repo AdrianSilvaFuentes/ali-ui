@@ -1,4 +1,4 @@
-import { Button, Checkbox, Input, Switch } from "@ali-ui/ui";
+import { Button, Checkbox, Input, Switch } from "@adriansilvafuentes/ui";
 import { Code, Section, Table, TokensLayout } from "./TokensLayout";
 
 /** As exceções conscientes do visual padrão: onde ele fica abaixo da WCAG AA, e por quê. */

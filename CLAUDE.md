@@ -12,12 +12,12 @@ Direction: original, editorial, lean. Few components, each one with personality.
 ## Stack
 
 pnpm workspaces, Turborepo, TypeScript (strict), Biome, Tailwind CSS 4, Radix UI, class-variance-authority, Storybook 9.
-Packages: `@ali-ui/tokens`, `@ali-ui/ui`. App: `apps/storybook`.
+Packages: `@adriansilvafuentes/tokens`, `@adriansilvafuentes/ui`. App: `apps/storybook`.
 
 ## Rules for components
 
 - Build on Radix UI primitives for accessibility. Variants with CVA. Class merging with the `cn` helper.
-- Never hardcode colors, font sizes, spacing, radii or shadows. Use only semantic tokens from `@ali-ui/tokens`.
+- Never hardcode colors, font sizes, spacing, radii or shadows. Use only semantic tokens from `@adriansilvafuentes/tokens`.
 - Every component ships with three things: the `.tsx` file, a `.stories.tsx` (with controls and docs) and a test.
 - Keyboard and screen reader support is mandatory: visible focus, correct roles, no color-only meaning.
 - One component per task and one commit per component.

@@ -27,4 +27,4 @@ writeAtomic("dist/tailwind.css", renderTailwindCss());
 writeAtomic("figma-plugin/manifest.json", renderFigmaManifest());
 writeAtomic("figma-plugin/code.js", renderFigmaPlugin());
 
-console.log("@ali-ui/tokens: tokens.css, tailwind.css e o plugin do Figma gerados.");
+console.log("@adriansilvafuentes/tokens: tokens.css, tailwind.css e o plugin do Figma gerados.");

@@ -17,7 +17,7 @@ import {
   Slider,
   Switch,
   Textarea,
-} from "@ali-ui/ui";
+} from "@adriansilvafuentes/ui";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   IconBrush,

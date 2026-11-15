@@ -1,4 +1,4 @@
-import { cssVarName, radius, vars } from "@ali-ui/tokens";
+import { cssVarName, radius, vars } from "@adriansilvafuentes/tokens";
 import { Code, Section, Table, TokensLayout, toPx } from "./TokensLayout";
 
 export function RadiusTokensPage() {

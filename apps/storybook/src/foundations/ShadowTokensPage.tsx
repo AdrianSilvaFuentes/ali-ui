@@ -1,4 +1,11 @@
-import { cssVarName, elevation, insetShadow, insetShadowDark, shadow, vars } from "@ali-ui/tokens";
+import {
+  cssVarName,
+  elevation,
+  insetShadow,
+  insetShadowDark,
+  shadow,
+  vars,
+} from "@adriansilvafuentes/tokens";
 import { Code, Section, Table, TokensLayout } from "./TokensLayout";
 
 /** Onde cada sombra da escala aparece: o que já usa e o que deve usar quando existir. */
