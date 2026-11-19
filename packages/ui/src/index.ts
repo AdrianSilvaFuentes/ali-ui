@@ -2,6 +2,7 @@
 export { Avatar, type AvatarProps, avatarVariants, initials } from "./avatar/Avatar.tsx";
 export { Badge, type BadgeProps, badgeVariants } from "./badge/Badge.tsx";
 export { Button, type ButtonProps, buttonVariants } from "./button/Button.tsx";
+export { Card, type CardProps, cardVariants } from "./card/Card.tsx";
 export { Checkbox, type CheckboxProps, checkboxVariants } from "./checkbox/Checkbox.tsx";
 export { Chip, type ChipProps, chipVariants } from "./chip/Chip.tsx";
 export { Combobox, type ComboboxOption, type ComboboxProps } from "./combobox/Combobox.tsx";
