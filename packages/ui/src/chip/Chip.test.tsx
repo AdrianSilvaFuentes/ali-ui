@@ -87,11 +87,32 @@ describe("Chip", () => {
     expect((container.firstElementChild as HTMLElement).className).toContain("h-7");
   });
 
+  it("com label: só o texto, sem avatar, e o respiro da esquerda igual ao da direita", () => {
+    const { container, rerender } = render(<Chip label="87%" size="sm" />);
+    const chip = () => container.firstElementChild as HTMLElement;
+    expect(chip().textContent).toBe("87%");
+    expect(chip().querySelector("[aria-hidden='true']")).toBeNull();
+    expect(chip().className.split(" ")).toEqual(expect.arrayContaining(["pl-2", "pr-2"]));
+    expect(chip().className).not.toContain("pl-0.5");
+    rerender(<Chip label="87%" />);
+    expect(chip().className.split(" ")).toEqual(expect.arrayContaining(["pl-2.5", "pr-2.5"]));
+  });
+
+  it("com label e X, o X usa o texto no nome", async () => {
+    const user = userEvent.setup();
+    const onRemove = vi.fn();
+    render(<Chip label="Pendentes" onRemove={onRemove} />);
+    await user.click(screen.getByRole("button", { name: "Remover Pendentes" }));
+    expect(onRemove).toHaveBeenCalledTimes(1);
+  });
+
   it("não tem problemas de acessibilidade", async () => {
     const { container } = render(
       <div>
         <Chip name="Ana Souza" />
         <Chip name="Caio Ribeiro" size="sm" onRemove={() => {}} />
+        <Chip label="87%" size="sm" />
+        <Chip label="Pendentes" onRemove={() => {}} />
       </div>,
     );
     expect(await violations(container)).toEqual([]);

@@ -10,7 +10,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "Uma pessoa numa pílula: avatar, nome e, com onRemove, um X para tirar. Use para mostrar pessoas escolhidas, como responsáveis ou participantes; para categorias, use o Tag.\n\nA pílula segue o Figma: fundo neutral, sombra mínima (shadow-xs) e o brilho no topo, como o Tag, com o nome em label-sm (12px). O contorno border-subtle é por dentro, como no Avatar: não ocupa espaço, e os respiros são medidos da borda de fora. O avatar fica a 2px da borda da esquerda; à direita, 6px até o X, ou, sem X, 8px no sm e 10px no md. 4px separam avatar, nome e X. O X é o ícone de 14px em icon-subtle, que escurece no hover. No hover, o chip todo ganha o fundo neutral-hovered. Dois tamanhos: sm tem 24px, com avatar de 20px e canto de 12px; md tem 28px, com avatar de 24px e canto de 16px. Cabem no campo do mesmo tamanho.\n\nSem foto, o avatar mostra as iniciais. O leitor de tela lê só o nome, uma vez: o avatar não é anunciado de novo. Pelo teclado, o X recebe foco, e Enter, Espaço, Delete ou Backspace removem. Depois de remover, leve o foco para outro lugar.",
+          "Uma pessoa numa pílula: avatar, nome e, com onRemove, um X para tirar. Use para mostrar pessoas escolhidas, como responsáveis ou participantes; para categorias, use o Tag. Com label no lugar de name, é a mesma pílula só com texto, sem avatar: para um valor curto, como uma porcentagem ou uma contagem.\n\nA pílula segue o Figma: fundo neutral, sombra mínima (shadow-xs) e o brilho no topo, como o Tag, com o nome em label-sm (12px). O contorno border-subtle é por dentro, como no Avatar: não ocupa espaço, e os respiros são medidos da borda de fora. O avatar fica a 2px da borda da esquerda; à direita, 6px até o X, ou, sem X, 8px no sm e 10px no md. 4px separam avatar, nome e X. O X é o ícone de 14px em icon-subtle, que escurece no hover. No hover, o chip todo ganha o fundo neutral-hovered. Dois tamanhos: sm tem 24px, com avatar de 20px e canto de 12px; md tem 28px, com avatar de 24px e canto de 16px. Cabem no campo do mesmo tamanho.\n\nSem foto, o avatar mostra as iniciais. O leitor de tela lê só o nome, uma vez: o avatar não é anunciado de novo. Pelo teclado, o X recebe foco, e Enter, Espaço, Delete ou Backspace removem. Depois de remover, leve o foco para outro lugar.\n\nSó texto (label): sem avatar, o respiro da esquerda fica igual ao da direita (8px no sm, 10px no md). Não dá para usar label junto com name ou src.",
       },
     },
   },
@@ -87,4 +87,29 @@ export const WithoutPhoto: Story = {
     },
   },
   args: { src: "Sem foto", onRemove: () => {} },
+};
+
+export const LabelOnly: Story = {
+  name: "Só texto",
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Com label no lugar de name: a mesma pílula, sem avatar, para um valor curto. O respiro da esquerda fica igual ao da direita. Aceita o X, como o chip de pessoa.",
+      },
+    },
+  },
+  render: () => (
+    <div className="flex flex-col items-start gap-3">
+      <div className="flex items-center gap-1.5">
+        <Chip label="87%" size="sm" />
+        <Chip label="13%" size="sm" />
+        <Chip label="3 novos" size="sm" />
+      </div>
+      <div className="flex items-center gap-1.5">
+        <Chip label="87%" />
+        <Chip label="Pendentes" onRemove={() => {}} />
+      </div>
+    </div>
+  ),
 };
