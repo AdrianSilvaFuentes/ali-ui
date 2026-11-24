@@ -214,6 +214,38 @@ describe("Select", () => {
     expect(separator?.getAttribute("aria-hidden")).toBe("true");
   });
 
+  it("ao abrir, mexe 1px na rolagem da lista e volta (destrava o dedo no iPhone)", async () => {
+    const user = userEvent.setup();
+    // Rolagem por elemento (o Radix também mexe no scrollTop ao abrir); guarda só as da lista.
+    const tops = new WeakMap<HTMLElement, number>();
+    const writes: number[] = [];
+    const set = vi.spyOn(HTMLElement.prototype, "scrollTop", "set").mockImplementation(function (
+      this: HTMLElement,
+      v: number,
+    ) {
+      tops.set(this, v);
+      if (this.hasAttribute("data-radix-select-viewport")) writes.push(v);
+    });
+    const get = vi.spyOn(HTMLElement.prototype, "scrollTop", "get").mockImplementation(function (
+      this: HTMLElement,
+    ) {
+      return tops.get(this) ?? 0;
+    });
+    render(<Countries />);
+    await user.click(screen.getByRole("combobox"));
+    await vi.waitFor(
+      () => {
+        // Desceu 1px (de 0 pra 1) e depois voltou pro 0.
+        const i = writes.indexOf(1);
+        expect(i).toBeGreaterThanOrEqual(0);
+        expect(writes.slice(i + 1)).toContain(0);
+      },
+      { timeout: 1000 },
+    );
+    set.mockRestore();
+    get.mockRestore();
+  });
+
   it("não tem problemas de acessibilidade", async () => {
     const { container } = render(
       <div>

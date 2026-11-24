@@ -23,6 +23,30 @@ import { cn } from "../lib/cn.ts";
 import { FieldLabel } from "../lib/FieldLabel.tsx";
 import { FieldError, FieldHelp } from "../lib/FieldMessage.tsx";
 
+/**
+ * Bug do Safari no iPhone: a lista só ganha a altura máxima depois de posicionada, e o iPhone não
+ * deixa rolar com o dedo uma área que virou rolável depois de aparecer, até a posição de rolagem
+ * mudar uma vez (por isso só funcionava depois de tocar numa seta). Quando a lista aparece, espera
+ * ela se posicionar, desce 1px e volta. Ref da Viewport: roda a cada vez que a lista abre.
+ */
+export function wakeTouchScroll(viewport: HTMLElement | null) {
+  if (!viewport) return;
+  let frames = 0;
+  const run = () => {
+    // Até ~10 quadros esperando a altura final (a lista que cabe inteira nunca fica rolável).
+    if (viewport.scrollHeight <= viewport.clientHeight && frames++ < 10) {
+      requestAnimationFrame(run);
+      return;
+    }
+    const top = viewport.scrollTop;
+    viewport.scrollTop = top + 1;
+    requestAnimationFrame(() => {
+      viewport.scrollTop = top;
+    });
+  };
+  requestAnimationFrame(run);
+}
+
 /** O Select avisa as opções do tamanho dele, para a altura das linhas acompanhar o gatilho. */
 const SelectSizeContext = createContext<"sm" | "md">("md");
 
@@ -149,7 +173,7 @@ export function Select({
             </ScrollUpButton>
             {/* 2px entre as opções, como no MultiSelect: duas linhas em destaque seguidas não
                 viram um bloco só. */}
-            <Viewport className="flex flex-col gap-0.5">
+            <Viewport ref={wakeTouchScroll} className="flex flex-col gap-0.5">
               <SelectSizeContext.Provider value={size ?? "md"}>
                 {children}
               </SelectSizeContext.Provider>

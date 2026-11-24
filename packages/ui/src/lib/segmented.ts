@@ -35,6 +35,7 @@ export const markerMotion = "transition-[translate,width] duration-base ease-out
 /**
  * Mede onde está a opção escolhida (a que casa com `selector`) e devolve a posição da marca.
  * Remede quando a escolhida muda (o Radix troca o data-state) e quando a caixa muda de tamanho.
+ * A medida desconta a escala dos pais (ex.: um modal no meio da animação de entrada).
  * `ready` só fica verdadeiro depois da primeira medida: ao abrir a página, a marca já aparece
  * no lugar, sem deslizar.
  */
@@ -51,7 +52,15 @@ export function useSlidingMarker<T extends HTMLElement>(selector: string) {
       if (!item) return setMarker(null);
       // Medidas com fração de pixel, para a marca ter a largura exata da opção.
       const rect = item.getBoundingClientRect();
-      setMarker({ left: rect.left - box.getBoundingClientRect().left, width: rect.width });
+      const boxRect = box.getBoundingClientRect();
+      // O getBoundingClientRect já vem com as transformações dos pais aplicadas: dentro de um
+      // modal que abre com animate-pop-in (scale 0.95), a medida sai 5% menor e, como o tamanho
+      // de layout não muda quando a animação acaba, ninguém mede de novo e a marca fica torta.
+      // Dividir pela escala da caixa (tamanho na tela ÷ tamanho de layout) desfaz isso. Diferença
+      // abaixo de 1% é só o arredondamento do offsetWidth (inteiro), não uma escala.
+      const ratio = box.offsetWidth ? boxRect.width / box.offsetWidth : 1;
+      const scale = Math.abs(ratio - 1) < 0.01 ? 1 : ratio;
+      setMarker({ left: (rect.left - boxRect.left) / scale, width: rect.width / scale });
     };
     measure();
     const frame = requestAnimationFrame(() => setReady(true));

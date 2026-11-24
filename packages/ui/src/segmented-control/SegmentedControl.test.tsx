@@ -74,6 +74,41 @@ describe("SegmentedControl", () => {
     );
   });
 
+  it("a marca desconta a escala dos pais (modal abrindo com scale 0.95)", () => {
+    // A caixa tem 200px de layout, mas aparece com 190px na tela (scale 0.95). A opção
+    // escolhida começa 100px pra dentro e tem 96px de layout.
+    const rect = (left: number, width: number) =>
+      ({
+        left,
+        width,
+        top: 0,
+        height: 28,
+        right: left + width,
+        bottom: 28,
+        x: left,
+        y: 0,
+      }) as DOMRect;
+    const spies = [
+      vi.spyOn(HTMLElement.prototype, "offsetWidth", "get").mockImplementation(function (
+        this: HTMLElement,
+      ) {
+        return this.getAttribute("role") === "radiogroup" ? 200 : 96;
+      }),
+      vi.spyOn(HTMLElement.prototype, "getBoundingClientRect").mockImplementation(function (
+        this: HTMLElement,
+      ) {
+        return this.getAttribute("role") === "radiogroup"
+          ? rect(10, 190)
+          : rect(10 + 100 * 0.95, 96 * 0.95);
+      }),
+    ];
+    render(<Period />);
+    const marker = screen.getByRole("radiogroup").querySelector<HTMLElement>("[aria-hidden]");
+    expect(marker?.style.translate).toBe("100px 0");
+    expect(Number.parseFloat(marker?.style.width ?? "")).toBeCloseTo(96);
+    for (const spy of spies) spy.mockRestore();
+  });
+
   it("os tamanhos seguem o Input: 28px por opção no sm, 36px no md", () => {
     render(<Period size="sm" />);
     expect(screen.getByRole("radio", { name: "Dia" }).className).toContain("h-7");
